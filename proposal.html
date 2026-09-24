@@ -802,40 +802,97 @@
       </table>
     </div>
 
-    <!-- 五、 未來延伸建議：還可以新增什麼？（給研究小組的智囊建議） -->
+    <!-- 五、 四大創新跨領域核心機制 -->
     <div class="card">
-      <h2>💡 五、 專家評審最愛的「加分亮點」：還可以新增什麼？</h2>
+      <h2>🌟 五、 四大創新跨領域核心機制（深度設計）</h2>
       <p>
-        如果在獨立研究發表會上，除了上述核心玩法之外，還能提到以下這些延伸構想，保證會讓學校評審與老師感到無比驚艷：
+        為了使本獨立研究超越一般休閒小遊戲，達到<strong>結合自然科學、台灣社會史地、城市生活觀察與班級同儕互動</strong>的跨學科教育高度，本專案正式實裝以下四大創新核心系統：
       </p>
 
-      <div class="feature-grid">
-        <div class="feature-box">
-          <h4>🌦️ 1. 即時天氣與日夜連動系統</h4>
-          <p style="font-size:13.5px; color:var(--text-muted);">
-            • <strong>概念</strong>：透過免費的中央氣象署 API，讓遊戲裡的天氣與現實生活中的台北同步！<br>
-            • <strong>玩法影響</strong>：如果今天台北在下雨，遊戲裡的街景也會下雨、路人會撐傘；有些特殊線索（如泥濘腳印、雨傘水滴）只有雨天會出現，大幅增加破案臨場感！
-          </p>
-        </div>
-        <div class="feature-box">
-          <h4>🏮 2. 雙北古蹟文史集章冊（Stamp Rally）</h4>
-          <p style="font-size:13.5px; color:var(--text-muted);">
-            • <strong>概念</strong>：每到一個著名真實地標（如北投溫泉博物館、迪化街、淡水紅毛城），可以在手冊蓋一個專屬的像素紀念章。<br>
-            • <strong>加分價值</strong>：集滿章可換限定偵探徽章。這展現了強大的「社會科歷史文化結合」，是獨立研究的大亮點！
-          </p>
-        </div>
-        <div class="feature-box">
-          <h4>👥 3. 路人生活作息與八卦傳聞網</h4>
-          <p style="font-size:13.5px; color:var(--text-muted);">
-            • <strong>概念</strong>：街上的 NPC 不只是站著不動，而是有作息：阿伯早上在公園打太極、上班族傍晚擠捷運、小吃攤中午最忙。<br>
-            • <strong>玩法影響</strong>：在不同時段跟不同 NPC 閒聊，會打聽到不同的零碎線索，組合成破案關鍵！
-          </p>
-        </div>
-        <div class="feature-box">
-          <h4>🧩 4. 同學自製案件系統（Custom Cases）</h4>
-          <p style="font-size:13.5px; color:var(--text-muted);">
-            • <strong>概念</strong>：預留一個簡易的「案件編輯器」，讓同班同學或另外兩位組員，可以在特定捷運站出題目藏寶物，讓全班互相挑戰！
-          </p>
+      <!-- 機制 1: 即時氣象連動 -->
+      <div style="background:#f8fafc; border:1px solid var(--border); border-left:5px solid #0284c7; border-radius:10px; padding:20px; margin-bottom:18px;">
+        <h3 style="margin-top:0; color:#0369a1; font-size:17px;">
+          <span>🌦️</span> 1. 中央氣象署 API 即時天氣與日夜連動系統（自然科與資訊跨領域）
+        </h3>
+        <p style="font-size:14px; margin-bottom:10px;">
+          • <strong>技術實現</strong>：串接交通部中央氣象署（CWA）開放資料 API，遊戲每 15 分鐘自動同步雙北地區（台北市、新北市）的即時天候與降雨狀態。<br>
+          • <strong>視覺渲染</strong>：現實中台北若下雨，遊戲中的 3D 俯瞰街道會同步泛起細密雨絲、路面出現光澤水窪、街頭 NPC 會撐開五顏六色的雨傘；入夜後街道騎樓與路燈自動點亮。<br>
+          • <strong>【柯南式】天候限定辦案線索</strong>：
+        </p>
+        <table style="margin:10px 0; font-size:13.5px;">
+          <tr style="background:#f1f5f9;">
+            <th style="width:25%;">天氣狀況</th>
+            <th style="width:35%;">遊戲世界表現</th>
+            <th style="width:40%;">偵探破案專屬機制</th>
+          </tr>
+          <tr>
+            <td><strong>🌧️ 陰雨天 (Rainy)</strong></td>
+            <td>路面積水、路人撐傘、視野能見度微降</td>
+            <td><strong>雨天限定線索啟動！</strong>草地上會留下嫌犯未乾涸的「泥濘鞋印」；屋簷嘩啦水聲掩蓋了作案撞擊聲；雨傘滴水痕跡成為推算嫌犯進門時間的關鍵！</td>
+          </tr>
+          <tr>
+            <td><strong>☀️ 晴朗天 (Clear)</strong></td>
+            <td>陽光明媚、地面光影清晰、體力消耗正常</td>
+            <td>八角漏窗日晷幾何投影機關能發揮 100% 效果；視野清晰可遠距離觀察建築外觀。</td>
+          </tr>
+          <tr>
+            <td><strong>🌙 夜間時段 (Night)</strong></td>
+            <td>路燈亮起、霓虹燈倒映、人潮轉向夜市</td>
+            <td>需攜帶手電筒或紫外光燈才能調查暗巷；白天看不見的螢光暗號在夜晚清晰顯影。</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 機制 2: 文史集章冊 -->
+      <div style="background:#f8fafc; border:1px solid var(--border); border-left:5px solid #d97706; border-radius:10px; padding:20px; margin-bottom:18px;">
+        <h3 style="margin-top:0; color:#b45309; font-size:17px;">
+          <span>🏮</span> 2. 雙北古蹟文史集章冊（Stamp Rally，社會科在地鄉土結合）
+        </h3>
+        <p style="font-size:14px; margin-bottom:10px;">
+          • <strong>設計理念</strong>：緊扣 108 課綱社會領域核心素養「在地文化認同與歷史遺產保護」。<br>
+          • <strong>玩法機制</strong>：當偵探踏足雙北重要歷史景點（淡水紅毛城英國領事館、北投溫泉博物館、板橋林本源園邸汲古書屋、台北府城北門、大稻埕霞海城隍廟）時，地圖會出現標誌性的「古蹟紀念拓印台」。<br>
+          • <strong>回饋與學習收穫</strong>：
+            1. <strong>復古像素紀念章</strong>：在手冊上蓋下由組員設計的特色紀念戳章。<br>
+            2. <strong>百字文史小百科</strong>：解鎖一段通俗易懂的建築歷史與台灣開港/日治/清代文史背景。<br>
+            3. <strong>榮譽勳章與實質獎勵</strong>：每集滿 4 個章，解鎖「雙北文史榮譽偵探勳章」，並獲得新北市/台北市政府贊助的 $300 生活流通金！
+        </p>
+      </div>
+
+      <!-- 機制 3: NPC 作息與八卦網 -->
+      <div style="background:#f8fafc; border:1px solid var(--border); border-left:5px solid #059669; border-radius:10px; padding:20px; margin-bottom:18px;">
+        <h3 style="margin-top:0; color:#047857; font-size:17px;">
+          <span>👥</span> 3. 城市 NPC 動態作息與八卦傳聞情報網
+        </h3>
+        <p style="font-size:14px; margin-bottom:8px;">
+          真實城市的居民絕非 24 小時站樁不動的機器人！遊戲賦予雙北 NPC 逼真的生活作息：
+        </p>
+        <ul style="font-size:13.5px; margin-bottom:8px;">
+          <li><strong>晨間 (06:00 ~ 09:00)</strong>：阿公阿嬤在公園打太極拳、早餐店排隊買豆漿燒餅、學生揹書包通勤。</li>
+          <li><strong>午後 (11:30 ~ 14:00)</strong>：上班族湧入捷運地下街覓食、小吃攤位忙得不可開交。</li>
+          <li><strong>黃昏與入夜 (17:00 ~ 21:00)</strong>：下班人潮湧現、夜市攤販亮燈開張、巡警開始固定巡邏。</li>
+        </ul>
+        <p style="font-size:14px; color:#334155;">
+          • <strong>情報拼圖機制</strong>：在不同時段向同一個 NPC 詢問同一案件，會獲得完全不同的線索！例如：晨運阿公會透露「清晨五點我看見河邊有黑影」；夜市攤販會說「昨晚十點有個戴墨鏡的男子匆忙打包了魚丸湯」。玩家必須像真正的大偵探一樣，按照時間軸比對拼湊完整案情！
+        </p>
+      </div>
+
+      <!-- 機制 4: 班級自製案件系統 -->
+      <div style="background:#f8fafc; border:1px solid var(--border); border-left:5px solid #7c3aed; border-radius:10px; padding:20px; margin-bottom:18px;">
+        <h3 style="margin-top:0; color:#6d28d9; font-size:17px;">
+          <span>🧩</span> 4. 班級自製案件工作坊（Classroom Mystery Workshop / 同儕互動）
+        </h3>
+        <p style="font-size:14px; margin-bottom:10px;">
+          • <strong>亮點核心</strong>：這不只是一群人「玩遊戲」，而是把全班同學都變成「謎題創作者」！<br>
+          • <strong>極簡案件編輯器規格</strong>：
+        </p>
+        <ol style="font-size:13.5px; margin-bottom:10px;">
+          <li><strong>選擇藏匿站點</strong>：選擇一個捷運站（如淡水站或台北車站）。</li>
+          <li><strong>放置虛擬失物/密函</strong>：在街道的特定地標（如郵筒、石獅子後方、老樹下）藏入寶箱。</li>
+          <li><strong>編寫 3 條提示線索</strong>：例如「提示 1：失物在有紅磚建築的西方」、「提示 2：走 50 步會看見水池」。</li>
+          <li><strong>設定通關暗號</strong>：產生一組專屬的 6 位數【案件代碼（Case Code，如 TP-8801）】。</li>
+        </ol>
+        <div class="callout tip" style="margin-bottom:0;">
+          <strong>🎯 成果展發表效益</strong>：在學校獨立研究發表會的現場，評審老師和台下同學只要拿起手機輸入同班同學設計的【案件代碼】，就能立刻在遊戲地圖中展開尋寶追兇挑戰，現場互動效果保證全場最高分！
         </div>
       </div>
     </div>
@@ -943,11 +1000,19 @@
 【雙軌經濟循環】
 用日常流通金搭捷運、買破關材料、吃小吃 ➔ 抵達現場破解經典機關 ➔ 賺取大額破案賞金 ➔ 購買頂級滑板/放大鏡神裝 ➔ 破案效率加倍！
 
-■ 五、 專家評審最愛的加分亮點（推薦未來延伸新增）
-1. 即時天氣與日夜連動系統：透過中央氣象署 API，現實台北下雨遊戲內也下雨，特定線索（雨滴、泥巴腳印）僅在雨天出現。
-2. 雙北古蹟文史集章冊（Stamp Rally）：每到一個歷史名勝可蓋數位紀念章並獲得文史小百科，展現跨學科素養。
-3. 路人生活作息與八卦網：NPC 具備真實生活作息，不同時段打聽會得到不同情報。
-4. 同學自製案件系統：預留案件編輯器，讓組員與全班同學互相設計謎題藏寶挑戰。
+■ 五、 四大創新跨領域核心機制（深度設計）
+1. 中央氣象署 API 即時天氣與日夜連動系統（自然科與資訊結合）：
+   - 串接中央氣象署 CWA 開放資料 API，現實中台北若下雨，遊戲內同步下雨並出現水窪與撐傘 NPC。
+   - 【柯南式】天候限定破案線索：雨天泥濘草地會留下未乾的「泥濘鞋印」；屋簷落水聲掩蓋犯罪撞擊；雨傘滴水推算嫌犯進門時刻。
+2. 雙北古蹟文史集章冊（Stamp Rally，社會科結合）：
+   - 走訪淡水紅毛城、北投溫泉博物館、板橋林家花園、台北府城北門等名勝，尋找紀念拓印台蓋下復古像素紀念章。
+   - 解鎖 100 字在地歷史小百科，集滿 4 大古蹟解鎖「文史榮譽偵探勳章」並獲得 $300 市政贊助生活金。
+3. 城市 NPC 動態作息與八卦情報網：
+   - NPC 擁有逼真生活作息：晨間晨運長輩、午後上班族小吃街排隊、夜間夜市擺攤與巡警巡察。
+   - 在不同時段訪談同一個 NPC 會得到早晨目擊、夜間動向等不同零碎證詞，比對時間軸拼湊真相。
+4. 班級自製案件工作坊（Classroom Mystery Workshop / 同儕互動）：
+   - 內建極簡案件編輯器：選定捷運站 ➔ 放置線索與寶箱 ➔ 撰寫 3 道提示 ➔ 設定暗號生成 6 位數【案件代碼】。
+   - 發表會時評審老師與全班同學只要在遊戲中輸入代碼，即可挑戰同儕設計的謎題，展現強大互動性！
 
 ■ 六、 免費發布平台與專案時程
 - 發布平台：Itch.io（全球最大獨立遊戲社群，免審核隨點即玩）與 GitHub Pages（專屬網址適合製作 QR Code 成果展展示）。
