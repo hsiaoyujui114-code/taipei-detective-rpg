@@ -11,7 +11,6 @@
       --primary-light: #eff6ff;
       --conan-red: #dc2626;
       --holmes-gold: #b45309;
-      --holmes-bg: #fffbeb;
       --accent: #f59e0b;
       --success: #059669;
       --bg: #f1f5f9;
@@ -47,7 +46,7 @@
       position: sticky;
       top: 16px;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -203,7 +202,7 @@
       width: 100%;
       border-collapse: collapse;
       margin: 18px 0;
-      font-size: 14px;
+      font-size: 14.5px;
     }
 
     th, td {
@@ -256,11 +255,11 @@
       line-height: 1.6;
     }
 
-    /* 機關案例文獻特色卡片 (重點亮點) */
+    /* 機關案例文獻卡片 */
     .case-container {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 22px;
       margin: 20px 0;
     }
 
@@ -273,13 +272,8 @@
       border-left: 6px solid var(--primary);
     }
 
-    .case-card.conan {
-      border-left-color: var(--conan-red);
-    }
-
-    .case-card.holmes {
-      border-left-color: var(--holmes-gold);
-    }
+    .case-card.conan { border-left-color: var(--conan-red); }
+    .case-card.holmes { border-left-color: var(--holmes-gold); }
 
     .case-header {
       padding: 16px 20px;
@@ -308,37 +302,13 @@
       border-radius: 20px;
     }
 
-    .badge-conan {
-      background: #fee2e2;
-      color: var(--conan-red);
-      border: 1px solid #fca5a5;
-    }
+    .badge-conan { background: #fee2e2; color: var(--conan-red); border: 1px solid #fca5a5; }
+    .badge-holmes { background: #fef3c7; color: var(--holmes-gold); border: 1px solid #fcd34d; }
 
-    .badge-holmes {
-      background: #fef3c7;
-      color: var(--holmes-gold);
-      border: 1px solid #fcd34d;
-    }
+    .case-body { padding: 20px; }
+    .case-section { margin-bottom: 14px; }
+    .case-label { font-weight: 700; color: #1e293b; font-size: 14px; margin-bottom: 4px; display: inline-flex; align-items: center; gap: 6px; }
 
-    .case-body {
-      padding: 20px;
-    }
-
-    .case-section {
-      margin-bottom: 14px;
-    }
-
-    .case-label {
-      font-weight: 700;
-      color: #1e293b;
-      font-size: 14px;
-      margin-bottom: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* 破案彈窗圖鑑卡片效果 */
     .codex-card {
       background: #fdf6ec;
       border: 1px dashed #d97706;
@@ -359,7 +329,7 @@
       gap: 6px;
     }
 
-    /* 提示呼叫區塊 */
+    /* 亮點區塊 */
     .callout {
       background-color: var(--primary-light);
       border-left: 4px solid var(--primary);
@@ -369,14 +339,36 @@
       font-size: 14.5px;
     }
 
-    .callout.tip {
-      background-color: #ecfdf5;
-      border-left-color: var(--success);
-    }
+    .callout.tip { background-color: #ecfdf5; border-left-color: var(--success); }
+    .callout.accent { background-color: #fffbeb; border-left-color: var(--accent); }
 
     .callout-title {
       font-weight: 800;
       margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 創新功能卡片網格 */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    .feature-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .feature-box h4 {
+      font-size: 16px;
+      color: #0f172a;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -410,26 +402,10 @@
     }
 
     @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
-      .top-action-bar, #toast {
-        display: none !important;
-      }
-      .card {
-        box-shadow: none;
-        border: 1px solid #bbb;
-        page-break-inside: avoid;
-        margin-bottom: 18px;
-        padding: 18px;
-      }
-      .header-card {
-        background: #1e3a8a !important;
-        color: white !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
+      body { background: white; padding: 0; }
+      .top-action-bar, #toast { display: none !important; }
+      .card { box-shadow: none; border: 1px solid #bbb; page-break-inside: avoid; margin-bottom: 18px; padding: 18px; }
+      .header-card { background: #1e3a8a !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
@@ -443,11 +419,6 @@
         <span>🔍</span> 六年級獨立研究深度企劃書
       </div>
       <div class="btn-group">
-        <a href="index.html" style="text-decoration:none;">
-          <button class="btn-secondary" style="background:#38bdf8; color:#0f172a; border-color:#38bdf8;">
-            <span>🎮</span> 進入遊戲 (Play)
-          </button>
-        </a>
         <button class="btn-primary" onclick="copyFullProposal()">
           <span>📋</span> 一鍵複製企劃書全文
         </button>
@@ -460,12 +431,13 @@
     <!-- 標題大卡片 -->
     <div class="header-card">
       <h1>《雙北漫遊偵探：都會行蹤》</h1>
-      <div class="subtitle">結合真實地理圖資、古典偵探名著機關與大眾運輸系統的開放式網頁推理 RPG</div>
+      <div class="subtitle">結合真實雙北空中俯瞰街景、柯南與福爾摩斯經典機關、生活化體力美食與非線性探索之開放式推理 RPG</div>
       <div class="meta-badges">
         <span class="meta-badge">👥 專案團隊：六年級獨立研究小組（共 3 人）</span>
-        <span class="meta-badge">📖 名著考據：致敬《名偵探柯南》與《福爾摩斯探案集》經典手法</span>
-        <span class="meta-badge">💻 平台：Web 網頁端（免安裝隨點即玩）</span>
-        <span class="meta-badge">🤖 執行模式：學生企劃與世界觀構思 + AI（Anti-gravity）協作程式</span>
+        <span class="meta-badge">🎨 視覺：3D 空中俯瞰擬真街景 + 2D 復古像素角色</span>
+        <span class="meta-badge">🚶 玩法：虛擬操作真實地圖（類似 Pokémon GO 體驗，人不用真的走）</span>
+        <span class="meta-badge">🍜 生活：真實偵探日常（進小吃店吃飯回體力）</span>
+        <span class="meta-badge">💰 機制：案件委託金幣與商城加速通關道具</span>
       </div>
     </div>
 
@@ -479,17 +451,12 @@
         </tr>
         <tr>
           <th>研究主題</th>
-          <td>透過網頁遊戲重現《名偵探柯南》與《福爾摩斯》經典機關，結合雙北真實地理圖資之跨學科獨立研究</td>
+          <td>以真實雙北地理圖資為舞台，重現《名偵探柯南》與《福爾摩斯》經典機關，結合生活化體力經濟與非線性自由探索之網頁遊戲設計</td>
         </tr>
         <tr>
-          <th>遊戲類型</th>
-          <td>開放世界推理角色扮演遊戲 (Open-World Detective RPG / Edu-Puzzle Game)</td>
-        </tr>
-        <tr>
-          <th>研究核心亮點</th>
+          <th>核心體驗</th>
           <td>
-            <strong>「名著名作手法現代化 + 雙北地標特色融合 + 破案名著知識庫（Codex）」</strong><br>
-            玩家不僅在真實地圖解謎，解開每個機關後還能閱讀該手法的原著出處、物理科學原理與在地文化背景。
+            <strong>「像現實生活中的偵探一樣辦案」</strong>：空中俯瞰真實街道、搭乘捷運公車、在巷弄小吃店吃滷肉飯回體力、在名勝現場破解科學與密碼機關、並在破案後獲得名著考據知識！
           </td>
         </tr>
       </table>
@@ -501,52 +468,109 @@
           <div class="team-name">世界觀與故事編劇</div>
           <div class="team-duty">
             • 統籌專案整體時程與目標。<br>
-            • 深入研讀《名偵探柯南》與《福爾摩斯》，挑選 4-6 個可行的經典物理/密碼機關。<br>
-            • 將名著手法改編融入雙北捷運站周邊故事，編寫嫌疑人背景與 NPC 證詞。<br>
-            • 撰寫破案後的「名著考據知識卡」文案。
+            • 深入研讀《名偵探柯南》與《福爾摩斯》，挑選經典物理/化學/密碼機關進行本土化改編。<br>
+            • 編寫雙北生活圈偵探委託案件、NPC 對話與破案後的「名著考據卡」解說文案。
           </div>
         </div>
         <div class="team-card">
           <div class="team-role">組員 2（美術與圖資）</div>
-          <div class="team-name">視覺美術與地圖調研</div>
+          <div class="team-name">視覺風格與地圖調研</div>
           <div class="team-duty">
-            • 實地考察或線上收集淡水、北投、台北車站、板橋等雙北景點資料與照片。<br>
-            • 定位復古 2D 像素偵探主角外觀與 NPC 造型設計。<br>
-            • 運用生成式 AI（如 Midjourney / DALL·E）繪製道具圖示、現場證物圖與機關特寫。<br>
-            • 整理 OpenStreetMap (OSM) 捷運站點坐標與地圖網格需求。
+            • 考察台北車站、淡水紅毛城、北投溫泉、板橋林家花園等雙北真實街區。<br>
+            • 設計 3D 俯瞰視角下的立體街區外觀與 2D 復古像素主角造型。<br>
+            • 整理在地小吃（淡水阿給、北投排骨酥麵、珍珠奶茶）之回復道具圖示。
           </div>
         </div>
         <div class="team-card">
           <div class="team-role">組員 3（技術與測試）</div>
-          <div class="team-name">程式協同與平台發布</div>
+          <div class="team-name">機制規劃與 AI 協同</div>
           <div class="team-duty">
-            • 與 AI 助理（Anti-gravity）協作編寫 HTML5 / JavaScript 遊戲架構。<br>
-            • 實作大眾運輸切換系統、偵探筆記本合成介面與道具商店。<br>
-            • 負責機關互動微遊戲（Mini-games，如旋轉密碼鎖、溫度計互動）的邏輯除錯。<br>
-            • 負責將成品部署上架至 Itch.io 與 GitHub Pages，並製作試玩回饋問卷。
+            • 規劃「3D 俯瞰地圖 + 2D 小人移動」的技術架構與操作手感。<br>
+            • 設計生活化體力值（Stamina）消耗與小吃回復之數值平衡。<br>
+            • 設計貨幣商城與加速破案道具，為未來 AI（Anti-gravity / 志炫等）程式實作提供精確規格。
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 二、 經典機關導入與出處知識庫設計（最核心升級） -->
+    <!-- 二、 視覺風格與街景探索系統（全新擴充） -->
     <div class="card">
-      <h2>🔍 二、 經典機關導入與「名著出處解密知識庫」細部規格</h2>
-      <p>
-        在遊戲中，玩家在雙北各個景點調查時，會遇到精心設計的<strong>現場物理或密碼機關</strong>。這些機關並非憑空捏造，而是深度致敬世界著名推理小說與動漫經典。
-      </p>
+      <h2>🏙️ 二、 視覺風格、真實街景與生活化探索系統</h2>
 
-      <div class="callout tip">
-        <div class="callout-title">💡 核心機制：「破案即學習」的知識圖鑑系統（Detective Codex）</div>
-        當玩家成功破解機關後，畫面不會只顯示「過關」，而是會彈出充滿成就感的<strong>【名著名案考據卡】</strong>，詳細說明：
-        <ol style="margin-top:6px; margin-bottom:0;">
-          <li><strong>經典出處</strong>：出現在柯南哪一集漫畫/動畫，或是福爾摩斯哪一篇短篇故事。</li>
-          <li><strong>科學 / 邏輯原理</strong>：說明背後的物理力學、化學反應、聲學或古典密碼學。</li>
-          <li><strong>在地化結合理由</strong>：為什麼這個機關適合放在這個雙北景點（例如北投溫泉地熱、淡水海關洋樓）。</li>
-        </ol>
+      <h3>1. 畫面美學：3D 俯瞰立體空間 ＋ 2D 復古角色</h3>
+      <ul>
+        <li><strong>3D 俯瞰立體街景（Top-Down Isometric 3D）</strong>：
+          畫面視角類似從空中 45°~60° 角俯瞰街道，忠實呈現雙北城市的建築立體高度、捷運高架軌道、人行天橋與特色騎樓。
+        </li>
+        <li><strong>2D 復古像素主角與 NPC（Classic Pixel Sprites）</strong>：
+          主角與居民採用經典 JRPG 的 2D 像素繪風格，在 3D 的真實街道上奔走，營造出懷舊與現代交錯的獨特視覺魅力。
+        </li>
+      </ul>
+
+      <h3>2. 街景與探索模式：像《Pokémon GO》與《皮克敏》，但免出門奔波</h3>
+      <div class="feature-grid">
+        <div class="feature-box">
+          <h4>🗺️ 真實存在的生活舞台</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            地圖不是假想的奇幻村莊，而是玩家身邊每天路過的真實雙北！包含台北車站大廳、淡水老街與渡船頭、北投溫泉博物館地熱谷、板橋林家花園周邊街道。
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>🕹️ 虛擬沉浸操作（人在家就能走）</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            雖然擁有《Pokémon GO》與《皮克敏》探索地標、踩點補給的樂趣，但<strong>玩家本人不需要在烈日下在馬路上走動</strong>！直接在遊戲中用鍵盤 [W][A][S][D] 或虛擬搖桿，就能操作偵探前後左右穿梭雙北街景。
+          </p>
+        </div>
       </div>
 
-      <h3>📚 四大精選機關細部設計案例如下：</h3>
+      <h3>3. 真實偵探日常：體力消耗與在地小吃餐廳回復機制</h3>
+      <p>
+        現實生活中的偵探到處跑現場、查訪證人，是會肚子餓、會疲憊的！本遊戲首創<strong>【偵探精力值（Stamina System）】</strong>：
+      </p>
+      <ul>
+        <li><strong>精力消耗</strong>：奔跑、搭乘擁擠公車、在命案現場高強度蒐證時會逐漸扣除精力值。當精力過低時，步行速度減慢、且無法進行深度推理解密。</li>
+        <li><strong>進店吃美食全面回血</strong>：玩家可以走進街邊真實存在的台灣小吃店、便利超商（7-11/全家）與冰果室吃飯：
+          <table>
+            <thead>
+              <tr>
+                <th>地點與餐廳</th>
+                <th>在地特色料理</th>
+                <th>遊戲內回復效果與特殊 Buff</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>淡水渡船頭小吃攤</strong></td>
+                <td>淡水阿給 ＋ 招牌魚丸湯</td>
+                <td>精力值立即回滿 100%，並獲得「海風提神」效果（3 分鐘內奔跑不耗精力）。</td>
+              </tr>
+              <tr>
+                <td><strong>北投老街食堂</strong></td>
+                <td>溫泉排骨酥麵 ＋ 溫泉蛋</td>
+                <td>精力值回滿，大腦清晰度提升（微遊戲解謎時獲得額外提示光圈）。</td>
+              </tr>
+              <tr>
+                <td><strong>雙北連鎖手搖飲店</strong></td>
+                <td>珍珠奶茶（微糖微冰）</td>
+                <td>快速回補 40% 精力，短時間內移動速度提升 30%！</td>
+              </tr>
+              <tr>
+                <td><strong>台北巷弄早餐店</strong></td>
+                <td>永和豆漿 ＋ 燒餅夾蛋</td>
+                <td>平價且隨處可買，隨時補滿基礎精力，適合破案奔波時隨手補充。</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 三、 經典機關導入與出處知識庫設計 -->
+    <div class="card">
+      <h2>🔍 三、 柯南與福爾摩斯四大經典機關實裝細部設計</h2>
+      <p>
+        在雙北各景點調查時，會觸發精心設計的機關 Mini-games。成功破案後，畫面會彈出充滿成就感的<strong>【名著考據解密卡】</strong>，介紹小說篇章與科學原理：
+      </p>
 
       <div class="case-container">
 
@@ -554,7 +578,7 @@
         <div class="case-card holmes">
           <div class="case-header">
             <div class="case-title">
-              <span>🏰</span> 案例 1：淡水紅毛城 —— 地下石室的「跳舞小人密碼磚」
+              <span>🏰</span> 案例 1：淡水紅毛城 —— 地下石室「跳舞小人密碼磚」
             </div>
             <span class="case-badge badge-holmes">致敬：福爾摩斯探案集</span>
           </div>
@@ -565,14 +589,13 @@
             </div>
             <div class="case-section">
               <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              石牆表面有 26 塊刻著不同姿態火柴小人的石磚。手持旗幟的小人代表單詞結尾。玩家需在現場翻閱英法租界與淡水稅務司公署遺留的航海日記，利用「英文單字頻率分析（E、T、A、O、I、N 出現機率最高）」進行文字替換，依序按下拼出密碼的石磚，解鎖暗格獲得百年懷錶證物。
+              石壁上刻有 26 塊不同姿態的火柴小人符號，手持旗幟者代表單詞結尾。玩家調閱淡水海關稅務司公署遺留的英文航海日誌，使用「英文字母頻率分析（E 最常出現）」替換破解密碼磚，解鎖暗格獲得百年懷錶證物。
             </div>
-            <!-- 出處圖鑑卡 -->
             <div class="codex-card">
               <div class="codex-header">📜 【破案解密考據卡：柯南·道爾《跳舞的人》】</div>
-              • <strong>原著出處</strong>：亞瑟·柯南·道爾 1903 年出版《福爾摩斯探案集：歸來記》中的〈跳舞的人〉（The Adventure of the Dancing Men）。<br>
-              • <strong>密碼學原理</strong>：單表替換式密碼（Substitution Cipher）。福爾摩斯利用英文中最常出現的字母是「E」的頻率分析法，成功破解了恐嚇信中的暗號。<br>
-              • <strong>雙北在地結合</strong>：淡水紅毛城曾是英國領事館，具有濃厚的 19 世紀大英帝國歷史色彩，將英國古典密碼藏於古老磚牆之中，完美契合淡水港埠史實！
+              • <strong>原著出處</strong>：亞瑟·柯南·道爾 1903 年出版《福爾摩斯探案集：歸來記》之〈跳舞的人〉（The Adventure of the Dancing Men）。<br>
+              • <strong>密碼學原理</strong>：單表替換式密碼（Substitution Cipher）與字母頻率分析法。<br>
+              • <strong>雙北在地結合</strong>：淡水紅毛城曾是英國領事館，具有濃厚的 19 世紀大英帝國歷史色彩，完美契合淡水港埠史實！
             </div>
           </div>
         </div>
@@ -581,36 +604,35 @@
         <div class="case-card conan">
           <div class="case-header">
             <div class="case-title">
-              <span>♨️</span> 案例 2：北投地熱溫泉會館 —— 硫磺蒸氣的「隱形字遺書」
+              <span>♨️</span> 案例 2：北投地熱溫泉會館 —— 硫磺蒸氣「隱形字遺書」
             </div>
             <span class="case-badge badge-conan">致敬：名偵探柯南</span>
           </div>
           <div class="case-body">
             <div class="case-section">
               <div class="case-label">📍 調查舞台：</div>
-              北投溫泉博物館旁的一間老字號溫泉旅館湯屋。
+              北投溫泉博物館旁的老字號溫泉旅館湯屋。
             </div>
             <div class="case-section">
               <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              現場遺留一張看似全白的泛黃信紙。玩家若直接閱讀一無所獲；必須使用道具「防熱竹夾」將信紙帶到約 85°C 的地熱溫泉出水口蒸氣上方進行均勻燻蒸，紙上的特定化學塗料遇熱脫水顯色，浮現出隱藏的儲物櫃密碼。
+              案發現場留下一張空白泛黃宣紙。玩家必須使用「防熱竹夾」將紙張置於 85°C 地熱硫磺蒸氣上方烘烤，隱藏的化學塗料遇熱脫水顯色，浮現出儲物櫃暗號。
             </div>
-            <!-- 出處圖鑑卡 -->
             <div class="codex-card">
               <div class="codex-header">📜 【破案解密考據卡：青山剛昌《名偵探柯南》理科化學密室】</div>
-              • <strong>原著出處</strong>：多次見於《名偵探柯南》中的經典理科手法（如漫畫第 74 卷「毒與幻的設計」、以及早期利用無色酚酞/檸檬汁加熱炭化變色的案件）。<br>
-              • <strong>科學原理</strong>：熱敏隱形墨水。利用弱酸受熱後脫水使纖維素炭化變黑，或利用氯化鈷（低溫粉紅水合物、高溫脫水呈現深藍色）的化學物理可逆反應。<br>
-              • <strong>雙北在地結合</strong>：北投擁有全台灣最著名的天然地熱與青磺泉水，高達 80°C~100°C 的天然蒸氣正是最自然的加熱顯影環境！
+              • <strong>原著出處</strong>：《名偵探柯南》經典理科手法（如第 74 卷「毒與幻的設計」、早期加熱顯影案件）。<br>
+              • <strong>科學原理</strong>：熱敏隱形墨水，利用弱酸受熱後脫水炭化變黑，或利用氯化鈷水合物受熱轉變為無水藍色之化學反應。<br>
+              • <strong>雙北在地結合</strong>：北投天然地熱青磺泉水溫高達 80°C~100°C，天然高溫蒸氣正是最真實的顯影環境！
             </div>
           </div>
         </div>
 
-        <!-- 案例 3：長廊聲學不在場證明 -->
+        <!-- 案例 3：長廊聲學延遲 -->
         <div class="case-card conan">
           <div class="case-header">
             <div class="case-title">
-              <span>🚇</span> 案例 3：台北車站地下迷宮 —— 長廊迴音與「滴水延遲計時機關」
+              <span>🚇</span> 案例 3：台北車站地下迷宮 —— 長廊迴音「滴水延遲計時機關」
             </div>
-            <span class="case-badge badge-conan">致敬：名偵探柯南 & 經典日系本格推理</span>
+            <span class="case-badge badge-conan">致敬：名偵探柯南 & 經典本格推理</span>
           </div>
           <div class="case-body">
             <div class="case-section">
@@ -619,14 +641,13 @@
             </div>
             <div class="case-section">
               <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              嫌犯利用地下街保潔工具間的水桶與虹吸塑膠細管，製作了「重力水流定時傾斜裝置」；在兇案發生後 30 分鐘，水裝滿導致鐵桶傾倒撞擊金屬門，利用地下街筆直光滑水泥長廊的「聲音多重反射與拍頻效應」，讓巡邏警衛誤以為案發時間是聽到巨響的當下，製造完美不在場證明。玩家需透過比對捷運監視器時間戳與聲速傳播延遲破解真相。
+              嫌犯利用虹吸管與水桶自製水力重力延遲裝置，在案發 30 分鐘後蓄水傾倒引發巨響，利用長廊的聲音多次反射使警衛誤判案發時間製造不在場證明。玩家需透過比對捷運監視器時間戳與聲速傳播延遲破解真相。
             </div>
-            <!-- 出處圖鑑卡 -->
             <div class="codex-card">
-              <div class="codex-header">📜 【破案解密考據卡：名偵探柯南〈霧天狗傳說殺人事件〉與建築物理】</div>
-              • <strong>原著出處</strong>：《名偵探柯南》動畫第 52 集（特別篇）〈霧天狗傳說殺人事件〉——利用瀑布水流重量蓄積破壞木板，以物理自然力完成不可能的延遲犯罪。<br>
-              • <strong>物理學原理</strong>：帕斯卡原理與流體虹吸現象，以及聲波在封閉長廊中的反射與回聲定位誤差（Echolocation Delay）。<br>
-              • <strong>雙北在地結合</strong>：台北車站地下街被譽為全台最大地下立體迷宮，多條走廊長度超過 300 公尺，正是最適合展現聲學盲區與回音定位的絕佳場景！
+              <div class="codex-header">📜 【破案解密考據卡：名偵探柯南〈霧天狗傳說殺人事件〉與建築聲學】</div>
+              • <strong>原著出處</strong>：《名偵探柯南》動畫第 52 集特別篇〈霧天狗傳說殺人事件〉。<br>
+              • <strong>物理學原理</strong>：流體虹吸原理、帕斯卡定律以及建築聲學中的回聲定位延遲（Echolocation Delay）。<br>
+              • <strong>雙北在地結合</strong>：台北車站地下街四通八達且長達數百公尺，光滑水泥壁面極易造成回聲定位誤差。
             </div>
           </div>
         </div>
@@ -635,25 +656,24 @@
         <div class="case-card holmes">
           <div class="case-header">
             <div class="case-title">
-              <span>🏮</span> 案例 4：板橋林家花園 —— 八角漏窗的「正午日影幾何投影」
+              <span>🏮</span> 案例 4：板橋林家花園 —— 八角漏窗「正午日影幾何投影」
             </div>
             <span class="case-badge badge-holmes">致敬：福爾摩斯探案集</span>
           </div>
           <div class="case-body">
             <div class="case-section">
               <div class="case-label">📍 調查舞台：</div>
-              國定古蹟板橋林本源園邸（汲古書屋與方鑑齋水池）。
+              國定古蹟板橋林本源園邸（汲古書屋與方鑑齋）。
             </div>
             <div class="case-section">
               <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              百年留下的尋寶謎題記載著「秋分午後三刻，八角漏窗見金光」。玩家必須調整遊戲內的時鐘轉盤，等到太陽角度達到特定仰角，陽光穿過八角磚窗照射在水面上，折射光斑投射至假山石壁的特定縫隙中，引導玩家用放大鏡找到暗藏在磚縫中的古銅鑰匙。
+              百年尋寶暗號記載「秋分午後三刻，八角漏窗見金光」。玩家需調整時間轉盤至午後 15:00，陽光穿過八角漏窗折射在水面上，光斑精準投射至假山暗縫中找出古銅鑰匙。
             </div>
-            <!-- 出處圖鑑卡 -->
             <div class="codex-card">
               <div class="codex-header">📜 【破案解密考據卡：福爾摩斯探案〈馬斯格雷夫禮儀〉】</div>
-              • <strong>原著出處</strong>：亞瑟·柯南·道爾《福爾摩斯探案集：回憶錄》中的〈馬斯格雷夫禮儀〉（The Musgrave Ritual）。福爾摩斯透過測量橡樹樹影在特定時間的長度，推算比例尺並找到藏寶古井。<br>
-              • <strong>數學幾何原理</strong>：相似三角形原理（Similar Triangles）與太陽高度角日影投影幾何學。<br>
-              • <strong>雙北在地結合</strong>：板橋林家花園是台灣最具代表性的江南庭園建築，擁有精巧的八角漏窗與水池折射造景，極富古典東方建築美學！
+              • <strong>原著出處</strong>：亞瑟·柯南·道爾《福爾摩斯探案集：回憶錄》之〈馬斯格雷夫禮儀〉（The Musgrave Ritual）。<br>
+              • <strong>數學幾何原理</strong>：相似三角形原理與太陽高度角日影幾何投影。<br>
+              • <strong>雙北在地結合</strong>：板橋林家花園是台灣最具代表性的江南庭園建築，擁有精巧八角漏窗與水池倒影造景，極富古典建築工藝之美！
             </div>
           </div>
         </div>
@@ -661,251 +681,208 @@
       </div>
     </div>
 
-    <!-- 三、 自由探索與大眾運輸系統 -->
+    <!-- 四、 貨幣經濟與加速破案道具商城 -->
     <div class="card">
-      <h2>🚇 三、 雙北生活圈與大眾運輸移動機制</h2>
+      <h2>💰 四、 遊戲貨幣經濟循環與「加速通關」道具系統</h2>
       <p>
-        遊戲中的交通移動絕非隨意傳送，而是緊扣台北捷運（MRT）、公車與 YouBike 的真實路網架構，讓玩家體會如同真實生活中的雙北偵探辦案日常：
+        為了讓遊戲體驗更流暢、更有成就感，遊戲內設計了完整的<strong>【委託酬金（金幣 NT$）】</strong>與<strong>【名偵探聲望（Reputation）】</strong>經濟體系：
       </p>
 
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%;">交通方式</th>
-            <th style="width: 35%;">在遊戲中的運作機制</th>
-            <th style="width: 45%;">偵探辦案特點</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>台北捷運 (MRT)</strong></td>
-            <td>跨行政區移動主幹（紅線淡水信義線、藍線板南線、橘線中和新蘆線）。進出閘門需刷虛擬悠遊卡扣款 20~50 元。</td>
-            <td>速度最快，在車廂內可偷聽乘客 NPC 對話，有時能觸發隨機支線事件；但無法直達沒有設站的偏遠巷弄。</td>
-          </tr>
-          <tr>
-            <td><strong>公車系統 (Bus)</strong></td>
-            <td>站點密集覆蓋各景點（如北投溫泉專車、九份山城客運）。行車時間受模擬路況影響稍有延遲。</td>
-            <td>適合深入捷運到不了的巷弄古蹟，票價固定 15 元。</td>
-          </tr>
-          <tr>
-            <td><strong>步行 & YouBike</strong></td>
-            <td>景點周圍 500 公尺核心探索。玩家可按方向鍵自由奔跑或租借 YouBike 加速移動。</td>
-            <td>調查街道垃圾桶、公告欄、尋找隱密線索的唯一方式。</td>
-          </tr>
-          <tr>
-            <td><strong>計程車 / 專車</strong></td>
-            <td>平時呈現灰色鎖定狀態，不可隨意搭乘。</td>
-            <td><strong>特殊機制</strong>：僅在案件進入重大緊急倒數（例如：嫌疑人正要搭飛機潛逃出境）時才會緊急解鎖呼叫！</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="callout accent">
+        <div class="callout-title">💵 金幣獲取管道：</div>
+        1. 偵破大案獲得 $500~$1,000 高額委託金。<br>
+        2. 協助街頭路人尋找遺失物、解答路標謎題獲得 $50~$100 小額零用金。<br>
+        3. 收集景點「文史紀念章」解鎖政府觀光贊助金。
+      </div>
 
-      <h3>🗺️ 為什麼選擇 OpenStreetMap (OSM) 而非 Google Maps？</h3>
-      <p>
-        Google Maps API 對於遊戲專案有嚴格的商用限制與高額的呼叫計費（API 呼叫次數多了會產生帳單）；而 <strong>OpenStreetMap (OSM)</strong> 是開源免費的全球地圖資料庫，擁有極為詳盡的台灣捷運站坐標、街道多邊形與公車站牌資料，最適合學生專案使用 Three.js 或 Leaflet 構建出真實等比例的 2.5D/3D 都會探索舞台。
-      </p>
-    </div>
-
-    <!-- 四、 獎勵、商店與偵探道具系統 -->
-    <div class="card">
-      <h2>💼 四、 獎勵經濟循環與專屬偵探道具</h2>
-      <p>
-        每破解一樁案件或經典機關，玩家將獲得<strong>「調查委託費（金幣）」</strong>與<strong>「名偵探聲望（Reputation）」</strong>。這些獎勵可以在「偵探道具行」購買豐富的道具與外觀，大幅提升遊戲節奏與遊玩樂趣！
-      </p>
-
+      <h3>🛒 道具商店：加速通關與遊玩優化道具清單</h3>
       <table>
         <thead>
           <tr>
             <th>道具分類</th>
             <th>道具名稱</th>
-            <th>功能與效果（加速遊戲進度）</th>
-            <th>致敬元素</th>
+            <th>售價</th>
+            <th>功能與加速效果</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td rowspan="2"><strong>外觀造型</strong></td>
-            <td>經典英倫獵鹿帽與風衣</td>
-            <td>更換 2D 像素角色造型，進入古蹟景點時 NPC 好感度提升 20%。</td>
-            <td>夏洛克·福爾摩斯標誌性裝束</td>
+            <td rowspan="2"><strong>交通與移動加速</strong></td>
+            <td><strong>雙北交通無限暢遊卡</strong></td>
+            <td>$300</td>
+            <td>時效內搭乘台北捷運、雙北公車與 YouBike 完全免扣款，省去排隊買票時間。</td>
           </tr>
           <tr>
-            <td>紅領結少年西裝</td>
-            <td>更換外觀，可在特定機關中解鎖「模擬變聲訊問」功能。</td>
-            <td>江戶川柯南標誌性裝束</td>
+            <td><strong>改裝極速電動滑板</strong></td>
+            <td>$450</td>
+            <td>主角在一般人行道與公園道路上的移動速度提升 60%，穿梭街區超迅速！</td>
           </tr>
           <tr>
-            <td rowspan="3"><strong>破案與加速道具</strong></td>
-            <td>高倍率微距放大鏡</td>
-            <td>進入犯罪現場時，隱密微小證物會產生粒子光芒提示。</td>
-            <td>古典偵探基礎器具</td>
+            <td rowspan="2"><strong>破案與蒐證加速</strong></td>
+            <td><strong>高倍率微距放大鏡</strong></td>
+            <td>$250</td>
+            <td>進入命案或失竊現場時，隱密微小證物會自動發出高光粒子提示，不再盲目點擊。</td>
           </tr>
           <tr>
-            <td>雙北交通無限暢遊卡</td>
-            <td>時效內搭乘雙北捷運、公車與 YouBike 完全不扣遊戲金幣。</td>
-            <td>悠遊卡交通一日券</td>
+            <td><strong>便攜式法醫紫外光燈</strong></td>
+            <td>$350</td>
+            <td>瞬間照出暗處潛伏的螢光指紋、血跡反應與隱形暗號，節省 50% 搜查時間。</td>
           </tr>
           <tr>
-            <td>改裝極速電動滑板</td>
-            <td>在人行道與公園道路上的移動速度提升 60%，穿梭街區更有效率。</td>
-            <td>柯南太陽能滑板</td>
+            <td rowspan="2"><strong>外觀與聲望造型</strong></td>
+            <td><strong>福爾摩斯經典獵鹿風衣</strong></td>
+            <td>$300</td>
+            <td>更換 2D 像素主角外觀為英倫紳士風，進入歷史古蹟時 NPC 好感度提升 20%。</td>
           </tr>
           <tr>
-            <td><strong>文獻道具</strong></td>
-            <td>古典密碼對照手冊</td>
-            <td>在遭遇密碼磚或符號暗號時，筆記本會自動列出頻率分析輔助表。</td>
-            <td>《跳舞的人》密碼手稿</td>
+            <td><strong>柯南紅領結少年西裝</strong></td>
+            <td>$350</td>
+            <td>更換主角外觀，特定訊問場景可使用「模擬變聲問話」獲得嫌犯隱藏證詞。</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- 五、 免費遊戲平台評估推薦 -->
+    <!-- 五、 未來延伸建議：還可以新增什麼？（給研究小組的智囊建議） -->
     <div class="card">
-      <h2>🚀 五、 成果發布平台詳細評估表</h2>
+      <h2>💡 五、 專家評審最愛的「加分亮點」：還可以新增什麼？</h2>
       <p>
-        做好的網頁遊戲可以直接上傳到以下網站，全班同學與指導老師只要點擊連結就能免安裝遊玩：
+        如果在獨立研究發表會上，除了上述核心玩法之外，還能提到以下這些延伸構想，保證會讓學校評審與老師感到無比驚艷：
       </p>
 
+      <div class="feature-grid">
+        <div class="feature-box">
+          <h4>🌦️ 1. 即時天氣與日夜連動系統</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            • <strong>概念</strong>：透過免費的中央氣象署 API，讓遊戲裡的天氣與現實生活中的台北同步！<br>
+            • <strong>玩法影響</strong>：如果今天台北在下雨，遊戲裡的街景也會下雨、路人會撐傘；有些特殊線索（如泥濘腳印、雨傘水滴）只有雨天會出現，大幅增加破案臨場感！
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>🏮 2. 雙北古蹟文史集章冊（Stamp Rally）</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            • <strong>概念</strong>：每到一個著名真實地標（如北投溫泉博物館、迪化街、淡水紅毛城），可以在手冊蓋一個專屬的像素紀念章。<br>
+            • <strong>加分價值</strong>：集滿章可換限定偵探徽章。這展現了強大的「社會科歷史文化結合」，是獨立研究的大亮點！
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>👥 3. 路人生活作息與八卦傳聞網</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            • <strong>概念</strong>：街上的 NPC 不只是站著不動，而是有作息：阿伯早上在公園打太極、上班族傍晚擠捷運、小吃攤中午最忙。<br>
+            • <strong>玩法影響</strong>：在不同時段跟不同 NPC 閒聊，會打聽到不同的零碎線索，組合成破案關鍵！
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>🧩 4. 同學自製案件系統（Custom Cases）</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            • <strong>概念</strong>：預留一個簡易的「案件編輯器」，讓同班同學或另外兩位組員，可以在特定捷運站出題目藏寶物，讓全班互相挑戰！
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 六、 發布平台與時程規劃 -->
+    <div class="card">
+      <h2>🚀 六、 免費發布平台評估與時程推動表</h2>
       <table>
         <thead>
           <tr>
             <th>推薦平台</th>
-            <th>平台定位</th>
-            <th>優勢與適合我們的原因</th>
-            <th>費用門檻</th>
+            <th>特色與優勢</th>
+            <th>費用</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Itch.io</strong><br><span style="color:var(--primary); font-weight:700;">★ 綜合首選</span></td>
-            <td>全球最大的獨立遊戲創作社群平台</td>
-            <td>
-              • 支援將 HTML5 / JavaScript 打包成 zip 檔直接拖曳上傳。<br>
-              • 點擊網頁「Run Game」按鈕秒開遊玩，支援全螢幕。<br>
-              • 具備自訂遊戲介紹頁、截圖牆、玩家留言評論與評分系統。
-            </td>
-            <td><strong>完全免費</strong><br>無審核門檻</td>
+            <td><strong>Itch.io</strong> (首選)</td>
+            <td>全球最大獨立遊戲社群，免伺服器，上傳 HTML5 壓縮檔即可在瀏覽器秒玩，附評分與留言區。</td>
+            <td><strong>完全免費</strong></td>
           </tr>
           <tr>
-            <td><strong>GitHub Pages / Vercel</strong><br><span style="color:var(--success); font-weight:700;">★ 發表展覽首選</span></td>
-            <td>世界級專業工程師網站託管服務</td>
-            <td>
-              • 只要將專案程式碼上傳至 GitHub，即可自動發布為專屬網址。<br>
-              • 連線速度極快且穩定，非常適合印成 QR Code 貼在研究壁報與簡報投影片上供現場掃描。
-            </td>
-            <td><strong>完全免費</strong><br>需註冊帳號</td>
-          </tr>
-          <tr>
-            <td><strong>Game Jolt</strong></td>
-            <td>年輕玩家專屬獨立遊戲社群</td>
-            <td>
-              • 社群非常熱愛復古像素風格（Pixel Art）與推理解謎 RPG。<br>
-              • 支援網頁即開即玩，社群互動活潑。
-            </td>
+            <td><strong>GitHub Pages</strong> (成果展必備)</td>
+            <td>專屬網址穩定快速，最適合做成 QR Code 印在獨立研究報告與展示海報上。</td>
             <td><strong>完全免費</strong></td>
           </tr>
         </tbody>
       </table>
-    </div>
 
-    <!-- 六、 獨立研究進度時程 -->
-    <div class="card">
-      <h2>📅 六、 獨立研究推動時程表（含 AI 協同開發指引）</h2>
+      <h3>📅 專案推進里程碑</h3>
       <ul>
-        <li>
-          <strong>第一階段：企劃定案與劇本資料庫建置（第 1 ~ 2 週 / 目前階段）</strong><br>
-          三人小組完成詳細企劃書定案，選定 4 個雙北景點與對應的柯南/福爾摩斯機關，完成謎題邏輯與 NPC 對話草稿。
-        </li>
-        <li>
-          <strong>第二階段：AI（Anti-gravity）協作網頁核心原型（第 3 ~ 4 週）</strong><br>
-          先製作「淡水紅毛城」或「台北車站」單一場景，實現 2D 像素主角用鍵盤 WASD 移動、點擊觸發對話框與密碼磚小遊戲。
-        </li>
-        <li>
-          <strong>第三階段：捷運系統、商店與破案知識庫整合（第 5 ~ 6 週）</strong><br>
-          串接捷運站扣款搭乘、加入解開機關後的「考據卡」彈窗、實裝道具購買與背包系統。
-        </li>
-        <li>
-          <strong>第四階段：同學試玩（Playtest）、除錯與發表（第 7 ~ 8 週）</strong><br>
-          邀請同班同學進行試玩盲測，收集回饋優化難易度；將遊戲上架至 Itch.io，製作專題報告簡報與海報。
-        </li>
+        <li><strong>第一階段（第 1 ~ 2 週 / 目前進度）</strong>：企劃定案、三人小組分工、確立 3D 俯瞰視角與小吃體力機制。</li>
+        <li><strong>第二階段（第 3 ~ 4 週）</strong>：找 AI（Anti-gravity / 志炫等）製作單一場景原型（街景移動、吃小吃回體力、第一個跳舞小人機關）。</li>
+        <li><strong>第三階段（第 5 ~ 6 週）</strong>：捷運路線串接、四大機關完整實裝、商店加速道具與考據圖鑑庫上線。</li>
+        <li><strong>第四階段（第 7 ~ 8 週）</strong>：邀請全班試玩測試（Playtest），正式部署至 GitHub Pages / Itch.io，完成專題發表！</li>
       </ul>
     </div>
 
   </div>
 
   <!-- Toast 提示元件 -->
-  <div id="toast">✅ 完整深度企劃書已複製到剪貼簿！可直接貼上至 LINE 或 Word！</div>
+  <div id="toast">✅ 完整企劃書已複製到剪貼簿！可直接貼上至 LINE、Word 或 Google Docs！</div>
 
-  <!-- 隱藏的完整超詳細純文字複製緩衝區 -->
+  <!-- 隱藏的超詳細純文字複製緩衝區 -->
   <textarea id="copyBuffer" style="position: absolute; left: -9999px; top: -9999px;">
 # 【六年級獨立研究專題企劃書】都會漫遊偵探：都會行蹤 (Urban Wanderer: Taipei Mystery)
-—— 結合真實地理圖資、古典偵探名著機關與大眾運輸系統的開放式網頁推理 RPG
+—— 結合真實雙北空中俯瞰街景、柯南與福爾摩斯經典機關、生活化體力美食與非線性探索之開放式推理 RPG
 
-一、 專案基本資訊與三人小組分工
+■ 一、 專案基本資訊與三人小組分工
 - 專案名稱：《雙北漫遊偵探：都會行蹤》(Urban Wanderer: Taipei Mystery)
 - 研究團隊：六年級獨立研究團隊（共 3 人）
 - 遊戲類型：開放世界推理角色扮演遊戲 (Open-World Detective RPG / Edu-Puzzle Game)
-- 遊戲平台：Web 網頁端（免安裝隨點即玩，支援電腦與行動裝置瀏覽器）
-- 開發模式：學生企劃與世界觀構思 + AI（Anti-gravity）協同程式撰寫
+- 遊戲平台：Web 網頁端（免安裝隨點即玩，支援電腦與行動裝置瀏覽器，無須後端 Server）
+- 核心精神：像現實生活中的偵探一樣辦案！在空中俯瞰的真實雙北街道上奔馳、搭乘捷運、吃巷弄小吃回體力、破解世界名著經典密室與機關！
 
-【三人小組詳細職責規劃】
-1. 組員 1（組長 / 企劃總監）：世界觀與劇本主筆。研讀《名偵探柯南》與《福爾摩斯》，挑選經典物理/密碼機關融入雙北故事，編寫 NPC 對話台詞與破案後的「名著考據卡」解說文案。
-2. 組員 2（美術與圖資）：視覺風格與地圖調研。實地探訪或線上收集淡水、北投、台北車站、板橋等雙北地標資料，設計 2D 復古角色像素外觀，並運用生成式 AI 繪製場景與道具特寫。
-3. 組員 3（技術與測試）：程式協同與平台發布。與 AI 助理（如 Anti-gravity）溝通編寫 HTML5/JS 遊戲架構，實作捷運搭乘、筆記本線索組合與機關微遊戲，負責上架至免費遊戲平台。
+【三人小組詳細分工職責】
+1. 組員 1（組長 / 企劃總監）：世界觀與劇本主筆。研讀《名偵探柯南》與《福爾摩斯》，挑選經典機關進行本土化改編，編寫 NPC 對話台詞與破案後的「名著考據卡」解說文案。
+2. 組員 2（美術與圖資）：視覺風格與地圖調研。實地探訪或收集台北車站、淡水紅毛城、北投溫泉、板橋林家花園等街區資料，設計 3D 俯瞰街道與 2D 復古像素主角造型，整理在地小吃回復圖示。
+3. 組員 3（技術與測試）：機制規劃與 AI 協同。規劃 3D 俯瞰地圖與 2D 小人移動手感，設計體力值消耗與小吃回復平衡，設計貨幣商城與加速破案道具，為未來 AI 協同撰寫程式碼提供完整規格。
 
-二、 經典偵探機關導入與「名著出處解密知識庫 (Detective Codex)」
-遊戲中的機關深度致敬世界著名推理小說與動漫經典。玩家破解機關後，系統會彈出【名著考據圖鑑卡】，詳細解析該手法的原著出處、物理科學原理與雙北在地結合背景：
+■ 二、 視覺風格與街景探索系統
+1. 畫面風格（3D 俯瞰 ＋ 2D 復古角色）：
+   - 3D 俯瞰立體街景：畫面類似從空中 45°~60° 角俯瞰街道，真實呈現雙北建築高低層次、人行天橋、捷運高架軌道與騎樓。
+   - 2D 復古像素主角：經典懷舊 JRPG 像素角色走在立體街道上，營造現代與懷舊交融的美感。
+2. 街景與探索體驗：
+   - 真實存在的雙北地標：台北車站、淡水老街、北投溫泉博物館地熱谷、板橋林家花園。
+   - 虛擬操作不用出門：整體感覺很像《Pokémon GO》或《皮克敏》在地標踩點探索，但玩家人本身不用在現實中真的在馬路上走路，而是直接在遊戲裡用鍵盤 [W][A][S][D] 或虛擬搖桿前後走動操作！
+3. 現實偵探日常 —— 體力值與在地小吃回復系統：
+   - 偵探奔走調查、高強度搜查會消耗「精力值 (Stamina)」，精力過低時無法深入推理解密且速度變慢。
+   - 進店吃美食回血：走進街邊真實存在的台灣小吃店、超商或飲料店吃飯回體力：
+     * 淡水阿給 ＋ 魚丸湯：精力值立即回滿 100%，獲得「海風提神」增益（奔跑暫時不耗體力）。
+     * 北投溫泉排骨酥麵 ＋ 溫泉蛋：精力全滿，大腦思維清晰（解謎獲得額外提示）。
+     * 台灣珍珠奶茶：快速補充 40% 精力，短時間內移動速度提升 30%！
+     * 永和豆漿大王燒餅油條：平價隨處可買，維持基礎調查體力。
 
-【案例 1：淡水紅毛城 —— 地下石室的「跳舞小人密碼磚」】
-- 致敬出處：柯南·道爾《福爾摩斯探案集：歸來記》中的〈跳舞的人〉(The Adventure of the Dancing Men)。
-- 調查舞台：淡水紅毛城古蹟地牢石壁。
-- 機關手法：石壁上刻有 26 塊不同姿態的跳舞小人火柴符號，手持旗幟者代表單詞結尾。玩家需調閱淡水海關稅務司公署遺留的英文航海日誌，使用「英文單字頻率分析（E、T、A、O、I、N 出現率最高）」替換破解密碼磚，解鎖暗格獲得百年懷錶證物。
-- 知識庫解密卡：解說單表替換式密碼（Substitution Cipher）與柯南·道爾在 1903 年的設計背景，並結合淡水開港作為英國領事館的歷史。
+■ 三、 柯南與福爾摩斯四大經典機關實裝
+每破解一個機關，系統會彈出【名著考據圖鑑卡】，詳細解析原著出處、科學物理化學原理與在地結合理由：
+1. 淡水紅毛城 ✕ 福爾摩斯〈跳舞的人〉：地牢石壁刻有 26 塊跳舞小人磚，使用「英文字母頻率分析（E 最常出現）」解開暗門密碼，獲得百年懷錶證物。
+   [考據卡]：介紹柯南·道爾 1903 年單表替換式密碼，結合淡水曾為英國領事館之歷史。
+2. 北投地熱谷 ✕ 名偵探柯南化學熱敏密室：用防熱竹夾將空白信紙置於 85°C 地熱硫磺蒸氣上方烘烤，隱藏的化學墨水遇熱脫水顯色浮現暗號。
+   [考據卡]：介紹柯南理科加熱顯影手法、弱酸高溫脫水炭化與氯化鈷變色反應，結合北投天然高溫青磺泉特色。
+3. 台北車站地下街 ✕ 柯南〈霧天狗傳說〉與建築聲學：利用虹吸定時蓄水傾倒裝置與 300 公尺長廊聲波反射，比對監視器時間戳與回聲延遲，破解不在場證明。
+   [考據卡]：介紹流體虹吸原理與長廊多重反射聲波延遲（Echolocation Delay）。
+4. 板橋林家花園 ✕ 福爾摩斯〈馬斯格雷夫禮儀〉：調整時鐘至午後三刻（15:00），太陽光穿透八角漏窗折射在水面上，光斑精準投射至假山石縫找出鑰匙。
+   [考據卡]：介紹相似三角形定理與太陽高度角日影幾何投影，結合台灣國定古蹟江南庭園美學。
 
-【案例 2：北投地熱溫泉會館 —— 硫磺蒸氣的「隱形字遺書」】
-- 致敬出處：青山剛昌《名偵探柯南》經典理科化學密室（如第 74 卷「毒與幻的設計」、早期加熱顯影案件）。
-- 調查舞台：北投溫泉博物館旁的老字號溫泉旅館湯屋。
-- 機關手法：嫌疑人留下看似空白的泛黃宣紙。玩家必須使用「防熱竹夾」將紙張置於 85°C 的地熱出水口硫磺蒸氣上方烘烤，隱藏的化學塗料遇熱脫水顯色，浮現出儲物櫃暗號。
-- 知識庫解密卡：解說熱敏隱形墨水、弱酸受熱脫水炭化與氯化鈷水合物受熱變色之化學反應，並結合北投天然青磺泉高溫地熱特色。
+■ 四、 遊戲貨幣經濟與「加速通關」道具系統
+- 貨幣名稱：調查委託金（金幣 NT$）與名偵探聲望。
+- 獲取途徑：偵破大小案件（$500~$1,000）、解決路人疑難雜症（$50~$100）、收集景點紀念章。
+- 加速通關道具清單：
+  * 雙北交通無限暢遊卡（$300）：搭乘捷運公車完全免扣款，省去排隊買票時間。
+  * 改裝極速電動滑板（$450）：街道人行道移動速度提升 60%，穿梭街區超迅速！
+  * 高倍率微距放大鏡（$250）：現場隱密線索自動發出光芒粒子提示，不再盲目點擊。
+  * 便攜式法醫紫外光燈（$350）：瞬間照出暗處螢光指紋、血跡反應與隱形暗號，節省 50% 搜查時間。
+  * 福爾摩斯獵鹿風衣（$300）：更換外觀造型，古蹟 NPC 好感度提升 20%。
+  * 柯南紅領結少年西裝（$350）：更換外觀造型，特定場景可使用「模擬變聲問話」。
 
-【案例 3：台北車站地下迷宮 —— 長廊迴音與「滴水延遲計時機關」】
-- 致敬出處：《名偵探柯南》經典動畫第 52 集〈霧天狗傳說殺人事件〉與日系本格推理物理手法。
-- 調查舞台：台北車站地下街至高鐵轉乘處的深夜封閉通道。
-- 機關手法：嫌犯利用虹吸管與水桶自製水力重力延遲裝置，在案發 30 分鐘後蓄水傾倒引發金屬撞擊巨響，利用長廊的聲音多次反射使警衛誤判案發時間製造不在場證明。玩家需透過比對捷運監視器時間戳與聲速傳播延遲破解真相。
-- 知識庫解密卡：解說流體虹吸原理、帕斯卡定律以及建築聲學中的回聲定位延遲（Echolocation Delay）。
+■ 五、 專家評審最愛的加分亮點（推薦未來延伸新增）
+1. 即時天氣與日夜連動系統：透過中央氣象署 API，現實台北下雨遊戲內也下雨，特定線索（雨滴、泥巴腳印）僅在雨天出現。
+2. 雙北古蹟文史集章冊（Stamp Rally）：每到一個歷史名勝可蓋數位紀念章並獲得文史小百科，展現跨學科素養。
+3. 路人生活作息與八卦網：NPC 具備真實生活作息，不同時段打聽會得到不同情報。
+4. 同學自製案件系統：預留案件編輯器，讓組員與全班同學互相設計謎題藏寶挑戰。
 
-【案例 4：板橋林家花園 —— 八角漏窗的「正午日影幾何投影」】
-- 致敬出處：柯南·道爾《福爾摩斯探案集：回憶錄》中的〈馬斯格雷夫禮儀〉(The Musgrave Ritual)。
-- 調查舞台：國定古蹟板橋林本源園邸（汲古書屋與方鑑齋）。
-- 機關手法：百年尋寶暗號記載「秋分午後三刻，八角漏窗見金光」。玩家需調整時間轉盤至特定午後時段，陽光穿過八角磚雕漏窗折射在水面上，光斑精準投射至假山暗縫中，指示出隱藏古銅鑰匙位置。
-- 知識庫解密卡：解說相似三角形測量與太陽高度角日影投影幾何學，並致敬福爾摩斯解密古代家規的經典橋段。
-
-三、 雙北生活圈與大眾運輸移動機制
-- 台北捷運 (MRT)：跨區骨幹（淡水信義線、板南線、中和新蘆線），進出閘門刷悠遊卡扣款 20~50 元。車廂內可隨機偷聽乘客 NPC 獲取支線情報。
-- 公車系統 (Bus)：串接捷運未覆蓋的偏遠景點，固定票價 15 元。
-- 步行 & YouBike：各景點周邊 500 公尺核心探索，尋找微小線索與街道垃圾桶隱藏證物的必備方式。
-- 計程車 / 專車：平時鎖定，僅在嫌犯即將搭機潛逃等重大緊急劇情中解鎖呼叫。
-- 圖資評估：選擇 OpenStreetMap (OSM) 而非 Google Maps API。OSM 免費、開源、台灣圖資完整，且能完美整合 Three.js 製作 3D 街區，避免 Google Maps 昂貴的商業計費。
-
-四、 獎勵循環與道具商店
-- 獎勵機制：破案解開機關獲得「委託金幣」與「名偵探聲望」。
-- 商店道具：
-  * 外觀：英倫獵鹿帽風衣（福爾摩斯風格，古蹟 NPC 好感度提升）、紅領結西裝（柯南風格，解鎖模擬變聲訊問）。
-  * 裝備：高倍率微距放大鏡（隱密微小線索發光提示）、改裝電動滑板（人行道移動速度提升 60%）。
-  * 票券：雙北交通無限暢遊卡（時效內搭乘捷運公車免扣遊戲幣）。
-  * 文獻：古典密碼對照手冊（自動提供字母頻率分析輔助表）。
-
-五、 免費遊戲平台評估
-1. Itch.io（最推薦首選）：全球最大獨立遊戲社群，完全免費、免審核。支援 HTML5 zip 檔上傳，玩家在瀏覽器秒開即玩，附帶評分與評論區。
-2. GitHub Pages / Vercel（成果展必備）：提供自訂網址，連線穩定極快，最適合轉為 QR Code 印在獨立研究壁報與投影片上供評審掃描。
-3. Game Jolt：年輕社群活躍，特別偏好復古像素與推理 RPG。
-
-六、 獨立研究推動時程表
-- 第一階段（第 1 ~ 2 週）：企劃定案、三人分工確立、完成 4 個景點與機關劇本稿。
-- 第二階段（第 3 ~ 4 週）：AI（Anti-gravity）協作最小原型，實作主角移動與第一個密碼機關互動。
-- 第三階段（第 5 ~ 6 週）：捷運交通切換、商店機制與破案考據卡圖鑑實裝。
-- 第四階段（第 7 ~ 8 週）：邀請全班同學試玩測試（Playtest）與除錯，正式上架 Itch.io 並舉辦成果發表。
+■ 六、 免費發布平台與專案時程
+- 發布平台：Itch.io（全球最大獨立遊戲社群，免審核隨點即玩）與 GitHub Pages（專屬網址適合製作 QR Code 成果展展示）。
+- 時程表：第一階段企劃定案 ➔ 第二階段單一場景原型試作 ➔ 第三階段大眾運輸、四大機關與商城整合 ➔ 第四階段同學試玩與成果發表。
   </textarea>
 
   <script>
