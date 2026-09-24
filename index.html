@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>《雙北漫遊偵探：都會行蹤》- 六年級獨立研究網頁 RPG</title>
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --accent: #f59e0b;
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.95);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --mrt-red: #d90429;
+      --mrt-blue: #0077b6;
+      --mrt-orange: #f77f00;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 頂部 HUD */
+    header {
+      background: #1e293b;
+      border-bottom: 2px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #60a5fa, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand .location-tag {
+      font-size: 13px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #334155;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .stat-pill {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-hud {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.2s;
+    }
+
+    .btn-hud:hover {
+      background: var(--primary-dark);
+    }
+
+    /* 遊戲主視窗 */
+    #game-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+    }
+
+    canvas {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      background: #111;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* 浮動提示引導條 */
+    .controls-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* 行動裝置虛擬按鍵 */
+    .mobile-controls {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      gap: 8px;
+      z-index: 15;
+    }
+
+    .dpad-btn {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      border-radius: 10px;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .dpad-btn:active {
+      background: var(--primary);
+    }
+
+    /* 對話框系統 */
+    #dialog-box {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(800px, 94%);
+      background: var(--card-bg);
+      border: 2px solid #38bdf8;
+      border-radius: 12px;
+      padding: 18px 24px;
+      display: none;
+      flex-direction: row;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      z-index: 50;
+    }
+
+    .dialog-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      background: #1e293b;
+      border: 2px solid #64748b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+
+    .dialog-content {
+      flex: 1;
+    }
+
+    .dialog-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 4px;
+    }
+
+    .dialog-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #f1f5f9;
+      min-height: 48px;
+    }
+
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .btn-dialog {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* 通用 Modal 彈窗 */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: #1e293b;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      max-width: 650px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: white;
+    }
+
+    /* 捷運轉乘地圖 Modal */
+    .mrt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .mrt-station-card {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .mrt-station-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    .mrt-line-pill {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .mrt-line-red { background: #fee2e2; color: #b91c1c; }
+    .mrt-line-blue { background: #e0f2fe; color: #0369a1; }
+
+    /* 機關解謎介面 */
+    .puzzle-ui {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .puzzle-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .puzzle-tile {
+      width: 52px;
+      height: 52px;
+      background: #1e293b;
+      border: 2px solid #64748b;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .puzzle-tile:hover {
+      border-color: #fbbf24;
+      background: #334155;
+    }
+
+    .puzzle-tile.selected {
+      border-color: #38bdf8;
+      background: #0369a1;
+      color: white;
+    }
+
+    /* 破案考據圖鑑卡 (Codex) */
+    .codex-banner {
+      background: linear-gradient(135deg, #78350f, #b45309);
+      border-radius: 10px;
+      padding: 18px;
+      color: #fef3c7;
+      margin: 16px 0;
+      border: 1px solid #f59e0b;
+    }
+
+    .codex-banner h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .shop-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-controls {
+        display: grid;
+        grid-template-columns: repeat(3, 48px);
+        grid-template-rows: repeat(2, 48px);
+      }
+      .brand h1 { font-size: 15px; }
+      .brand .location-tag { display: none; }
+      .controls-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 HUD 資訊列 -->
+  <header>
+    <div class="brand">
+      <span style="font-size: 20px;">🕵️‍♂️</span>
+      <h1>雙北漫遊偵探</h1>
+      <span class="location-tag" id="hudLocation">📍 台北車站大廳</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat-pill">
+        <span>💳 悠遊卡:</span>
+        <span id="statMoney" style="color: #38bdf8;">$200</span>
+      </div>
+      <div class="stat-pill">
+        <span>⭐ 聲望:</span>
+        <span id="statRep">0</span>
+      </div>
+      <div class="stat-pill">
+        <span>📜 考據:</span>
+        <span id="statCodex">0 / 4</span>
+      </div>
+      <button class="btn-hud" onclick="openMrtModal()">🚇 捷運路網</button>
+      <button class="btn-hud" onclick="openShopModal()">🛒 商店</button>
+      <button class="btn-hud" onclick="openNotebookModal()">📓 筆記</button>
+      <a href="proposal.html" target="_blank" style="text-decoration:none;">
+        <button class="btn-hud" style="background:#059669;">📋 企劃書全文</button>
+      </a>
+    </div>
+  </header>
+
+  <!-- 遊戲主舞台 Canvas -->
+  <main id="game-container">
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <div class="controls-hint">
+      🎮 控制：[W A S D] 或 [方向鍵] 移動 ｜ [空白鍵] 或 [Enter] 進行調查對話
+    </div>
+
+    <!-- 行動裝置虛擬按鍵 -->
+    <div class="mobile-controls">
+      <div style="grid-column: 2;" class="dpad-btn" id="btnUp">▲</div>
+      <div style="grid-column: 1; grid-row: 2;" class="dpad-btn" id="btnLeft">◀</div>
+      <div style="grid-column: 2; grid-row: 2;" class="dpad-btn" id="btnDown">▼</div>
+      <div style="grid-column: 3; grid-row: 2;" class="dpad-btn" id="btnRight">▶</div>
+    </div>
+
+    <!-- 對話視窗 -->
+    <div id="dialog-box">
+      <div class="dialog-avatar" id="dialogAvatar">👮‍♂️</div>
+      <div class="dialog-content">
+        <div class="dialog-name" id="dialogName">台北車站巡警</div>
+        <div class="dialog-text" id="dialogText">歡迎來到台北車站！聽說地下街長廊剛才傳來詭異的金屬巨響...</div>
+        <div class="dialog-footer">
+          <button class="btn-dialog" id="btnNextDialog">繼續 ▶</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 捷運轉乘 Modal -->
+  <div class="modal-overlay" id="mrtModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🚇</span> 台北捷運路網轉乘系統</div>
+        <button class="modal-close" onclick="closeModal('mrtModal')">×</button>
+      </div>
+      <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 12px;">
+        搭乘捷運刷悠遊卡扣款 $20。請選擇目的地：
+      </p>
+      <div class="mrt-grid">
+        <div class="mrt-station-card" onclick="travelTo('tpe_station')">
+          <span class="mrt-line-pill mrt-line-red">紅線 R10 / 藍線 BL12</span>
+          <h3 style="font-size: 16px;">台北車站 (中心樞紐)</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：地下街長廊延遲計時機關</p>
+        </div>
+        <div class="mrt-station-card" onclick="travelTo('tamsui')">
+          <span class="mrt-line-pill mrt-line-red">紅線 R28 終點站</span>
+          <h3 style="font-size: 16px;">淡水紅毛城</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：地牢跳舞小人密碼磚</p>
+        </div>
+        <div class="mrt-station-card" onclick="travelTo('beitou')">
+          <span class="mrt-line-pill mrt-line-red">紅線 R22 新北投</span>
+          <h3 style="font-size: 16px;">北投地熱溫泉</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：硫磺蒸氣隱形墨水遺書</p>
+        </div>
+        <div class="mrt-station-card" onclick="travelTo('banqiao')">
+          <span class="mrt-line-pill mrt-line-blue">藍線 BL07 板橋站</span>
+          <h3 style="font-size: 16px;">板橋林家花園</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：八角漏窗日影投影幾何</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 機關解謎 Modal -->
+  <div class="modal-overlay" id="puzzleModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="puzzleTitle"><span>🧩</span> 機關破解</div>
+        <button class="modal-close" onclick="closeModal('puzzleModal')">×</button>
+      </div>
+      <div id="puzzleBody">
+        <!-- 動態渲染機關內容 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 考據圖鑑 Modal (Codex) -->
+  <div class="modal-overlay" id="codexModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>📜</span> 名著名案考據圖鑑庫</div>
+        <button class="modal-close" onclick="closeModal('codexModal')">×</button>
+      </div>
+      <div id="codexList"></div>
+    </div>
+  </div>
+
+  <!-- 偵探道具商店 Modal -->
+  <div class="modal-overlay" id="shopModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🛒</span> 偵探事務所專屬補給行</div>
+        <button class="modal-close" onclick="closeModal('shopModal')">×</button>
+      </div>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 14px;">
+        破案獲得的酬金可以購買外觀造型與實用道具，加速遊戲進行！
+      </p>
+      <div id="shopItems">
+        <div class="shop-item-row">
+          <div>
+            <div style="font-weight: 800;">🧥 福爾摩斯經典獵鹿風衣</div>
+            <div style="font-size: 12px; color: var(--text-muted);">改變 2D 像素外觀，古蹟 NPC 好感度提升 20%</div>
+          </div>
+          <button class="btn-hud" onclick="buyItem('coat', 300)">$300 購買</button>
+        </div>
+        <div class="shop-item-row">
+          <div>
+            <div style="font-weight: 800;">🛹 柯南式極速電動滑板</div>
+            <div style="font-size: 12px; color: var(--text-muted);">步行速度提升 60%，穿梭雙北街區更迅速！</div>
+          </div>
+          <button class="btn-hud" onclick="buyItem('board', 450)">$450 購買</button>
+        </div>
+        <div class="shop-item-row">
+          <div>
+            <div style="font-weight: 800;">🔍 高倍率微距放大鏡</div>
+            <div style="font-size: 12px; color: var(--text-muted);">靠近隱藏線索時會自動發出高光粒子提示</div>
+          </div>
+          <button class="btn-hud" onclick="buyItem('glass', 250)">$250 購買</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 偵探筆記本 Modal -->
+  <div class="modal-overlay" id="notebookModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>📓</span> 偵探調查日誌與案情進度</div>
+        <button class="modal-close" onclick="closeModal('notebookModal')">×</button>
+      </div>
+      <div style="line-height: 1.8; font-size: 14px;">
+        <h4 style="color:#38bdf8; margin-bottom:6px;">📍 當前調查委託清單：</h4>
+        <div id="notebookProgress">
+          • 淡水紅毛城：地牢跳舞小人磚（未破解）<br>
+          • 北投地熱谷：硫磺溫泉隱形信（未破解）<br>
+          • 台北車站：地下街延遲計時機關（未破解）<br>
+          • 板橋林家花園：八角漏窗日影投影（未破解）
+        </div>
+        <hr style="border-color:var(--border); margin: 16px 0;">
+        <div style="background:#0f172a; padding:12px; border-radius:8px;">
+          <strong>👥 六年級專題團隊成員：</strong> 共 3 人小組<br>
+          <strong>💡 提示：</strong> 可以在全地圖自由搭乘捷運探索，沒有任何解謎順序限制！
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ─── 音效合成器 (Web Audio API) ─── */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function playMrtChime() {
+      // 模擬捷運動態進站四音階 (G4, B4, D5, G5)
+      const notes = [392, 493.88, 587.33, 783.99];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => playBeep(freq, 'triangle', 0.25), idx * 160);
+      });
+    }
+
+    function playVictoryChime() {
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => playBeep(freq, 'sine', 0.2), idx * 120);
+      });
+    }
+
+    /* ─── 遊戲世界狀態 ─── */
+    const gameState = {
+      money: 200,
+      rep: 0,
+      speed: 3.5,
+      hasCoat: false,
+      hasBoard: false,
+      hasGlass: false,
+      currentLocation: 'tpe_station',
+      solved: {
+        tamsui: false,
+        beitou: false,
+        tpe_station: false,
+        banqiao: false
+      },
+      player: {
+        x: 400,
+        y: 280,
+        size: 24,
+        color: '#38bdf8',
+        dir: 'down'
+      }
+    };
+
+    /* ─── 地圖場景定義 ─── */
+    const scenes = {
+      tpe_station: {
+        name: "台北車站大廳",
+        bgColor: "#1e293b",
+        objects: [
+          { x: 350, y: 100, w: 100, h: 50, color: "#475569", label: "捷運出入口" },
+          { x: 120, y: 180, w: 70, h: 60, color: "#334155", label: "售票機" },
+          { x: 600, y: 150, w: 90, h: 70, color: "#64748b", label: "保潔地下街通道" }
+        ],
+        npc: { x: 260, y: 240, name: "巡邏警衛", icon: "👮‍♂️", dialog: "剛才 Y 區地下街傳來鐵桶傾倒撞擊的巨響，但巡視監視器卻找不到人！你能破解這個利用聲學回聲延遲的不在場證明機關嗎？" },
+        trigger: { x: 620, y: 190, r: 40, puzzleKey: "tpe_station", label: "調查地下街長廊延遲機關" }
+      },
+      tamsui: {
+        name: "淡水紅毛城古蹟",
+        bgColor: "#450a0a",
+        objects: [
+          { x: 280, y: 80, w: 240, h: 120, color: "#991b1b", label: "紅毛城主堡石壁" },
+          { x: 100, y: 220, w: 90, h: 70, color: "#78350f", label: "海關航海日誌桌" },
+          { x: 620, y: 280, w: 80, h: 80, color: "#1e3a8a", label: "淡水河岸渡船頭" }
+        ],
+        npc: { x: 180, y: 280, name: "淡水老船長", icon: "⚓", dialog: "這座城堡地牢石壁上刻滿了奇怪的火柴小人符號！聽說是十九世紀英國領事館留下的古老暗號！" },
+        trigger: { x: 380, y: 180, r: 45, puzzleKey: "tamsui", label: "調查跳舞小人密碼磚" }
+      },
+      beitou: {
+        name: "北投地熱谷溫泉",
+        bgColor: "#14532d",
+        objects: [
+          { x: 260, y: 120, w: 280, h: 140, color: "#065f46", label: "冒白煙的硫磺地熱池 (85°C)" },
+          { x: 80, y: 160, w: 100, h: 80, color: "#78350f", label: "木造溫泉湯屋" }
+        ],
+        npc: { x: 160, y: 290, name: "溫泉老闆娘", icon: "👘", dialog: "客人退房時留下了一張空白信紙，但空氣中隱約飄著化學藥劑味道，旁邊還放著一對防熱竹夾..." },
+        trigger: { x: 400, y: 240, r: 50, puzzleKey: "beitou", label: "調查溫泉地熱顯影機關" }
+      },
+      banqiao: {
+        name: "板橋林本源園邸 (林家花園)",
+        bgColor: "#422006",
+        objects: [
+          { x: 300, y: 90, w: 200, h: 100, color: "#713f12", label: "汲古書屋古亭" },
+          { x: 200, y: 260, w: 400, h: 110, color: "#0369a1", label: "方鑑齋倒影水池" },
+          { x: 640, y: 150, w: 90, h: 90, color: "#57534e", label: "八角漏窗磚牆" }
+        ],
+        npc: { x: 150, y: 220, name: "古蹟導覽員", icon: "🏮", dialog: "相傳百年前林家有一道暗號：『秋分午後三刻，八角漏窗見金光』，必須依靠太陽的特定日影反射才能找到鑰匙！" },
+        trigger: { x: 650, y: 220, r: 45, puzzleKey: "banqiao", label: "調查八角漏窗日晷幾何機關" }
+      }
+    };
+
+    /* ─── 畫布繪製系統 ─── */
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function drawScene() {
+      const cur = scenes[gameState.currentLocation];
+      ctx.fillStyle = cur.bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 繪製地磚網格
+      ctx.strokeStyle = "rgba(255,255,255,0.06)";
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+      }
+      for (let y = 0; y < canvas.height; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+
+      // 繪製建築物件
+      cur.objects.forEach(obj => {
+        ctx.fillStyle = obj.color;
+        ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(obj.x, obj.y, obj.w, obj.h);
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(obj.label, obj.x + obj.w / 2, obj.y + obj.h / 2);
+      });
+
+      // 繪製調查機關觸發光圈
+      if (cur.trigger) {
+        const isSolved = gameState.solved[cur.trigger.puzzleKey];
+        ctx.beginPath();
+        ctx.arc(cur.trigger.x, cur.trigger.y, cur.trigger.r, 0, Math.PI * 2);
+        ctx.fillStyle = isSolved ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.25)";
+        ctx.fill();
+        ctx.strokeStyle = isSolved ? "#10b981" : "#f59e0b";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = isSolved ? "#10b981" : "#f59e0b";
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText(isSolved ? "✅ 已破案" : "🔍 按空白鍵調查", cur.trigger.x, cur.trigger.y + cur.trigger.r + 14);
+      }
+
+      // 繪製 NPC
+      if (cur.npc) {
+        ctx.font = "28px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(cur.npc.icon, cur.npc.x, cur.npc.y);
+        ctx.fillStyle = "#38bdf8";
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText(cur.npc.name, cur.npc.x, cur.npc.y + 16);
+      }
+
+      // 繪製主角 (2D 復古小人)
+      const p = gameState.player;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+
+      // 主角陰影
+      ctx.beginPath();
+      ctx.ellipse(0, 10, 10, 5, 0, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(0,0,0,0.4)";
+      ctx.fill();
+
+      // 衣服與帽子
+      ctx.fillStyle = gameState.hasCoat ? "#d97706" : p.color;
+      ctx.fillRect(-8, -10, 16, 18); // 身體
+
+      // 頭部
+      ctx.fillStyle = "#fed7aa";
+      ctx.beginPath();
+      ctx.arc(0, -14, 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 偵探帽 (如果有風衣)
+      if (gameState.hasCoat) {
+        ctx.fillStyle = "#78350f";
+        ctx.fillRect(-10, -24, 20, 6);
+      } else {
+        ctx.fillStyle = "#1e3a8a";
+        ctx.fillRect(-8, -22, 16, 5);
+      }
+
+      // 滑板光暈 (如果有買滑板)
+      if (gameState.hasBoard) {
+        ctx.fillStyle = "#ef4444";
+        ctx.fillRect(-12, 10, 24, 4);
+      }
+
+      ctx.restore();
+    }
+
+    /* ─── 鍵盤與移動循環 ─── */
+    const keys = {};
+    window.addEventListener("keydown", e => {
+      keys[e.key.toLowerCase()] = true;
+      if (e.key === " " || e.key === "Enter") {
+        checkInteraction();
+      }
+    });
+    window.addEventListener("keyup", e => {
+      keys[e.key.toLowerCase()] = false;
+    });
+
+    function updatePlayer() {
+      const p = gameState.player;
+      let spd = gameState.speed;
+      let moved = false;
+
+      if (keys["w"] || keys["arrowup"]) { p.y -= spd; p.dir = "up"; moved = true; }
+      if (keys["s"] || keys["arrowdown"]) { p.y += spd; p.dir = "down"; moved = true; }
+      if (keys["a"] || keys["arrowleft"]) { p.x -= spd; p.dir = "left"; moved = true; }
+      if (keys["d"] || keys["arrowright"]) { p.x += spd; p.dir = "right"; moved = true; }
+
+      // 限制在畫布範圍
+      p.x = Math.max(20, Math.min(canvas.width - 20, p.x));
+      p.y = Math.max(30, Math.min(canvas.height - 20, p.y));
+
+      if (moved && Math.random() < 0.1) {
+        playBeep(220, 'square', 0.04);
+      }
+    }
+
+    function gameLoop() {
+      updatePlayer();
+      drawScene();
+      requestAnimationFrame(gameLoop);
+    }
+    requestAnimationFrame(gameLoop);
+
+    /* ─── 互動偵測 ─── */
+    function checkInteraction() {
+      const p = gameState.player;
+      const cur = scenes[gameState.currentLocation];
+
+      // 檢查是否靠近 NPC
+      if (cur.npc) {
+        const dist = Math.hypot(p.x - cur.npc.x, p.y - cur.npc.y);
+        if (dist < 55) {
+          playBeep(520, 'sine', 0.1);
+          showDialog(cur.npc.icon, cur.npc.name, cur.npc.dialog);
+          return;
+        }
+      }
+
+      // 檢查是否靠近調查光圈
+      if (cur.trigger) {
+        const dist = Math.hypot(p.x - cur.trigger.x, p.y - cur.trigger.y);
+        if (dist < cur.trigger.r + 20) {
+          playBeep(600, 'triangle', 0.12);
+          openPuzzle(cur.trigger.puzzleKey);
+          return;
+        }
+      }
+    }
+
+    /* ─── 對話框邏輯 ─── */
+    const dialogBox = document.getElementById("dialog-box");
+    function showDialog(avatar, name, text) {
+      document.getElementById("dialogAvatar").innerText = avatar;
+      document.getElementById("dialogName").innerText = name;
+      document.getElementById("dialogText").innerText = text;
+      dialogBox.style.display = "flex";
+    }
+    document.getElementById("btnNextDialog").onclick = () => {
+      dialogBox.style.display = "none";
+    };
+
+    /* ─── 四大機關 Mini-Game 與出處考據卡邏輯 ─── */
+    function openPuzzle(key) {
+      const modal = document.getElementById("puzzleModal");
+      const title = document.getElementById("puzzleTitle");
+      const body = document.getElementById("puzzleBody");
+
+      if (gameState.solved[key]) {
+        title.innerHTML = "<span>✅</span> 機關已破解";
+        body.innerHTML = `
+          <div style="padding:20px; text-align:center;">
+            <h3>此處機關已經被你完美解開！</h3>
+            <p style="color:var(--text-muted); margin: 10px 0;">隨時點擊頂部的【考據】按鈕即可重溫原著解密圖鑑。</p>
+            <button class="btn-hud" style="margin: 0 auto;" onclick="openCodexModal()">📖 打開名著圖鑑庫</button>
+          </div>
+        `;
+        modal.style.display = "flex";
+        return;
+      }
+
+      if (key === 'tamsui') {
+        title.innerHTML = "<span>🏰</span> 淡水紅毛城 —— 跳舞小人密碼磚";
+        body.innerHTML = `
+          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
+            石壁上刻滿了二十六個火柴小人，根據淡水海關航海日誌，英文中出現頻率最高的是字母 <strong>E</strong>。請點選拼出密碼單字 <strong>【 C O N A N 】</strong> 解開石室暗門：
+          </p>
+          <div class="puzzle-grid" id="tileGrid">
+            <div class="puzzle-tile" onclick="pickTile(this, 'C')">🕺<span style="font-size:11px;">C</span></div>
+            <div class="puzzle-tile" onclick="pickTile(this, 'O')">🤸<span style="font-size:11px;">O</span></div>
+            <div class="puzzle-tile" onclick="pickTile(this, 'N')">🏃<span style="font-size:11px;">N</span></div>
+            <div class="puzzle-tile" onclick="pickTile(this, 'A')">🚶<span style="font-size:11px;">A</span></div>
+            <div class="puzzle-tile" onclick="pickTile(this, 'N')">🧘<span style="font-size:11px;">N</span></div>
+            <div class="puzzle-tile" onclick="pickTile(this, 'X')">🤾<span style="font-size:11px;">X</span></div>
+          </div>
+          <div style="margin: 14px 0; font-size:16px; font-weight:800; color:#38bdf8;">
+            目前輸入：<span id="cipherInput">------</span>
+          </div>
+          <button class="btn-hud" style="margin: 0 auto;" onclick="submitTamsuiPuzzle()">確認解鎖暗門</button>
+        `;
+      } else if (key === 'beitou') {
+        title.innerHTML = "<span>♨️</span> 北投溫泉 —— 硫磺蒸氣隱形墨水顯影";
+        body.innerHTML = `
+          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
+            案發現場留下一張白紙。請使用防熱竹夾按住按鈕，將紙張置於 85°C 地熱蒸氣上方均勻加熱：
+          </p>
+          <div class="puzzle-ui">
+            <div style="font-size:40px; margin-bottom:8px;">♨️ 📄 ♨️</div>
+            <div style="font-size:15px; font-weight:800; color:#f59e0b;">當前蒸氣溫度：<span id="steamTemp">25</span> °C</div>
+            <div style="background:#334155; height:12px; border-radius:6px; margin: 12px 0; overflow:hidden;">
+              <div id="steamBar" style="background:#f59e0b; width:20%; height:100%;"></div>
+            </div>
+            <div id="secretText" style="opacity: 0.1; font-size:18px; font-weight:800; color:#38bdf8; margin: 10px 0;">
+              【暗道水閥密碼：8 5 0 2】
+            </div>
+            <button class="btn-hud" style="margin: 0 auto;" id="btnHeat" onmousedown="heatPaper()" ontouchstart="heatPaper()">🔥 長按使用竹夾加熱白紙</button>
+          </div>
+        `;
+      } else if (key === 'tpe_station') {
+        title.innerHTML = "<span>🚇</span> 台北車站 —— 長廊迴音與延遲計時機關";
+        body.innerHTML = `
+          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
+            嫌犯利用虹吸管定時蓄水製造金屬巨響。請調整走廊長度與聲速延遲比對表，揭穿兇手製造的偽不在場證明：
+          </p>
+          <div class="puzzle-ui">
+            <div style="font-size:14px; margin-bottom:10px;">地下街長廊長度：300 公尺 ｜ 聲波反射次數：4 次</div>
+            <label style="font-size:13px; color:#94a3b8;">水桶注滿蓄水延遲時間 (分鐘)：</label>
+            <input type="range" id="delaySlider" min="0" max="60" value="10" style="width:80%; margin: 10px 0;" oninput="document.getElementById('delayVal').innerText=this.value">
+            <div style="font-size:16px; font-weight:800; color:#38bdf8;">延遲設定：<span id="delayVal">10</span> 分鐘</div>
+            <p style="font-size:12px; color:#94a3b8; margin-top:8px;">提示：巡警是在嫌犯離開 30 分鐘後才聽到水桶傾倒的撞擊聲！</p>
+            <button class="btn-hud" style="margin: 12px auto 0;" onclick="submitTpePuzzle()">確認破解不在場證明</button>
+          </div>
+        `;
+      } else if (key === 'banqiao') {
+        title.innerHTML = "<span>🏮</span> 板橋林家花園 —— 八角漏窗日影投影";
+        body.innerHTML = `
+          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
+            『秋分午後三刻，八角漏窗見金光』。請滑動調整太陽角度至午後三點（15:00），讓光斑折射至假山石縫：
+          </p>
+          <div class="puzzle-ui">
+            <div style="font-size:40px; margin-bottom:8px;">☀️ 🪟 🌊</div>
+            <input type="range" id="sunSlider" min="9" max="18" value="11" style="width:80%; margin: 10px 0;" oninput="document.getElementById('sunVal').innerText=this.value + ':00'">
+            <div style="font-size:16px; font-weight:800; color:#fbbf24;">目前時辰：<span id="sunVal">11:00</span></div>
+            <div id="sunRayResult" style="font-size:13px; color:#94a3b8; margin-top:6px;">光線尚未射入水池...</div>
+            <button class="btn-hud" style="margin: 12px auto 0;" onclick="submitBanqiaoPuzzle()">確認比對日影方位</button>
+          </div>
+        `;
+      }
+
+      modal.style.display = "flex";
+    }
+
+    /* ─── 機關互動操作 ─── */
+    let tamsuiInput = "";
+    function pickTile(el, char) {
+      playBeep(400, 'sine', 0.05);
+      tamsuiInput += char;
+      if (tamsuiInput.length > 5) tamsuiInput = char;
+      document.getElementById("cipherInput").innerText = tamsuiInput;
+    }
+    function submitTamsuiPuzzle() {
+      if (tamsuiInput === "CONAN") {
+        solveCase('tamsui');
+      } else {
+        alert("密碼不正確，提示：航海日誌暗示密碼包含 C, O, N, A, N！");
+        tamsuiInput = "";
+        document.getElementById("cipherInput").innerText = "------";
+      }
+    }
+
+    let currentTemp = 25;
+    function heatPaper() {
+      currentTemp += 15;
+      playBeep(600, 'triangle', 0.06);
+      if (currentTemp > 90) currentTemp = 90;
+      document.getElementById("steamTemp").innerText = currentTemp;
+      document.getElementById("steamBar").style.width = (currentTemp / 90 * 100) + "%";
+      document.getElementById("secretText").style.opacity = (currentTemp / 90);
+
+      if (currentTemp >= 85) {
+        setTimeout(() => {
+          solveCase('beitou');
+        }, 500);
+      }
+    }
+
+    function submitTpePuzzle() {
+      const val = parseInt(document.getElementById("delaySlider").value);
+      if (val === 30) {
+        solveCase('tpe_station');
+      } else {
+        alert("延遲計算有誤！警衛聽到聲音時，嫌犯早已坐捷運離開 30 分鐘！");
+      }
+    }
+
+    function submitBanqiaoPuzzle() {
+      const val = parseInt(document.getElementById("sunSlider").value);
+      if (val === 15) {
+        solveCase('banqiao');
+      } else {
+        alert("光影角度不對！古訓提到『午後三刻』指的是下午 15:00！");
+      }
+    }
+
+    /* ─── 破案結案與彈出考據圖鑑 ─── */
+    const codexData = {
+      tamsui: {
+        title: "📜 【考據卡】福爾摩斯〈跳舞的人〉密碼磚",
+        source: "柯南·道爾 1903 年《福爾摩斯探案集：歸來記》之〈跳舞的人〉",
+        science: "單表替換式密碼（Substitution Cipher）與英文字母頻率分析法（E 最常出現）。",
+        taiwan: "淡水紅毛城曾是英國領事館，將英國維多利亞時代的古典密碼藏於紅磚石壁中，完美契合淡水港埠史實！"
+      },
+      beitou: {
+        title: "📜 【考據卡】名偵探柯南化學熱敏顯影密室",
+        source: "青山剛昌《名偵探柯南》漫畫第 74 卷「毒與幻的設計」及經典熱敏反應篇章",
+        science: "熱敏顯影原理：弱酸高溫脫水炭化或氯化鈷水合物受熱轉變為無水藍色物態。",
+        taiwan: "北投地熱谷青磺泉天然水溫高達 80°C~100°C，高溫天然蒸氣正是最真實的顯影環境！"
+      },
+      tpe_station: {
+        title: "📜 【考據卡】柯南〈霧天狗傳說〉水力延遲與建築聲學",
+        source: "《名偵探柯南》動畫第 52 集〈霧天狗傳說殺人事件〉與古典本格推理",
+        science: "流體虹吸原理與長廊多重反射聲波延遲（Echolocation Delay）。",
+        taiwan: "台北車站地下街四通八達且長達數百公尺，光滑水泥壁面極易造成回聲定位誤差。"
+      },
+      banqiao: {
+        title: "📜 【考據卡】福爾摩斯〈馬斯格雷夫禮儀〉日影幾何投影",
+        source: "柯南·道爾《福爾摩斯探案集：回憶錄》之〈馬斯格雷夫禮儀〉",
+        science: "太陽高度角、日晷幾何學與相似三角形測量定理。",
+        taiwan: "國定古蹟板橋林家花園汲古書屋與八角漏窗水池造景，極富古典建築工藝之美！"
+      }
+    };
+
+    function solveCase(key) {
+      gameState.solved[key] = true;
+      gameState.money += 500;
+      gameState.rep += 100;
+      updateHUD();
+      closeModal('puzzleModal');
+      playVictoryChime();
+
+      // 彈出考據圖鑑
+      const c = codexData[key];
+      const modal = document.getElementById("puzzleModal");
+      const title = document.getElementById("puzzleTitle");
+      const body = document.getElementById("puzzleBody");
+
+      title.innerHTML = `<span>🎉</span> 破案成功！獲得 $500 酬金與 100 聲望！`;
+      body.innerHTML = `
+        <div class="codex-banner">
+          <h4>${c.title}</h4>
+          <p style="margin-bottom:6px;"><strong>📖 名著出處：</strong> ${c.source}</p>
+          <p style="margin-bottom:6px;"><strong>⚗️ 科學原理：</strong> ${c.science}</p>
+          <p><strong>🇹🇼 雙北在地結合：</strong> ${c.taiwan}</p>
+        </div>
+        <button class="btn-hud" style="margin: 10px auto 0;" onclick="closeModal('puzzleModal')">收入偵探圖鑑庫 ▶</button>
+      `;
+      modal.style.display = "flex";
+      updateNotebookProgress();
+    }
+
+    function updateHUD() {
+      document.getElementById("statMoney").innerText = "$" + gameState.money;
+      document.getElementById("statRep").innerText = gameState.rep;
+      const count = Object.values(gameState.solved).filter(Boolean).length;
+      document.getElementById("statCodex").innerText = count + " / 4";
+      document.getElementById("hudLocation").innerText = "📍 " + scenes[gameState.currentLocation].name;
+    }
+
+    function updateNotebookProgress() {
+      const s = gameState.solved;
+      document.getElementById("notebookProgress").innerHTML = `
+        • 淡水紅毛城：${s.tamsui ? '<span style="color:#10b981;">[已破案] 跳舞小人密碼磚</span>' : '地牢跳舞小人磚（未破解）'}<br>
+        • 北投地熱谷：${s.beitou ? '<span style="color:#10b981;">[已破案] 硫磺溫泉隱形信</span>' : '硫磺溫泉隱形信（未破解）'}<br>
+        • 台北車站：${s.tpe_station ? '<span style="color:#10b981;">[已破案] 地下街長廊聲學機關</span>' : '地下街延遲計時機關（未破解）'}<br>
+        • 板橋林家花園：${s.banqiao ? '<span style="color:#10b981;">[已破案] 八角漏窗日影投影</span>' : '八角漏窗日影投影（未破解）'}
+      `;
+    }
+
+    /* ─── 捷運搭乘邏輯 ─── */
+    function openMrtModal() {
+      document.getElementById("mrtModal").style.display = "flex";
+    }
+    function travelTo(loc) {
+      if (gameState.currentLocation === loc) {
+        alert("你已經在該車站囉！");
+        return;
+      }
+      if (gameState.money < 20) {
+        alert("悠遊卡餘額不足 $20！請先破案賺取委託金！");
+        return;
+      }
+      gameState.money -= 20;
+      gameState.currentLocation = loc;
+      gameState.player.x = 400;
+      gameState.player.y = 300;
+      playMrtChime();
+      updateHUD();
+      closeModal('mrtModal');
+    }
+
+    /* ─── 商店購買邏輯 ─── */
+    function openShopModal() {
+      document.getElementById("shopModal").style.display = "flex";
+    }
+    function buyItem(type, cost) {
+      if (gameState.money < cost) {
+        alert("金幣不足！快去調查破解機關賺取委託金吧！");
+        return;
+      }
+      gameState.money -= cost;
+      playBeep(750, 'sine', 0.15);
+      if (type === 'coat') {
+        gameState.hasCoat = true;
+        alert("成功購買【福爾摩斯經典獵鹿風衣】！主角外觀已換上經典偵探套裝！");
+      } else if (type === 'board') {
+        gameState.hasBoard = true;
+        gameState.speed = 5.5;
+        alert("成功購買【柯南式極速電動滑板】！移動速度提升 60%！");
+      } else if (type === 'glass') {
+        gameState.hasGlass = true;
+        alert("成功購買【高倍率微距放大鏡】！");
+      }
+      updateHUD();
+    }
+
+    /* ─── 考據圖鑑 Modal ─── */
+    function openCodexModal() {
+      const list = document.getElementById("codexList");
+      list.innerHTML = "";
+      let found = 0;
+      for (const key in gameState.solved) {
+        if (gameState.solved[key]) {
+          found++;
+          const c = codexData[key];
+          list.innerHTML += `
+            <div class="codex-banner">
+              <h4>${c.title}</h4>
+              <p style="margin-bottom:4px;"><strong>📖 名著出處：</strong> ${c.source}</p>
+              <p style="margin-bottom:4px;"><strong>⚗️ 科學原理：</strong> ${c.science}</p>
+              <p><strong>🇹🇼 雙北在地結合：</strong> ${c.taiwan}</p>
+            </div>
+          `;
+        }
+      }
+      if (found === 0) {
+        list.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-muted);">尚未解開任何機關！快搭捷運去雙北景點展開調查吧！</div>`;
+      }
+      document.getElementById("codexModal").style.display = "flex";
+    }
+
+    function openNotebookModal() {
+      document.getElementById("notebookModal").style.display = "flex";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    /* ─── 行動裝置 D-Pad 支援 ─── */
+    const bindBtn = (id, key) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("touchstart", (e) => { e.preventDefault(); keys[key] = true; });
+      el.addEventListener("touchend", (e) => { e.preventDefault(); keys[key] = false; });
+      el.addEventListener("mousedown", () => { keys[key] = true; });
+      el.addEventListener("mouseup", () => { keys[key] = false; });
+    };
+    bindBtn("btnUp", "arrowup");
+    bindBtn("btnDown", "arrowdown");
+    bindBtn("btnLeft", "arrowleft");
+    bindBtn("btnRight", "arrowright");
+  </script>
+</body>
+</html>
