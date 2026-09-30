@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（新版合併深度版）- 六年級獨立研究專題</title>
+  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（50大案 ✕ AI生成 ✕ 實體到店 ✕ 突發事件 深度升級版）- 六年級獨立研究專題</title>
   <style>
     :root {
       --primary: #1d4ed8;
@@ -38,7 +38,7 @@
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
@@ -124,7 +124,7 @@
     }
 
     .header-card h1 {
-      font-size: 28px;
+      font-size: 27px;
       font-weight: 800;
       margin-bottom: 12px;
       letter-spacing: -0.5px;
@@ -132,15 +132,15 @@
     }
 
     .header-card .subtitle {
-      font-size: 15.5px;
+      font-size: 15px;
       opacity: 0.94;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       line-height: 1.6;
     }
 
     .meta-badges {
       display: flex;
-      gap: 9px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
@@ -242,7 +242,7 @@
 
     th, td {
       border: 1px solid var(--border);
-      padding: 11px 13px;
+      padding: 10px 12px;
       text-align: left;
       vertical-align: top;
     }
@@ -412,6 +412,19 @@
       gap: 6px;
     }
 
+    /* 程式碼區塊 */
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      line-height: 1.5;
+      margin: 14px 0;
+    }
+
     /* Toast 浮動提示 */
     #toast {
       position: fixed;
@@ -454,7 +467,7 @@
     <!-- 頂部快速操作列 -->
     <div class="top-action-bar">
       <div class="project-tag">
-        <span>🔍</span> 六年級獨立研究深度企劃書（新版合併深度版）
+        <span>🔍</span> 六年級獨立研究深度企劃書（50宗大案 ✕ AI生成 ✕ 實體到店 深度升級版）
       </div>
       <div class="btn-group">
         <a href="index.html" class="btn-secondary btn-link">
@@ -473,15 +486,18 @@
     <div class="header-card">
       <h1>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書</h1>
       <div class="subtitle">
-        1:1 連續雙北開放地圖 ✕ 名著經典機關科學考據 ✕ 真實大眾交通費率 ✕ 共享世界唯一首解競速 ✕ 《動物森友會》式慢活日常
+        1:1 連續雙北地圖 ✕ 50宗推理案件庫 ✕ AI自動擴充架構 ✕ 實體到店購買 ✕ 突發事件 ✕ 共享世界競速 ✕ 《動物森友會》式慢活
       </div>
       <div class="meta-badges">
         <span class="meta-badge">👥 專案團隊：國小六年級獨立研究小組（三人團隊）</span>
-        <span class="meta-badge">🗺️ 地理架構：1:1 連續雙北（OpenStreetMap 開放圖資基礎）</span>
-        <span class="meta-badge">🎨 視覺表現：3D 空中俯瞰街景 + 2D 復古像素主角</span>
-        <span class="meta-badge">🚌 交通費率：公車 15 元、捷運里程計費、YouBike 前 30 分鐘補助</span>
-        <span class="meta-badge">🏆 核心競技：全伺服器共享世界與唯一首解原子鎖定</span>
-        <span class="meta-badge">💰 經濟雙軌：高階破案賞金 vs 生活流通金</span>
+        <span class="meta-badge">🗺️ 地理架構：1:1 連續雙北（OpenStreetMap + 建築進出發光標記）</span>
+        <span class="meta-badge">🔍 案件庫規模：50 宗大案全景矩陣 ＋ 10 宗精選深度案例</span>
+        <span class="meta-badge">🤖 擴充機制：未來 AI Agent 自動生成案件模組（永不結束）</span>
+        <span class="meta-badge">⚡ 觸發體驗：不定時突發事件（如咖啡店下毒密室）</span>
+        <span class="meta-badge">🌐 雙軌體系：全服同步結束搶案機制 vs 個人專屬晉升任務（無搶奪）</span>
+        <span class="meta-badge">🏪 實體商店：親自走到真實街道店家購買耗材與高階裝備</span>
+        <span class="meta-badge">🎨 視覺美學：3D 空中俯瞰街景 + 2D 復古像素主角</span>
+        <span class="meta-badge">💰 經濟雙軌：破案委託賞金 vs 日常生活流通金</span>
       </div>
     </div>
 
@@ -494,7 +510,7 @@
         1. <strong>非商業性質</strong>：本企劃書及後續開發之遊戲專案，為<strong>國小六年級學生「獨立研究」課程之學術成果與跨學科程式教育專案</strong>，完全<strong>不具備任何商業營利、收費、贊助或販售行為</strong>。
       </p>
       <p class="disclaimer-text">
-        2. <strong>名著、地標商標與公共音效原創規範</strong>：專案中所引述致敬之《名偵探柯南》、《福爾摩斯探案集》經典密碼與科學手法，以及台灣真實大眾運輸（台北捷運、市區公車、YouBike）、真實地標景點名稱，皆僅作為國小教學研究、科學物理探究與遊戲體驗設計之<strong>合理使用（Fair Use）</strong>。公開發布時，所有美術立繪、像素角色、UI、捷運廣播與背景音樂，皆採<strong>原創繪製與自製錄音</strong>，不直接套用版權動畫素材。
+        2. <strong>名著、地標商標與公共音效原創規範</strong>：專案中所引述致敬之《名偵探柯南》、《福爾摩斯探案集》、《口袋神探》經典密碼與科學手法，以及台灣真實大眾運輸（台北捷運、市區公車、YouBike）、真實地標景點名稱，皆僅作為國小教學研究、科學物理探究與遊戲體驗設計之<strong>合理使用（Fair Use）</strong>。公開發布時，所有美術立繪、像素角色、UI、捷運廣播與背景音樂，皆採<strong>原創繪製與自製錄音</strong>，不直接套用版權動畫素材。
       </p>
       <p class="disclaimer-text" style="margin-bottom:0;">
         3. <strong>虛構榮譽與無官方贊助澄清</strong>：企劃內提及之「雙北文史生活金獎勵」、「市警局榮譽顧問勳章」等內容，純屬遊戲世界觀之<strong>「虛構劇情榮譽與數值獎勵」</strong>，絕非真實台北市或新北市政府、警局之官方背書或真實贊助。
@@ -507,16 +523,17 @@
       
       <div class="callout tip">
         <div class="callout-title">💡 一句話定位</div>
-        《雙北漫遊偵探：都會行蹤》是一款以雙北為舞台的開放式探索推理遊戲：<strong>街區是連續的遊戲空間，案件是可選的冒險，學習內容藏在場所與微型互動裡</strong>。它不是只有四個封閉關卡、通關即結束的解謎遊戲，而是一座世界隨時持續運轉的城市！
+        《雙北漫遊偵探：都會行蹤》是一款以雙北為舞台的開放式探索推理遊戲：<strong>街區是連續的遊戲空間，案件是可選的冒險，學習內容藏在場所與微型互動裡</strong>。它不是只有四個封閉關卡、通關即結束的解謎遊戲，而是一座世界隨時持續運轉、案件源源不絕的無盡城市！
       </div>
 
       <h3>🎯 核心體驗與玩家可做的事</h3>
       <ul>
         <li><strong>人不用真的到現場</strong>：玩家在電腦前用鍵盤或手機搖桿操作角色，在虛擬的台北市與新北市街頭奔馳，身歷其境。</li>
-        <li><strong>自主漫遊與生活</strong>：可以辦案，也可以完全不照主線走。跨區散步、搭乘公車、進店家吃小吃回體力、在事務所整理線索、或是坐在便利超商看雨景放空。</li>
+        <li><strong>自主漫遊與生活（動森式慢活）</strong>：可以辦案，也可以完全不照主線走。跨區散步、搭乘公車、進店家吃小吃回體力、在事務所整理線索相片、或是坐在便利超商看雨景放空。</li>
+        <li><strong>案件永不結束</strong>：遊戲內建 50 宗大案全景矩陣，並預留未來 AI 自動生成模組介面，打破「破完 4 個案子就沒得玩」的遺憾！</li>
+        <li><strong>不定時突發狀況</strong>：打破常規「接單再破案」，走進咖啡店用餐時，隔壁桌客人可能突然中毒，秒變柯南突發密室調查現場！</li>
         <li><strong>深度調查與科學解密</strong>：調查現場物件、訪問不同時段出沒的居民 NPC、比對時間線、解開經典物理化學機關，提交完整推理。</li>
-        <li><strong>案件有結局，世界無終點</strong>：破案後世界依然持續運作，玩家可繼續探索新街區、尋找隱藏彩蛋、或等待下一批案件分批發布。</li>
-        <li><strong>最核心設計原則</strong>：<strong>玩家自己決定下一站！</strong>教學不綁死順序，故事提供方向但不鎖死整座城市。每個可進入地點至少有一件值得做的事（一段知識、一個觀察、一個人物、一條線索或一個彩蛋）。</li>
+        <li><strong>最核心設計原則</strong>：<strong>玩家自己決定下一站！</strong>教學不綁死順序，故事提供方向但不鎖死整座城市。每個可進入地點至少有一件值得做的事。</li>
       </ul>
 
       <h3>👥 三人研究團隊詳細職責規劃</h3>
@@ -526,17 +543,17 @@
           <div class="team-name">世界觀設定、劇本與知識編寫</div>
           <div class="team-duty">
             • 統籌專案整體目標與進度。<br>
-            • 研讀《名偵探柯南》與《福爾摩斯》，改編經典物理/化學/密碼機關。<br>
+            • 研讀《名偵探柯南》、《福爾摩斯》與《口袋神探》，編寫 50 宗大案劇本，規劃未來 AI 案件提示詞工程。<br>
             • 編寫雙北生活圈委託、NPC 對話、破案後的「名著考據卡」與「微型知識講堂」文案，緊扣國小課綱。
           </div>
         </div>
         <div class="team-card">
           <div class="team-role">組員 2（美術與圖資總監）</div>
-          <div class="team-name">視覺風格、街區尺度與授權清單</div>
+          <div class="team-name">視覺風格、街區尺度與建築標記</div>
           <div class="team-duty">
             • 制定 45°~60° 3D 俯瞰視角立體街景美學與 2D 復古像素主角/NPC 造型。<br>
             • 考察真實雙北地理，使用 OpenStreetMap (OSM) 開放圖資建立 1:1 道路尺度與建築外觀。<br>
-            • 盤點圖資與圖片開源協議（ODbL），繪製在地小吃（阿給、排骨酥麵、珍奶）道具圖示。
+            • 繪製建築進出發光標記（門形 🚪、咖啡 ☕、小吃 🍜、超商 🏪、五金行 🛠️ 等）與小吃道具圖示。
           </div>
         </div>
         <div class="team-card">
@@ -544,27 +561,59 @@
           <div class="team-name">引擎架構、經濟平衡與 AI 協同</div>
           <div class="team-duty">
             • 規劃「3D 俯瞰街道 + 2D 像素小人」移動手感、手機觸控操作與鍵盤支援。<br>
-            • 建立真實大眾交通費率演算法（公車站牌段次緩衝區、捷運票價矩陣、YouBike 租借補助）。<br>
-            • 設計伺服器端「唯一首解原子鎖定」與資料表架構，為 AI（志炫等）提供規格並主導全班測試。
+            • 設計實體到店購買機制、大眾交通費率演算法（公車段次緩衝區、捷運票價矩陣、YouBike 補助）。<br>
+            • 設計伺服器端「唯一首解原子鎖定」、全服同步結束機制與未來 AI 自動生成案件資料格式（JSON Schema）。
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 02 & 02A｜雙北連續世界、1:1 地理與真實大眾交通費率建模 -->
+    <!-- 02 & 02A｜雙北連續世界、1:1 地理、建築進出圖案標記與大眾交通費率 -->
     <div class="card">
-      <h2>🏙️ 02 & 02A｜雙北連續世界、1:1 地理與真實大眾交通費率建模</h2>
+      <h2>🏙️ 02 & 02A｜雙北連續世界、1:1 地理、建築進出圖案標記與真實大眾交通費率建模</h2>
 
       <h3>1. 1:1 現實地理與無縫連續城市</h3>
       <p>
         雙北地圖以台北市與新北市的真實道路、橋梁、河川、行政區、公車站點、捷運站與相對距離為基礎。<strong>這是一座連續的城市，絕不把區域濃縮成幾個互不相連的關卡傳送門！</strong>
       </p>
       <ul>
-        <li><strong>沿道路跨區步行</strong>：即使穿越行政區界（例如台北市中正區跨越中正橋進入新北市永和區、或是跨越大漢溪進入板橋），玩家都能沿著現實街道步行前進，不得以行政區邊界限制玩家步行漫遊。</li>
-        <li><strong>圖資來源與開源合規</strong>：地圖底層採用 OpenStreetMap（OSM）道路與建物圖資，搭配政府交通開放資料平台（TDX/PTX）。嚴格遵守 ODbL 開源協議與署名規範，絕不未授權抓取商業街景或商業地圖磚。</li>
+        <li><strong>沿道路跨區步行</strong>：即使穿越行政區界（例如台北市中正區跨越中正橋進入新北市永和區、或是跨越大漢溪進入板橋），玩家都能沿著現實街道步行前進，完全不設行政區邊界空氣牆。</li>
+        <li><strong>圖資來源與開源合規</strong>：地圖底層採用 OpenStreetMap（OSM）道路與建物圖資，搭配政府交通開放資料平台（TDX/PTX）。嚴格遵守 ODbL 開源協議與署名規範。</li>
       </ul>
 
-      <h3>2. 公車為主，捷運、YouBike 與步行四軌並行</h3>
+      <h3>2. ★ 建築進出發光圖案標記系統（Enterable Building Markers）</h3>
+      <p>
+        在 1:1 龐大的雙北地圖中，建築物數以萬計。為了避免玩家盲目對著每棟房子碰壁撞牆，系統建立了直覺的<strong>視覺標示機制</strong>：
+      </p>
+      <div class="feature-grid">
+        <div class="feature-box">
+          <h4>🚪 可進入建築（上方顯示發光專屬 Icon）</h4>
+          <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:6px;">
+            凡是具備室內場景、可探索學習或互動的場所，建築大門上方會懸浮<strong>發光動態圖案標籤</strong>：
+          </p>
+          <ul style="font-size:13px; margin-bottom:0;">
+            <li><strong>🚪 門形標記</strong>：事務所基地、住宅公寓、地下街長廊入口</li>
+            <li><strong>☕ 咖啡杯</strong>：咖啡店（慢活、隨機觸發中毒突發事件）</li>
+            <li><strong>🍜 麵碗</strong>：小吃攤、食堂（吃飯補滿偵探精力值）</li>
+            <li><strong>🏪 便利商店</strong>：7-11/全家（實體購買電池、竹夾等現場耗材）</li>
+            <li><strong>🛠️ 板手螺絲</strong>：在地五金行、電子零件行（購買手電筒、紫外光燈）</li>
+            <li><strong>📚 書本</strong>：圖書館、書店（參與 1~3 分鐘微型知識講堂）</li>
+            <li><strong>🏛️ 神殿柱</strong>：博物館、古蹟展館（歷史探究、蓋紀念拓印章）</li>
+          </ul>
+          <p style="font-size:13px; color:var(--primary); font-weight:700; margin-top:8px; margin-bottom:0;">
+            👉 靠近時畫面會彈出 [E] 鍵提示（手機版為觸控點擊），即可推門走進室內！
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>🏢 不可進入建築（無任何圖案標示）</h4>
+          <p style="font-size:13.5px; color:var(--text-muted);">
+            一般的民宅大樓、辦公大樓與純街景建築，<strong>大門上方不會顯示任何圖案</strong>。<br><br>
+            這類建築作為寫實的 1:1 雙北街景 3D 外觀立面，玩家經過時不可穿透、不可進入，視覺一目了然，徹底防止迷茫碰壁！
+          </p>
+        </div>
+      </div>
+
+      <h3>3. 公車為主，捷運、YouBike 與步行四軌並行</h3>
       <table>
         <thead>
           <tr>
@@ -602,7 +651,7 @@
         </tbody>
       </table>
 
-      <h3>3. 時間、日夜與動態氣象雙軌制</h3>
+      <h3>4. 時間、日夜與動態氣象雙軌制</h3>
       <div class="feature-grid">
         <div class="feature-box">
           <h4>🌦️ 串接中央氣象署 API（自然科跨領域）</h4>
@@ -619,9 +668,18 @@
       </div>
     </div>
 
-    <!-- 03｜玩家遊玩流程：新手前 15 分鐘到長期探索循環 -->
+    <!-- 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘 -->
     <div class="card">
-      <h2>🔄 03｜玩家遊玩流程：新手前 15 分鐘到長期探索循環</h2>
+      <h2>🍃 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘</h2>
+
+      <div class="callout tip">
+        <div class="callout-title">🍃 像《動物森友會》一樣放鬆——不一定要一直破案！</div>
+        傳統推理遊戲常強迫玩家「被命案追著跑」，本遊戲打破限制：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>隨心漫遊的都會時光</strong>：你可以花一整天在淡水老街河岸散步吹風、坐在咖啡店戶外露天座看路人通勤、在超商喝珍奶看雨景。</li>
+          <li><strong>溫馨事務所基地</strong>：玩家<strong>也可以選擇整天待在自己的事務所/家裡放空</strong>！在房間裡泡茶聽收音機、更換衣櫃服裝、整理相片軟木板，享受無壓力的都會慢活生活。</li>
+        </ul>
+      </div>
 
       <h3>1. 新手的前 15 分鐘（零門檻上手）</h3>
       <ol>
@@ -640,155 +698,1160 @@
       <h3>2. 長期每一次遊玩的循環 (The Gameplay Loop)</h3>
       <div class="callout tip">
         <strong>【無限漫遊核心迴路】</strong>：<br>
-        自主選擇目的地或接案 ➔ 步行散步或搭乘公車/捷運 ➔ 抵達街區觀察街景、拍照、進館學習 ➔ 收集物件證詞並破解名著經典機關 ➔ 提交推理獲得原理解析、考據卡與獎金 ➔ 自由選擇去下一區、接下一案、或是回事務所裝飾房間泡茶慢活。
+        自主選擇目標或閒逛 ➔ 步行散步或搭乘公車/捷運 ➔ 抵達街區觀察街景、拍照、進館學習 ➔ 收集物件證詞並破解名著經典機關 ➔ 提交推理獲得原理解析、考據卡與獎金 ➔ 自由選擇去下一區、接下一案、或是回事務所裝飾房間泡茶慢活。
       </div>
-      <ul>
-        <li><strong>案件任務有始有終，城市生活永不停歇</strong>：主線大案有明確的真相調查與收尾；但雙北城市的街道、商店、小委託與學習館舍永不落幕。</li>
-        <li><strong>已結案共享案件轉為回顧</strong>：已被全服首解的案件自動歸檔為「歷史不計分檔案」，後續玩家仍可體驗劇情但無法重複領首解大獎，世界持續運轉！</li>
-      </ul>
     </div>
 
-    <!-- 04｜案件、線索簿與四大名著機關（嚴謹科學與史實糾錯升級版） -->
+    <!-- 04｜案件體系重大擴充：50 宗大案全景矩陣、10 大精選深度案例與 AI 案件生成模組 -->
     <div class="card">
-      <h2>🔍 04｜案件、線索簿與四大名著機關（嚴謹科學與史實糾錯升級版）</h2>
+      <h2>🔍 04｜案件體系重大擴充：50 宗大案全景矩陣、10 大精選深度案例與 AI 案件生成模組</h2>
+      
       <p>
-        在雙北各名勝現場調查時，會觸發精心設計的原創機關。成功破案後，畫面會彈出充滿成就感的<strong>【名著考據解密卡】</strong>，介紹小說出處、科學物理化學原理與雙北文史結合：
+        本遊戲絕非「只有 4 個案件、通關就結束」的封閉小遊戲！我們預設規劃了<strong>完整的 50 宗雙北推理案件庫全景矩陣</strong>，涵蓋名著經典致敬、中小學自然科學課綱原理、與雙北 29 個行政區在地文史：
       </p>
 
+      <h3>📋 50 宗雙北推理案件全景矩陣表（點擊可展開對照）</h3>
+      <div style="overflow-x:auto; max-height:480px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; margin:16px 0;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:10%;">編號</th>
+              <th style="width:25%;">案件名稱與類型</th>
+              <th style="width:20%;">雙北真實舞台</th>
+              <th style="width:25%;">致敬作品與科學原理</th>
+              <th style="width:20%;">核心案件梗概</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-01</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">西門町連鎖咖啡店拿鐵中毒案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">西門町成都路連鎖咖啡店</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>名偵探柯南經典咖啡廳密室</strong><br>
+        <span style="color:#0284c7;">【科學原理】有機生物鹼毒性、咖啡酸鹼值與色層沉澱分析</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">玩家在咖啡店吃早餐時，鄰桌商務客突發抽搐倒下，杯緣散發苦杏仁味，現場封鎖限時排查四名在場嫌疑人。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-02</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北車站三鐵連通長廊水力延時案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北車站地下街至高鐵轉乘處</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南〈霧天狗傳說〉與建築聲學</strong><br>
+        <span style="color:#0284c7;">【科學原理】虹吸管蓄水定時傾倒機關與長廊多重回聲反射定位</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">嫌犯自製虹吸水力重力機關延遲 30 分鐘傾倒巨響製造不在場證明，比對監視器水漬時間戳與聲速破案。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-03</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">西門町超商冷藏櫃隱形指紋竊案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">西門町漢中街便利商店</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》艾小坡科學推理</strong><br>
+        <span style="color:#0284c7;">【科學原理】低溫水氣凝結光學折射與紫外螢光墨水反應</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">高價進口洋芋片限量卡在冷藏櫃旁失竊，利用低溫玻璃上的凝結水氣指紋殘留與便攜紫外燈鎖定嫌犯。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-04</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">捷運板南線末班車急煞調包案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">捷運台北車站往忠孝復興車廂</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》慣性物理案件</strong><br>
+        <span style="color:#0284c7;">【科學原理】牛頓第一運動定律（慣性）、列車加速度與重心力學</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">末班車突發緊急煞車，全車乘客向前傾倒，總裁皮夾離奇消失，比對乘客站位重心與抓握扶手痕跡破案。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-05</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">大稻埕百年中藥鋪消失的人蔘</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">迪化街南北貨百年藥行</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈銀色馬〉與盲點心理學</strong><br>
+        <span style="color:#0284c7;">【科學原理】等臂中藥天平原理、假砝碼重心偏置與浮力補償</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">鎖在玻璃櫃的頂級野山蔘無破損失竊，調查發現嫌犯巧妙改裝天平銅砝碼內嵌鉛塊，利用重量誤差偷天換日。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-06</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">雙北 307 公車急煞皮夾調包案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">307 公車行經南京東路段</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》慣性與視線盲區</strong><br>
+        <span style="color:#0284c7;">【科學原理】車輛轉彎離心力、動量守恆與手指相對運動錯覺</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">玩家搭公車前往下個現場時，前方乘客皮夾被偷，嫌犯利用公車左轉離心力將皮夾順勢滑入同夥背包。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-07</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">中山地下書街手稿古籍密碼案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">中山地下街誠品書街</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈跳舞的人〉變體密碼</strong><br>
+        <span style="color:#0284c7;">【科學原理】維吉尼亞密碼（Vigenère Cipher）與書籍開本頁碼對照</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">珍本古籍夾層留下一組神秘書名代碼，以雙北捷運站名作為金鑰字元解鎖隱藏在書架後方的文史筆記。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-08</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">信義區百貨專櫃珠寶玻璃反射謎案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">市府站信義新天地珠寶專櫃</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南鏡面視覺假象與全反射</strong><br>
+        <span style="color:#0284c7;">【科學原理】平面鏡多次反射成像、視差角度與偏光鏡片消除反光</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">展示櫃中名貴鑽戒在眾人眼前消失，嫌犯利用兩面 45 度偏光鏡片與燈光角度製造展櫃依然完好的光學假象。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-09</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北市役所老檔案室藍晒圖顯影案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北市政府舊廈歷史檔案館</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南光敏化學反應密室</strong><br>
+        <span style="color:#0284c7;">【科學原理】氰版照相法（Cyanotype）、鐵鹽光化學還原與紫外光照射</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">日治時期防空避難密道圖被塗白隱匿，玩家使用雙氧水稀釋液與紫外線燈照射使普魯士藍重新顯影還原古地圖。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-10</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">大稻埕霞海城隍廟香爐紅線暗號案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">大稻埕霞海城隍廟前廣場</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈紅髮會〉地道暗記</strong><br>
+        <span style="color:#0284c7;">【科學原理】古法打結記事密碼（結繩記事）與天干地支經緯度映射</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">廟前香爐石雕被繫上五條不同打結長度的姻緣紅線，結合大稻埕五進式街屋進深比例找出走私暗門座標。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-11</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">淡水海關碼頭跳舞小人航海磚案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">淡水海關碼頭與紅毛城歷史園區</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈跳舞的人〉經典密碼</strong><br>
+        <span style="color:#0284c7;">【科學原理】單表替換式密碼（Substitution Cipher）與字母頻率分析</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">碼頭石壁刻有 26 塊跳舞小人符號，結合 1860 年代海關航海日誌頻率分析解鎖暗格，起獲百年航海懷錶。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-12</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">淡水阿給老店神秘配方調味罐案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">淡水渡船頭老字號阿給食堂</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》浮力與比重原理</strong><br>
+        <span style="color:#0284c7;">【科學原理】液體密度、浮力定律（阿基米德原理）與糖水鹽水飽和比重</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">阿給特調醬汁配方被鎖在浮力暗箱中，嫌犯調換了醬油與高糖甜辣醬，玩家利用比重計量測液體密度破案。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-13</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">淡水紅毛城英國領事館旗語密碼案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">淡水紅毛城草坪旗桿處</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈海軍協定〉軍事密碼</strong><br>
+        <span style="color:#0284c7;">【科學原理】國際海事信號旗語（Semaphore Flags）與角度象限編碼</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">老旗手遺留的油畫中旗幟懸掛角度異常，依海事旗語字母表解密出埋藏在古砲台基座下的英商保險箱密碼。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-14</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">龍山寺後巷夜市老攤假鈔偽造案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">艋舺龍山寺後方廣州街夜市</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南紫外光鑑識與防偽科技</strong><br>
+        <span style="color:#0284c7;">【科學原理】光學變色油墨、微縮文字、螢光絲光學光譜與紙張含棉比</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">夜市香腸攤收到千元假鈔，使用紫外光燈檢測防偽螢光纖維與透光浮水印，於人潮中指認慣犯。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-15</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">剝皮寮歷史街區失傳藥籤暗語案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">艋舺剝皮寮歷史街區藥材行</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈四簽名〉古文字暗號</strong><br>
+        <span style="color:#0284c7;">【科學原理】古文藏頭詩排列陣列（微型矩陣解密）與本草綱目分類法</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">清代藥籤看似普通治病藥單，將各藥材第一字按陰陽五行相生順序相連，得出古街木屋梁柱暗格藏匿點。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-16</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">淡水老街紅磚防空洞黑貓腳印案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">淡水老街後方防空洞入口</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》泥土酸鹼指示劑</strong><br>
+        <span style="color:#0284c7;">【科學原理】土壤 pH 值檢測、花青素酸鹼變色反應與地質岩層特徵</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">黑貓阿巧身上沾附特殊紅土，利用紫甘藍萃取液檢測土壤酸鹼度，比對淡水紅樹林泥灘與觀音山土質鎖定失物。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-17</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">艋舺青山宮暗夜鐘聲不在場證明案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">萬華貴陽街青山宮古鐘樓</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南鐘樓延時機關手法</strong><br>
+        <span style="color:#0284c7;">【科學原理】重力滑輪阻尼平衡、冰塊融化水重力釋放與音波傳導</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">深夜古鐘鳴響製造在廟中參拜證明，調查發現嫌犯在鐘錘綁上大冰塊，利用冰塊在 20 度常溫融化斷重敲響古鐘。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-18</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">滬尾偕醫館百年聽診器藏寶案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">淡水馬偕街滬尾偕醫館</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈藍寶石案〉物件深層藏匿</strong><br>
+        <span style="color:#0284c7;">【科學原理】固體傳聲共鳴率、金屬空洞聲波反饋與聽診器聲學放大</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">戴上馬偕博士古董聽診器輕敲診間檜木屏風，依聲音清脆與沉悶反饋定位木柱內部空洞取出藏寶捲軸。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-19</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北府城北門石額投影測量案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北府城北門（承恩門）廣場</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈馬斯格雷夫禮儀〉幾何</strong><br>
+        <span style="color:#0284c7;">【科學原理】相似三角形原理（物高/影長比）、日影真太陽時角與日晷</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">北門城樓石額在正午投影於紅磚地面，依測量竿長影比計算出光斑焦點，挖出清代建城紀念鉛字條。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-20</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">迪化街布莊褪色染布偷天換日案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">大稻埕迪化街一段傳統布行</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南酸鹼中和與氧化還原化學</strong><br>
+        <span style="color:#0284c7;">【科學原理】天然植物染料（藍靛）氧化還原變色與檸檬酸酸鹼反應</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">展示的珍貴藍染布匹被噴灑還原劑褪色藏毒，使用稀釋雙氧水棉花棒擦拭促使其接觸氧氣重新顯現深藍花紋。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-21</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">北投溫泉老旅店空白遺書熱敏案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">北投溫泉博物館旁老旅店湯屋</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>名偵探柯南理科加熱顯影密室</strong><br>
+        <span style="color:#0284c7;">【科學原理】弱有機酸（檸檬酸）受熱脫水炭化變黑與安全溫控防護</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">現場留有空白信紙，用防熱竹夾置於安全溫控蒸氣槽烘烤，紙張纖維脫水炭化浮現出銀行保險箱號碼。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-22</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">北投硫磺谷測溫計水銀異常案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">北投硫磺谷地熱景觀區</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》熱脹冷縮熱力學</strong><br>
+        <span style="color:#0284c7;">【科學原理】熱膨脹係數、水銀毛細管刻度詐術與氣壓對沸點影響</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">導覽員的特殊高溫溫度計讀數異常導致地熱步道誤封閉，發現水銀柱上方被注入微量酒精製造膨脹讀數灌水。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-23</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">士林科教館鏡面迷宮消失的雷射光筆</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">國立台灣科學教育館光學展廳</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南平面鏡反射光學迷宮</strong><br>
+        <span style="color:#0284c7;">【科學原理】光的直線傳播、反射定律（入射角等於反射角）與多次成像</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">高精度展品光筆在四面鏡密室中失竊，嫌犯利用兩面平面鏡夾角全反射引導雷射光束騙過紅外線防盜警報器。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-24</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">陽明山竹子湖花田雨後消失的花苗</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">陽明山竹子湖海芋步道</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯鞋印步態與泥土重量分析</strong><br>
+        <span style="color:#0284c7;">【科學原理】接觸面積與壓強（P=F/A）、泥土承載力與步行步幅計算</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">稀有繡球花苗連夜被掘，現場鞋印極淺卻步幅寬大，推算出嫌犯穿著充氣平底膠鞋以分散壓強不留深印。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-25</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">北投溫泉博物館羅馬浴場回音壁案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">北投溫泉博物館大浴池展廳</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南橢圓聲學聚集焦點手法</strong><br>
+        <span style="color:#0284c7;">【科學原理】橢圓幾何反射聚焦（Whispering Gallery）、聲波反射定律</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">嫌犯站在大浴池一角低語卻被數十米外另一角的目擊者清晰聽見，利用羅馬拱頂橢圓雙焦點聲學證明供詞真實性。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-26</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">貓空纜車站夜間螢火蟲光斑之謎</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">貓空纜車指南宮站步道</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》生物發光與蓄光物質</strong><br>
+        <span style="color:#0284c7;">【科學原理】螢光素酵素化學發光 vs 硫化鋅蓄光材料夜光衰減曲線</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">遊客宣稱在冬季看見發光螢火蟲群，比對發光光譜與亮度半衰期，揭穿嫌犯沿路塗抹夜光漆標記偷獵陷阱。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-27</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">士林天文館星象儀天球刻度案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北市立天文科學教育館天象劇場</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯黃道十二宮星座密碼</strong><br>
+        <span style="color:#0284c7;">【科學原理】天球座標系（赤經與赤緯）、地球自轉歲差與季節星座</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">星象儀投影底片被微調 15 度，校正台北經緯度（北緯 25 度）的北極星高度角，還原隱藏在獵戶座腰帶的藏寶坐標。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-28</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">北投地熱步道安全護欄遭腐蝕案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">北投地熱谷木棧道溫泉湧出口</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南金屬應力腐蝕與化學防範</strong><br>
+        <span style="color:#0284c7;">【科學原理】硫化氫氣體腐蝕、青磺泉硫酸鹽強酸性與金屬置換反應</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">防護欄螺絲斷裂險生意外，檢驗螺絲斷面發現有人刻意淋上濃鹽酸加速原有的硫化腐蝕，採集殘留氯離子破案。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-29</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">陽明山小油坑噴氣孔通風密室案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">陽明山國家公園小油坑遊憩區</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南氣體密度與熱對流手法</strong><br>
+        <span style="color:#0284c7;">【科學原理】二氧化硫與空氣密度比重、熱空氣上升與局部氣體窒息</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">封閉涼亭內有人昏迷，嫌犯利用小油坑地熱噴氣口下方導管引流密度大於空氣的二氧化硫，比對地道閥門破案。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-30</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">士林夜市冰淇淋融化速率之謎</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">士林夜市大南路甜品攤位</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》比熱容與鹽巴冰點下降</strong><br>
+        <span style="color:#0284c7;">【科學原理】凝固點下降原理（Freezing Point Depression）、鹽冰混合物</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">嫌犯宣稱案發時在排隊買冰淇淋，但手中的冰淇淋在 30 度常溫下 20 分鐘未化，發現保溫杯底加了食鹽碎冰保溫造假。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-31</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">板橋林家花園秋分漏窗日影案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">國定古蹟板橋林本源園邸方鑑齋</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈馬斯格雷夫禮儀〉日影幾何</strong><br>
+        <span style="color:#0284c7;">【科學原理】秋分太陽方位角與高度角方程式、相似三角形定理、日影投影</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">古詩暗示秋分午後陽光穿過八角漏窗，幾何推算日影投射於方鑑齋假山暗縫精確焦點，取出清代銅鑰匙。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-32</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">板橋車站高鐵月台行李箱誤拿懸案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">板橋車站地下高鐵北上月台</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南三位數轉輪密碼鎖機械原理</strong><br>
+        <span style="color:#0284c7;">【科學原理】齒輪棘爪咬合卡榫聲音反饋、旋轉阻力與排列組合數學</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">外觀完全相同的黑色行李箱被調包，利用盲聽轉輪旋轉到缺口時的微弱聲響（手感微阻力）破解密碼取回重要文件。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-33</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">新莊廟街百年製鼓廠共振碎杯案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">新莊廟街老字號響仁和製鼓工藝館</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》聲波固有頻率共振</strong><br>
+        <span style="color:#0284c7;">【科學原理】聲波頻率、固有共振頻率（Resonance）與薄壁玻璃杯極限</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">展示廳名貴水晶杯在深夜無人觸碰下震碎，嫌犯利用低頻大鼓音頻發射器調至 520Hz 共振頻率震裂杯身行竊。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-34</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">中和華新街南洋香料迷昏案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">中和華新街（緬甸街）南洋奶茶館</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南天然植物鹼麻醉與解毒</strong><br>
+        <span style="color:#0284c7;">【科學原理】肉豆蔻醚（Myristicin）過量神經麻醉性與香料萃取分析</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">店員喝下特調奶茶後陷入幻覺沉睡，檢驗研磨罐發現肉豆蔻粉被過量混入咖哩粉中，藉此盜取收銀機現款。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-35</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">三重空軍一村防空洞神秘電報聲</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">新北市眷村文化園區空軍一村地下甬道</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯摩斯電碼頻率分析</strong><br>
+        <span style="color:#0284c7;">【科學原理】摩斯電碼（Morse Code）、音波頻譜分析與電磁蜂鳴器</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">眷村防空洞深處夜間發出規律滴答聲，錄音放慢解析出為短長信號組成的經緯度，破獲藏匿於老眷舍屋頂的贓物。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-36</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">板橋府中商圈手機螢幕偏光膜案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">板橋府中商圈重慶路行人徒步區</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》光學偏振原理</strong><br>
+        <span style="color:#0284c7;">【科學原理】光波橫波性質、偏光片 90 度正交消光與液晶顯示原理</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">受害者手機螢幕呈現一片全白看似損壞，戴上 3D 偏光太陽眼鏡後立即看見螢幕正中央被嫌犯留下的勒索訊息。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-37</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">新北大都會公園鴨母港水質變色案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">新北大都會公園辰光橋水岸</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南酸鹼指示劑沉澱反應</strong><br>
+        <span style="color:#0284c7;">【科學原理】酚酞與石灰水鹼性反應、二氧化碳中和褪色與水質濁度</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">溪流水面突然泛出大片紫紅色引發恐慌，化驗為鹼性無毒酚酞水溶液，並透過吹入二氧化碳使紅色褪去平息風波。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-38</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">永和世界豆漿大王碗底刮痕之謎</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">永和區永和路世界豆漿大王總店</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯左撇子慣用手痕跡推理</strong><br>
+        <span style="color:#0284c7;">【科學原理】力矩方向、湯匙摩擦順時針/逆時針幾何痕跡與慣用手力學</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">深夜豆漿碗底留下獨特向右傾斜的刮痕，結合調閱嫌疑人拿油條的慣用左手習慣，當場戳破假不在場證明。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-39</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">新莊中港大排夜間浮標漂流案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">新莊中港大排彩虹積木親水步道</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》表面張力與流水流速</strong><br>
+        <span style="color:#0284c7;">【科學原理】水流表面層流速度、肥皂清潔劑破壞表面張力之加速前進</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">嫌犯自製微型木舟運載贓物順流而下，在水流緩慢處倒入洗碗精利用馬蘭戈尼效應（Marangoni effect）加速漂流。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-40</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">板橋林家花園方鑑齋水榭倒影案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">板橋林本源園邸方鑑齋戲台水池</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯凹面鏡聚焦光學</strong><br>
+        <span style="color:#0284c7;">【科學原理】水面平靜反射、凹面石壁聲波聚音與戲台共鳴箱原理</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">戲台演員對面水榭屏風突然起火，調查發現對岸涼亭裝飾銅鏡凹面在特定角度將午後夕陽聚焦於乾枯錦旗點燃。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-41</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">大安森林公園雨夜泥地無腳印案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">大安森林公園生態水池旁泥濘草地</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯〈血字的研究〉壓強推理</strong><br>
+        <span style="color:#0284c7;">【科學原理】壓強公式（P=F/A）、雪靴大底接地面積分散重量與草葉彈性</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">泥濘地面無任何下陷腳印，嫌犯穿著綁上特製輕質寬木板的鞋子大幅增加受力面積，不留下任何凹陷印痕。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-42</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台灣大學醉月湖水面浮油光譜案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">國立台灣大學校總區醉月湖畔</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南薄膜干涉彩虹光譜</strong><br>
+        <span style="color:#0284c7;">【科學原理】光的薄膜干涉（Thin-film Interference）、油膜厚度與波長</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">湖面浮現五彩斑斕油膜掩蓋丟棄的鑰匙，由彩虹條紋顏色間距精確推算出機油洩漏厚度與入水第一時間點。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-43</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北市立動物園大貓熊館溫度計詐術</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">木柵台北市立動物園新光特展館</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》酒精蒸發吸熱致冷原理</strong><br>
+        <span style="color:#0284c7;">【科學原理】揮發性液體蒸發吸熱、感溫探頭外裹浸濕酒精棉球</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">貓熊館恆溫警報大作，調查發現有人在感溫器貼上酒精濕紙巾，利用通風扇加速揮發吸熱使溫度計暴跌 10 度。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-44</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北田徑場百米終點電子計時異常案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北田徑場終點線光電門裁判席</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南光電感應遮斷計時機關</strong><br>
+        <span style="color:#0284c7;">【科學原理】紅外線光電遮斷傳感器、煙火微煙粒子散射與毫秒誤差</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">田徑賽成績出現 0.05 秒異常延遲，發現看台有人用手持乾冰噴出微細白煙散射紅外光束，干擾電子眼計時判定。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-45</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">公館水源市場電子磅秤短少之謎</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">公館水源市場生鮮水產攤位</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》強磁鐵力矩平衡詐術</strong><br>
+        <span style="color:#0284c7;">【科學原理】磁場力學、強釹鐵硼磁鐵對稱吸附、電子傳感器磁阻效應</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">海鮮稱重總有偷斤減兩嫌疑，在秤盤下方摸出一塊強力磁鐵，利用磁力拉動鐵質金屬支架增加重量讀數。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-46</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">松山文創園區老倉庫密室通風扇案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">松山文創園區 2 號倉庫後方</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南氣壓差與百葉窗機械鎖</strong><br>
+        <span style="color:#0284c7;">【科學原理】伯努利定律（流速大壓強小）、負壓抽風機關與百葉窗卡榫</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">展品在反鎖的倉庫內失竊，嫌犯開啟屋頂大型抽風機製造瞬間室內負壓，帶動氣動門栓彈開完成無痕密室出入。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-47</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">華山文創大草皮風箏線割斷之謎</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">華山 1914 文創園區大草坪</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>福爾摩斯摩擦力與高抗拉纖維剪切</strong><br>
+        <span style="color:#0284c7;">【科學原理】凱芙拉（Kevlar）高抗拉纖維、摩擦力與局部壓強剪切</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">空拍無人機突然墜落，機翼纏繞極細隱形線，透過斷裂纖維顯微切口證實為塗有金剛砂的特種風箏線蓄意破壞。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-48</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北當代藝術館紫外光暗房失竊案</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北當代藝術館（MOCA）暗房特展室</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南螢光光譜與光化學反應</strong><br>
+        <span style="color:#0284c7;">【科學原理】紫外光激發螢光、長餘輝磷光材料與紅外線夜視攝像頭</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">暗房中名畫被調包，嫌犯穿著塗有紅外吸收塗料的黑衣，利用展廳紫外黑光燈的激發波長盲區避開安檢。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-49</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">師大夜市鹽酥雞油鍋定時蜂鳴器案</strong><br>
+        <span style="font-size:12px; color:#dc2626; font-weight:700;">● 突發事件 (Dynamic Event)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">師大夜市龍泉街排隊鹹酥雞攤位</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>《口袋神探》雙金屬片熱膨脹溫度開關</strong><br>
+        <span style="color:#0284c7;">【科學原理】雙金屬片膨脹率差異彎曲導電、食用油沸點與熱傳導</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">攤位計時器突然在油溫 180 度精準爆響製造混亂，檢查發現計時開關採用了熱敏雙金屬片遇高溫自動彎曲接通電路。</td>
+    </tr>
+    
+
+    <tr>
+      <td style="font-weight:700; color:#1e293b;">CASE-50</td>
+      <td>
+        <strong style="font-size:14.5px; color:#0f172a;">台北 101 大樓風阻尼球共振力學之謎</strong><br>
+        <span style="font-size:12px; color:#1d4ed8; font-weight:700;">● 全服共享競速 (Shared Speedrun)</span>
+      </td>
+      <td style="font-size:13.5px; color:#334155;">台北 101 大樓 87-92 樓阻尼器觀景台</td>
+      <td style="font-size:13px; color:#475569;">
+        <strong>柯南高空重錘擺動與物理力學</strong><br>
+        <span style="color:#0284c7;">【科學原理】調諧質量阻尼器（Tuned Mass Damper）、共振週期與反向阻尼</span>
+      </td>
+      <td style="font-size:13px; color:#334155;">地震演習時重達 660 噸的巨大阻尼球纜繩發出異響，發現底座液壓緩衝閥被鎖定，利用擺錘週期計算修復阻尼器。</td>
+    </tr>
+    
+          </tbody>
+        </table>
+      </div>
+
+      <h3>🌟 10 大精選深度案例完整檔案（含致敬、科學考據與在地結合）</h3>
+      <p style="font-size:14px; color:var(--text-muted);">
+        以下 10 宗案件為第一期深度實裝之核心案例，每宗皆具備完整現場搜查、科學/物理/化學原理考據與名著解析卡：
+      </p>
       <div class="case-container">
-
-        <!-- 案例 1：淡水跳舞小人 -->
-        <div class="case-card holmes">
-          <div class="case-header">
-            <div class="case-title">
-              <span>🏰</span> 案例 1：淡水港文史主題場景 ——「跳舞小人密碼磚」
-            </div>
-            <span class="case-badge badge-holmes">致敬：福爾摩斯探案集</span>
-          </div>
-          <div class="case-body">
-            <div class="case-section">
-              <div class="case-label">📍 調查舞台：</div>
-              淡水老街與海關碼頭歷史場景（<strong>★ 史實嚴謹標註</strong>：淡水紅毛城古蹟實體並無地下秘密地牢暗室，本案為結合淡水開港文史之虛構主題場景改編，避免誤導學生）。
-            </div>
-            <div class="case-section">
-              <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              石壁上刻有 26 塊不同姿態的火柴小人符號（手持旗幟者代表單詞結尾）。玩家調閱淡水海關公署遺留的英文航海日誌，使用「英文字母頻率分析（E 最常出現）」結合單字上下文替換破解密碼磚，解鎖暗格獲得百年航海懷錶。
-            </div>
-            <div class="codex-card">
-              <div class="codex-header">📜 【破案解密考據卡：柯南·道爾《跳舞的人》】</div>
-              • <strong>原著出處</strong>：亞瑟·柯南·道爾 1903 年《福爾摩斯探案集：歸來記》之〈跳舞的人〉（The Adventure of the Dancing Men）。<br>
-              • <strong>密碼學原理</strong>：單表替換式密碼（Substitution Cipher）與字母頻率分析法。<br>
-              • <strong>在地文史結合</strong>：淡水港於 1862 年正式開港通商，曾設英國領事館，具有濃厚 19 世紀海洋貿易文史背景。
-            </div>
-          </div>
+        
+    <div class="case-card conan">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-01：西門町連鎖咖啡店拿鐵中毒案
         </div>
-
-        <!-- 案例 2：北投溫泉顯影 -->
-        <div class="case-card conan">
-          <div class="case-header">
-            <div class="case-title">
-              <span>♨️</span> 案例 2：北投溫泉會館 —— 蒸氣加熱「弱酸脫水顯影遺書」
-            </div>
-            <span class="case-badge badge-conan">致敬：名偵探柯南</span>
-          </div>
-          <div class="case-body">
-            <div class="case-section">
-              <div class="case-label">📍 調查舞台：</div>
-              北投溫泉博物館旁的虛構老字號旅店湯屋（<strong>★ 現實安全警語</strong>：北投天然青磺泉高達 80°C~100°C 具危險性，嚴禁在現實中靠近高溫湧泉槽或進行危險化學模仿）。
-            </div>
-            <div class="case-section">
-              <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              案發現場留下一張空白泛黃信紙。玩家使用道具「防熱竹夾」將紙張置於安全溫控蒸氣上方微溫烘烤，紙張上的稀有機酸（檸檬酸）受熱脫水，使纖維素炭化變褐，浮現出保管箱密碼。
-            </div>
-            <div class="codex-card">
-              <div class="codex-header">📜 【破案解密考據卡：柯南理科加熱顯影與有機化學】</div>
-              • <strong>原著出處</strong>：《名偵探柯南》經典理科密室（如第 74 卷「毒與幻的設計」、早期加熱顯影手法）。<br>
-              • <strong>科學原理糾錯</strong>：<strong>嚴格鎖定單一可驗證之弱酸高溫脫水炭化反應</strong>，不把酸、氯化鈷吸水變色與硫磺氣體混為一談。<br>
-              • <strong>在地特色</strong>：北投為天然地熱溫泉之鄉，以此場景引導學生認識地熱能源與生活有機化學。
-            </div>
-          </div>
+        <span class="case-badge badge-conan">致敬：名偵探柯南經典咖啡廳密室</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          西門町成都路繁忙連鎖咖啡店二樓（可進入建築標記：☕ 咖啡杯）
         </div>
-
-        <!-- 案例 3：台北車站水力延時聲學 -->
-        <div class="case-card conan">
-          <div class="case-header">
-            <div class="case-title">
-              <span>🚇</span> 案例 3：台北車站地下街 —— 水力虹吸延時「不在場證明」
-            </div>
-            <span class="case-badge badge-conan">致敬：名偵探柯南 & 經典本格推理</span>
-          </div>
-          <div class="case-body">
-            <div class="case-section">
-              <div class="case-label">📍 調查舞台：</div>
-              台北車站三鐵共構連通長廊與地下街通道。
-            </div>
-            <div class="case-section">
-              <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              嫌犯利用虹吸管與水桶製成水力重力延時裝置，在案發 30 分鐘後蓄水滿溢倒塌製造巨響，利用長廊多重聲音反射使目擊者誤判案發時間製造不在場證明。玩家比對地下街監視器時間戳與物理聲學破案。
-            </div>
-            <div class="codex-card">
-              <div class="codex-header">📜 【破案解密考據卡：柯南〈霧天狗傳說〉與建築聲學糾錯】</div>
-              • <strong>原著出處</strong>：《名偵探柯南》動畫第 52 集〈霧天狗傳說殺人事件〉（水流蓄力延遲手法）。<br>
-              • <strong>★ 關鍵科學糾錯</strong>：
-                <strong>造成 30 分鐘不在場證明的是「水力虹吸裝置延遲 30 分鐘傾倒」</strong>，絕非聲波在長廊傳播花了 30 分鐘（空氣聲速約 340 m/s，300 公尺長廊不到 0.9 秒即抵達！）。長廊水泥壁的多次回聲反射在案情中是負責「混淆發聲方向」，使證人無法精準判別聲源位置。<br>
-              • <strong>物理學原理</strong>：流體虹吸原理（Siphon Principle）與建築聲學回聲反射（Acoustic Reflection）。
-            </div>
-          </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【突發觸發】玩家在咖啡店用餐休息或路過時，隔壁桌商務客突然痛苦抽搐倒地，杯中熱拿鐵散發出淡淡杏仁苦味。店家立即拉下鐵捲門封鎖現場，啟動 25 分鐘限時突發破案！
         </div>
-
-        <!-- 案例 4：板橋日影幾何投影 -->
-        <div class="case-card holmes">
-          <div class="case-header">
-            <div class="case-title">
-              <span>🏮</span> 案例 4：板橋林家花園 —— 八角漏窗「秋分日影幾何投影」
-            </div>
-            <span class="case-badge badge-holmes">致敬：福爾摩斯探案集</span>
-          </div>
-          <div class="case-body">
-            <div class="case-section">
-              <div class="case-label">📍 調查舞台：</div>
-              國定古蹟板橋林本源園邸（汲古書屋與方鑑齋）。
-            </div>
-            <div class="case-section">
-              <div class="case-label">⚙️ 機關形式與玩家互動：</div>
-              古詩記載「秋分午後，八角漏窗見金光」。玩家調整遊戲內幾何量測儀，根據秋分太陽高度角（35°）與相似三角形比例，計算日影投影至假山暗縫的焦點，找出暗藏的古銅鑰匙。
-            </div>
-            <div class="codex-card">
-              <div class="codex-header">📜 【破案解密考據卡：福爾摩斯〈馬斯格雷夫禮儀〉與幾何光學糾錯】</div>
-              • <strong>原著出處</strong>：柯南·道爾《福爾摩斯探案集：回憶錄》之〈馬斯格雷夫禮儀〉（The Musgrave Ritual）。<br>
-              • <strong>★ 關鍵光學糾錯</strong>：
-                光線穿過八角漏窗投在牆面上是<strong>「日影幾何投影 (Shadow Projection)」</strong>；水池水面映射是<strong>「反射 (Reflection)」</strong>，兩者皆非「折射 (Refraction)」。<br>
-              • <strong>數學幾何原理</strong>：相似三角形定理（物高比影長）與日影高度角幾何方程式。
-            </div>
-          </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          現場共有四名嫌疑人：同桌客戶、外送員、咖啡師與鄰桌大學生。玩家需調閱咖啡機水質測試紙、檢查外帶紙杯杯口壓紋、化驗方糖包完整性，並使用手機色層分析 App 比對拿鐵奶泡沉澱物，找出毒物並非來自咖啡師，而是同桌客戶借遞方糖時以指甲暗藏粉末投入！
         </div>
-
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：柯南咖啡密室與有機生物鹼化學檢驗】</div>
+          • <strong>原著出處</strong>：青山剛昌《名偵探柯南》早期經典餐廳與咖啡廳下毒密室案件。<br>
+          • <strong>科學物理化學原理</strong>：有機生物鹼毒性與酸鹼溶解度、薄層色層分析法（TLC）與蛋白質沉澱化學反應。<br>
+          • <strong>雙北在地文史結合</strong>：西門町為雙北年輕人與商務客匯集之地，連鎖咖啡店林立，此案真實呈現都會突發危機處置。
+        </div>
       </div>
     </div>
+    
 
-    <!-- 04A｜共享世界體系：全服唯一首解、案件生命週期與競速機制 -->
-    <div class="card">
-      <h2>🌐 04A｜共享世界體系：全服唯一首解、案件生命週期與競速機制</h2>
-
-      <div class="callout purple">
-        <div class="callout-title">🏆 一案只有一個結局與唯一首解！</div>
-        所有玩家登入同一個持續運轉的雙北城市。每起重大案件在雲端伺服器均有全服同步的<strong>生命週期狀態</strong>：
-        <div style="font-weight:700; margin-top:6px; color:#5b21b6;">
-          【未公布】 ➔ 【分批公開】 ➔ 【可接 / 全服競速調查中】 ➔ 【首解破案 / 限時到期】 ➔ 【結案歸檔 (轉為不計分回顧)】
+    <div class="case-card conan">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-02：台北車站三鐵連通長廊水力延時案
+        </div>
+        <span class="case-badge badge-conan">致敬：名偵探柯南〈霧天狗傳說〉與建築聲學</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          台北車站地下街至高鐵轉乘處 300 公尺封閉長廊（可進入建築標記：🚪 門形）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【全服公告】台北車站地下街深夜驚傳巨大撞擊聲，嫌犯宣稱當時自己在 300 公尺外的超商購物有發票為證，全服警報發布，所有在線偵探同步接獲線報！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          玩家調查封閉通道、蓄水水桶與天花板軟管，發現嫌犯利用虹吸管與密閉水桶製成「帕斯卡水力重力延時機關」，在案發 30 分鐘後蓄水滿溢失衡倒塌重擊鐵門製造巨響！長廊光滑水泥壁造成的多次回聲反射混淆了證人對聲源方位的判斷。比對監視器水漬時間戳徹底粉碎不在場證明。
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：柯南〈霧天狗傳說〉水力延時與建築聲學糾錯】</div>
+          • <strong>原著出處</strong>：《名偵探柯南》動畫第 52 集〈霧天狗傳說殺人事件〉（水流蓄力延遲手法）。<br>
+          • <strong>科學物理化學原理</strong>：【嚴謹糾錯】造成 30 分鐘時間差的是水力虹吸裝置延遲倒塌，絕非聲音在空氣中傳播了 30 分鐘（常溫聲速約 340m/s，300 公尺只需不到 1 秒）。長廊水泥壁回聲是用於混淆聲源方位。<br>
+          • <strong>雙北在地文史結合</strong>：台北車站地下街縱深長達數百公尺，三鐵共構人流繁忙，極具代表性。
         </div>
       </div>
+    </div>
+    
 
-      <h3>1. 唯一首解公平性與伺服器原子鎖定 (Atomic Lock)</h3>
+    <div class="case-card holmes">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-03：西門町超商冷藏櫃隱形指紋竊案
+        </div>
+        <span class="case-badge badge-holmes">致敬：《口袋神探》艾小坡科學推理</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          西門町漢中街徒步區便利超商（可進入建築標記：🏪 便利商店）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【突發觸發】玩家走進超商購買 3 號電池或飲料時，店員焦急大喊「限量版動漫紀念卡從展示冷藏櫃鎖盒中不翼而飛了！」，現場自動展開微型調查。
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          冷藏櫃玻璃表面常溫下看似毫無痕跡。玩家利用店內熱水機產生的微量水蒸氣對著玻璃輕吹，低溫冷卻的玻璃遇水氣產生微小露珠凝結，清晰顯現出嫌犯戴著露指手套留下的半截指紋！隨後打開實體五金行買來的便攜紫外光燈，照出嫌犯衣角沾染的防盜螢光油墨，當場抓獲尚未走出店門的可疑顧客。
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：《口袋神探》冷凝水汽顯影與紫外螢光鑑識】</div>
+          • <strong>原著出處</strong>：科普推理小說《口袋神探》艾小坡利用日常物理光學與水氣凝結破案手法。<br>
+          • <strong>科學物理化學原理</strong>：飽和水汽壓、露點溫度（Dew Point）與凝結核光學散射原理、紫外光激發螢光反應。<br>
+          • <strong>雙北在地文史結合</strong>：雙北街頭每走幾步就有一家 7-11 或全家，完美融合台灣最具代表性的超商文化！
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card holmes">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-04：捷運板南線末班車急煞調包案
+        </div>
+        <span class="case-badge badge-holmes">致敬：《口袋神探》車廂慣性力學</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          捷運台北車站至忠孝新生行駛中之車廂（可進入建築標記：🚇 捷運站）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【全服公告】板南線末班列車在隧道內突發緊急煞車，車廂全體乘客向前倒成一片，起立後某科技主管裝有商業機密晶片的公事包被調包！列車已靠站封鎖，全服偵探爭奪首解！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          調查四位站立乘客在急煞瞬間的受力狀態：根據牛頓第一運動定律（慣性），列車煞車減速時，人體質心必定向列車前進方向傾倒。然而其中一名嫌疑人的手掌抓握扶手痕跡與腳尖朝向卻是朝向車尾，證明他早在煞車前就已蓄意弓身抗衡慣性、趁亂伸手調包公事包！
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：《口袋神探》牛頓第一運動定律與車廂慣性力學】</div>
+          • <strong>原著出處</strong>：科普推理《口袋神探》利用公車/地鐵急煞時物體前衝方向破解慣性案件手法。<br>
+          • <strong>科學物理化學原理</strong>：牛頓第一運動定律（慣性）、動量與非慣性參考系中的假想慣性力（Inertial Force）。<br>
+          • <strong>雙北在地文史結合</strong>：台北捷運板南線為貫穿雙北東西軸線之大動脈，日運量數十萬人次，生活代入感極強。
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card holmes">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-05：大稻埕百年中藥鋪消失的人蔘
+        </div>
+        <span class="case-badge badge-holmes">致敬：福爾摩斯〈銀色馬〉與天平槓桿原理</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          大稻埕迪化街百年中藥南北貨老店（可進入建築標記：🌿 中藥行）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【全服公告】鎮店之寶價值百萬之長白山百年野山蔘在完好無損的玻璃展示櫃中被換成曬乾蘿蔔根，掌櫃發布百萬偵探賞金，全服偵探火速趕往大稻埕！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          展示櫃鎖頭毫無撬痕，鑰匙只有掌櫃與老藥師擁有。玩家走進藥鋪，檢查秤量名貴藥材的古董等臂銅天平，發現天平右側的銅砝碼看似 50 克，但在水中秤量時排水體積異常！嫌犯在砝碼底部挖空灌入低密度合金，製造出「看似平衡實則少重」的偏差，藉由每週盤點之秤重盲點偷天換日將野山蔘分批移出。
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：福爾摩斯〈銀色馬〉盲點心理與天平槓桿原理】</div>
+          • <strong>原著出處</strong>：柯南·道爾《福爾摩斯回憶錄》之〈銀色馬〉（「狗在夜間為何沒有吠叫」的逆向盲點思維）。<br>
+          • <strong>科學物理化學原理</strong>：槓桿原理（力矩平衡公式 L1×W1 = L2×W2）、阿基米德浮力定律與合金密度測量。<br>
+          • <strong>雙北在地文史結合</strong>：大稻埕迪化街為台灣現存歷史最悠久之南北貨與中藥集散地，紅磚長條街屋古色古香。
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card conan">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-06：雙北 307 公車急煞皮夾調包案
+        </div>
+        <span class="case-badge badge-conan">致敬：《口袋神探》離心力與手指魔術錯覺</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          雙北公車之王 307 號公車行經南京東路公車專用道（可進入標記：🚌 公車站）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【突發觸發】玩家搭乘 307 公車前往下個街區時，前方老奶奶驚呼背包拉鍊被拉開、裝有敬老悠遊卡與現金的長夾被盜！司機靠邊暫停關閉前後門，玩家立即展開偵查！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          公車剛剛在南京東路路口進行了 90 度大轉彎。依據圓周運動離心力，車廂內所有無固定物體皆向右側滑移。然而坐在左側單人座的嫌疑男子背包底部卻發現了老奶奶的皮夾！嫌犯利用轉彎時乘客向右傾倒的身體遮蔽，以右手反向抽夾，利用公車震動掩蓋觸覺，經比對車內刷卡紀錄與站立動線當場破案。
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：《口袋神探》向心力、離心運動與觸覺神經適應】</div>
+          • <strong>原著出處</strong>：《口袋神探》公共交通工具車廂運動學推理手法。<br>
+          • <strong>科學物理化學原理</strong>：圓周運動向心加速度（a = v²/r）、離心現象與神經末梢觸覺鈍化（Tactile Adaptation）。<br>
+          • <strong>雙北在地文史結合</strong>：雙北 307 公車號稱「雙北公車之王」，串聯板橋、中和、台北車站與松山，班次最密集！
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card holmes">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-07：淡水海關碼頭跳舞小人航海磚案
+        </div>
+        <span class="case-badge badge-holmes">致敬：福爾摩斯〈跳舞的人〉經典替換密碼</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          淡水海關碼頭歷史展示園區（可進入建築標記：🏛️ 博物館）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【全服公告】淡水碼頭古老石壁修復工程意外挖掘出 26 塊刻有神秘小人符號的石磚，據傳通往十九世紀英國領事館保險庫，全服密碼破譯競速開跑！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          石磚上的火柴小人姿態各異，手持旗幟者代表單詞結尾。玩家親自走進淡水海關故事館，翻閱 1865 年英國商船航海日誌，使用英文字母出現頻率統計（E、T、A 出現頻率最高）並比對開港常用單字（PORT、CUSTOM、SHIP），解開單表替換密碼，開啟碼頭石壁暗格起獲百年純銀航海懷錶！
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：福爾摩斯〈跳舞的人〉單表替換密碼與頻率分析】</div>
+          • <strong>原著出處</strong>：柯南·道爾《福爾摩斯探案集：歸來記》之〈跳舞的人〉（The Dancing Men, 1903）。<br>
+          • <strong>科學物理化學原理</strong>：密碼學單表替換式密碼（Substitution Cipher）、古典英文語料庫字元頻率分析法。<br>
+          • <strong>雙北在地文史結合</strong>：淡水港於 1862 年正式開港通商，曾設英國領事館與海關公署，洋樓紅磚極具海洋史特色。
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card conan">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-08：北投溫泉老旅店空白遺書熱敏案
+        </div>
+        <span class="case-badge badge-conan">致敬：名偵探柯南理科加熱顯影與有機酸</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          北投溫泉博物館旁老字號溫泉旅館湯屋（可進入建築標記：♨️ 溫泉旅館）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【全服公告】老旅店老董事長留下密封空白遺囑後失蹤，家屬宣稱必須在今晚前讀取內容，否則遺產將被惡意接管，全服大偵探啟程前往北投溫泉鄉！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          現場只留下一張空白泛黃信紙。玩家需先前往實體五金行購買防熱加長竹夾，走進旅店安全溫控溫泉蒸氣槽（嚴格標註現實安全警語：天然地熱谷高溫危險，切勿現實模仿！）。將信紙置於上方微溫烘烤，紙張上預先書寫的稀檸檬酸（弱有機酸）水分受熱蒸發濃度驟升，奪取紙張纖維水分子使碳素析出變黑，浮現出保管箱密碼！
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：柯南加熱顯影手法與有機酸脫水炭化化學】</div>
+          • <strong>原著出處</strong>：《名偵探柯南》經典理科密室（如第 74 卷「毒與幻的設計」、早期加熱隱形墨水手法）。<br>
+          • <strong>科學物理化學原理</strong>：【科學嚴謹規範】單一可驗證之弱酸高溫脫水炭化反應（C6H12O6 → 6C + 6H2O），不混雜氯化鈷或硫磺蒸氣混淆反應；並加註高溫安全防護。<br>
+          • <strong>雙北在地文史結合</strong>：北投為台灣享譽國際之溫泉名勝，青磺泉水溫極高，日式木造古蹟環繞。
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card conan">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-09：士林科教館鏡面迷宮消失的雷射筆
+        </div>
+        <span class="case-badge badge-conan">致敬：柯南平面鏡多次全反射與光學迷宮</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          國立台灣科學教育館（士林科教館）光學展廳（可進入標記：📚 學習講堂）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【全服公告】科教館展出之國家級高精度雷射光筆在封閉鏡面迷宮展間失竊，紅外線警報器未曾響起，全服偵探前往士林科學探索！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          展間四壁貼滿平面鏡。玩家進入科教館物理講堂，學習反射定律（入射角等於反射角）。在展間中央使用煙霧噴劑照出紅外線防盜光束路徑，發現嫌犯利用兩面 45 度夾角精密光學平面鏡組合，在展櫃四周架構出全反射導光迴路，將警報光束「繞道折射」，完成隔空取筆！
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：柯南光學鏡面反射、潛望鏡原理與幾何光學】</div>
+          • <strong>原著出處</strong>：《名偵探柯南》利用鏡面全反射反射光束避開紅外線警報器經典手法。<br>
+          • <strong>科學物理化學原理</strong>：光學反射定律（Law of Reflection）、全反射條件、多平面鏡組合之潛望鏡光路設計。<br>
+          • <strong>雙北在地文史結合</strong>：國立台灣科學教育館為雙北中小學生自然科學探究首選場館，互動展品豐富。
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="case-card holmes">
+      <div class="case-header">
+        <div class="case-title">
+          <span>🔍</span> CASE-10：大安森林公園雨夜泥地無腳印案
+        </div>
+        <span class="case-badge badge-holmes">致敬：福爾摩斯〈血字的研究〉壓強公式推理</span>
+      </div>
+      <div class="case-body">
+        <div class="case-section">
+          <div class="case-label">📍 調查舞台與標記：</div>
+          大安森林公園生態水池旁泥濘草地（可進入建築標記：🚪 公園入口）
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚡ 觸發機制與現場狀態：</div>
+          【突發觸發】下雨天在雙北街道漫步走進大安森林公園時，公園巡警正在封鎖水鳥觀測台：觀測台名貴望遠鏡被盜，但四周數十公尺泥濘草地上竟「完全沒有留下任何人踩踏的腳印」！
+        </div>
+        <div class="case-section">
+          <div class="case-label">⚙️ 調查互動、物證與機關解鎖：</div>
+          雨天草地泥濘鬆軟，正常成年人踩下必留下深達 3 公分鞋印。玩家測量泥土承載力（壓強 P = F / A），推論嫌犯並非會飛，而是穿著類似滑雪板的特製大面積輕質軟木大底鞋，將每平方公分的受力壓強分散至人體正常壓強的五分之一以下，使草葉回彈不留下凹痕！循著草葉微小的水平彎折朝向成功在出口灌木叢起獲望遠鏡。
+        </div>
+        <div class="codex-card">
+          <div class="codex-header">📜 【名著與科學考據卡：福爾摩斯壓強公式 P=F/A 與泥土痕跡力學】</div>
+          • <strong>原著出處</strong>：柯南·道爾《福爾摩斯探案集：血字的研究》中對嫌犯步態、體重與地面壓強之經典分析。<br>
+          • <strong>科學物理化學原理</strong>：物理壓強公式 P = F / A（壓力與接觸面積反比）、彈性限度與泥土塑性變形力學。<br>
+          • <strong>雙北在地文史結合</strong>：大安森林公園為台北市中心的「都市之肺」，生態池鳥類繁多，雨天漫步極具意境。
+        </div>
+      </div>
+    </div>
+    
+      </div>
+
+      <h3>🤖 ★ 未來 AI 案件生成模組架構（AI Case Generator Engine）</h3>
+      <div class="callout purple">
+        <div class="callout-title">🧠 永不結束的城市：串接 AI 自動生成無盡案件！</div>
+        為了讓遊戲「隨時能新增案件、永遠玩不膩」，專案建立了標準化的 <strong>AI 案件生成協議（JSON Schema）</strong>。未來只要將大語言模型（如志炫 / Antigravity Agent）串接至後端，AI 便能自動讀取雙北實體街景與中小學自然科概念，源源不絕產出新案件！
+      </div>
+
+      <pre><code>// 【AI 案件生成標準 JSON 資料格式規範】
+{
+  "case_id": "CASE-AI-0105",
+  "title": "大稻埕中藥行消失的藏紅花",
+  "type": "dynamic_event", // dynamic_event (突發) | shared_speedrun (全服競速) | personal_quest (個人晉升)
+  "location": {
+    "name": "迪化街百年中藥行",
+    "district": "大同區",
+    "coordinates": [25.0565, 121.5098],
+    "enterable_marker": "store" // 必須對應實體可進入標記
+  },
+  "trigger_condition": {
+    "event_type": "enter_building", // 走進店內用餐或購買時觸發
+    "cooldown_minutes": 45
+  },
+  "npcs": [
+    {"id": "npc_01", "name": "老掌櫃", "dialogue": "剛剛隔壁桌客人撞了一下櫃檯，展示罐就不見了！"},
+    {"id": "npc_02", "name": "外送員", "dialogue": "我剛才看見有人把黃色粉末倒進了水溝..."}
+  ],
+  "clues": [
+    {"id": "clue_01", "name": "黃色水溶痕跡", "science_note": "水溶性藏紅花素光學吸收光譜"},
+    {"id": "clue_02", "name": "天平砝碼刮痕", "science_note": "假砝碼重心偏置槓桿原理"}
+  ],
+  "reasoning_graph": {
+    "motive": "調包昂貴中藥材謀利",
+    "method": "利用染色薑黃粉冒充真品",
+    "contradiction": "薑黃不溶於水而藏紅花快速溶解呈金黃色"
+  },
+  "verification_hash": "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
+}</code></pre>
+    </div>
+
+    <!-- 04A｜共享世界體系：突發事件、全服搶案同步結束 vs 個人晉升任務 -->
+    <div class="card">
+      <h2>🌐 04A｜共享世界體系：突發事件、全服搶案同步結束 vs 個人晉升任務</h2>
+
+      <h3>1. ⚡ 不定時突發事件（Dynamic Events）—— 柯南式用餐遭遇！</h3>
+      <div class="callout accent">
+        <div class="callout-title">☕ 誰說破案一定要事先接單？</div>
+        如同《名偵探柯南》中柯南去咖啡店吃三明治必遇命案，本遊戲設計了逼真的<strong>「街頭突發事件」</strong>：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>不定時隨機觸發</strong>：玩家在咖啡店用餐、搭乘 307 公車、或在便利超商買飲料時，可能無預警遭遇鄰桌客人中毒、錢包調包等緊急事件。</li>
+          <li><strong>現場立即封鎖</strong>：突發瞬間鐵捲門拉下或公車靠邊停駛，現場進入 20~25 分鐘限時排查，代入感極強！</li>
+        </ul>
+      </div>
+
+      <h3>2. 🏆 全服共享公開案件（Shared Public Cases）—— 全服同步結束機制！</h3>
       <ul>
-        <li><strong>客觀判定標準</strong>：首解判定必須由玩家向伺服器提交<strong>「完整且正確的推理鏈條」</strong>（包含動機、手法、物證與機關解鎖），伺服器依交易時間戳（精確至毫秒）判定全服第一名。</li>
-        <li><strong>並發防衝突</strong>：採用資料庫原子交易鎖（Transaction Row Lock），杜絕多名玩家同時提交時的「重複發獎」與爭議。首解誕生瞬間，全服彈出快訊，案件狀態立即鎖定。</li>
-        <li><strong>首解榮譽榜</strong>：首解神探將永久銘刻於雙北偵探總署「全服名人堂」，並獲得豐厚破案賞金！</li>
+        <li><strong>同一個在線雙北</strong>：所有人登入同一個在線城市，所有人看到的共享案件數量、內容與倒數計時<strong>完全同步</strong>。</li>
+        <li><strong>合作與競速搶案</strong>：同學們可以組隊分工調查，也可以競速爭奪全服唯一首解榮譽與高額破案賞金。</li>
+        <li><strong>【全服同步結束】</strong>：<strong>一旦任何一名玩家率先向伺服器提交了正確且完整的推理驗證，或者案件時限倒數結束，伺服器會立即發布全服號外廣播，全服所有玩家的該案件畫面「同步結束」</strong>！已結案案件自動轉入「歷史檔案室」，其他玩家仍可不計分回顧劇情，維護世界的時間流動感。</li>
       </ul>
 
-      <h3>2. 結案後不計分歷史回顧模式</h3>
-      <p>
-        若某個大案已被其他同學首解破獲，正在調查中的其他玩家會收到即時結案簡訊。<strong>已結案的案件會自動移入「歷史案件檔案室」，後續玩家依然可以完整閱讀案情、前往現場解謎與收集知識卡，但不再發放首解大獎</strong>。這樣既保障了競速刺激感，又不會破壞其他玩家的探究樂趣！
-      </p>
+      <h3>3. 🎖️ 個人專屬晉升任務（Personal Milestone Quests）—— 無搶任務機制！</h3>
+      <div class="callout tip">
+        <div class="callout-title">🛡️ 專屬於你自己的成長線——絕對沒有搶任務！</div>
+        除了全服競爭的公開案件外，遊戲擁有平行的<strong>「個人偵探晉升與主線委託」</strong>體系：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>任務獨立推進</strong>：例如「新手偵探認證：破獲任意 3 起案件」、「大稻埕里長委託：收集 3 張中藥百科卡」。每個人的任務進度各自累積，<strong>沒有任何人可以搶走你的任務</strong>！</li>
+          <li><strong>人脈與彩蛋解鎖</strong>：部分特殊個人任務需要達成「特定 NPC 社區信賴度」（如與早餐店阿姨熟識），或「觸發街道特殊彩蛋」（如遇見黑貓阿巧）才能開啟接取。</li>
+        </ul>
+      </div>
     </div>
 
     <!-- 05｜場所互動、短時微型學習手冊與台味隱藏彩蛋 -->
@@ -796,9 +1859,6 @@
       <h2>🏛️ 05｜場所互動、短時微型學習手冊與台味隱藏彩蛋</h2>
 
       <h3>1. 把學習做成 1~3 分鐘微型互動（拒絕一整頁枯燥講義）</h3>
-      <p>
-        每個可進入地點均遵循【看見什麼 / 做什麼 / 學到什麼 / 與哪個案件相關】四欄標準規範：
-      </p>
       <table>
         <thead>
           <tr>
@@ -860,24 +1920,82 @@
       </div>
     </div>
 
-    <!-- 06｜生活慢活、偵探精力值、雙軌貨幣與無障礙防卡關機制 -->
+    <!-- 06｜生活慢活、真實實體商店到店購買機制、雙軌貨幣與無障礙防卡關 -->
     <div class="card">
-      <h2>☕ 06｜生活慢活、偵探精力值、雙軌貨幣與無障礙防卡關機制</h2>
+      <h2>🏪 06｜生活慢活、真實實體商店到店購買機制、雙軌貨幣與無障礙防卡關</h2>
 
-      <h3>1. 偵探精力值系統 (Stamina System) 與小吃回血</h3>
-      <ul>
-        <li><strong>精力消耗</strong>：奔跑與深度現場搜查消耗精力。低精力時角色轉為慢走散步，但<strong>「絕對不會連回家或求助都做不到」</strong>。</li>
-        <li><strong>免費與小吃回復</strong>：在事務所沙發休息、便利超商飲水機皆可免費回滿基本精力；進店品嚐台灣小吃回血：
-          <ul>
-            <li><strong>淡水阿給 + 魚丸湯</strong>：精力回滿 100%，獲得 3 分鐘「海風輕快」奔跑無消耗 Buff。</li>
-            <li><strong>北投排骨酥麵 + 溫泉蛋</strong>：精力回滿，解謎時出現額外提示光圈。</li>
-            <li><strong>連鎖手搖飲珍奶</strong>：快速回補 40% 精力，短時間移速提升 30%。</li>
-            <li><strong>台北巷弄豆漿油條</strong>：平價實惠，隨時隨地補滿基礎體力。</li>
-          </ul>
-        </li>
-      </ul>
+      <h3>1. ★ 真實實體商店到店購買機制（拒絕隔空網購直送！）</h3>
+      <div class="callout tip">
+        <strong>🚶 必須親自用雙腳或搭車走到實體店面！</strong><br>
+        就像現實中的偵探一樣，你不能在案發現場按個按鈕就空投道具。玩家必須打開地圖，步行或搭公車走到街角的<strong>真實實體店</strong>，推門進去站在櫃檯前才能購買：
+      </div>
 
-      <h3>2. 雙軌貨幣體系與商城機制</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%;">真實實體商店類型</th>
+            <th style="width: 26%;">雙北代表街區地點</th>
+            <th style="width: 32%;">現場販售道具清單</th>
+            <th style="width: 20%;">貨幣與用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🏪 便利超商<br>(7-11 / 全家)</strong></td>
+            <td>西門町、台北車站周邊、淡水老街各分門市</td>
+            <td>
+              • 防熱加長竹夾 ($35)<br>
+              • 3 號鹼性電池組 ($50)<br>
+              • 石蕊試紙包 ($30)<br>
+              • 純水與運動飲料 ($20~$35)
+            </td>
+            <td><strong>生活流通金</strong><br>現場解謎必備破關耗材</td>
+          </tr>
+          <tr>
+            <td><strong>🛠️ 在地傳統五金行</strong></td>
+            <td>台北後火車站太原路五金街、板橋老街雜貨行</td>
+            <td>
+              • 高精度鋼捲尺 ($80)<br>
+              • 高流明 LED 調焦手電筒 ($120)<br>
+              • 防靜電不銹鋼鑷子 ($45)<br>
+              • 尼龍棉線與動滑輪組 ($65)
+            </td>
+            <td><strong>生活流通金</strong><br>現場物理測量與物證夾取</td>
+          </tr>
+          <tr>
+            <td><strong>🌿 百年中藥南北貨行</strong></td>
+            <td>大稻埕迪化街一段中藥老店</td>
+            <td>
+              • 紫甘藍萃取酸鹼指示劑 ($50)<br>
+              • 天然白芷顯影粉末 ($40)<br>
+              • 精密中藥等臂天平（店內免費借用）
+            </td>
+            <td><strong>生活流通金</strong><br>化學鑑識與古代暗號解讀</td>
+          </tr>
+          <tr>
+            <td><strong>💻 光華數位新天地<br>& 三創生活園區</strong></td>
+            <td>市民大道光華商場、捷運忠孝新生站旁</td>
+            <td>
+              • 便攜式多波段紫外光鑑識筆 (400 幣)<br>
+              • 改裝極速電動滑板 (500 幣)<br>
+              • 超微距高倍率電子放大鏡 (350 幣)<br>
+              • 定向降噪錄音筆 (300 幣)
+            </td>
+            <td><strong>破案賞金限定</strong><br>永久加速探查的高階專業神裝</td>
+          </tr>
+          <tr>
+            <td><strong>🚇 台北捷運站服務台<br>& 悠遊卡儲值機</strong></td>
+            <td>各捷運站穿堂層剪票閘門口</td>
+            <td>
+              • 悠遊卡儲值與餘額查詢<br>
+              • 捷運一日票 ($150，當日不限次搭乘)
+            </td>
+            <td><strong>生活流通金</strong><br>長途跨區省錢通行證</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2. 雙軌貨幣體系與經濟循環</h3>
       <table>
         <thead>
           <tr>
@@ -894,12 +2012,12 @@
               <span style="font-size:12px; color:var(--text-muted);">(Detective Coins / 偵探徽幣)</span>
             </td>
             <td>
-              • 成功破獲主線與支線大案。<br>
+              • 成功破獲主線與全服大案。<br>
               • 解開名著經典物理/密碼機關。<br>
-              • 達成全服首解或零提示成就。
+              • 達成全服唯一首解或零提示成就。
             </td>
             <td>
-              • <strong>永久專業加速裝備</strong>：<br>
+              • <strong>光華商場購買高階裝備</strong>：<br>
                 - 改裝極速滑板（移速 +60%）<br>
                 - 高倍微距放大鏡（隱密證物高光）<br>
                 - 便攜紫外光燈（暗處螢光顯影）<br>
@@ -923,7 +2041,7 @@
             </td>
             <td>
               • <strong>大眾運輸搭乘</strong>：公車每段 $15、捷運 $20~$65、YouBike 租借。<br>
-              • <strong>現場破關必備耗材</strong>：超商防熱竹夾 ($35)、電池組 ($50)、試紙。<br>
+              • <strong>實體超商/五金行購買耗材</strong>：防熱竹夾、電池組、試紙。<br>
               • <strong>小吃吃飯回體力</strong>：購買阿給、排骨酥麵補滿精力。
             </td>
             <td>
@@ -942,13 +2060,6 @@
         <li><strong>第 1 階提示（完全免費）</strong>：給予現場關鍵物證的觀察重點。</li>
         <li><strong>第 2 階提示</strong>：給予邏輯推論方向（可花費 $10 生活金，<strong>亦可選擇「等待 5 分鐘冷卻」或「完成指定環境觀察」免費解鎖</strong>）。</li>
         <li><strong>第 3 階提示</strong>：直接引導具體操作公式（同上，提供無障礙免費等待途徑），確保所有同學都能順利破案通關！</li>
-      </ul>
-
-      <h3>4. 事務所慢活、隨身拍立得與環境音效</h3>
-      <ul>
-        <li><strong>事務所基地</strong>：自由佈置案情白板（紅線連結關係圖）、古董咖啡機與沙發，享受都會慢活。</li>
-        <li><strong>拍立得相機 [C] 鍵</strong>：隨時拍下街景、夕陽與現場證物，拍立得卡片可自由<strong>釘在事務所案情軟木板上</strong>留念。</li>
-        <li><strong>垃圾車音樂推理</strong>：嫌犯通話錄到了微弱的《少女的祈禱》音樂，查詢雙北清潔隊各里清運時刻表，精準推算嫌犯案發當時所在的真實巷弄！</li>
       </ul>
     </div>
 
@@ -979,7 +2090,7 @@
     <div class="card">
       <h2>📱 08｜跨平台畫面 UI、無障礙操作與後端資料庫架構</h2>
       <ul>
-        <li><strong>中央主畫面</strong>：3D 俯瞰立體街區，可互動店家與站牌具備發光標籤。</li>
+        <li><strong>中央主畫面</strong>：3D 俯瞰立體街區，可進入建築上方懸浮清晰的發光 Icon（門形、咖啡杯、超商等）。</li>
         <li><strong>邊角 HUD</strong>：迷你雷達地圖、當前地點行政區、精力值、氣象與遊戲時間。</li>
         <li><strong>偵探手機快捷頁</strong>：案件簿、線索白板、人物通訊錄、三階提示、知識圖鑑、拍立得相簿，每一頁均可一秒返回現場。</li>
         <li><strong>跨平台與無障礙</strong>：支援電腦鍵盤 WASD + 手機觸控搖桿與點擊；支援繁體中文大字幕、色盲輔助標籤、不依賴顏色辨識之符號系統。</li>
@@ -994,13 +2105,13 @@
       <div class="callout tip">
         <div class="callout-title">📐 什麼是垂直切片 (Vertical Slice)？</div>
         國小 8 週獨立研究時間有限，若一開始承諾做出 1:1 完整雙北所有街區將導致專案難產。因此先製作一個小規模但<strong>系統完整</strong>的精華切片：
-        <strong>「1 條真實街道（台北車站周邊）+ 2 個公車站 + 1 個可進入學習場館 + 1 家小吃店 + 1 個多人可競速首解小案」</strong>，完整跑通核心循環！
+        <strong>「1 條真實街道（台北車站周邊）+ 2 個公車站 + 1 個可進入學習場館 + 1 家實體超商/小吃店 + 1 個多人可競速首解小案」</strong>，完整跑通核心循環！
       </div>
 
       <h3>📅 專案推進里程碑</h3>
       <ul>
-        <li><strong>第一階段（第 1 ~ 2 週 / 目前進度）</strong>：企劃定案、三人小組分工、1:1 地理圖資規範確立與首解機制設計。</li>
-        <li><strong>第二階段（第 3 ~ 4 週）</strong>：找 AI（志炫等）製作第一版垂直切片原型（街景移動、吃小吃回體力、第一個跳舞小人機關與後端首解驗證）。</li>
+        <li><strong>第一階段（第 1 ~ 2 週 / 目前進度）</strong>：企劃定案、三人小組分工、1:1 地理圖資規範確立與 50 宗大案架構設計。</li>
+        <li><strong>第二階段（第 3 ~ 4 週）</strong>：找 AI（志炫等）製作第一版垂直切片原型（街景移動、吃小吃回體力、實體超商購物、跳舞小人機關與後端首解驗證）。</li>
         <li><strong>第三階段（第 5 ~ 6 週）</strong>：公車捷運轉乘、四大機關完整實裝、雙軌商城與考據百科圖鑑上線。</li>
         <li><strong>第四階段（第 7 ~ 8 週）</strong>：邀請全班同學試玩與同儕編輯器測試，正式部署至 GitHub Pages 與 Itch.io，完成成果發表會！</li>
       </ul>
@@ -1047,7 +2158,7 @@
 
   <script>
     // Inject the complete plain-text markdown into the copyBuffer
-    document.getElementById('copyBuffer').value = "# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（新版合併深度版）\n專案團隊：國小六年級獨立研究小組（三人團隊）\n遊戲類型：1:1 雙北開放世界推理探究 RPG (Open-World Detective RPG / Edu-Puzzle)\n目標平台：Web 網頁端（靜態託管隨點即玩，支援電腦鍵盤與手機觸控，部署於 GitHub Pages / Itch.io）\n\n============================================================\n【⚖️ 重要學術研究、非商業用途與版權合規聲明】\n============================================================\n1. 非商業學術研究性質：\n   本企劃書及後續開發之網頁遊戲，為國小六年級學生「獨立研究」課程之跨學科程式教育與文史科學探究成果，絕無任何商業營利、收費、贊助或販售行為。\n2. 虛構榮譽與無官方贊助澄清：\n   企劃內所提及之「新北市/台北市政府生活流通金獎勵」、「市警局榮譽顧問勳章」等內容，純屬遊戲世界觀之「虛構劇情榮譽與數值獎勵」，絕非真實政府單位或警察局之官方背書或贊助。\n3. 名著機關、商標與音效之合理使用與原創化：\n   專案中引用與致敬之《名偵探柯南》、《福爾摩斯探案集》經典密碼與科學手法，以及雙北真實地標與大眾運輸系統（台北捷運、市區公車、YouBike 2.0），皆屬國小課程教學與學術探究之合理使用（Fair Use）。若公開發布上線，所有動漫人物外觀、插畫、UI 貼圖、捷運四語廣播與環境音樂，將全部由團隊原創繪製與錄製，不直接挪用受版權保護之動畫商業素材與官方錄音。\n4. 嚴謹求實原則：\n   刪除所有「保證全場最高分」等過度保證之宣傳詞，所有科學原理（投影/反射、聲學延遲、弱酸炭化）與在地史實皆通過嚴謹查證與修正。\n\n============================================================\n■ 01｜專案基本定位、核心精神與三人團隊深層分工\n============================================================\n【一句話定位】\n《雙北漫遊偵探：都會行蹤》是一款以雙北為舞台的開放式探索推理遊戲：街區是連續的遊戲空間，案件是可選的冒險，學習內容藏在場所與微型互動裡。它不是只有四個封閉關卡、通關即結束的解謎遊戲，而是一座世界隨時持續運轉的城市。\n\n【核心理念與玩家體驗】\n- 自由漫遊：玩家在原地操作角色，不必真的到現場；可以辦案，也可以不照主線走，去任何想去的街區探索、進建築、學東西、找彩蛋。\n- 案件有結局，世界無終點：即使某個大案被破案歸檔，玩家依然可以繼續在雙北生活、打工、漫遊、拍照、或等待下一批新案件發生。\n- 最重要設計原則：玩家自己決定下一站！新手教學不綁死固定動線，故事提供指引但不鎖死城市探索權限。每個可進入的地點至少具備「一項可互動的知識、一個觀察亮點、一個人物對話、一條線索或一個驚喜彩蛋」，絕不做空殼建築。\n\n【三人研究團隊深度職責規劃】\n1. 組員 1（組長 / 企劃總監）：\n   - 世界觀設定、主支線劇本主筆與對話撰寫。\n   - 研讀《名偵探柯南》與《福爾摩斯》經典案件，進行本土化科學與密碼機關改編。\n   - 負責每案破案後「名著考據卡」與「微型知識講堂」內容撰寫，確保符合國小自然與社會課綱。\n2. 組員 2（美術與圖資總監）：\n   - 3D 俯瞰視角街景視覺標準制定，繪製 2D 復古像素角色、NPC 與雙北特色小吃道具。\n   - 考察真實雙北地理，使用 OpenStreetMap (OSM) 開放圖資建立 1:1 道路尺度與建築外觀。\n   - 負責授權素材清單盤點，確保全專案圖像與符號均符合開源協議（ODbL）與原創規範。\n3. 組員 3（技術架構與機制總監）：\n   - 規劃 3D/2D 混合引擎、WASD/行動端觸控操作、雙軌經濟數值平衡（破案賞金與生活流通金）。\n   - 設計真實大眾交通費率演算法（公車段次緩衝區、捷運真實里程矩陣、YouBike 前 30 分鐘補助）。\n   - 規劃伺服器端「共享世界唯一首解原子鎖定」與資料庫存檔規格，主導 AI 協同開發與全班測試。\n\n============================================================\n■ 02 & 02A｜雙北連續世界、1:1 地理與真實大眾交通費率建模\n============================================================\n【1:1 現實地理結構】\n- 地圖基礎：基於台北市與新北市真實道路、橋梁、河川、行政區、公車站牌、捷運路網與相對距離建模。\n- 連續世界（非傳送門）：跨區不是瞬間切換黑畫面傳送，玩家可以沿著真實道路（如中正橋、台北橋、忠孝西路、新店溪沿岸）跨越行政區界步行，完全不設行政區步行空氣牆。\n- 圖資規範：圖資採用 OpenStreetMap (OSM) 道路/建物向量開放資料與交通部公車開放資料（PTX/TDX）。嚴格遵守 ODbL 授權要求，不抓取商業 Google 地圖磚或未授權商業街景。\n\n【多元大眾交通網絡與精確費率】\n1. 步行 (Walking)：\n   - 免費、無限制！玩家隨時可沿著雙北所有連通街道與人行道跨區漫遊。\n2. 市區公車（主要大眾運輸工具）：\n   - 走雙北真實路線、站牌與分段點。全票每段次 15 元遊戲內生活金。\n   - 跨越分段點或在緩衝區內依現實規則計費（一段票 15 元、跨緩衝區加收 15 元變兩段票 30 元）。\n3. 台北捷運 (Taipei Metro)：\n   - 按真實站間票價查詢表精確扣款（單程票 20 元～65 元不等），嚴禁使用「直線距離胡亂猜測」。\n   - 車站出入口、轉乘動線與到站廣播均忠實呈現。\n4. YouBike 2.0 公共自行車：\n   - 按租借站點與實際騎乘時間累進扣款：4 小時內每 30 分鐘 10 元；4~8 小時每 30 分鐘 20 元；超過 8 小時每 30 分鐘 40 元（未滿 30 分鐘以 30 分鐘計算）。\n   - 會員優惠政策：符合台北市與新北市會員借車「前 30 分鐘免費補助」政策，生活金不足時可善用免費額度短程代步。\n5. 交通路徑規劃器：\n   - 點擊地圖目的地時，內建手機 App 會自動列出「步行（花費 0 元，耗精力多）」、「公車（花費 15 元，耗時短）」與「捷運（花費 25 元，準點直達）」三種對比方案，由玩家自主抉擇。\n\n【時間、日夜與動態氣象雙軌制】\n- 氣象連動：串接中央氣象署（CWA）API 每 15 分鐘更新一次雙北天氣，雨天街道泛起雨絲水窪、NPC 撐傘、地面浮現泥濘鞋印與雨傘滴水等限定線索。\n- 雙軌防卡關設計：\n  * 「離線預設模式」：API 斷線或本機遊玩時自動進入穩定預設晴天/陰雨循環。\n  * 「案件專屬時間軸」：案件內部時間可隨線索調查自由調整（例如推移至嫌犯作案的雨夜），與現實世界時間解耦，防止玩家因為現實連續數天晴天而卡關無法解雨天謎題！\n\n============================================================\n■ 03｜玩家遊玩流程：新手前 15 分鐘到長期探索循環\n============================================================\n【新手前 15 分鐘流暢引導】\n1. 醒來與角色創建：玩家在自己的偵探事務所（大稻埕或西門町老街閣樓）甦醒，學會 WASD 走動、調查物件、開啟偵探手機。\n2. 門口無門檻失物委託：事務所門口鄰居老爺爺遺失了鑰匙，無任何金錢或精力門檻：\n   - 觀察花盆旁的刮痕 ➔ 向兩名路人 NPC 詢問 ➔ 在線索白板連結時間戳 ➔ 找出鑰匙被烏鴉叼到樹上的真相。\n3. 獎勵與自由啟航：獲得初始生活金 100 元、第一張「密碼鑑識知識卡」與一張雙北地圖。\n4. 自主決定下一站：地圖同時點亮「前往科教館聽講堂」、「前往台北車站接取大案」、或「前往淡水老街吃阿給散步」，由玩家完全自主選擇，絕無強迫推線！\n\n【長期每一次遊玩的循環 (The Gameplay Loop)】\n選擇目標（自由漫遊 / 接取委託）➔ 規劃路線（步行 / 公車 / 捷運 / YouBike）➔ 到達現場（觀察環境 / 對話調查 / 進館學習）➔ 整理線索簿（比對時間線 / 破解經典機關）➔ 提交推理獲得獎勵與名著考據卡 ➔ 回到城市繼續慢活、佈置事務所、探索下一個街區。\n\n============================================================\n■ 04｜案件、線索簿與四大名著機關（嚴謹科學與史實糾錯升級版）\n============================================================\n【標準案件設計規範】\n- 委託背景：清楚交代人物動機與事件起源，不僅限於重大犯罪，亦涵蓋文物尋寶、歷史誤會、城市怪談。\n- 線索簿多軌分類：將「現場證物」、「證人證言」、「監視器時間戳」、「未證實之八卦」分開記錄，玩家可將兩條線索拖曳連線產生新推論。\n- 非懲罰性答錯回饋：推理錯誤時給予引導性反思提示（例如「嫌犯若在此時出現，那路口的垃圾車音樂怎麼解釋呢？」），絕不直接遊戲失敗或扣光金錢。\n\n【四大經典機關本土化深度改編與嚴謹糾錯】\n\n1. 淡水紅毛城 ✕ 福爾摩斯〈跳舞的小人〉（密碼替換與港埠文史）：\n   - 調查舞台：淡水港近代歷史主題場景（明確標註：紅毛城真實古蹟內部無秘密地牢石室，此為融合淡水海關開港文史之虛構改編場景）。\n   - 機關解法：石壁刻有 26 塊不同姿勢的跳舞小人符號（手持旗幟者代表單詞結尾）。玩家調閱淡水海關稅務司公署遺留的英文航海日誌，透過英文字母頻率分析（E 最常出現）並結合上下文單詞拼讀，解出暗格密碼，獲得百年航海懷錶。\n   - [名著考據卡]：\n     * 原著出處：亞瑟·柯南·道爾 1903 年《福爾摩斯探案集：歸來記》之〈跳舞的人〉(The Dancing Men)。\n     * 密碼學原理：單表替換式密碼 (Substitution Cipher) 與字元頻率分析法。\n     * 在地歷史：淡水港於 1862 年正式開港通商，英國在此設立領事館，具有濃厚 19 世紀海洋貿易文史背景。\n\n2. 北投溫泉會館 ✕ 名偵探柯南理科加熱顯影（弱酸脫水炭化與安全警語）：\n   - 調查舞台：北投溫泉鄉虛構老字號旅店湯屋（明確標註：安全警語！北投天然青磺泉水溫高達 80°C~100°C 具危險性，嚴禁在現實中模仿靠近高溫溫泉槽或操作危險化學品）。\n   - 機關解法：現場留下一張看似全白的遺書信紙。玩家使用道具「防熱竹夾」將紙張置於安全溫控的蒸氣顯影槽上方微溫烘烤，紙張上的稀檸檬汁（弱酸）受熱脫水，使纖維素炭化變黑，顯現出隱藏的保管箱號碼。\n   - [名著考據卡]：\n     * 原著出處：《名偵探柯南》經典理科密室（如第 74 卷「毒與幻的設計」及早期利用溫差顯影手法）。\n     * 科學原理：熱敏有機酸脫水反應（稀酸在水分蒸發後濃度升高，在受熱條件下奪取紙張纖維水分使碳析出變褐色）。嚴格區分單一可驗證化學反應，不把酸炭化、氯化鈷吸水變色與硫磺氣體混為一談。\n     * 在地特色：北投為台灣知名地熱溫泉之鄉，以此場景引導學生認識地熱能源與日常熱敏化學知識。\n\n3. 台北車站地下街 ✕ 柯南〈霧天狗傳說〉建築聲學（虹吸定時重力傾倒與回聲定位）：\n   - 調查舞台：台北車站地下街與三鐵共構連通長廊。\n   - 機關解法：嫌犯宣稱案發時自己正在 300 公尺外的商店購物，警衛證實於 14:30 聽到走廊傳來巨響。玩家調查發現嫌犯利用密閉水桶與彎曲軟管製成「虹吸定時蓄水傾倒裝置」，在案發 30 分鐘後蓄水滿溢失衡倒塌製造巨響！\n   - [重要科學糾錯]：\n     * 造成 30 分鐘不在場證明的是「水力虹吸裝置延遲 30 分鐘才傾倒」，絕非聲波在長廊走了 30 分鐘！（常溫下聲速約 340 m/s，傳播 300 公尺僅需 0.88 秒，不到一秒即達）。\n     * 長廊光滑水泥壁造成的「多重聲波反射與回聲」，在案件中是用來「混淆聲音來源方向」，使證人無法精確辨別發聲位置。玩家比對監視器水漬時間戳與物理聲速，徹底粉碎不在場證明！\n   - [名著考據卡]：\n     * 原著出處：《名偵探柯南》經典特別篇〈霧天狗傳說殺人事件〉（利用水力與虹吸原理製造時間差手法）。\n     * 物理學原理：大氣壓力、虹吸原理（Siphon Principle）與建築聲學回聲反射（Acoustic Reflection）。\n\n4. 板橋林家花園 ✕ 福爾摩斯〈馬斯格雷夫禮儀〉（八角漏窗日影投影與幾何比例）：\n   - 調查舞台：國定古蹟板橋林本源園邸（汲古書屋與方鑑齋）。\n   - 機關解法：尋寶古詩記載「日照方鑑秋水清，八角漏窗投影長」。玩家利用庭園幾何量測儀，根據當季太陽高度角與相似三角形比例（影長 / 物高 = 比例常數），在日影投影至假山石縫的精確焦點處找出暗藏的古銅鑰匙。\n   - [重要科學與史實糾錯]：\n     * 光線穿過漏窗投在牆面上是「日影幾何投影 (Shadow Projection)」，陽光照在水池上被映照至屋簷則是「反射 (Reflection)」，兩者均非「折射 (Refraction)」。\n     * 刪除「午後三刻直接等於 15:00」的不嚴謹古今對應，改以明確的「太陽方位角 240°、高度角 35°」幾何比例方程式進行科學解算。\n   - [名著考據卡]：\n     * 原著出處：亞瑟·柯南·道爾《福爾摩斯探案集：回憶錄》之〈馬斯格雷夫禮儀〉(The Musgrave Ritual)。\n     * 數學幾何原理：相似三角形定理 (Similar Triangles) 與日晷太陽高度角日影幾何測量。\n     * 在地美學：林本源園邸為台灣現存最完整的清代江南園林，其花磚漏窗與水榭倒影展現了精湛的傳統建築工藝。\n\n============================================================\n■ 04A｜共享世界體系：全服唯一首解、案件生命週期與競速機制\n============================================================\n【全服唯一首解 (First-Solver Glory)】\n- 一個持續運轉的真實雙北：所有玩家登入同一個在線城市，重大疑案以「全伺服器共用狀態」發布。\n- 案件生命週期：\n  [未公布] ➔ [分批公開/案件發生] ➔ [調查中 (全服競速)] ➔ [被成功解開 / 限時到期] ➔ [結案歸檔 (轉為不計分回顧)]。\n- 嚴格原子鎖定防作弊：\n  * 首解認定必須是向伺服器提交「完整且正確的推理鏈條（包含作案動機、關鍵物證、手法破解）」，依伺服器時間戳與交易序號判定唯一首解者。\n  * 伺服器端採用 Transaction Atomic Lock，若兩名玩家相差數毫秒提交，系統精確判定毫秒先後，絕不產生「雙首解重複發獎」衝突。\n  * 首解誕生瞬間，全服發布「號外快訊！知名神探已破獲此案！」，正在查案的其他玩家線索簿自動更新通知。\n- 結案後不計分模式：\n  * 錯過首解的玩家依然可以在「歷史檔案室」免費載入該案件，親自走訪現場體驗完整的劇本與機關解密，但不再重複發放大量破案獎金與全服首解排位，維護公平性與持續遊玩價值。\n\n============================================================\n■ 05｜場所互動、短時微型學習手冊與台味隱藏彩蛋\n============================================================\n【把學習做成 1~3 分鐘微型互動（拒絕枯燥講義）】\n- 規範標準四欄位：每個可進入建築均建立【看見什麼 / 做什麼 / 學到什麼 / 與哪個案件相關】標準規格：\n  1. 台灣科學教育館（士林）：\n     - 互動：操作安全的虛擬光影折射台與熱敏顯影模擬槽（2 分鐘）。\n     - 收穫：解鎖「鑑識物理化學知識卡」，在北投溫泉案件中可直接調出熱敏公式。\n  2. 台北市立圖書館總館（大安）：\n     - 互動：古典密碼字母頻率分析練習小遊戲（3 分鐘）。\n     - 收穫：解鎖「密碼速查表」，淡水紅毛城案件中自動標註字母出現次數。\n  3. 淡水海關公署故事館（淡水）：\n     - 互動：判讀 1860 年代英國商船航海日誌與海關進出口稅單（2 分鐘）。\n     - 收穫：獲得淡水開港歷史知識，解鎖老船長隱藏文史對話。\n  4. 新北市立圖書館總館（板橋）：\n     - 互動：日晷測時法與相似三角形影子長度測量模擬器（2 分鐘）。\n     - 收穫：獲得板橋林家花園日影投影之幾何比例量角器。\n\n【雙北古蹟文史集章冊 (Stamp Rally)】\n- 走訪淡水紅毛城、北投溫泉博物館、板橋林家花園、台北北門等古蹟，在虛擬拓印台蓋下復古像素章。\n- 集滿 4 枚章解鎖遊戲內虛構榮譽「文史好學者徽章」與虛擬生活金獎勵（清楚標註為遊戲內數值，非政府贊助）。\n\n【四大台味與致敬驚喜彩蛋 (Easter Eggs)】\n1. 創作團隊客串彩蛋：台北車站巷弄豆漿店角落，坐著三位六年級獨立研究學生 NPC，筆電螢幕上開著這份企劃書，熱烈討論 AI 程式碼與測試進度！\n2. 淡水老街黑貓「阿巧」：在淡水紅磚巷弄餵牠吃一顆魚丸，阿巧會喵喵叫帶你穿過防空洞，指引出牆面上的隱藏經緯度座標。\n3. 台北 101 屋頂秘密展望台：完成特定支線後獲得天台鑰匙，夜晚登上 101 俯瞰整座大台北 3D 璀璨燈火與星空。\n4. 名著致敬站牌貼紙：某個不起眼的公車站牌下方，悄悄貼著寫有「221B 貝克街」與「米花町五丁目」的復古公車路線貼紙。\n\n============================================================\n■ 06｜生活慢活、偵探精力值、雙軌貨幣與無障礙防卡關機制\n============================================================\n【偵探精力值系統 (Stamina System)】\n- 奔跑、搜查現場消耗精力值。精力過低時角色轉為慢速散步、暫時無法進行深度推理解謎，但「絕對不會連回家或求助都做不到」。\n- 事務所沙發休息、免費飲水機可免費回滿基本精力；亦可走進小吃店品嚐在地美食回血：\n  * 淡水渡船頭小吃：淡水阿給 + 魚丸湯（精力回滿，獲得 3 分鐘海風輕快 Buff）。\n  * 北投老街食堂：排骨酥麵 + 溫泉蛋（精力回滿，解謎時出現輔助提示光圈）。\n  * 雙北連鎖手搖飲：珍珠奶茶（回補 40% 精力，短時間移速提升 30%）。\n  * 台北巷弄早餐店：永和豆漿 + 燒餅夾蛋（平價充飢，隨時補充基礎精力）。\n\n【雙軌貨幣體系 (Dual-Currency Economy)】\n1. 貨幣 1：破案委託賞金 (Detective Coins / 偵探徽幣)\n   - 獲取途徑：成功偵破主支線大案、解開名著經典機關、達成無提示解謎成就。\n   - 專屬用途：在「名偵探高階行」購買永久專業加速裝備（微距放大鏡、紫外光燈、極速滑板）與限定外觀（福爾摩斯風衣、柯南西裝）。\n   - 定位：象徵推理破案成就，專門用於永久加速遊戲進程。\n2. 貨幣 2：日常生活流通金 (Daily Cash / 悠遊卡現金)\n   - 獲取途徑：每日事務所基礎生活津貼、街頭小幫手委託（尋找遺失物/走失寵物）、超商兼職打工、或將破案賞金兌換成生活現金。\n   - 專屬用途：支付公車捷運車資、購買超商破案消耗耗材（防熱竹夾、電池組）、吃小吃回精力。\n   - 定位：重現真實生活感，體驗現代城市生活的細膩運作。\n\n【無障礙防卡死機制 (Anti-Softlock Design)】\n- 絕對不卡死設計：即使生活金花光，玩家依然可以免費步行、在事務所免費休息、或在街頭幫忙做資源回收賺取基礎車資。\n- 三階段漸進防卡關提示：\n  * 第 1 階（免費）：提示現場關鍵物證觀察方向。\n  * 第 2 階：提示邏輯矛盾與破綻（可花費少量生活金，亦可選擇「等待 5 分鐘計時」或「完成指定環境觀察」免費解鎖）。\n  * 第 3 階：直接引導具體操作步驟公式（同上，具備免費等待解鎖途徑），徹底避免玩家因沒錢而永久卡死！\n\n【個人基地、相機與在地聲效體驗】\n- 事務所生活：擺放案情紅線軟木板、更換偵探服裝、泡茶放空。\n- 隨身拍立得相機：按 [C] 鍵隨時開啟取景框拍下街景、夕陽與現場證物，相片可自由釘在事務所案情牆上。\n- 復古收音機多頻道：頻道 A【午後淡水 Lo-Fi】、頻道 B【台北雨季白噪音】、頻道 C【警廣虛構即時路況與失物播報】。\n- 垃圾車音樂推理結合：嫌疑人電話通話中錄到微弱的《少女的祈禱》垃圾車音樂，比對各里垃圾車時刻表推算出嫌疑人真實所在巷弄！\n\n============================================================\n■ 07｜城市動態 NPC 作息、社區信賴度與班級案件工作坊\n============================================================\n【NPC 動態作息與多時段情報】\n- 晨間 (06:00~09:00)：公園晨運長輩、早餐店人潮。\n- 午間 (11:30~14:00)：上班族覓食、排隊小吃。\n- 夜間 (17:00~21:00)：夜市開張、巡邏巡警、下班人潮。\n- 不同時段詢問同一個 NPC 獲得不同零碎證詞，比對時間線拼湊完整拼圖。所有關鍵必要線索均提供替代取得途徑，絕不強迫玩家在現實半夜上線登入。\n\n【社區信賴度善行互動】\n- 隨手扶起路邊倒下的 YouBike（+5 信賴度）。\n- 在巷弄路口協助長輩安全過馬路。\n- 隨手撿起街道丟棄之空寶特瓶投入資源回收桶。\n- 信賴度提升後，小吃店阿姨免費請喝冬瓜茶，NPC 會主動透露隱藏八卦。\n\n【班級自製案件工作坊 (Classroom Workshop)】\n- 內建極簡案件編輯器：選擇捷運站/公車站 ➔ 放置虛擬密函/寶箱 ➔ 撰寫 3 道提示線索 ➔ 設定通關暗號 ➔ 產生 6 碼大寫英數【案件代碼】（統一格式為 6 碼，如 TP8801）。\n- 發表會時評審老師與全班同學只要在遊戲中輸入代碼，即可挑戰同儕設計的自製謎題；無伺服器時亦支援離線字串匯入匯出。\n\n============================================================\n■ 08｜跨平台畫面 UI、無障礙操作與後端資料庫架構\n============================================================\n【介面佈局】\n- 中央主視窗：3D 俯瞰立體街景，可互動建築與站牌具備清晰發光標示。\n- 畫面邊角 HUD：迷你雷達地圖、當前所在街區與行政區、精力條、現實氣象與遊戲時間。\n- 智慧型手機快捷選單：案件簿、線索白板、人物通訊錄、三階提示、知識手冊、拍立得相簿、隨身收音機。每一介面均可一鍵快速返回現場。\n- 無障礙設計：支援電腦 WASD/方向鍵 + 行動端虛擬搖桿與點擊移動；全對話皆有繁體中文字幕、支援字體大小調節、高對比度顏色模式、線索符號標註不依賴單一顏色辨識。\n\n【資料與後端存檔架構】\n- 本地快取：玩家位置、已解案件進度、手冊知識卡、相簿、事務所裝飾等保存於 LocalStorage / IndexedDB。\n- 雲端共享伺服器（首解競賽）：\n  * 案件主表：儲存案件狀態（未開放 / 進行中 / 已首解 / 已歸檔）、發布時間、首解玩家 ID、提交答案雜湊值。\n  * 併發提交控制：提交答案時走資料庫交易（Database Transaction with Row Lock），確保首解唯一性與時間戳稽核。\n\n============================================================\n■ 09｜務實研發策略：第一版「垂直切片 (Vertical Slice)」與專案時程\n============================================================\n【垂直切片 (Vertical Slice) 敏捷策略】\n國小 8 週獨立研究時間有限，若一開始承諾做出 1:1 完整台北與新北所有街道建築將導致專案難產。因此採取業界標準的「垂直切片」策略：\n- 第一階段目標（核心跑通）：\n  開放 1 條真實街道（台北車站周邊）、2 個公車站點、1 處可進入學習場館（科教館講堂）、1 間可休息小吃店、1 個多人可競速的首解小案。\n  完整跑通「自由探索 ➔ 搭乘大眾運輸 ➔ 進館學習 ➔ 現場搜查 ➔ 推理解密 ➔ 獲得考據卡與生活慢活」的完整核心循環！\n- 第二階段目標：擴充至 2 個行政區連通（台北車站 ✕ 淡水老街），加入 YouBike 租借與第二個名著機關。\n- 第三階段目標：加入北投溫泉與板橋林家花園，實裝全 4 大經典名著機關與班級案件編輯器。\n- 第四階段目標：全班試玩、數值微調、部署至 GitHub Pages 與 Itch.io，完成專案發表。\n\n============================================================\n■ 10｜決策待辦清單、公平性保障與未來擴充指引\n============================================================\n【核心待定與決策事項】\n1. 建築室內開放排程：決定哪些建築為「完整獨特室內」（如四大古蹟、事務所、科教館），哪些為「共用商店模板」，未開放建築明確掛上「尚未開放探索」標籤，避免玩家誤解為系統故障。\n2. 特殊公車票價定義：針對跨區長途公車（如跳蛙公車、快速公車）或段次收費邊界設定清楚的提示選單。\n3. 共享案件發布頻率：設定每 2~4 週發布 1 批新案件，限時案件到期後自動轉入「懸案檔案庫」供玩家無期限閱覽。\n4. 成果發表會無伺服器備案：若發表會現場展場 Wi-Fi 不穩，遊戲具備完整離線演示模式，確保成果發表 100% 順暢無阻。";
+    document.getElementById('copyBuffer').value = "# \u3010\u516d\u5e74\u7d1a\u7368\u7acb\u7814\u7a76\u5c08\u984c\u3011\u300a\u96d9\u5317\u6f2b\u904a\u5075\u63a2\uff1a\u90fd\u6703\u884c\u8e64\u300b\u5b8c\u6574\u904a\u6232\u8a2d\u8a08\u4f01\u5283\u66f8\uff0850\u5b97\u5927\u6848 \u2715 10\u7cbe\u9078\u6848\u4f8b \u2715 AI\u751f\u6210\u6a21\u7d44 \u2715 \u5be6\u9ad4\u5230\u5e97 \u2715 \u7a81\u767c\u4e8b\u4ef6 \u2715 \u5171\u4eab\u4e16\u754c\u7af6\u901f \u6df1\u5ea6\u5347\u7d1a\u7248\uff09\n\u5c08\u6848\u5718\u968a\uff1a\u570b\u5c0f\u516d\u5e74\u7d1a\u7368\u7acb\u7814\u7a76\u5c0f\u7d44\uff08\u4e09\u4eba\u5718\u968a\uff09\n\u904a\u6232\u985e\u578b\uff1a1:1 \u96d9\u5317\u958b\u653e\u4e16\u754c\u63a8\u7406\u63a2\u7a76 RPG (Open-World Detective RPG / Edu-Puzzle)\n\u76ee\u6a19\u5e73\u53f0\uff1aWeb \u7db2\u9801\u7aef\uff08\u975c\u614b\u8a17\u7ba1\u96a8\u9ede\u5373\u73a9\uff0c\u652f\u63f4\u96fb\u8166\u9375\u76e4\u8207\u624b\u6a5f\u89f8\u63a7\uff0c\u90e8\u7f72\u65bc GitHub Pages / Itch.io\uff09\n\n============================================================\n\u3010\u2696\ufe0f \u91cd\u8981\u5b78\u8853\u7814\u7a76\u3001\u975e\u5546\u696d\u7528\u9014\u8207\u7248\u6b0a\u5408\u898f\u8072\u660e\u3011\n============================================================\n1. \u975e\u5546\u696d\u5b78\u8853\u7814\u7a76\u6027\u8cea\uff1a\n   \u672c\u4f01\u5283\u66f8\u53ca\u5f8c\u7e8c\u958b\u767c\u4e4b\u7db2\u9801\u904a\u6232\uff0c\u70ba\u570b\u5c0f\u516d\u5e74\u7d1a\u5b78\u751f\u300c\u7368\u7acb\u7814\u7a76\u300d\u8ab2\u7a0b\u4e4b\u8de8\u5b78\u79d1\u7a0b\u5f0f\u6559\u80b2\u8207\u6587\u53f2\u79d1\u5b78\u63a2\u7a76\u6210\u679c\uff0c\u7d55\u7121\u4efb\u4f55\u5546\u696d\u71df\u5229\u3001\u6536\u8cbb\u3001\u8d0a\u52a9\u6216\u8ca9\u552e\u884c\u70ba\u3002\n2. \u865b\u69cb\u69ae\u8b7d\u8207\u7121\u5b98\u65b9\u8d0a\u52a9\u6f84\u6e05\uff1a\n   \u4f01\u5283\u5167\u6240\u63d0\u53ca\u4e4b\u300c\u65b0\u5317\u5e02/\u53f0\u5317\u5e02\u653f\u5e9c\u751f\u6d3b\u6d41\u901a\u91d1\u734e\u52f5\u300d\u3001\u300c\u5e02\u8b66\u5c40\u69ae\u8b7d\u9867\u554f\u52f3\u7ae0\u300d\u7b49\u5167\u5bb9\uff0c\u7d14\u5c6c\u904a\u6232\u4e16\u754c\u89c0\u4e4b\u300c\u865b\u69cb\u5287\u60c5\u69ae\u8b7d\u8207\u6578\u503c\u734e\u52f5\u300d\uff0c\u7d55\u975e\u771f\u5be6\u653f\u5e9c\u55ae\u4f4d\u6216\u8b66\u5bdf\u5c40\u4e4b\u5b98\u65b9\u80cc\u66f8\u6216\u8d0a\u52a9\u3002\n3. \u540d\u8457\u6a5f\u95dc\u3001\u5546\u6a19\u8207\u97f3\u6548\u4e4b\u5408\u7406\u4f7f\u7528\u8207\u539f\u5275\u5316\uff1a\n   \u5c08\u6848\u4e2d\u5f15\u7528\u8207\u81f4\u656c\u4e4b\u300a\u540d\u5075\u63a2\u67ef\u5357\u300b\u3001\u300a\u798f\u723e\u6469\u65af\u63a2\u6848\u96c6\u300b\u3001\u300a\u53e3\u888b\u795e\u63a2\u300b\u7d93\u5178\u5bc6\u78bc\u8207\u79d1\u5b78\u624b\u6cd5\uff0c\u4ee5\u53ca\u96d9\u5317\u771f\u5be6\u5730\u6a19\u8207\u5927\u773e\u904b\u8f38\u7cfb\u7d71\uff08\u53f0\u5317\u6377\u904b\u3001\u5e02\u5340\u516c\u8eca\u3001YouBike 2.0\uff09\uff0c\u7686\u5c6c\u570b\u5c0f\u8ab2\u7a0b\u6559\u5b78\u8207\u5b78\u8853\u63a2\u7a76\u4e4b\u5408\u7406\u4f7f\u7528\uff08Fair Use\uff09\u3002\u82e5\u516c\u958b\u767c\u5e03\u4e0a\u7dda\uff0c\u6240\u6709\u52d5\u6f2b\u4eba\u7269\u5916\u89c0\u3001\u63d2\u756b\u3001UI \u8cbc\u5716\u3001\u6377\u904b\u56db\u8a9e\u5ee3\u64ad\u8207\u74b0\u5883\u97f3\u6a02\uff0c\u5c07\u5168\u90e8\u7531\u5718\u968a\u539f\u5275\u7e6a\u88fd\u8207\u9304\u88fd\uff0c\u4e0d\u76f4\u63a5\u632a\u7528\u53d7\u7248\u6b0a\u4fdd\u8b77\u4e4b\u52d5\u756b\u5546\u696d\u7d20\u6750\u8207\u5b98\u65b9\u9304\u97f3\u3002\n4. \u56b4\u8b39\u6c42\u5be6\u539f\u5247\uff1a\n   \u522a\u9664\u6240\u6709\u300c\u4fdd\u8b49\u5168\u5834\u6700\u9ad8\u5206\u300d\u7b49\u904e\u5ea6\u4fdd\u8b49\u4e4b\u5ba3\u50b3\u8a5e\uff0c\u6240\u6709\u79d1\u5b78\u539f\u7406\uff08\u5149\u5b78\u6295\u5f71/\u53cd\u5c04\u3001\u8072\u5b78\u5ef6\u9072\u3001\u5f31\u9178\u70ad\u5316\u3001\u6163\u6027\u5b9a\u5f8b\u3001\u5929\u5e73\u529b\u77e9\uff09\u8207\u5728\u5730\u53f2\u5be6\u7686\u901a\u904e\u56b4\u8b39\u67e5\u8b49\u8207\u4fee\u6b63\u3002\n\n============================================================\n\u25a0 01\uff5c\u5c08\u6848\u57fa\u672c\u5b9a\u4f4d\u3001\u6838\u5fc3\u7cbe\u795e\u8207\u4e09\u4eba\u5718\u968a\u6df1\u5c64\u5206\u5de5\n============================================================\n\u3010\u4e00\u53e5\u8a71\u5b9a\u4f4d\u3011\n\u300a\u96d9\u5317\u6f2b\u904a\u5075\u63a2\uff1a\u90fd\u6703\u884c\u8e64\u300b\u662f\u4e00\u6b3e\u4ee5\u96d9\u5317\u70ba\u821e\u53f0\u7684\u958b\u653e\u5f0f\u63a2\u7d22\u63a8\u7406\u904a\u6232\uff1a\u8857\u5340\u662f\u9023\u7e8c\u7684\u904a\u6232\u7a7a\u9593\uff0c\u6848\u4ef6\u662f\u53ef\u9078\u7684\u5192\u96aa\uff0c\u5b78\u7fd2\u5167\u5bb9\u85cf\u5728\u5834\u6240\u8207\u5fae\u578b\u4e92\u52d5\u88e1\u3002\u5b83\u4e0d\u662f\u53ea\u6709\u56db\u500b\u5c01\u9589\u95dc\u5361\u3001\u901a\u95dc\u5373\u7d50\u675f\u7684\u89e3\u8b0e\u904a\u6232\uff0c\u800c\u662f\u4e00\u5ea7\u4e16\u754c\u96a8\u6642\u6301\u7e8c\u904b\u8f49\u3001\u6848\u4ef6\u4e0d\u65b7\u767c\u751f\u7684\u7121\u76e1\u57ce\u5e02\uff01\n\n\u3010\u6838\u5fc3\u7406\u5ff5\u8207\u73a9\u5bb6\u9ad4\u9a57\u3011\n- \u81ea\u7531\u6f2b\u904a\uff08\u52d5\u68ee\u5f0f\u6162\u6d3b\uff09\uff1a\u73a9\u5bb6\u5728\u539f\u5730\u64cd\u4f5c\u89d2\u8272\uff0c\u4e0d\u5fc5\u771f\u7684\u5230\u73fe\u5834\uff1b\u53ef\u4ee5\u8fa6\u6848\uff0c\u4e5f\u53ef\u4ee5\u5b8c\u5168\u4e0d\u8fa6\u6848\uff0c\u55ae\u7d14\u5728\u96d9\u5317\u8857\u5340\u6f2b\u6b65\u3001\u53bb\u6de1\u6c34\u770b\u5915\u967d\u3001\u5728\u8d85\u5546\u559d\u98f2\u6599\u770b\u96e8\u666f\u3001\u56de\u4e8b\u52d9\u6240\u6574\u7406\u76f8\u7247\u4f48\u7f6e\u623f\u9593\u3002\n- \u6848\u4ef6\u6709\u7d50\u5c40\uff0c\u4e16\u754c\u7121\u7d42\u9ede\uff1a\u5373\u4f7f\u67d0\u500b\u5927\u6848\u88ab\u5168\u670d\u9996\u89e3\u7834\u6848\u6b78\u6a94\uff0c\u73a9\u5bb6\u4f9d\u7136\u53ef\u4ee5\u7e7c\u7e8c\u5728\u96d9\u5317\u751f\u6d3b\u3001\u6253\u5de5\u3001\u6f2b\u904a\u3001\u62cd\u7167\u3001\u6216\u7b49\u5f85\u4e0b\u4e00\u6279\u65b0\u6848\u4ef6\u767c\u751f\u3002\n- \u73a9\u5bb6\u81ea\u5df1\u6c7a\u5b9a\u4e0b\u4e00\u7ad9\uff1a\u65b0\u624b\u6559\u5b78\u4e0d\u7d81\u6b7b\u56fa\u5b9a\u52d5\u7dda\uff0c\u6545\u4e8b\u63d0\u4f9b\u6307\u5f15\u4f46\u4e0d\u9396\u6b7b\u57ce\u5e02\u63a2\u7d22\u6b0a\u9650\u3002\u6bcf\u500b\u53ef\u9032\u5165\u7684\u5730\u9ede\u81f3\u5c11\u5177\u5099\u300c\u4e00\u9805\u53ef\u4e92\u52d5\u7684\u77e5\u8b58\u3001\u4e00\u500b\u89c0\u5bdf\u4eae\u9ede\u3001\u4e00\u500b\u4eba\u7269\u5c0d\u8a71\u3001\u4e00\u689d\u7dda\u7d22\u6216\u4e00\u500b\u9a5a\u559c\u5f69\u86cb\u300d\uff0c\u7d55\u4e0d\u505a\u7a7a\u6bbc\u5efa\u7bc9\u3002\n\n\u3010\u4e09\u4eba\u7814\u7a76\u5718\u968a\u6df1\u5ea6\u8077\u8cac\u898f\u5283\u3011\n1. \u7d44\u54e1 1\uff08\u7d44\u9577 / \u4f01\u5283\u7e3d\u76e3\uff09\uff1a\n   - \u4e16\u754c\u89c0\u8a2d\u5b9a\u3001\u4e3b\u652f\u7dda\u5287\u672c\u4e3b\u7b46\u8207\u5c0d\u8a71\u64b0\u5beb\u3002\n   - \u7814\u8b80\u300a\u540d\u5075\u63a2\u67ef\u5357\u300b\u3001\u300a\u798f\u723e\u6469\u65af\u300b\u8207\u300a\u53e3\u888b\u795e\u63a2\u300b\uff0c\u6539\u7de8 50 \u5b97\u79d1\u5b78\u8207\u5bc6\u78bc\u6a5f\u95dc\uff0c\u898f\u5283\u672a\u4f86 AI \u63d0\u793a\u8a5e\u5de5\u7a0b\u3002\n   - \u8ca0\u8cac\u6bcf\u6848\u7834\u6848\u5f8c\u300c\u540d\u8457\u8003\u64da\u5361\u300d\u8207\u300c\u5fae\u578b\u77e5\u8b58\u8b1b\u5802\u300d\u5167\u5bb9\u64b0\u5beb\uff0c\u78ba\u4fdd\u7b26\u5408\u570b\u5c0f\u81ea\u7136\u8207\u793e\u6703\u8ab2\u7db1\u3002\n2. \u7d44\u54e1 2\uff08\u7f8e\u8853\u8207\u5716\u8cc7\u7e3d\u76e3\uff09\uff1a\n   - 3D \u4fef\u77b0\u8996\u89d2\u8857\u666f\u8996\u89ba\u6a19\u6e96\u5236\u5b9a\uff0c\u7e6a\u88fd 2D \u5fa9\u53e4\u50cf\u7d20\u89d2\u8272\u3001NPC \u8207\u96d9\u5317\u7279\u8272\u5c0f\u5403\u9053\u5177\u3002\n   - \u8003\u5bdf\u771f\u5be6\u96d9\u5317\u5730\u7406\uff0c\u4f7f\u7528 OpenStreetMap (OSM) \u958b\u653e\u5716\u8cc7\u5efa\u7acb 1:1 \u9053\u8def\u5c3a\u5ea6\u8207\u5efa\u7bc9\u5916\u89c0\u3002\n   - \u5236\u5b9a\u5efa\u7bc9\u9032\u51fa\u767c\u5149\u6a19\u8a18\u5716\u6848\uff08\u9580\u5f62\u3001\u5496\u5561\u676f\u3001\u5c0f\u5403\u3001\u8d85\u5546\u3001\u4e94\u91d1\u884c\u3001\u66f8\u672c\u3001\u535a\u7269\u9928\u7b49\uff09\u3002\n3. \u7d44\u54e1 3\uff08\u6280\u8853\u67b6\u69cb\u8207\u6a5f\u5236\u7e3d\u76e3\uff09\uff1a\n   - \u898f\u5283 3D/2D \u6df7\u5408\u5f15\u64ce\u3001WASD/\u884c\u52d5\u7aef\u89f8\u63a7\u64cd\u4f5c\u3001\u96d9\u8ecc\u7d93\u6fdf\u6578\u503c\u5e73\u8861\uff08\u7834\u6848\u8cde\u91d1\u8207\u751f\u6d3b\u6d41\u901a\u91d1\uff09\u3002\n   - \u8a2d\u8a08\u771f\u5be6\u5927\u773e\u4ea4\u901a\u8cbb\u7387\u6f14\u7b97\u6cd5\uff08\u516c\u8eca\u6bb5\u6b21\u7de9\u885d\u5340\u3001\u6377\u904b\u771f\u5be6\u91cc\u7a0b\u77e9\u9663\u3001YouBike \u524d 30 \u5206\u9418\u88dc\u52a9\uff09\u3002\n   - \u8a2d\u8a08\u5be6\u9ad4\u5546\u5e97\u5230\u5e97\u8cfc\u8cb7\u6a5f\u5236\u3001\u4f3a\u670d\u5668\u7aef\u300c\u5171\u4eab\u4e16\u754c\u552f\u4e00\u9996\u89e3\u539f\u5b50\u9396\u5b9a\u300d\u8207 AI \u6848\u4ef6\u81ea\u52d5\u751f\u6210\u6a21\u7d44\u67b6\u69cb\u3002\n\n============================================================\n\u25a0 02 & 02A\uff5c\u96d9\u5317\u9023\u7e8c\u4e16\u754c\u30011:1 \u5730\u7406\u3001\u5efa\u7bc9\u9032\u51fa\u5716\u6848\u6a19\u8a18\u8207\u5927\u773e\u4ea4\u901a\u8cbb\u7387\n============================================================\n\u30101:1 \u73fe\u5be6\u5730\u7406\u7d50\u69cb\u3011\n- \u5730\u5716\u57fa\u790e\uff1a\u57fa\u65bc\u53f0\u5317\u5e02\u8207\u65b0\u5317\u5e02\u771f\u5be6\u9053\u8def\u3001\u6a4b\u6881\u3001\u6cb3\u5ddd\u3001\u884c\u653f\u5340\u3001\u516c\u8eca\u7ad9\u724c\u3001\u6377\u904b\u8def\u7db2\u8207\u76f8\u5c0d\u8ddd\u96e2\u5efa\u6a21\u3002\n- \u9023\u7e8c\u4e16\u754c\uff08\u975e\u50b3\u9001\u9580\uff09\uff1a\u8de8\u5340\u4e0d\u662f\u77ac\u9593\u5207\u63db\u9ed1\u756b\u9762\u50b3\u9001\uff0c\u73a9\u5bb6\u53ef\u4ee5\u6cbf\u8457\u771f\u5be6\u9053\u8def\uff08\u5982\u4e2d\u6b63\u6a4b\u3001\u53f0\u5317\u6a4b\u3001\u5fe0\u5b5d\u897f\u8def\u3001\u65b0\u5e97\u6eaa\u6cbf\u5cb8\uff09\u8de8\u8d8a\u884c\u653f\u5340\u754c\u6b65\u884c\uff0c\u5b8c\u5168\u4e0d\u8a2d\u884c\u653f\u5340\u6b65\u884c\u7a7a\u6c23\u7246\u3002\n\n\u3010\u2605 \u5efa\u7bc9\u9032\u51fa\u767c\u5149\u5716\u6848\u6a19\u8a18\u7cfb\u7d71\uff08Enterable Building Markers\uff09\u3011\n\u96d9\u5317\u5305\u542b\u6578\u842c\u68df\u5efa\u7bc9\uff0c\u70ba\u4e86\u517c\u9867 1:1 \u771f\u5be6\u6bd4\u4f8b\u8207\u6e05\u6670\u5f15\u5c0e\uff0c\u904a\u6232\u56b4\u683c\u5340\u5206\u5efa\u7bc9\u985e\u578b\uff1a\n1. \u53ef\u9032\u5165\u5efa\u7bc9\uff08Enterable Buildings\uff09\uff1a\n   \u5efa\u7bc9\u4e0a\u65b9\u6703\u6d6e\u73fe\u767c\u5149\u7684\u52d5\u614b\u5716\u6848\u6a19\u7c64\uff1a\n   - \ud83d\udeaa \u9580\u5f62\uff1a\u5075\u63a2\u4e8b\u52d9\u6240\u3001\u6c11\u5b85\u3001\u9577\u5eca\u5165\u53e3\n   - \u2615 \u5496\u5561\u676f\uff1a\u9023\u9396\u5496\u5561\u5e97\uff08\u4f11\u61a9\u3001\u96a8\u6a5f\u89f8\u767c\u4e2d\u6bd2\u7a81\u767c\u4e8b\u4ef6\uff09\n   - \ud83c\udf5c \u9eb5\u7897\uff1a\u53f0\u7063\u5c0f\u5403\u5e97\u3001\u9910\u5ef3\uff08\u9032\u5e97\u5403\u98ef\u88dc\u6eff\u7cbe\u529b\u503c\uff09\n   - \ud83c\udfea \u8d85\u5546\uff1a7-11/\u5168\u5bb6\u4fbf\u5229\u5546\u5e97\uff08\u5be6\u9ad4\u8cfc\u8cb7\u96fb\u6c60\u3001\u7af9\u593e\u7b49\u73fe\u5834\u8017\u6750\uff09\n   - \ud83d\udee0\ufe0f \u677f\u624b\u87ba\u7d72\uff1a\u5728\u5730\u4e94\u91d1\u884c\u3001\u96fb\u5b50\u5546\u5834\uff08\u5be6\u9ad4\u8cfc\u8cb7\u624b\u96fb\u7b52\u3001\u7d2b\u5916\u5149\u5100\u7b49\u5de5\u5177\uff09\n   - \ud83d\udcda \u66f8\u672c\uff1a\u5e02\u7acb\u5716\u66f8\u9928\u3001\u66f8\u5e97\uff08\u53c3\u8207 1~3 \u5206\u9418\u5fae\u578b\u77e5\u8b58\u8b1b\u5802\uff09\n   - \ud83c\udfdb\ufe0f \u795e\u6bbf\u67f1\uff1a\u535a\u7269\u9928\u3001\u53e4\u8e5f\u5c55\u9928\uff08\u6b77\u53f2\u63a2\u7a76\u3001\u84cb\u7d00\u5ff5\u62d3\u5370\u7ae0\uff09\n   \u9760\u8fd1\u6642\u756b\u9762\u51fa\u73fe\u63d0\u793a\u6309\u9375 [E] \u6216\u624b\u6a5f\u89f8\u63a7\u9ede\u64ca\uff0c\u5373\u53ef\u63a8\u9580\u9032\u5165\u5c08\u5c6c 2D/3D \u5ba4\u5167\u5834\u666f\u3002\n2. \u4e0d\u53ef\u9032\u5165\u5efa\u7bc9\uff08Exterior Only\uff09\uff1a\n   \u5efa\u7bc9\u4e0a\u65b9\u7121\u4efb\u4f55\u5716\u6848\u6a19\u793a\uff0c\u7d14\u4f5c\u70ba\u771f\u5be6\u96d9\u5317\u8857\u666f\u7acb\u9762\uff0c\u4e0d\u53ef\u9032\u5165\uff0c\u907f\u514d\u73a9\u5bb6\u76f2\u76ee\u78b0\u58c1\u4ee5\u70ba\u7cfb\u7d71\u6545\u969c\u3002\n\n\u3010\u591a\u5143\u5927\u773e\u4ea4\u901a\u7db2\u7d61\u8207\u7cbe\u78ba\u8cbb\u7387\u3011\n1. \u6b65\u884c (Walking)\uff1a\u514d\u8cbb\u3001\u7121\u9650\u5236\uff01\u73a9\u5bb6\u96a8\u6642\u53ef\u6cbf\u8457\u96d9\u5317\u8857\u9053\u8de8\u5340\u6f2b\u904a\u3002\n2. \u5e02\u5340\u516c\u8eca\uff08\u4e3b\u8981\u5927\u773e\u904b\u8f38\u5de5\u5177\uff09\uff1a\u8d70\u96d9\u5317\u771f\u5be6\u8def\u7dda\u8207\u7ad9\u724c\uff0c\u5168\u7968\u6bcf\u6bb5\u6b21 15 \u5143\u751f\u6d3b\u91d1\uff0c\u6309\u771f\u5be6\u5206\u6bb5\u9ede\u8207\u7de9\u885d\u5340\u8a08\u8cbb\u3002\n3. \u53f0\u5317\u6377\u904b (Taipei Metro)\uff1a\u6309\u8d77\u8fc4\u7ad9\u5b98\u65b9\u7968\u50f9\u67e5\u8a62\u8868\u6263\u6b3e\uff08$20 ~ $65\uff09\uff0c\u6377\u904b\u7ad9\u5167\u64ad\u653e\u7d93\u5178\u56db\u8a9e\u5ee3\u64ad\u3002\n4. YouBike 2.0 \u516c\u5171\u81ea\u884c\u8eca\uff1a4 \u5c0f\u6642\u5167\u6bcf 30 \u5206\u9418 10 \u5143\uff0c\u96d9\u5317\u6703\u54e1\u4eab\u6709\u524d 30 \u5206\u9418\u514d\u8cbb\u88dc\u52a9\u653f\u7b56\u3002\n\n\u3010\u6642\u9593\u3001\u65e5\u591c\u8207\u52d5\u614b\u6c23\u8c61\u96d9\u8ecc\u5236\u3011\n- \u4e32\u63a5\u4e2d\u592e\u6c23\u8c61\u7f72\uff08CWA\uff09API \u6bcf 15 \u5206\u9418\u540c\u6b65\u5929\u6c23\uff1b\u96e8\u5929\u8349\u5730\u7559\u4e0b\u6ce5\u6fd8\u978b\u5370\u3001\u5c4b\u7c37\u843d\u6c34\u8072\u63a9\u84cb\u649e\u64ca\u3001\u96e8\u5098\u6ef4\u6c34\u6210\u70ba\u7834\u6848\u7dda\u7d22\u3002\n- \u96d9\u8ecc\u9632\u5361\u95dc\uff1a\u63d0\u4f9b\u96e2\u7dda\u9810\u8a2d\u6a21\u5f0f\uff0c\u4e26\u5c07\u6848\u4ef6\u6642\u9593\u8ef8\u8207\u73fe\u5be6\u89e3\u8026\uff0c\u9632\u6b62\u73a9\u5bb6\u56e0\u73fe\u5be6\u4e2d\u7b49\u4e0d\u5230\u4e0b\u96e8\u5929\u800c\u5361\u95dc\u3002\n\n============================================================\n\u25a0 03\uff5c\u73a9\u5bb6\u904a\u73a9\u6d41\u7a0b\uff1a\u81ea\u7531\u6f2b\u904a\u3001\u52d5\u68ee\u5f0f\u6162\u6d3b\u8207\u65b0\u624b\u524d 15 \u5206\u9418\n============================================================\n\u3010\u2605 \u73a9\u6cd5\u81ea\u7531\u539f\u5247\uff1a\u4e0d\u5fc5\u4e00\u76f4\u7834\u6848\uff0c\u653e\u9b06\u6162\u6d3b\u4e5f\u662f\u4e00\u7a2e\u73a9\u6cd5\u3011\n- \u4e0d\u8a2d\u6b7b\u7dda\uff1a\u73a9\u5bb6\u5b8c\u5168\u4e0d\u5fc5\u6709\u7834\u6848\u58d3\u529b\uff0c\u53ef\u4ee5\u82b1\u4e00\u6574\u5929\u5728\u6de1\u6c34\u6cb3\u5cb8\u770b\u5915\u967d\u3001\u5750\u5728\u8d85\u5546\u843d\u5730\u7a97\u524d\u559d\u73cd\u5976\u770b\u96e8\u666f\u3002\n- \u5c45\u5bb6\u5929\u5730\uff1a\u73a9\u5bb6\u4e5f\u53ef\u4ee5\u6574\u5929\u5f85\u5728\u81ea\u5df1\u7684\u5075\u63a2\u4e8b\u52d9\u6240/\u5bb6\u88e1\uff0c\u6574\u7406\u7dda\u7d22\u767d\u677f\u3001\u66f4\u63db\u670d\u88dd\u3001\u6ce1\u8336\u653e\u7a7a\u3002\n\n\u3010\u65b0\u624b\u524d 15 \u5206\u9418\u6d41\u66a2\u5f15\u5c0e\u3011\n1. \u4e8b\u52d9\u6240\u8a95\u751f\uff1a\u5728\u8001\u8857\u95a3\u6a13\u7526\u9192\uff0c\u719f\u6089 WASD \u8d70\u52d5\u8207\u624b\u6a5f\u7dda\u7d22\u7c3f\u64cd\u4f5c\u3002\n2. \u9580\u53e3\u7121\u9580\u6abb\u5931\u7269\u59d4\u8a17\uff1a\u4e8b\u52d9\u6240\u9580\u53e3\u8001\u723a\u723a\u9470\u5319\u907a\u5931\u6848\uff08\u82b1\u8cbb 0 \u5143\uff0c\u89c0\u5bdf\u522e\u75d5\u3001\u8a2a\u8ac7\u9130\u5c45\u3001\u63a8\u8ad6\u559c\u9d72\u53fc\u8d70\u9470\u5319\uff09\u3002\n3. \u734e\u52f5\u8207\u81ea\u7531\u555f\u7a0b\uff1a\u7372\u5f97\u521d\u59cb\u751f\u6d3b\u91d1 100 \u5143\u3001\u5bc6\u78bc\u9451\u8b58\u77e5\u8b58\u5361\u8207\u96d9\u5317\u5730\u5716\uff0c\u81ea\u4e3b\u6c7a\u5b9a\u4e0b\u4e00\u7ad9\u3002\n\n============================================================\n\u25a0 04\uff5c\u6848\u4ef6\u9ad4\u7cfb\u91cd\u5927\u64f4\u5145\uff1a50 \u5b97\u5927\u6848\u5168\u666f\u77e9\u9663\u300110 \u5927\u7cbe\u9078\u6df1\u5ea6\u6848\u4f8b\u8207 AI \u6848\u4ef6\u751f\u6210\u6a21\u7d44\n============================================================\n\u301050 \u5b97\u96d9\u5317\u63a8\u7406\u6848\u4ef6\u4e3b\u984c\u5206\u985e\u5168\u666f\u77e9\u9663\u3011\n- \u3010CASE-01\u3011\u897f\u9580\u753a\u9023\u9396\u5496\u5561\u5e97\u62ff\u9435\u4e2d\u6bd2\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u897f\u9580\u753a\u6210\u90fd\u8def\u9023\u9396\u5496\u5561\u5e97 | \u81f4\u656c/\u539f\u7406\uff1a\u540d\u5075\u63a2\u67ef\u5357\u7d93\u5178\u5496\u5561\u5ef3\u5bc6\u5ba4\uff08\u6709\u6a5f\u751f\u7269\u9e7c\u6bd2\u6027\u3001\u5496\u5561\u9178\u9e7c\u503c\u8207\u8272\u5c64\u6c89\u6fb1\u5206\u6790\uff09| \u6897\u6982\uff1a\u73a9\u5bb6\u5728\u5496\u5561\u5e97\u5403\u65e9\u9910\u6642\uff0c\u9130\u684c\u5546\u52d9\u5ba2\u7a81\u767c\u62bd\u6410\u5012\u4e0b\uff0c\u676f\u7de3\u6563\u767c\u82e6\u674f\u4ec1\u5473\uff0c\u73fe\u5834\u5c01\u9396\u9650\u6642\u6392\u67e5\u56db\u540d\u5728\u5834\u5acc\u7591\u4eba\u3002\n- \u3010CASE-02\u3011\u53f0\u5317\u8eca\u7ad9\u4e09\u9435\u9023\u901a\u9577\u5eca\u6c34\u529b\u5ef6\u6642\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317\u8eca\u7ad9\u5730\u4e0b\u8857\u81f3\u9ad8\u9435\u8f49\u4e58\u8655 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u3008\u9727\u5929\u72d7\u50b3\u8aaa\u3009\u8207\u5efa\u7bc9\u8072\u5b78\uff08\u8679\u5438\u7ba1\u84c4\u6c34\u5b9a\u6642\u50be\u5012\u6a5f\u95dc\u8207\u9577\u5eca\u591a\u91cd\u56de\u8072\u53cd\u5c04\u5b9a\u4f4d\uff09| \u6897\u6982\uff1a\u5acc\u72af\u81ea\u88fd\u8679\u5438\u6c34\u529b\u91cd\u529b\u6a5f\u95dc\u5ef6\u9072 30 \u5206\u9418\u50be\u5012\u5de8\u97ff\u88fd\u9020\u4e0d\u5728\u5834\u8b49\u660e\uff0c\u6bd4\u5c0d\u76e3\u8996\u5668\u6c34\u6f2c\u6642\u9593\u6233\u8207\u8072\u901f\u7834\u6848\u3002\n- \u3010CASE-03\u3011\u897f\u9580\u753a\u8d85\u5546\u51b7\u85cf\u6ac3\u96b1\u5f62\u6307\u7d0b\u7aca\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u897f\u9580\u753a\u6f22\u4e2d\u8857\u4fbf\u5229\u5546\u5e97 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u827e\u5c0f\u5761\u79d1\u5b78\u63a8\u7406\uff08\u4f4e\u6eab\u6c34\u6c23\u51dd\u7d50\u5149\u5b78\u6298\u5c04\u8207\u7d2b\u5916\u87a2\u5149\u58a8\u6c34\u53cd\u61c9\uff09| \u6897\u6982\uff1a\u9ad8\u50f9\u9032\u53e3\u6d0b\u828b\u7247\u9650\u91cf\u5361\u5728\u51b7\u85cf\u6ac3\u65c1\u5931\u7aca\uff0c\u5229\u7528\u4f4e\u6eab\u73bb\u7483\u4e0a\u7684\u51dd\u7d50\u6c34\u6c23\u6307\u7d0b\u6b98\u7559\u8207\u4fbf\u651c\u7d2b\u5916\u71c8\u9396\u5b9a\u5acc\u72af\u3002\n- \u3010CASE-04\u3011\u6377\u904b\u677f\u5357\u7dda\u672b\u73ed\u8eca\u6025\u715e\u8abf\u5305\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u6377\u904b\u53f0\u5317\u8eca\u7ad9\u5f80\u5fe0\u5b5d\u5fa9\u8208\u8eca\u5ec2 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u6163\u6027\u7269\u7406\u6848\u4ef6\uff08\u725b\u9813\u7b2c\u4e00\u904b\u52d5\u5b9a\u5f8b\uff08\u6163\u6027\uff09\u3001\u5217\u8eca\u52a0\u901f\u5ea6\u8207\u91cd\u5fc3\u529b\u5b78\uff09| \u6897\u6982\uff1a\u672b\u73ed\u8eca\u7a81\u767c\u7dca\u6025\u715e\u8eca\uff0c\u5168\u8eca\u4e58\u5ba2\u5411\u524d\u50be\u5012\uff0c\u7e3d\u88c1\u76ae\u593e\u96e2\u5947\u6d88\u5931\uff0c\u6bd4\u5c0d\u4e58\u5ba2\u7ad9\u4f4d\u91cd\u5fc3\u8207\u6293\u63e1\u6276\u624b\u75d5\u8de1\u7834\u6848\u3002\n- \u3010CASE-05\u3011\u5927\u7a3b\u57d5\u767e\u5e74\u4e2d\u85e5\u92ea\u6d88\u5931\u7684\u4eba\u8518\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u8fea\u5316\u8857\u5357\u5317\u8ca8\u767e\u5e74\u85e5\u884c | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u9280\u8272\u99ac\u3009\u8207\u76f2\u9ede\u5fc3\u7406\u5b78\uff08\u7b49\u81c2\u4e2d\u85e5\u5929\u5e73\u539f\u7406\u3001\u5047\u781d\u78bc\u91cd\u5fc3\u504f\u7f6e\u8207\u6d6e\u529b\u88dc\u511f\uff09| \u6897\u6982\uff1a\u9396\u5728\u73bb\u7483\u6ac3\u7684\u9802\u7d1a\u91ce\u5c71\u8518\u7121\u7834\u640d\u5931\u7aca\uff0c\u8abf\u67e5\u767c\u73fe\u5acc\u72af\u5de7\u5999\u6539\u88dd\u5929\u5e73\u9285\u781d\u78bc\u5167\u5d4c\u925b\u584a\uff0c\u5229\u7528\u91cd\u91cf\u8aa4\u5dee\u5077\u5929\u63db\u65e5\u3002\n- \u3010CASE-06\u3011\u96d9\u5317 307 \u516c\u8eca\u6025\u715e\u76ae\u593e\u8abf\u5305\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a307 \u516c\u8eca\u884c\u7d93\u5357\u4eac\u6771\u8def\u6bb5 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u6163\u6027\u8207\u8996\u7dda\u76f2\u5340\uff08\u8eca\u8f1b\u8f49\u5f4e\u96e2\u5fc3\u529b\u3001\u52d5\u91cf\u5b88\u6046\u8207\u624b\u6307\u76f8\u5c0d\u904b\u52d5\u932f\u89ba\uff09| \u6897\u6982\uff1a\u73a9\u5bb6\u642d\u516c\u8eca\u524d\u5f80\u4e0b\u500b\u73fe\u5834\u6642\uff0c\u524d\u65b9\u4e58\u5ba2\u76ae\u593e\u88ab\u5077\uff0c\u5acc\u72af\u5229\u7528\u516c\u8eca\u5de6\u8f49\u96e2\u5fc3\u529b\u5c07\u76ae\u593e\u9806\u52e2\u6ed1\u5165\u540c\u5925\u80cc\u5305\u3002\n- \u3010CASE-07\u3011\u4e2d\u5c71\u5730\u4e0b\u66f8\u8857\u624b\u7a3f\u53e4\u7c4d\u5bc6\u78bc\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u4e2d\u5c71\u5730\u4e0b\u8857\u8aa0\u54c1\u66f8\u8857 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u8df3\u821e\u7684\u4eba\u3009\u8b8a\u9ad4\u5bc6\u78bc\uff08\u7dad\u5409\u5c3c\u4e9e\u5bc6\u78bc\uff08Vigen\u00e8re Cipher\uff09\u8207\u66f8\u7c4d\u958b\u672c\u9801\u78bc\u5c0d\u7167\uff09| \u6897\u6982\uff1a\u73cd\u672c\u53e4\u7c4d\u593e\u5c64\u7559\u4e0b\u4e00\u7d44\u795e\u79d8\u66f8\u540d\u4ee3\u78bc\uff0c\u4ee5\u96d9\u5317\u6377\u904b\u7ad9\u540d\u4f5c\u70ba\u91d1\u9470\u5b57\u5143\u89e3\u9396\u96b1\u85cf\u5728\u66f8\u67b6\u5f8c\u65b9\u7684\u6587\u53f2\u7b46\u8a18\u3002\n- \u3010CASE-08\u3011\u4fe1\u7fa9\u5340\u767e\u8ca8\u5c08\u6ac3\u73e0\u5bf6\u73bb\u7483\u53cd\u5c04\u8b0e\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u5e02\u5e9c\u7ad9\u4fe1\u7fa9\u65b0\u5929\u5730\u73e0\u5bf6\u5c08\u6ac3 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u93e1\u9762\u8996\u89ba\u5047\u8c61\u8207\u5168\u53cd\u5c04\uff08\u5e73\u9762\u93e1\u591a\u6b21\u53cd\u5c04\u6210\u50cf\u3001\u8996\u5dee\u89d2\u5ea6\u8207\u504f\u5149\u93e1\u7247\u6d88\u9664\u53cd\u5149\uff09| \u6897\u6982\uff1a\u5c55\u793a\u6ac3\u4e2d\u540d\u8cb4\u947d\u6212\u5728\u773e\u4eba\u773c\u524d\u6d88\u5931\uff0c\u5acc\u72af\u5229\u7528\u5169\u9762 45 \u5ea6\u504f\u5149\u93e1\u7247\u8207\u71c8\u5149\u89d2\u5ea6\u88fd\u9020\u5c55\u6ac3\u4f9d\u7136\u5b8c\u597d\u7684\u5149\u5b78\u5047\u8c61\u3002\n- \u3010CASE-09\u3011\u53f0\u5317\u5e02\u5f79\u6240\u8001\u6a94\u6848\u5ba4\u85cd\u6652\u5716\u986f\u5f71\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317\u5e02\u653f\u5e9c\u820a\u5ec8\u6b77\u53f2\u6a94\u6848\u9928 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u5149\u654f\u5316\u5b78\u53cd\u61c9\u5bc6\u5ba4\uff08\u6c30\u7248\u7167\u76f8\u6cd5\uff08Cyanotype\uff09\u3001\u9435\u9e7d\u5149\u5316\u5b78\u9084\u539f\u8207\u7d2b\u5916\u5149\u7167\u5c04\uff09| \u6897\u6982\uff1a\u65e5\u6cbb\u6642\u671f\u9632\u7a7a\u907f\u96e3\u5bc6\u9053\u5716\u88ab\u5857\u767d\u96b1\u533f\uff0c\u73a9\u5bb6\u4f7f\u7528\u96d9\u6c27\u6c34\u7a00\u91cb\u6db2\u8207\u7d2b\u5916\u7dda\u71c8\u7167\u5c04\u4f7f\u666e\u9b6f\u58eb\u85cd\u91cd\u65b0\u986f\u5f71\u9084\u539f\u53e4\u5730\u5716\u3002\n- \u3010CASE-10\u3011\u5927\u7a3b\u57d5\u971e\u6d77\u57ce\u968d\u5edf\u9999\u7210\u7d05\u7dda\u6697\u865f\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u5927\u7a3b\u57d5\u971e\u6d77\u57ce\u968d\u5edf\u524d\u5ee3\u5834 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u7d05\u9aee\u6703\u3009\u5730\u9053\u6697\u8a18\uff08\u53e4\u6cd5\u6253\u7d50\u8a18\u4e8b\u5bc6\u78bc\uff08\u7d50\u7e69\u8a18\u4e8b\uff09\u8207\u5929\u5e72\u5730\u652f\u7d93\u7def\u5ea6\u6620\u5c04\uff09| \u6897\u6982\uff1a\u5edf\u524d\u9999\u7210\u77f3\u96d5\u88ab\u7e6b\u4e0a\u4e94\u689d\u4e0d\u540c\u6253\u7d50\u9577\u5ea6\u7684\u59fb\u7de3\u7d05\u7dda\uff0c\u7d50\u5408\u5927\u7a3b\u57d5\u4e94\u9032\u5f0f\u8857\u5c4b\u9032\u6df1\u6bd4\u4f8b\u627e\u51fa\u8d70\u79c1\u6697\u9580\u5ea7\u6a19\u3002\n- \u3010CASE-11\u3011\u6de1\u6c34\u6d77\u95dc\u78bc\u982d\u8df3\u821e\u5c0f\u4eba\u822a\u6d77\u78da\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u6de1\u6c34\u6d77\u95dc\u78bc\u982d\u8207\u7d05\u6bdb\u57ce\u6b77\u53f2\u5712\u5340 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u8df3\u821e\u7684\u4eba\u3009\u7d93\u5178\u5bc6\u78bc\uff08\u55ae\u8868\u66ff\u63db\u5f0f\u5bc6\u78bc\uff08Substitution Cipher\uff09\u8207\u5b57\u6bcd\u983b\u7387\u5206\u6790\uff09| \u6897\u6982\uff1a\u78bc\u982d\u77f3\u58c1\u523b\u6709 26 \u584a\u8df3\u821e\u5c0f\u4eba\u7b26\u865f\uff0c\u7d50\u5408 1860 \u5e74\u4ee3\u6d77\u95dc\u822a\u6d77\u65e5\u8a8c\u983b\u7387\u5206\u6790\u89e3\u9396\u6697\u683c\uff0c\u8d77\u7372\u767e\u5e74\u822a\u6d77\u61f7\u9336\u3002\n- \u3010CASE-12\u3011\u6de1\u6c34\u963f\u7d66\u8001\u5e97\u795e\u79d8\u914d\u65b9\u8abf\u5473\u7f50\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u6de1\u6c34\u6e21\u8239\u982d\u8001\u5b57\u865f\u963f\u7d66\u98df\u5802 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u6d6e\u529b\u8207\u6bd4\u91cd\u539f\u7406\uff08\u6db2\u9ad4\u5bc6\u5ea6\u3001\u6d6e\u529b\u5b9a\u5f8b\uff08\u963f\u57fa\u7c73\u5fb7\u539f\u7406\uff09\u8207\u7cd6\u6c34\u9e7d\u6c34\u98fd\u548c\u6bd4\u91cd\uff09| \u6897\u6982\uff1a\u963f\u7d66\u7279\u8abf\u91ac\u6c41\u914d\u65b9\u88ab\u9396\u5728\u6d6e\u529b\u6697\u7bb1\u4e2d\uff0c\u5acc\u72af\u8abf\u63db\u4e86\u91ac\u6cb9\u8207\u9ad8\u7cd6\u751c\u8fa3\u91ac\uff0c\u73a9\u5bb6\u5229\u7528\u6bd4\u91cd\u8a08\u91cf\u6e2c\u6db2\u9ad4\u5bc6\u5ea6\u7834\u6848\u3002\n- \u3010CASE-13\u3011\u6de1\u6c34\u7d05\u6bdb\u57ce\u82f1\u570b\u9818\u4e8b\u9928\u65d7\u8a9e\u5bc6\u78bc\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u6de1\u6c34\u7d05\u6bdb\u57ce\u8349\u576a\u65d7\u687f\u8655 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u6d77\u8ecd\u5354\u5b9a\u3009\u8ecd\u4e8b\u5bc6\u78bc\uff08\u570b\u969b\u6d77\u4e8b\u4fe1\u865f\u65d7\u8a9e\uff08Semaphore Flags\uff09\u8207\u89d2\u5ea6\u8c61\u9650\u7de8\u78bc\uff09| \u6897\u6982\uff1a\u8001\u65d7\u624b\u907a\u7559\u7684\u6cb9\u756b\u4e2d\u65d7\u5e5f\u61f8\u639b\u89d2\u5ea6\u7570\u5e38\uff0c\u4f9d\u6d77\u4e8b\u65d7\u8a9e\u5b57\u6bcd\u8868\u89e3\u5bc6\u51fa\u57cb\u85cf\u5728\u53e4\u7832\u53f0\u57fa\u5ea7\u4e0b\u7684\u82f1\u5546\u4fdd\u96aa\u7bb1\u5bc6\u78bc\u3002\n- \u3010CASE-14\u3011\u9f8d\u5c71\u5bfa\u5f8c\u5df7\u591c\u5e02\u8001\u6524\u5047\u9214\u507d\u9020\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u824b\u823a\u9f8d\u5c71\u5bfa\u5f8c\u65b9\u5ee3\u5dde\u8857\u591c\u5e02 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u7d2b\u5916\u5149\u9451\u8b58\u8207\u9632\u507d\u79d1\u6280\uff08\u5149\u5b78\u8b8a\u8272\u6cb9\u58a8\u3001\u5fae\u7e2e\u6587\u5b57\u3001\u87a2\u5149\u7d72\u5149\u5b78\u5149\u8b5c\u8207\u7d19\u5f35\u542b\u68c9\u6bd4\uff09| \u6897\u6982\uff1a\u591c\u5e02\u9999\u8178\u6524\u6536\u5230\u5343\u5143\u5047\u9214\uff0c\u4f7f\u7528\u7d2b\u5916\u5149\u71c8\u6aa2\u6e2c\u9632\u507d\u87a2\u5149\u7e96\u7dad\u8207\u900f\u5149\u6d6e\u6c34\u5370\uff0c\u65bc\u4eba\u6f6e\u4e2d\u6307\u8a8d\u6163\u72af\u3002\n- \u3010CASE-15\u3011\u525d\u76ae\u5bee\u6b77\u53f2\u8857\u5340\u5931\u50b3\u85e5\u7c64\u6697\u8a9e\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u824b\u823a\u525d\u76ae\u5bee\u6b77\u53f2\u8857\u5340\u85e5\u6750\u884c | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u56db\u7c3d\u540d\u3009\u53e4\u6587\u5b57\u6697\u865f\uff08\u53e4\u6587\u85cf\u982d\u8a69\u6392\u5217\u9663\u5217\uff08\u5fae\u578b\u77e9\u9663\u89e3\u5bc6\uff09\u8207\u672c\u8349\u7db1\u76ee\u5206\u985e\u6cd5\uff09| \u6897\u6982\uff1a\u6e05\u4ee3\u85e5\u7c64\u770b\u4f3c\u666e\u901a\u6cbb\u75c5\u85e5\u55ae\uff0c\u5c07\u5404\u85e5\u6750\u7b2c\u4e00\u5b57\u6309\u9670\u967d\u4e94\u884c\u76f8\u751f\u9806\u5e8f\u76f8\u9023\uff0c\u5f97\u51fa\u53e4\u8857\u6728\u5c4b\u6881\u67f1\u6697\u683c\u85cf\u533f\u9ede\u3002\n- \u3010CASE-16\u3011\u6de1\u6c34\u8001\u8857\u7d05\u78da\u9632\u7a7a\u6d1e\u9ed1\u8c93\u8173\u5370\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u6de1\u6c34\u8001\u8857\u5f8c\u65b9\u9632\u7a7a\u6d1e\u5165\u53e3 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u6ce5\u571f\u9178\u9e7c\u6307\u793a\u5291\uff08\u571f\u58e4 pH \u503c\u6aa2\u6e2c\u3001\u82b1\u9752\u7d20\u9178\u9e7c\u8b8a\u8272\u53cd\u61c9\u8207\u5730\u8cea\u5ca9\u5c64\u7279\u5fb5\uff09| \u6897\u6982\uff1a\u9ed1\u8c93\u963f\u5de7\u8eab\u4e0a\u6cbe\u9644\u7279\u6b8a\u7d05\u571f\uff0c\u5229\u7528\u7d2b\u7518\u85cd\u8403\u53d6\u6db2\u6aa2\u6e2c\u571f\u58e4\u9178\u9e7c\u5ea6\uff0c\u6bd4\u5c0d\u6de1\u6c34\u7d05\u6a39\u6797\u6ce5\u7058\u8207\u89c0\u97f3\u5c71\u571f\u8cea\u9396\u5b9a\u5931\u7269\u3002\n- \u3010CASE-17\u3011\u824b\u823a\u9752\u5c71\u5bae\u6697\u591c\u9418\u8072\u4e0d\u5728\u5834\u8b49\u660e\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u842c\u83ef\u8cb4\u967d\u8857\u9752\u5c71\u5bae\u53e4\u9418\u6a13 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u9418\u6a13\u5ef6\u6642\u6a5f\u95dc\u624b\u6cd5\uff08\u91cd\u529b\u6ed1\u8f2a\u963b\u5c3c\u5e73\u8861\u3001\u51b0\u584a\u878d\u5316\u6c34\u91cd\u529b\u91cb\u653e\u8207\u97f3\u6ce2\u50b3\u5c0e\uff09| \u6897\u6982\uff1a\u6df1\u591c\u53e4\u9418\u9cf4\u97ff\u88fd\u9020\u5728\u5edf\u4e2d\u53c3\u62dc\u8b49\u660e\uff0c\u8abf\u67e5\u767c\u73fe\u5acc\u72af\u5728\u9418\u9318\u7d81\u4e0a\u5927\u51b0\u584a\uff0c\u5229\u7528\u51b0\u584a\u5728 20 \u5ea6\u5e38\u6eab\u878d\u5316\u65b7\u91cd\u6572\u97ff\u53e4\u9418\u3002\n- \u3010CASE-18\u3011\u6eec\u5c3e\u5055\u91ab\u9928\u767e\u5e74\u807d\u8a3a\u5668\u85cf\u5bf6\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u6de1\u6c34\u99ac\u5055\u8857\u6eec\u5c3e\u5055\u91ab\u9928 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u85cd\u5bf6\u77f3\u6848\u3009\u7269\u4ef6\u6df1\u5c64\u85cf\u533f\uff08\u56fa\u9ad4\u50b3\u8072\u5171\u9cf4\u7387\u3001\u91d1\u5c6c\u7a7a\u6d1e\u8072\u6ce2\u53cd\u994b\u8207\u807d\u8a3a\u5668\u8072\u5b78\u653e\u5927\uff09| \u6897\u6982\uff1a\u6234\u4e0a\u99ac\u5055\u535a\u58eb\u53e4\u8463\u807d\u8a3a\u5668\u8f15\u6572\u8a3a\u9593\u6a9c\u6728\u5c4f\u98a8\uff0c\u4f9d\u8072\u97f3\u6e05\u8106\u8207\u6c89\u60b6\u53cd\u994b\u5b9a\u4f4d\u6728\u67f1\u5167\u90e8\u7a7a\u6d1e\u53d6\u51fa\u85cf\u5bf6\u6372\u8ef8\u3002\n- \u3010CASE-19\u3011\u53f0\u5317\u5e9c\u57ce\u5317\u9580\u77f3\u984d\u6295\u5f71\u6e2c\u91cf\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317\u5e9c\u57ce\u5317\u9580\uff08\u627f\u6069\u9580\uff09\u5ee3\u5834 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u99ac\u65af\u683c\u96f7\u592b\u79ae\u5100\u3009\u5e7e\u4f55\uff08\u76f8\u4f3c\u4e09\u89d2\u5f62\u539f\u7406\uff08\u7269\u9ad8/\u5f71\u9577\u6bd4\uff09\u3001\u65e5\u5f71\u771f\u592a\u967d\u6642\u89d2\u8207\u65e5\u6677\uff09| \u6897\u6982\uff1a\u5317\u9580\u57ce\u6a13\u77f3\u984d\u5728\u6b63\u5348\u6295\u5f71\u65bc\u7d05\u78da\u5730\u9762\uff0c\u4f9d\u6e2c\u91cf\u7aff\u9577\u5f71\u6bd4\u8a08\u7b97\u51fa\u5149\u6591\u7126\u9ede\uff0c\u6316\u51fa\u6e05\u4ee3\u5efa\u57ce\u7d00\u5ff5\u925b\u5b57\u689d\u3002\n- \u3010CASE-20\u3011\u8fea\u5316\u8857\u5e03\u838a\u892a\u8272\u67d3\u5e03\u5077\u5929\u63db\u65e5\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u5927\u7a3b\u57d5\u8fea\u5316\u8857\u4e00\u6bb5\u50b3\u7d71\u5e03\u884c | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u9178\u9e7c\u4e2d\u548c\u8207\u6c27\u5316\u9084\u539f\u5316\u5b78\uff08\u5929\u7136\u690d\u7269\u67d3\u6599\uff08\u85cd\u975b\uff09\u6c27\u5316\u9084\u539f\u8b8a\u8272\u8207\u6ab8\u6aac\u9178\u9178\u9e7c\u53cd\u61c9\uff09| \u6897\u6982\uff1a\u5c55\u793a\u7684\u73cd\u8cb4\u85cd\u67d3\u5e03\u5339\u88ab\u5674\u7051\u9084\u539f\u5291\u892a\u8272\u85cf\u6bd2\uff0c\u4f7f\u7528\u7a00\u91cb\u96d9\u6c27\u6c34\u68c9\u82b1\u68d2\u64e6\u62ed\u4fc3\u4f7f\u5176\u63a5\u89f8\u6c27\u6c23\u91cd\u65b0\u986f\u73fe\u6df1\u85cd\u82b1\u7d0b\u3002\n- \u3010CASE-21\u3011\u5317\u6295\u6eab\u6cc9\u8001\u65c5\u5e97\u7a7a\u767d\u907a\u66f8\u71b1\u654f\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u5317\u6295\u6eab\u6cc9\u535a\u7269\u9928\u65c1\u8001\u65c5\u5e97\u6e6f\u5c4b | \u81f4\u656c/\u539f\u7406\uff1a\u540d\u5075\u63a2\u67ef\u5357\u7406\u79d1\u52a0\u71b1\u986f\u5f71\u5bc6\u5ba4\uff08\u5f31\u6709\u6a5f\u9178\uff08\u6ab8\u6aac\u9178\uff09\u53d7\u71b1\u812b\u6c34\u70ad\u5316\u8b8a\u9ed1\u8207\u5b89\u5168\u6eab\u63a7\u9632\u8b77\uff09| \u6897\u6982\uff1a\u73fe\u5834\u7559\u6709\u7a7a\u767d\u4fe1\u7d19\uff0c\u7528\u9632\u71b1\u7af9\u593e\u7f6e\u65bc\u5b89\u5168\u6eab\u63a7\u84b8\u6c23\u69fd\u70d8\u70e4\uff0c\u7d19\u5f35\u7e96\u7dad\u812b\u6c34\u70ad\u5316\u6d6e\u73fe\u51fa\u9280\u884c\u4fdd\u96aa\u7bb1\u865f\u78bc\u3002\n- \u3010CASE-22\u3011\u5317\u6295\u786b\u78fa\u8c37\u6e2c\u6eab\u8a08\u6c34\u9280\u7570\u5e38\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u5317\u6295\u786b\u78fa\u8c37\u5730\u71b1\u666f\u89c0\u5340 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u71b1\u8139\u51b7\u7e2e\u71b1\u529b\u5b78\uff08\u71b1\u81a8\u8139\u4fc2\u6578\u3001\u6c34\u9280\u6bdb\u7d30\u7ba1\u523b\u5ea6\u8a50\u8853\u8207\u6c23\u58d3\u5c0d\u6cb8\u9ede\u5f71\u97ff\uff09| \u6897\u6982\uff1a\u5c0e\u89bd\u54e1\u7684\u7279\u6b8a\u9ad8\u6eab\u6eab\u5ea6\u8a08\u8b80\u6578\u7570\u5e38\u5c0e\u81f4\u5730\u71b1\u6b65\u9053\u8aa4\u5c01\u9589\uff0c\u767c\u73fe\u6c34\u9280\u67f1\u4e0a\u65b9\u88ab\u6ce8\u5165\u5fae\u91cf\u9152\u7cbe\u88fd\u9020\u81a8\u8139\u8b80\u6578\u704c\u6c34\u3002\n- \u3010CASE-23\u3011\u58eb\u6797\u79d1\u6559\u9928\u93e1\u9762\u8ff7\u5bae\u6d88\u5931\u7684\u96f7\u5c04\u5149\u7b46\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u570b\u7acb\u53f0\u7063\u79d1\u5b78\u6559\u80b2\u9928\u5149\u5b78\u5c55\u5ef3 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u5e73\u9762\u93e1\u53cd\u5c04\u5149\u5b78\u8ff7\u5bae\uff08\u5149\u7684\u76f4\u7dda\u50b3\u64ad\u3001\u53cd\u5c04\u5b9a\u5f8b\uff08\u5165\u5c04\u89d2\u7b49\u65bc\u53cd\u5c04\u89d2\uff09\u8207\u591a\u6b21\u6210\u50cf\uff09| \u6897\u6982\uff1a\u9ad8\u7cbe\u5ea6\u5c55\u54c1\u5149\u7b46\u5728\u56db\u9762\u93e1\u5bc6\u5ba4\u4e2d\u5931\u7aca\uff0c\u5acc\u72af\u5229\u7528\u5169\u9762\u5e73\u9762\u93e1\u593e\u89d2\u5168\u53cd\u5c04\u5f15\u5c0e\u96f7\u5c04\u5149\u675f\u9a19\u904e\u7d05\u5916\u7dda\u9632\u76dc\u8b66\u5831\u5668\u3002\n- \u3010CASE-24\u3011\u967d\u660e\u5c71\u7af9\u5b50\u6e56\u82b1\u7530\u96e8\u5f8c\u6d88\u5931\u7684\u82b1\u82d7\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u967d\u660e\u5c71\u7af9\u5b50\u6e56\u6d77\u828b\u6b65\u9053 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u978b\u5370\u6b65\u614b\u8207\u6ce5\u571f\u91cd\u91cf\u5206\u6790\uff08\u63a5\u89f8\u9762\u7a4d\u8207\u58d3\u5f37\uff08P=F/A\uff09\u3001\u6ce5\u571f\u627f\u8f09\u529b\u8207\u6b65\u884c\u6b65\u5e45\u8a08\u7b97\uff09| \u6897\u6982\uff1a\u7a00\u6709\u7e61\u7403\u82b1\u82d7\u9023\u591c\u88ab\u6398\uff0c\u73fe\u5834\u978b\u5370\u6975\u6dfa\u537b\u6b65\u5e45\u5bec\u5927\uff0c\u63a8\u7b97\u51fa\u5acc\u72af\u7a7f\u8457\u5145\u6c23\u5e73\u5e95\u81a0\u978b\u4ee5\u5206\u6563\u58d3\u5f37\u4e0d\u7559\u6df1\u5370\u3002\n- \u3010CASE-25\u3011\u5317\u6295\u6eab\u6cc9\u535a\u7269\u9928\u7f85\u99ac\u6d74\u5834\u56de\u97f3\u58c1\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u5317\u6295\u6eab\u6cc9\u535a\u7269\u9928\u5927\u6d74\u6c60\u5c55\u5ef3 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u6a62\u5713\u8072\u5b78\u805a\u96c6\u7126\u9ede\u624b\u6cd5\uff08\u6a62\u5713\u5e7e\u4f55\u53cd\u5c04\u805a\u7126\uff08Whispering Gallery\uff09\u3001\u8072\u6ce2\u53cd\u5c04\u5b9a\u5f8b\uff09| \u6897\u6982\uff1a\u5acc\u72af\u7ad9\u5728\u5927\u6d74\u6c60\u4e00\u89d2\u4f4e\u8a9e\u537b\u88ab\u6578\u5341\u7c73\u5916\u53e6\u4e00\u89d2\u7684\u76ee\u64ca\u8005\u6e05\u6670\u807d\u898b\uff0c\u5229\u7528\u7f85\u99ac\u62f1\u9802\u6a62\u5713\u96d9\u7126\u9ede\u8072\u5b78\u8b49\u660e\u4f9b\u8a5e\u771f\u5be6\u6027\u3002\n- \u3010CASE-26\u3011\u8c93\u7a7a\u7e9c\u8eca\u7ad9\u591c\u9593\u87a2\u706b\u87f2\u5149\u6591\u4e4b\u8b0e\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u8c93\u7a7a\u7e9c\u8eca\u6307\u5357\u5bae\u7ad9\u6b65\u9053 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u751f\u7269\u767c\u5149\u8207\u84c4\u5149\u7269\u8cea\uff08\u87a2\u5149\u7d20\u9175\u7d20\u5316\u5b78\u767c\u5149 vs \u786b\u5316\u92c5\u84c4\u5149\u6750\u6599\u591c\u5149\u8870\u6e1b\u66f2\u7dda\uff09| \u6897\u6982\uff1a\u904a\u5ba2\u5ba3\u7a31\u5728\u51ac\u5b63\u770b\u898b\u767c\u5149\u87a2\u706b\u87f2\u7fa4\uff0c\u6bd4\u5c0d\u767c\u5149\u5149\u8b5c\u8207\u4eae\u5ea6\u534a\u8870\u671f\uff0c\u63ed\u7a7f\u5acc\u72af\u6cbf\u8def\u5857\u62b9\u591c\u5149\u6f06\u6a19\u8a18\u5077\u7375\u9677\u9631\u3002\n- \u3010CASE-27\u3011\u58eb\u6797\u5929\u6587\u9928\u661f\u8c61\u5100\u5929\u7403\u523b\u5ea6\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317\u5e02\u7acb\u5929\u6587\u79d1\u5b78\u6559\u80b2\u9928\u5929\u8c61\u5287\u5834 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u9ec3\u9053\u5341\u4e8c\u5bae\u661f\u5ea7\u5bc6\u78bc\uff08\u5929\u7403\u5ea7\u6a19\u7cfb\uff08\u8d64\u7d93\u8207\u8d64\u7def\uff09\u3001\u5730\u7403\u81ea\u8f49\u6b72\u5dee\u8207\u5b63\u7bc0\u661f\u5ea7\uff09| \u6897\u6982\uff1a\u661f\u8c61\u5100\u6295\u5f71\u5e95\u7247\u88ab\u5fae\u8abf 15 \u5ea6\uff0c\u6821\u6b63\u53f0\u5317\u7d93\u7def\u5ea6\uff08\u5317\u7def 25 \u5ea6\uff09\u7684\u5317\u6975\u661f\u9ad8\u5ea6\u89d2\uff0c\u9084\u539f\u96b1\u85cf\u5728\u7375\u6236\u5ea7\u8170\u5e36\u7684\u85cf\u5bf6\u5750\u6a19\u3002\n- \u3010CASE-28\u3011\u5317\u6295\u5730\u71b1\u6b65\u9053\u5b89\u5168\u8b77\u6b04\u906d\u8150\u8755\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u5317\u6295\u5730\u71b1\u8c37\u6728\u68e7\u9053\u6eab\u6cc9\u6e67\u51fa\u53e3 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u91d1\u5c6c\u61c9\u529b\u8150\u8755\u8207\u5316\u5b78\u9632\u7bc4\uff08\u786b\u5316\u6c2b\u6c23\u9ad4\u8150\u8755\u3001\u9752\u78fa\u6cc9\u786b\u9178\u9e7d\u5f37\u9178\u6027\u8207\u91d1\u5c6c\u7f6e\u63db\u53cd\u61c9\uff09| \u6897\u6982\uff1a\u9632\u8b77\u6b04\u87ba\u7d72\u65b7\u88c2\u96aa\u751f\u610f\u5916\uff0c\u6aa2\u9a57\u87ba\u7d72\u65b7\u9762\u767c\u73fe\u6709\u4eba\u523b\u610f\u6dcb\u4e0a\u6fc3\u9e7d\u9178\u52a0\u901f\u539f\u6709\u7684\u786b\u5316\u8150\u8755\uff0c\u63a1\u96c6\u6b98\u7559\u6c2f\u96e2\u5b50\u7834\u6848\u3002\n- \u3010CASE-29\u3011\u967d\u660e\u5c71\u5c0f\u6cb9\u5751\u5674\u6c23\u5b54\u901a\u98a8\u5bc6\u5ba4\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u967d\u660e\u5c71\u570b\u5bb6\u516c\u5712\u5c0f\u6cb9\u5751\u904a\u61a9\u5340 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u6c23\u9ad4\u5bc6\u5ea6\u8207\u71b1\u5c0d\u6d41\u624b\u6cd5\uff08\u4e8c\u6c27\u5316\u786b\u8207\u7a7a\u6c23\u5bc6\u5ea6\u6bd4\u91cd\u3001\u71b1\u7a7a\u6c23\u4e0a\u5347\u8207\u5c40\u90e8\u6c23\u9ad4\u7a92\u606f\uff09| \u6897\u6982\uff1a\u5c01\u9589\u6dbc\u4ead\u5167\u6709\u4eba\u660f\u8ff7\uff0c\u5acc\u72af\u5229\u7528\u5c0f\u6cb9\u5751\u5730\u71b1\u5674\u6c23\u53e3\u4e0b\u65b9\u5c0e\u7ba1\u5f15\u6d41\u5bc6\u5ea6\u5927\u65bc\u7a7a\u6c23\u7684\u4e8c\u6c27\u5316\u786b\uff0c\u6bd4\u5c0d\u5730\u9053\u95a5\u9580\u7834\u6848\u3002\n- \u3010CASE-30\u3011\u58eb\u6797\u591c\u5e02\u51b0\u6dc7\u6dcb\u878d\u5316\u901f\u7387\u4e4b\u8b0e\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u58eb\u6797\u591c\u5e02\u5927\u5357\u8def\u751c\u54c1\u6524\u4f4d | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u6bd4\u71b1\u5bb9\u8207\u9e7d\u5df4\u51b0\u9ede\u4e0b\u964d\uff08\u51dd\u56fa\u9ede\u4e0b\u964d\u539f\u7406\uff08Freezing Point Depression\uff09\u3001\u9e7d\u51b0\u6df7\u5408\u7269\uff09| \u6897\u6982\uff1a\u5acc\u72af\u5ba3\u7a31\u6848\u767c\u6642\u5728\u6392\u968a\u8cb7\u51b0\u6dc7\u6dcb\uff0c\u4f46\u624b\u4e2d\u7684\u51b0\u6dc7\u6dcb\u5728 30 \u5ea6\u5e38\u6eab\u4e0b 20 \u5206\u9418\u672a\u5316\uff0c\u767c\u73fe\u4fdd\u6eab\u676f\u5e95\u52a0\u4e86\u98df\u9e7d\u788e\u51b0\u4fdd\u6eab\u9020\u5047\u3002\n- \u3010CASE-31\u3011\u677f\u6a4b\u6797\u5bb6\u82b1\u5712\u79cb\u5206\u6f0f\u7a97\u65e5\u5f71\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u570b\u5b9a\u53e4\u8e5f\u677f\u6a4b\u6797\u672c\u6e90\u5712\u90b8\u65b9\u9451\u9f4b | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u99ac\u65af\u683c\u96f7\u592b\u79ae\u5100\u3009\u65e5\u5f71\u5e7e\u4f55\uff08\u79cb\u5206\u592a\u967d\u65b9\u4f4d\u89d2\u8207\u9ad8\u5ea6\u89d2\u65b9\u7a0b\u5f0f\u3001\u76f8\u4f3c\u4e09\u89d2\u5f62\u5b9a\u7406\u3001\u65e5\u5f71\u6295\u5f71\uff09| \u6897\u6982\uff1a\u53e4\u8a69\u6697\u793a\u79cb\u5206\u5348\u5f8c\u967d\u5149\u7a7f\u904e\u516b\u89d2\u6f0f\u7a97\uff0c\u5e7e\u4f55\u63a8\u7b97\u65e5\u5f71\u6295\u5c04\u65bc\u65b9\u9451\u9f4b\u5047\u5c71\u6697\u7e2b\u7cbe\u78ba\u7126\u9ede\uff0c\u53d6\u51fa\u6e05\u4ee3\u9285\u9470\u5319\u3002\n- \u3010CASE-32\u3011\u677f\u6a4b\u8eca\u7ad9\u9ad8\u9435\u6708\u53f0\u884c\u674e\u7bb1\u8aa4\u62ff\u61f8\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u677f\u6a4b\u8eca\u7ad9\u5730\u4e0b\u9ad8\u9435\u5317\u4e0a\u6708\u53f0 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u4e09\u4f4d\u6578\u8f49\u8f2a\u5bc6\u78bc\u9396\u6a5f\u68b0\u539f\u7406\uff08\u9f52\u8f2a\u68d8\u722a\u54ac\u5408\u5361\u69ab\u8072\u97f3\u53cd\u994b\u3001\u65cb\u8f49\u963b\u529b\u8207\u6392\u5217\u7d44\u5408\u6578\u5b78\uff09| \u6897\u6982\uff1a\u5916\u89c0\u5b8c\u5168\u76f8\u540c\u7684\u9ed1\u8272\u884c\u674e\u7bb1\u88ab\u8abf\u5305\uff0c\u5229\u7528\u76f2\u807d\u8f49\u8f2a\u65cb\u8f49\u5230\u7f3a\u53e3\u6642\u7684\u5fae\u5f31\u8072\u97ff\uff08\u624b\u611f\u5fae\u963b\u529b\uff09\u7834\u89e3\u5bc6\u78bc\u53d6\u56de\u91cd\u8981\u6587\u4ef6\u3002\n- \u3010CASE-33\u3011\u65b0\u838a\u5edf\u8857\u767e\u5e74\u88fd\u9f13\u5ee0\u5171\u632f\u788e\u676f\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u65b0\u838a\u5edf\u8857\u8001\u5b57\u865f\u97ff\u4ec1\u548c\u88fd\u9f13\u5de5\u85dd\u9928 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u8072\u6ce2\u56fa\u6709\u983b\u7387\u5171\u632f\uff08\u8072\u6ce2\u983b\u7387\u3001\u56fa\u6709\u5171\u632f\u983b\u7387\uff08Resonance\uff09\u8207\u8584\u58c1\u73bb\u7483\u676f\u6975\u9650\uff09| \u6897\u6982\uff1a\u5c55\u793a\u5ef3\u540d\u8cb4\u6c34\u6676\u676f\u5728\u6df1\u591c\u7121\u4eba\u89f8\u78b0\u4e0b\u9707\u788e\uff0c\u5acc\u72af\u5229\u7528\u4f4e\u983b\u5927\u9f13\u97f3\u983b\u767c\u5c04\u5668\u8abf\u81f3 520Hz \u5171\u632f\u983b\u7387\u9707\u88c2\u676f\u8eab\u884c\u7aca\u3002\n- \u3010CASE-34\u3011\u4e2d\u548c\u83ef\u65b0\u8857\u5357\u6d0b\u9999\u6599\u8ff7\u660f\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u4e2d\u548c\u83ef\u65b0\u8857\uff08\u7dec\u7538\u8857\uff09\u5357\u6d0b\u5976\u8336\u9928 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u5929\u7136\u690d\u7269\u9e7c\u9ebb\u9189\u8207\u89e3\u6bd2\uff08\u8089\u8c46\u853b\u919a\uff08Myristicin\uff09\u904e\u91cf\u795e\u7d93\u9ebb\u9189\u6027\u8207\u9999\u6599\u8403\u53d6\u5206\u6790\uff09| \u6897\u6982\uff1a\u5e97\u54e1\u559d\u4e0b\u7279\u8abf\u5976\u8336\u5f8c\u9677\u5165\u5e7b\u89ba\u6c89\u7761\uff0c\u6aa2\u9a57\u7814\u78e8\u7f50\u767c\u73fe\u8089\u8c46\u853b\u7c89\u88ab\u904e\u91cf\u6df7\u5165\u5496\u54e9\u7c89\u4e2d\uff0c\u85c9\u6b64\u76dc\u53d6\u6536\u9280\u6a5f\u73fe\u6b3e\u3002\n- \u3010CASE-35\u3011\u4e09\u91cd\u7a7a\u8ecd\u4e00\u6751\u9632\u7a7a\u6d1e\u795e\u79d8\u96fb\u5831\u8072\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u65b0\u5317\u5e02\u7737\u6751\u6587\u5316\u5712\u5340\u7a7a\u8ecd\u4e00\u6751\u5730\u4e0b\u752c\u9053 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u6469\u65af\u96fb\u78bc\u983b\u7387\u5206\u6790\uff08\u6469\u65af\u96fb\u78bc\uff08Morse Code\uff09\u3001\u97f3\u6ce2\u983b\u8b5c\u5206\u6790\u8207\u96fb\u78c1\u8702\u9cf4\u5668\uff09| \u6897\u6982\uff1a\u7737\u6751\u9632\u7a7a\u6d1e\u6df1\u8655\u591c\u9593\u767c\u51fa\u898f\u5f8b\u6ef4\u7b54\u8072\uff0c\u9304\u97f3\u653e\u6162\u89e3\u6790\u51fa\u70ba\u77ed\u9577\u4fe1\u865f\u7d44\u6210\u7684\u7d93\u7def\u5ea6\uff0c\u7834\u7372\u85cf\u533f\u65bc\u8001\u7737\u820d\u5c4b\u9802\u7684\u8d13\u7269\u3002\n- \u3010CASE-36\u3011\u677f\u6a4b\u5e9c\u4e2d\u5546\u5708\u624b\u6a5f\u87a2\u5e55\u504f\u5149\u819c\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u677f\u6a4b\u5e9c\u4e2d\u5546\u5708\u91cd\u6176\u8def\u884c\u4eba\u5f92\u6b65\u5340 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u5149\u5b78\u504f\u632f\u539f\u7406\uff08\u5149\u6ce2\u6a6b\u6ce2\u6027\u8cea\u3001\u504f\u5149\u7247 90 \u5ea6\u6b63\u4ea4\u6d88\u5149\u8207\u6db2\u6676\u986f\u793a\u539f\u7406\uff09| \u6897\u6982\uff1a\u53d7\u5bb3\u8005\u624b\u6a5f\u87a2\u5e55\u5448\u73fe\u4e00\u7247\u5168\u767d\u770b\u4f3c\u640d\u58de\uff0c\u6234\u4e0a 3D \u504f\u5149\u592a\u967d\u773c\u93e1\u5f8c\u7acb\u5373\u770b\u898b\u87a2\u5e55\u6b63\u4e2d\u592e\u88ab\u5acc\u72af\u7559\u4e0b\u7684\u52d2\u7d22\u8a0a\u606f\u3002\n- \u3010CASE-37\u3011\u65b0\u5317\u5927\u90fd\u6703\u516c\u5712\u9d28\u6bcd\u6e2f\u6c34\u8cea\u8b8a\u8272\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u65b0\u5317\u5927\u90fd\u6703\u516c\u5712\u8fb0\u5149\u6a4b\u6c34\u5cb8 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u9178\u9e7c\u6307\u793a\u5291\u6c89\u6fb1\u53cd\u61c9\uff08\u915a\u915e\u8207\u77f3\u7070\u6c34\u9e7c\u6027\u53cd\u61c9\u3001\u4e8c\u6c27\u5316\u78b3\u4e2d\u548c\u892a\u8272\u8207\u6c34\u8cea\u6fc1\u5ea6\uff09| \u6897\u6982\uff1a\u6eaa\u6d41\u6c34\u9762\u7a81\u7136\u6cdb\u51fa\u5927\u7247\u7d2b\u7d05\u8272\u5f15\u767c\u6050\u614c\uff0c\u5316\u9a57\u70ba\u9e7c\u6027\u7121\u6bd2\u915a\u915e\u6c34\u6eb6\u6db2\uff0c\u4e26\u900f\u904e\u5439\u5165\u4e8c\u6c27\u5316\u78b3\u4f7f\u7d05\u8272\u892a\u53bb\u5e73\u606f\u98a8\u6ce2\u3002\n- \u3010CASE-38\u3011\u6c38\u548c\u4e16\u754c\u8c46\u6f3f\u5927\u738b\u7897\u5e95\u522e\u75d5\u4e4b\u8b0e\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u6c38\u548c\u5340\u6c38\u548c\u8def\u4e16\u754c\u8c46\u6f3f\u5927\u738b\u7e3d\u5e97 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u5de6\u6487\u5b50\u6163\u7528\u624b\u75d5\u8de1\u63a8\u7406\uff08\u529b\u77e9\u65b9\u5411\u3001\u6e6f\u5319\u6469\u64e6\u9806\u6642\u91dd/\u9006\u6642\u91dd\u5e7e\u4f55\u75d5\u8de1\u8207\u6163\u7528\u624b\u529b\u5b78\uff09| \u6897\u6982\uff1a\u6df1\u591c\u8c46\u6f3f\u7897\u5e95\u7559\u4e0b\u7368\u7279\u5411\u53f3\u50be\u659c\u7684\u522e\u75d5\uff0c\u7d50\u5408\u8abf\u95b1\u5acc\u7591\u4eba\u62ff\u6cb9\u689d\u7684\u6163\u7528\u5de6\u624b\u7fd2\u6163\uff0c\u7576\u5834\u6233\u7834\u5047\u4e0d\u5728\u5834\u8b49\u660e\u3002\n- \u3010CASE-39\u3011\u65b0\u838a\u4e2d\u6e2f\u5927\u6392\u591c\u9593\u6d6e\u6a19\u6f02\u6d41\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u65b0\u838a\u4e2d\u6e2f\u5927\u6392\u5f69\u8679\u7a4d\u6728\u89aa\u6c34\u6b65\u9053 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u8868\u9762\u5f35\u529b\u8207\u6d41\u6c34\u6d41\u901f\uff08\u6c34\u6d41\u8868\u9762\u5c64\u6d41\u901f\u5ea6\u3001\u80a5\u7682\u6e05\u6f54\u5291\u7834\u58de\u8868\u9762\u5f35\u529b\u4e4b\u52a0\u901f\u524d\u9032\uff09| \u6897\u6982\uff1a\u5acc\u72af\u81ea\u88fd\u5fae\u578b\u6728\u821f\u904b\u8f09\u8d13\u7269\u9806\u6d41\u800c\u4e0b\uff0c\u5728\u6c34\u6d41\u7de9\u6162\u8655\u5012\u5165\u6d17\u7897\u7cbe\u5229\u7528\u99ac\u862d\u6208\u5c3c\u6548\u61c9\uff08Marangoni effect\uff09\u52a0\u901f\u6f02\u6d41\u3002\n- \u3010CASE-40\u3011\u677f\u6a4b\u6797\u5bb6\u82b1\u5712\u65b9\u9451\u9f4b\u6c34\u69ad\u5012\u5f71\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u677f\u6a4b\u6797\u672c\u6e90\u5712\u90b8\u65b9\u9451\u9f4b\u6232\u53f0\u6c34\u6c60 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u51f9\u9762\u93e1\u805a\u7126\u5149\u5b78\uff08\u6c34\u9762\u5e73\u975c\u53cd\u5c04\u3001\u51f9\u9762\u77f3\u58c1\u8072\u6ce2\u805a\u97f3\u8207\u6232\u53f0\u5171\u9cf4\u7bb1\u539f\u7406\uff09| \u6897\u6982\uff1a\u6232\u53f0\u6f14\u54e1\u5c0d\u9762\u6c34\u69ad\u5c4f\u98a8\u7a81\u7136\u8d77\u706b\uff0c\u8abf\u67e5\u767c\u73fe\u5c0d\u5cb8\u6dbc\u4ead\u88dd\u98fe\u9285\u93e1\u51f9\u9762\u5728\u7279\u5b9a\u89d2\u5ea6\u5c07\u5348\u5f8c\u5915\u967d\u805a\u7126\u65bc\u4e7e\u67af\u9326\u65d7\u9ede\u71c3\u3002\n- \u3010CASE-41\u3011\u5927\u5b89\u68ee\u6797\u516c\u5712\u96e8\u591c\u6ce5\u5730\u7121\u8173\u5370\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u5927\u5b89\u68ee\u6797\u516c\u5712\u751f\u614b\u6c34\u6c60\u65c1\u6ce5\u6fd8\u8349\u5730 | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u8840\u5b57\u7684\u7814\u7a76\u3009\u58d3\u5f37\u63a8\u7406\uff08\u58d3\u5f37\u516c\u5f0f\uff08P=F/A\uff09\u3001\u96ea\u9774\u5927\u5e95\u63a5\u5730\u9762\u7a4d\u5206\u6563\u91cd\u91cf\u8207\u8349\u8449\u5f48\u6027\uff09| \u6897\u6982\uff1a\u6ce5\u6fd8\u5730\u9762\u7121\u4efb\u4f55\u4e0b\u9677\u8173\u5370\uff0c\u5acc\u72af\u7a7f\u8457\u7d81\u4e0a\u7279\u88fd\u8f15\u8cea\u5bec\u6728\u677f\u7684\u978b\u5b50\u5927\u5e45\u589e\u52a0\u53d7\u529b\u9762\u7a4d\uff0c\u4e0d\u7559\u4e0b\u4efb\u4f55\u51f9\u9677\u5370\u75d5\u3002\n- \u3010CASE-42\u3011\u53f0\u7063\u5927\u5b78\u9189\u6708\u6e56\u6c34\u9762\u6d6e\u6cb9\u5149\u8b5c\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u570b\u7acb\u53f0\u7063\u5927\u5b78\u6821\u7e3d\u5340\u9189\u6708\u6e56\u7554 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u8584\u819c\u5e72\u6d89\u5f69\u8679\u5149\u8b5c\uff08\u5149\u7684\u8584\u819c\u5e72\u6d89\uff08Thin-film Interference\uff09\u3001\u6cb9\u819c\u539a\u5ea6\u8207\u6ce2\u9577\uff09| \u6897\u6982\uff1a\u6e56\u9762\u6d6e\u73fe\u4e94\u5f69\u6591\u6595\u6cb9\u819c\u63a9\u84cb\u4e1f\u68c4\u7684\u9470\u5319\uff0c\u7531\u5f69\u8679\u689d\u7d0b\u984f\u8272\u9593\u8ddd\u7cbe\u78ba\u63a8\u7b97\u51fa\u6a5f\u6cb9\u6d29\u6f0f\u539a\u5ea6\u8207\u5165\u6c34\u7b2c\u4e00\u6642\u9593\u9ede\u3002\n- \u3010CASE-43\u3011\u53f0\u5317\u5e02\u7acb\u52d5\u7269\u5712\u5927\u8c93\u718a\u9928\u6eab\u5ea6\u8a08\u8a50\u8853\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u6728\u67f5\u53f0\u5317\u5e02\u7acb\u52d5\u7269\u5712\u65b0\u5149\u7279\u5c55\u9928 | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u9152\u7cbe\u84b8\u767c\u5438\u71b1\u81f4\u51b7\u539f\u7406\uff08\u63ee\u767c\u6027\u6db2\u9ad4\u84b8\u767c\u5438\u71b1\u3001\u611f\u6eab\u63a2\u982d\u5916\u88f9\u6d78\u6fd5\u9152\u7cbe\u68c9\u7403\uff09| \u6897\u6982\uff1a\u8c93\u718a\u9928\u6046\u6eab\u8b66\u5831\u5927\u4f5c\uff0c\u8abf\u67e5\u767c\u73fe\u6709\u4eba\u5728\u611f\u6eab\u5668\u8cbc\u4e0a\u9152\u7cbe\u6fd5\u7d19\u5dfe\uff0c\u5229\u7528\u901a\u98a8\u6247\u52a0\u901f\u63ee\u767c\u5438\u71b1\u4f7f\u6eab\u5ea6\u8a08\u66b4\u8dcc 10 \u5ea6\u3002\n- \u3010CASE-44\u3011\u53f0\u5317\u7530\u5f91\u5834\u767e\u7c73\u7d42\u9ede\u96fb\u5b50\u8a08\u6642\u7570\u5e38\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317\u7530\u5f91\u5834\u7d42\u9ede\u7dda\u5149\u96fb\u9580\u88c1\u5224\u5e2d | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u5149\u96fb\u611f\u61c9\u906e\u65b7\u8a08\u6642\u6a5f\u95dc\uff08\u7d05\u5916\u7dda\u5149\u96fb\u906e\u65b7\u50b3\u611f\u5668\u3001\u7159\u706b\u5fae\u7159\u7c92\u5b50\u6563\u5c04\u8207\u6beb\u79d2\u8aa4\u5dee\uff09| \u6897\u6982\uff1a\u7530\u5f91\u8cfd\u6210\u7e3e\u51fa\u73fe 0.05 \u79d2\u7570\u5e38\u5ef6\u9072\uff0c\u767c\u73fe\u770b\u53f0\u6709\u4eba\u7528\u624b\u6301\u4e7e\u51b0\u5674\u51fa\u5fae\u7d30\u767d\u7159\u6563\u5c04\u7d05\u5916\u5149\u675f\uff0c\u5e72\u64fe\u96fb\u5b50\u773c\u8a08\u6642\u5224\u5b9a\u3002\n- \u3010CASE-45\u3011\u516c\u9928\u6c34\u6e90\u5e02\u5834\u96fb\u5b50\u78c5\u79e4\u77ed\u5c11\u4e4b\u8b0e\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u516c\u9928\u6c34\u6e90\u5e02\u5834\u751f\u9bae\u6c34\u7522\u6524\u4f4d | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u5f37\u78c1\u9435\u529b\u77e9\u5e73\u8861\u8a50\u8853\uff08\u78c1\u5834\u529b\u5b78\u3001\u5f37\u91f9\u9435\u787c\u78c1\u9435\u5c0d\u7a31\u5438\u9644\u3001\u96fb\u5b50\u50b3\u611f\u5668\u78c1\u963b\u6548\u61c9\uff09| \u6897\u6982\uff1a\u6d77\u9bae\u7a31\u91cd\u7e3d\u6709\u5077\u65a4\u6e1b\u5169\u5acc\u7591\uff0c\u5728\u79e4\u76e4\u4e0b\u65b9\u6478\u51fa\u4e00\u584a\u5f37\u529b\u78c1\u9435\uff0c\u5229\u7528\u78c1\u529b\u62c9\u52d5\u9435\u8cea\u91d1\u5c6c\u652f\u67b6\u589e\u52a0\u91cd\u91cf\u8b80\u6578\u3002\n- \u3010CASE-46\u3011\u677e\u5c71\u6587\u5275\u5712\u5340\u8001\u5009\u5eab\u5bc6\u5ba4\u901a\u98a8\u6247\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u677e\u5c71\u6587\u5275\u5712\u5340 2 \u865f\u5009\u5eab\u5f8c\u65b9 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u6c23\u58d3\u5dee\u8207\u767e\u8449\u7a97\u6a5f\u68b0\u9396\uff08\u4f2f\u52aa\u5229\u5b9a\u5f8b\uff08\u6d41\u901f\u5927\u58d3\u5f37\u5c0f\uff09\u3001\u8ca0\u58d3\u62bd\u98a8\u6a5f\u95dc\u8207\u767e\u8449\u7a97\u5361\u69ab\uff09| \u6897\u6982\uff1a\u5c55\u54c1\u5728\u53cd\u9396\u7684\u5009\u5eab\u5167\u5931\u7aca\uff0c\u5acc\u72af\u958b\u555f\u5c4b\u9802\u5927\u578b\u62bd\u98a8\u6a5f\u88fd\u9020\u77ac\u9593\u5ba4\u5167\u8ca0\u58d3\uff0c\u5e36\u52d5\u6c23\u52d5\u9580\u6813\u5f48\u958b\u5b8c\u6210\u7121\u75d5\u5bc6\u5ba4\u51fa\u5165\u3002\n- \u3010CASE-47\u3011\u83ef\u5c71\u6587\u5275\u5927\u8349\u76ae\u98a8\u7b8f\u7dda\u5272\u65b7\u4e4b\u8b0e\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u83ef\u5c71 1914 \u6587\u5275\u5712\u5340\u5927\u8349\u576a | \u81f4\u656c/\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u6469\u64e6\u529b\u8207\u9ad8\u6297\u62c9\u7e96\u7dad\u526a\u5207\uff08\u51f1\u8299\u62c9\uff08Kevlar\uff09\u9ad8\u6297\u62c9\u7e96\u7dad\u3001\u6469\u64e6\u529b\u8207\u5c40\u90e8\u58d3\u5f37\u526a\u5207\uff09| \u6897\u6982\uff1a\u7a7a\u62cd\u7121\u4eba\u6a5f\u7a81\u7136\u589c\u843d\uff0c\u6a5f\u7ffc\u7e8f\u7e5e\u6975\u7d30\u96b1\u5f62\u7dda\uff0c\u900f\u904e\u65b7\u88c2\u7e96\u7dad\u986f\u5fae\u5207\u53e3\u8b49\u5be6\u70ba\u5857\u6709\u91d1\u525b\u7802\u7684\u7279\u7a2e\u98a8\u7b8f\u7dda\u84c4\u610f\u7834\u58de\u3002\n- \u3010CASE-48\u3011\u53f0\u5317\u7576\u4ee3\u85dd\u8853\u9928\u7d2b\u5916\u5149\u6697\u623f\u5931\u7aca\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317\u7576\u4ee3\u85dd\u8853\u9928\uff08MOCA\uff09\u6697\u623f\u7279\u5c55\u5ba4 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u87a2\u5149\u5149\u8b5c\u8207\u5149\u5316\u5b78\u53cd\u61c9\uff08\u7d2b\u5916\u5149\u6fc0\u767c\u87a2\u5149\u3001\u9577\u9918\u8f1d\u78f7\u5149\u6750\u6599\u8207\u7d05\u5916\u7dda\u591c\u8996\u651d\u50cf\u982d\uff09| \u6897\u6982\uff1a\u6697\u623f\u4e2d\u540d\u756b\u88ab\u8abf\u5305\uff0c\u5acc\u72af\u7a7f\u8457\u5857\u6709\u7d05\u5916\u5438\u6536\u5857\u6599\u7684\u9ed1\u8863\uff0c\u5229\u7528\u5c55\u5ef3\u7d2b\u5916\u9ed1\u5149\u71c8\u7684\u6fc0\u767c\u6ce2\u9577\u76f2\u5340\u907f\u958b\u5b89\u6aa2\u3002\n- \u3010CASE-49\u3011\u5e2b\u5927\u591c\u5e02\u9e7d\u9165\u96de\u6cb9\u934b\u5b9a\u6642\u8702\u9cf4\u5668\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09| \u5730\u9ede\uff1a\u5e2b\u5927\u591c\u5e02\u9f8d\u6cc9\u8857\u6392\u968a\u9e79\u9165\u96de\u6524\u4f4d | \u81f4\u656c/\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u96d9\u91d1\u5c6c\u7247\u71b1\u81a8\u8139\u6eab\u5ea6\u958b\u95dc\uff08\u96d9\u91d1\u5c6c\u7247\u81a8\u8139\u7387\u5dee\u7570\u5f4e\u66f2\u5c0e\u96fb\u3001\u98df\u7528\u6cb9\u6cb8\u9ede\u8207\u71b1\u50b3\u5c0e\uff09| \u6897\u6982\uff1a\u6524\u4f4d\u8a08\u6642\u5668\u7a81\u7136\u5728\u6cb9\u6eab 180 \u5ea6\u7cbe\u6e96\u7206\u97ff\u88fd\u9020\u6df7\u4e82\uff0c\u6aa2\u67e5\u767c\u73fe\u8a08\u6642\u958b\u95dc\u63a1\u7528\u4e86\u71b1\u654f\u96d9\u91d1\u5c6c\u7247\u9047\u9ad8\u6eab\u81ea\u52d5\u5f4e\u66f2\u63a5\u901a\u96fb\u8def\u3002\n- \u3010CASE-50\u3011\u53f0\u5317 101 \u5927\u6a13\u98a8\u963b\u5c3c\u7403\u5171\u632f\u529b\u5b78\u4e4b\u8b0e\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09| \u5730\u9ede\uff1a\u53f0\u5317 101 \u5927\u6a13 87-92 \u6a13\u963b\u5c3c\u5668\u89c0\u666f\u53f0 | \u81f4\u656c/\u539f\u7406\uff1a\u67ef\u5357\u9ad8\u7a7a\u91cd\u9318\u64fa\u52d5\u8207\u7269\u7406\u529b\u5b78\uff08\u8abf\u8ae7\u8cea\u91cf\u963b\u5c3c\u5668\uff08Tuned Mass Damper\uff09\u3001\u5171\u632f\u9031\u671f\u8207\u53cd\u5411\u963b\u5c3c\uff09| \u6897\u6982\uff1a\u5730\u9707\u6f14\u7fd2\u6642\u91cd\u9054 660 \u5678\u7684\u5de8\u5927\u963b\u5c3c\u7403\u7e9c\u7e69\u767c\u51fa\u7570\u97ff\uff0c\u767c\u73fe\u5e95\u5ea7\u6db2\u58d3\u7de9\u885d\u95a5\u88ab\u9396\u5b9a\uff0c\u5229\u7528\u64fa\u9318\u9031\u671f\u8a08\u7b97\u4fee\u5fa9\u963b\u5c3c\u5668\u3002\n\n\u301010 \u5b97\u7cbe\u9078\u6df1\u5ea6\u6848\u4f8b\u5b8c\u6574\u6a94\u6848\uff08\u542b\u81f4\u656c\u3001\u79d1\u5b78\u8003\u64da\u8207\u5728\u5730\u7d50\u5408\uff09\u3011\n\n### \u3010CASE-01\u3011\u897f\u9580\u753a\u9023\u9396\u5496\u5561\u5e97\u62ff\u9435\u4e2d\u6bd2\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u540d\u5075\u63a2\u67ef\u5357\u7d93\u5178\u5496\u5561\u5ef3\u5bc6\u5ba4\n- \u8abf\u67e5\u821e\u53f0\uff1a\u897f\u9580\u753a\u6210\u90fd\u8def\u7e41\u5fd9\u9023\u9396\u5496\u5561\u5e97\u4e8c\u6a13\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\u2615 \u5496\u5561\u676f\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u7a81\u767c\u89f8\u767c\u3011\u73a9\u5bb6\u5728\u5496\u5561\u5e97\u7528\u9910\u4f11\u606f\u6216\u8def\u904e\u6642\uff0c\u9694\u58c1\u684c\u5546\u52d9\u5ba2\u7a81\u7136\u75db\u82e6\u62bd\u6410\u5012\u5730\uff0c\u676f\u4e2d\u71b1\u62ff\u9435\u6563\u767c\u51fa\u6de1\u6de1\u674f\u4ec1\u82e6\u5473\u3002\u5e97\u5bb6\u7acb\u5373\u62c9\u4e0b\u9435\u6372\u9580\u5c01\u9396\u73fe\u5834\uff0c\u555f\u52d5 25 \u5206\u9418\u9650\u6642\u7a81\u767c\u7834\u6848\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u73fe\u5834\u5171\u6709\u56db\u540d\u5acc\u7591\u4eba\uff1a\u540c\u684c\u5ba2\u6236\u3001\u5916\u9001\u54e1\u3001\u5496\u5561\u5e2b\u8207\u9130\u684c\u5927\u5b78\u751f\u3002\u73a9\u5bb6\u9700\u8abf\u95b1\u5496\u5561\u6a5f\u6c34\u8cea\u6e2c\u8a66\u7d19\u3001\u6aa2\u67e5\u5916\u5e36\u7d19\u676f\u676f\u53e3\u58d3\u7d0b\u3001\u5316\u9a57\u65b9\u7cd6\u5305\u5b8c\u6574\u6027\uff0c\u4e26\u4f7f\u7528\u624b\u6a5f\u8272\u5c64\u5206\u6790 App \u6bd4\u5c0d\u62ff\u9435\u5976\u6ce1\u6c89\u6fb1\u7269\uff0c\u627e\u51fa\u6bd2\u7269\u4e26\u975e\u4f86\u81ea\u5496\u5561\u5e2b\uff0c\u800c\u662f\u540c\u684c\u5ba2\u6236\u501f\u905e\u65b9\u7cd6\u6642\u4ee5\u6307\u7532\u6697\u85cf\u7c89\u672b\u6295\u5165\uff01\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u67ef\u5357\u5496\u5561\u5bc6\u5ba4\u8207\u6709\u6a5f\u751f\u7269\u9e7c\u5316\u5b78\u6aa2\u9a57 | \u51fa\u8655\uff1a\u9752\u5c71\u525b\u660c\u300a\u540d\u5075\u63a2\u67ef\u5357\u300b\u65e9\u671f\u7d93\u5178\u9910\u5ef3\u8207\u5496\u5561\u5ef3\u4e0b\u6bd2\u5bc6\u5ba4\u6848\u4ef6\u3002 | \u539f\u7406\uff1a\u6709\u6a5f\u751f\u7269\u9e7c\u6bd2\u6027\u8207\u9178\u9e7c\u6eb6\u89e3\u5ea6\u3001\u8584\u5c64\u8272\u5c64\u5206\u6790\u6cd5\uff08TLC\uff09\u8207\u86cb\u767d\u8cea\u6c89\u6fb1\u5316\u5b78\u53cd\u61c9\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u897f\u9580\u753a\u70ba\u96d9\u5317\u5e74\u8f15\u4eba\u8207\u5546\u52d9\u5ba2\u532f\u96c6\u4e4b\u5730\uff0c\u9023\u9396\u5496\u5561\u5e97\u6797\u7acb\uff0c\u6b64\u6848\u771f\u5be6\u5448\u73fe\u90fd\u6703\u7a81\u767c\u5371\u6a5f\u8655\u7f6e\u3002\n\n\n### \u3010CASE-02\u3011\u53f0\u5317\u8eca\u7ad9\u4e09\u9435\u9023\u901a\u9577\u5eca\u6c34\u529b\u5ef6\u6642\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u540d\u5075\u63a2\u67ef\u5357\u3008\u9727\u5929\u72d7\u50b3\u8aaa\u3009\u8207\u5efa\u7bc9\u8072\u5b78\n- \u8abf\u67e5\u821e\u53f0\uff1a\u53f0\u5317\u8eca\u7ad9\u5730\u4e0b\u8857\u81f3\u9ad8\u9435\u8f49\u4e58\u8655 300 \u516c\u5c3a\u5c01\u9589\u9577\u5eca\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\ud83d\udeaa \u9580\u5f62\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u5168\u670d\u516c\u544a\u3011\u53f0\u5317\u8eca\u7ad9\u5730\u4e0b\u8857\u6df1\u591c\u9a5a\u50b3\u5de8\u5927\u649e\u64ca\u8072\uff0c\u5acc\u72af\u5ba3\u7a31\u7576\u6642\u81ea\u5df1\u5728 300 \u516c\u5c3a\u5916\u7684\u8d85\u5546\u8cfc\u7269\u6709\u767c\u7968\u70ba\u8b49\uff0c\u5168\u670d\u8b66\u5831\u767c\u5e03\uff0c\u6240\u6709\u5728\u7dda\u5075\u63a2\u540c\u6b65\u63a5\u7372\u7dda\u5831\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u73a9\u5bb6\u8abf\u67e5\u5c01\u9589\u901a\u9053\u3001\u84c4\u6c34\u6c34\u6876\u8207\u5929\u82b1\u677f\u8edf\u7ba1\uff0c\u767c\u73fe\u5acc\u72af\u5229\u7528\u8679\u5438\u7ba1\u8207\u5bc6\u9589\u6c34\u6876\u88fd\u6210\u300c\u5e15\u65af\u5361\u6c34\u529b\u91cd\u529b\u5ef6\u6642\u6a5f\u95dc\u300d\uff0c\u5728\u6848\u767c 30 \u5206\u9418\u5f8c\u84c4\u6c34\u6eff\u6ea2\u5931\u8861\u5012\u584c\u91cd\u64ca\u9435\u9580\u88fd\u9020\u5de8\u97ff\uff01\u9577\u5eca\u5149\u6ed1\u6c34\u6ce5\u58c1\u9020\u6210\u7684\u591a\u6b21\u56de\u8072\u53cd\u5c04\u6df7\u6dc6\u4e86\u8b49\u4eba\u5c0d\u8072\u6e90\u65b9\u4f4d\u7684\u5224\u65b7\u3002\u6bd4\u5c0d\u76e3\u8996\u5668\u6c34\u6f2c\u6642\u9593\u6233\u5fb9\u5e95\u7c89\u788e\u4e0d\u5728\u5834\u8b49\u660e\u3002\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u67ef\u5357\u3008\u9727\u5929\u72d7\u50b3\u8aaa\u3009\u6c34\u529b\u5ef6\u6642\u8207\u5efa\u7bc9\u8072\u5b78\u7cfe\u932f | \u51fa\u8655\uff1a\u300a\u540d\u5075\u63a2\u67ef\u5357\u300b\u52d5\u756b\u7b2c 52 \u96c6\u3008\u9727\u5929\u72d7\u50b3\u8aaa\u6bba\u4eba\u4e8b\u4ef6\u3009\uff08\u6c34\u6d41\u84c4\u529b\u5ef6\u9072\u624b\u6cd5\uff09\u3002 | \u539f\u7406\uff1a\u3010\u56b4\u8b39\u7cfe\u932f\u3011\u9020\u6210 30 \u5206\u9418\u6642\u9593\u5dee\u7684\u662f\u6c34\u529b\u8679\u5438\u88dd\u7f6e\u5ef6\u9072\u5012\u584c\uff0c\u7d55\u975e\u8072\u97f3\u5728\u7a7a\u6c23\u4e2d\u50b3\u64ad\u4e86 30 \u5206\u9418\uff08\u5e38\u6eab\u8072\u901f\u7d04 340m/s\uff0c300 \u516c\u5c3a\u53ea\u9700\u4e0d\u5230 1 \u79d2\uff09\u3002\u9577\u5eca\u6c34\u6ce5\u58c1\u56de\u8072\u662f\u7528\u65bc\u6df7\u6dc6\u8072\u6e90\u65b9\u4f4d\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u53f0\u5317\u8eca\u7ad9\u5730\u4e0b\u8857\u7e31\u6df1\u9577\u9054\u6578\u767e\u516c\u5c3a\uff0c\u4e09\u9435\u5171\u69cb\u4eba\u6d41\u7e41\u5fd9\uff0c\u6975\u5177\u4ee3\u8868\u6027\u3002\n\n\n### \u3010CASE-03\u3011\u897f\u9580\u753a\u8d85\u5546\u51b7\u85cf\u6ac3\u96b1\u5f62\u6307\u7d0b\u7aca\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u827e\u5c0f\u5761\u79d1\u5b78\u63a8\u7406\n- \u8abf\u67e5\u821e\u53f0\uff1a\u897f\u9580\u753a\u6f22\u4e2d\u8857\u5f92\u6b65\u5340\u4fbf\u5229\u8d85\u5546\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\ud83c\udfea \u4fbf\u5229\u5546\u5e97\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u7a81\u767c\u89f8\u767c\u3011\u73a9\u5bb6\u8d70\u9032\u8d85\u5546\u8cfc\u8cb7 3 \u865f\u96fb\u6c60\u6216\u98f2\u6599\u6642\uff0c\u5e97\u54e1\u7126\u6025\u5927\u558a\u300c\u9650\u91cf\u7248\u52d5\u6f2b\u7d00\u5ff5\u5361\u5f9e\u5c55\u793a\u51b7\u85cf\u6ac3\u9396\u76d2\u4e2d\u4e0d\u7ffc\u800c\u98db\u4e86\uff01\u300d\uff0c\u73fe\u5834\u81ea\u52d5\u5c55\u958b\u5fae\u578b\u8abf\u67e5\u3002\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u51b7\u85cf\u6ac3\u73bb\u7483\u8868\u9762\u5e38\u6eab\u4e0b\u770b\u4f3c\u6beb\u7121\u75d5\u8de1\u3002\u73a9\u5bb6\u5229\u7528\u5e97\u5167\u71b1\u6c34\u6a5f\u7522\u751f\u7684\u5fae\u91cf\u6c34\u84b8\u6c23\u5c0d\u8457\u73bb\u7483\u8f15\u5439\uff0c\u4f4e\u6eab\u51b7\u537b\u7684\u73bb\u7483\u9047\u6c34\u6c23\u7522\u751f\u5fae\u5c0f\u9732\u73e0\u51dd\u7d50\uff0c\u6e05\u6670\u986f\u73fe\u51fa\u5acc\u72af\u6234\u8457\u9732\u6307\u624b\u5957\u7559\u4e0b\u7684\u534a\u622a\u6307\u7d0b\uff01\u96a8\u5f8c\u6253\u958b\u5be6\u9ad4\u4e94\u91d1\u884c\u8cb7\u4f86\u7684\u4fbf\u651c\u7d2b\u5916\u5149\u71c8\uff0c\u7167\u51fa\u5acc\u72af\u8863\u89d2\u6cbe\u67d3\u7684\u9632\u76dc\u87a2\u5149\u6cb9\u58a8\uff0c\u7576\u5834\u6293\u7372\u5c1a\u672a\u8d70\u51fa\u5e97\u9580\u7684\u53ef\u7591\u9867\u5ba2\u3002\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u51b7\u51dd\u6c34\u6c7d\u986f\u5f71\u8207\u7d2b\u5916\u87a2\u5149\u9451\u8b58 | \u51fa\u8655\uff1a\u79d1\u666e\u63a8\u7406\u5c0f\u8aaa\u300a\u53e3\u888b\u795e\u63a2\u300b\u827e\u5c0f\u5761\u5229\u7528\u65e5\u5e38\u7269\u7406\u5149\u5b78\u8207\u6c34\u6c23\u51dd\u7d50\u7834\u6848\u624b\u6cd5\u3002 | \u539f\u7406\uff1a\u98fd\u548c\u6c34\u6c7d\u58d3\u3001\u9732\u9ede\u6eab\u5ea6\uff08Dew Point\uff09\u8207\u51dd\u7d50\u6838\u5149\u5b78\u6563\u5c04\u539f\u7406\u3001\u7d2b\u5916\u5149\u6fc0\u767c\u87a2\u5149\u53cd\u61c9\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u96d9\u5317\u8857\u982d\u6bcf\u8d70\u5e7e\u6b65\u5c31\u6709\u4e00\u5bb6 7-11 \u6216\u5168\u5bb6\uff0c\u5b8c\u7f8e\u878d\u5408\u53f0\u7063\u6700\u5177\u4ee3\u8868\u6027\u7684\u8d85\u5546\u6587\u5316\uff01\n\n\n### \u3010CASE-04\u3011\u6377\u904b\u677f\u5357\u7dda\u672b\u73ed\u8eca\u6025\u715e\u8abf\u5305\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u8eca\u5ec2\u6163\u6027\u529b\u5b78\n- \u8abf\u67e5\u821e\u53f0\uff1a\u6377\u904b\u53f0\u5317\u8eca\u7ad9\u81f3\u5fe0\u5b5d\u65b0\u751f\u884c\u99db\u4e2d\u4e4b\u8eca\u5ec2\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\ud83d\ude87 \u6377\u904b\u7ad9\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u5168\u670d\u516c\u544a\u3011\u677f\u5357\u7dda\u672b\u73ed\u5217\u8eca\u5728\u96a7\u9053\u5167\u7a81\u767c\u7dca\u6025\u715e\u8eca\uff0c\u8eca\u5ec2\u5168\u9ad4\u4e58\u5ba2\u5411\u524d\u5012\u6210\u4e00\u7247\uff0c\u8d77\u7acb\u5f8c\u67d0\u79d1\u6280\u4e3b\u7ba1\u88dd\u6709\u5546\u696d\u6a5f\u5bc6\u6676\u7247\u7684\u516c\u4e8b\u5305\u88ab\u8abf\u5305\uff01\u5217\u8eca\u5df2\u9760\u7ad9\u5c01\u9396\uff0c\u5168\u670d\u5075\u63a2\u722d\u596a\u9996\u89e3\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u8abf\u67e5\u56db\u4f4d\u7ad9\u7acb\u4e58\u5ba2\u5728\u6025\u715e\u77ac\u9593\u7684\u53d7\u529b\u72c0\u614b\uff1a\u6839\u64da\u725b\u9813\u7b2c\u4e00\u904b\u52d5\u5b9a\u5f8b\uff08\u6163\u6027\uff09\uff0c\u5217\u8eca\u715e\u8eca\u6e1b\u901f\u6642\uff0c\u4eba\u9ad4\u8cea\u5fc3\u5fc5\u5b9a\u5411\u5217\u8eca\u524d\u9032\u65b9\u5411\u50be\u5012\u3002\u7136\u800c\u5176\u4e2d\u4e00\u540d\u5acc\u7591\u4eba\u7684\u624b\u638c\u6293\u63e1\u6276\u624b\u75d5\u8de1\u8207\u8173\u5c16\u671d\u5411\u537b\u662f\u671d\u5411\u8eca\u5c3e\uff0c\u8b49\u660e\u4ed6\u65e9\u5728\u715e\u8eca\u524d\u5c31\u5df2\u84c4\u610f\u5f13\u8eab\u6297\u8861\u6163\u6027\u3001\u8d81\u4e82\u4f38\u624b\u8abf\u5305\u516c\u4e8b\u5305\uff01\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u725b\u9813\u7b2c\u4e00\u904b\u52d5\u5b9a\u5f8b\u8207\u8eca\u5ec2\u6163\u6027\u529b\u5b78 | \u51fa\u8655\uff1a\u79d1\u666e\u63a8\u7406\u300a\u53e3\u888b\u795e\u63a2\u300b\u5229\u7528\u516c\u8eca/\u5730\u9435\u6025\u715e\u6642\u7269\u9ad4\u524d\u885d\u65b9\u5411\u7834\u89e3\u6163\u6027\u6848\u4ef6\u624b\u6cd5\u3002 | \u539f\u7406\uff1a\u725b\u9813\u7b2c\u4e00\u904b\u52d5\u5b9a\u5f8b\uff08\u6163\u6027\uff09\u3001\u52d5\u91cf\u8207\u975e\u6163\u6027\u53c3\u8003\u7cfb\u4e2d\u7684\u5047\u60f3\u6163\u6027\u529b\uff08Inertial Force\uff09\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u53f0\u5317\u6377\u904b\u677f\u5357\u7dda\u70ba\u8cab\u7a7f\u96d9\u5317\u6771\u897f\u8ef8\u7dda\u4e4b\u5927\u52d5\u8108\uff0c\u65e5\u904b\u91cf\u6578\u5341\u842c\u4eba\u6b21\uff0c\u751f\u6d3b\u4ee3\u5165\u611f\u6975\u5f37\u3002\n\n\n### \u3010CASE-05\u3011\u5927\u7a3b\u57d5\u767e\u5e74\u4e2d\u85e5\u92ea\u6d88\u5931\u7684\u4eba\u8518\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u798f\u723e\u6469\u65af\u3008\u9280\u8272\u99ac\u3009\u8207\u5929\u5e73\u69d3\u687f\u539f\u7406\n- \u8abf\u67e5\u821e\u53f0\uff1a\u5927\u7a3b\u57d5\u8fea\u5316\u8857\u767e\u5e74\u4e2d\u85e5\u5357\u5317\u8ca8\u8001\u5e97\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\ud83c\udf3f \u4e2d\u85e5\u884c\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u5168\u670d\u516c\u544a\u3011\u93ae\u5e97\u4e4b\u5bf6\u50f9\u503c\u767e\u842c\u4e4b\u9577\u767d\u5c71\u767e\u5e74\u91ce\u5c71\u8518\u5728\u5b8c\u597d\u7121\u640d\u7684\u73bb\u7483\u5c55\u793a\u6ac3\u4e2d\u88ab\u63db\u6210\u66ec\u4e7e\u863f\u8514\u6839\uff0c\u638c\u6ac3\u767c\u5e03\u767e\u842c\u5075\u63a2\u8cde\u91d1\uff0c\u5168\u670d\u5075\u63a2\u706b\u901f\u8d95\u5f80\u5927\u7a3b\u57d5\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u5c55\u793a\u6ac3\u9396\u982d\u6beb\u7121\u64ac\u75d5\uff0c\u9470\u5319\u53ea\u6709\u638c\u6ac3\u8207\u8001\u85e5\u5e2b\u64c1\u6709\u3002\u73a9\u5bb6\u8d70\u9032\u85e5\u92ea\uff0c\u6aa2\u67e5\u79e4\u91cf\u540d\u8cb4\u85e5\u6750\u7684\u53e4\u8463\u7b49\u81c2\u9285\u5929\u5e73\uff0c\u767c\u73fe\u5929\u5e73\u53f3\u5074\u7684\u9285\u781d\u78bc\u770b\u4f3c 50 \u514b\uff0c\u4f46\u5728\u6c34\u4e2d\u79e4\u91cf\u6642\u6392\u6c34\u9ad4\u7a4d\u7570\u5e38\uff01\u5acc\u72af\u5728\u781d\u78bc\u5e95\u90e8\u6316\u7a7a\u704c\u5165\u4f4e\u5bc6\u5ea6\u5408\u91d1\uff0c\u88fd\u9020\u51fa\u300c\u770b\u4f3c\u5e73\u8861\u5be6\u5247\u5c11\u91cd\u300d\u7684\u504f\u5dee\uff0c\u85c9\u7531\u6bcf\u9031\u76e4\u9ede\u4e4b\u79e4\u91cd\u76f2\u9ede\u5077\u5929\u63db\u65e5\u5c07\u91ce\u5c71\u8518\u5206\u6279\u79fb\u51fa\u3002\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u9280\u8272\u99ac\u3009\u76f2\u9ede\u5fc3\u7406\u8207\u5929\u5e73\u69d3\u687f\u539f\u7406 | \u51fa\u8655\uff1a\u67ef\u5357\u00b7\u9053\u723e\u300a\u798f\u723e\u6469\u65af\u56de\u61b6\u9304\u300b\u4e4b\u3008\u9280\u8272\u99ac\u3009\uff08\u300c\u72d7\u5728\u591c\u9593\u70ba\u4f55\u6c92\u6709\u5420\u53eb\u300d\u7684\u9006\u5411\u76f2\u9ede\u601d\u7dad\uff09\u3002 | \u539f\u7406\uff1a\u69d3\u687f\u539f\u7406\uff08\u529b\u77e9\u5e73\u8861\u516c\u5f0f L1\u00d7W1 = L2\u00d7W2\uff09\u3001\u963f\u57fa\u7c73\u5fb7\u6d6e\u529b\u5b9a\u5f8b\u8207\u5408\u91d1\u5bc6\u5ea6\u6e2c\u91cf\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u5927\u7a3b\u57d5\u8fea\u5316\u8857\u70ba\u53f0\u7063\u73fe\u5b58\u6b77\u53f2\u6700\u60a0\u4e45\u4e4b\u5357\u5317\u8ca8\u8207\u4e2d\u85e5\u96c6\u6563\u5730\uff0c\u7d05\u78da\u9577\u689d\u8857\u5c4b\u53e4\u8272\u53e4\u9999\u3002\n\n\n### \u3010CASE-06\u3011\u96d9\u5317 307 \u516c\u8eca\u6025\u715e\u76ae\u593e\u8abf\u5305\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u96e2\u5fc3\u529b\u8207\u624b\u6307\u9b54\u8853\u932f\u89ba\n- \u8abf\u67e5\u821e\u53f0\uff1a\u96d9\u5317\u516c\u8eca\u4e4b\u738b 307 \u865f\u516c\u8eca\u884c\u7d93\u5357\u4eac\u6771\u8def\u516c\u8eca\u5c08\u7528\u9053\uff08\u53ef\u9032\u5165\u6a19\u8a18\uff1a\ud83d\ude8c \u516c\u8eca\u7ad9\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u7a81\u767c\u89f8\u767c\u3011\u73a9\u5bb6\u642d\u4e58 307 \u516c\u8eca\u524d\u5f80\u4e0b\u500b\u8857\u5340\u6642\uff0c\u524d\u65b9\u8001\u5976\u5976\u9a5a\u547c\u80cc\u5305\u62c9\u934a\u88ab\u62c9\u958b\u3001\u88dd\u6709\u656c\u8001\u60a0\u904a\u5361\u8207\u73fe\u91d1\u7684\u9577\u593e\u88ab\u76dc\uff01\u53f8\u6a5f\u9760\u908a\u66ab\u505c\u95dc\u9589\u524d\u5f8c\u9580\uff0c\u73a9\u5bb6\u7acb\u5373\u5c55\u958b\u5075\u67e5\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u516c\u8eca\u525b\u525b\u5728\u5357\u4eac\u6771\u8def\u8def\u53e3\u9032\u884c\u4e86 90 \u5ea6\u5927\u8f49\u5f4e\u3002\u4f9d\u64da\u5713\u5468\u904b\u52d5\u96e2\u5fc3\u529b\uff0c\u8eca\u5ec2\u5167\u6240\u6709\u7121\u56fa\u5b9a\u7269\u9ad4\u7686\u5411\u53f3\u5074\u6ed1\u79fb\u3002\u7136\u800c\u5750\u5728\u5de6\u5074\u55ae\u4eba\u5ea7\u7684\u5acc\u7591\u7537\u5b50\u80cc\u5305\u5e95\u90e8\u537b\u767c\u73fe\u4e86\u8001\u5976\u5976\u7684\u76ae\u593e\uff01\u5acc\u72af\u5229\u7528\u8f49\u5f4e\u6642\u4e58\u5ba2\u5411\u53f3\u50be\u5012\u7684\u8eab\u9ad4\u906e\u853d\uff0c\u4ee5\u53f3\u624b\u53cd\u5411\u62bd\u593e\uff0c\u5229\u7528\u516c\u8eca\u9707\u52d5\u63a9\u84cb\u89f8\u89ba\uff0c\u7d93\u6bd4\u5c0d\u8eca\u5167\u5237\u5361\u7d00\u9304\u8207\u7ad9\u7acb\u52d5\u7dda\u7576\u5834\u7834\u6848\u3002\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u5411\u5fc3\u529b\u3001\u96e2\u5fc3\u904b\u52d5\u8207\u89f8\u89ba\u795e\u7d93\u9069\u61c9 | \u51fa\u8655\uff1a\u300a\u53e3\u888b\u795e\u63a2\u300b\u516c\u5171\u4ea4\u901a\u5de5\u5177\u8eca\u5ec2\u904b\u52d5\u5b78\u63a8\u7406\u624b\u6cd5\u3002 | \u539f\u7406\uff1a\u5713\u5468\u904b\u52d5\u5411\u5fc3\u52a0\u901f\u5ea6\uff08a = v\u00b2/r\uff09\u3001\u96e2\u5fc3\u73fe\u8c61\u8207\u795e\u7d93\u672b\u68a2\u89f8\u89ba\u920d\u5316\uff08Tactile Adaptation\uff09\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u96d9\u5317 307 \u516c\u8eca\u865f\u7a31\u300c\u96d9\u5317\u516c\u8eca\u4e4b\u738b\u300d\uff0c\u4e32\u806f\u677f\u6a4b\u3001\u4e2d\u548c\u3001\u53f0\u5317\u8eca\u7ad9\u8207\u677e\u5c71\uff0c\u73ed\u6b21\u6700\u5bc6\u96c6\uff01\n\n\n### \u3010CASE-07\u3011\u6de1\u6c34\u6d77\u95dc\u78bc\u982d\u8df3\u821e\u5c0f\u4eba\u822a\u6d77\u78da\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u798f\u723e\u6469\u65af\u3008\u8df3\u821e\u7684\u4eba\u3009\u7d93\u5178\u66ff\u63db\u5bc6\u78bc\n- \u8abf\u67e5\u821e\u53f0\uff1a\u6de1\u6c34\u6d77\u95dc\u78bc\u982d\u6b77\u53f2\u5c55\u793a\u5712\u5340\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\ud83c\udfdb\ufe0f \u535a\u7269\u9928\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u5168\u670d\u516c\u544a\u3011\u6de1\u6c34\u78bc\u982d\u53e4\u8001\u77f3\u58c1\u4fee\u5fa9\u5de5\u7a0b\u610f\u5916\u6316\u6398\u51fa 26 \u584a\u523b\u6709\u795e\u79d8\u5c0f\u4eba\u7b26\u865f\u7684\u77f3\u78da\uff0c\u64da\u50b3\u901a\u5f80\u5341\u4e5d\u4e16\u7d00\u82f1\u570b\u9818\u4e8b\u9928\u4fdd\u96aa\u5eab\uff0c\u5168\u670d\u5bc6\u78bc\u7834\u8b6f\u7af6\u901f\u958b\u8dd1\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u77f3\u78da\u4e0a\u7684\u706b\u67f4\u5c0f\u4eba\u59ff\u614b\u5404\u7570\uff0c\u624b\u6301\u65d7\u5e5f\u8005\u4ee3\u8868\u55ae\u8a5e\u7d50\u5c3e\u3002\u73a9\u5bb6\u89aa\u81ea\u8d70\u9032\u6de1\u6c34\u6d77\u95dc\u6545\u4e8b\u9928\uff0c\u7ffb\u95b1 1865 \u5e74\u82f1\u570b\u5546\u8239\u822a\u6d77\u65e5\u8a8c\uff0c\u4f7f\u7528\u82f1\u6587\u5b57\u6bcd\u51fa\u73fe\u983b\u7387\u7d71\u8a08\uff08E\u3001T\u3001A \u51fa\u73fe\u983b\u7387\u6700\u9ad8\uff09\u4e26\u6bd4\u5c0d\u958b\u6e2f\u5e38\u7528\u55ae\u5b57\uff08PORT\u3001CUSTOM\u3001SHIP\uff09\uff0c\u89e3\u958b\u55ae\u8868\u66ff\u63db\u5bc6\u78bc\uff0c\u958b\u555f\u78bc\u982d\u77f3\u58c1\u6697\u683c\u8d77\u7372\u767e\u5e74\u7d14\u9280\u822a\u6d77\u61f7\u9336\uff01\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u3008\u8df3\u821e\u7684\u4eba\u3009\u55ae\u8868\u66ff\u63db\u5bc6\u78bc\u8207\u983b\u7387\u5206\u6790 | \u51fa\u8655\uff1a\u67ef\u5357\u00b7\u9053\u723e\u300a\u798f\u723e\u6469\u65af\u63a2\u6848\u96c6\uff1a\u6b78\u4f86\u8a18\u300b\u4e4b\u3008\u8df3\u821e\u7684\u4eba\u3009\uff08The Dancing Men, 1903\uff09\u3002 | \u539f\u7406\uff1a\u5bc6\u78bc\u5b78\u55ae\u8868\u66ff\u63db\u5f0f\u5bc6\u78bc\uff08Substitution Cipher\uff09\u3001\u53e4\u5178\u82f1\u6587\u8a9e\u6599\u5eab\u5b57\u5143\u983b\u7387\u5206\u6790\u6cd5\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u6de1\u6c34\u6e2f\u65bc 1862 \u5e74\u6b63\u5f0f\u958b\u6e2f\u901a\u5546\uff0c\u66fe\u8a2d\u82f1\u570b\u9818\u4e8b\u9928\u8207\u6d77\u95dc\u516c\u7f72\uff0c\u6d0b\u6a13\u7d05\u78da\u6975\u5177\u6d77\u6d0b\u53f2\u7279\u8272\u3002\n\n\n### \u3010CASE-08\u3011\u5317\u6295\u6eab\u6cc9\u8001\u65c5\u5e97\u7a7a\u767d\u907a\u66f8\u71b1\u654f\u6848\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u540d\u5075\u63a2\u67ef\u5357\u7406\u79d1\u52a0\u71b1\u986f\u5f71\u8207\u6709\u6a5f\u9178\n- \u8abf\u67e5\u821e\u53f0\uff1a\u5317\u6295\u6eab\u6cc9\u535a\u7269\u9928\u65c1\u8001\u5b57\u865f\u6eab\u6cc9\u65c5\u9928\u6e6f\u5c4b\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\u2668\ufe0f \u6eab\u6cc9\u65c5\u9928\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u5168\u670d\u516c\u544a\u3011\u8001\u65c5\u5e97\u8001\u8463\u4e8b\u9577\u7559\u4e0b\u5bc6\u5c01\u7a7a\u767d\u907a\u56d1\u5f8c\u5931\u8e64\uff0c\u5bb6\u5c6c\u5ba3\u7a31\u5fc5\u9808\u5728\u4eca\u665a\u524d\u8b80\u53d6\u5167\u5bb9\uff0c\u5426\u5247\u907a\u7522\u5c07\u88ab\u60e1\u610f\u63a5\u7ba1\uff0c\u5168\u670d\u5927\u5075\u63a2\u555f\u7a0b\u524d\u5f80\u5317\u6295\u6eab\u6cc9\u9109\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u73fe\u5834\u53ea\u7559\u4e0b\u4e00\u5f35\u7a7a\u767d\u6cdb\u9ec3\u4fe1\u7d19\u3002\u73a9\u5bb6\u9700\u5148\u524d\u5f80\u5be6\u9ad4\u4e94\u91d1\u884c\u8cfc\u8cb7\u9632\u71b1\u52a0\u9577\u7af9\u593e\uff0c\u8d70\u9032\u65c5\u5e97\u5b89\u5168\u6eab\u63a7\u6eab\u6cc9\u84b8\u6c23\u69fd\uff08\u56b4\u683c\u6a19\u8a3b\u73fe\u5be6\u5b89\u5168\u8b66\u8a9e\uff1a\u5929\u7136\u5730\u71b1\u8c37\u9ad8\u6eab\u5371\u96aa\uff0c\u5207\u52ff\u73fe\u5be6\u6a21\u4eff\uff01\uff09\u3002\u5c07\u4fe1\u7d19\u7f6e\u65bc\u4e0a\u65b9\u5fae\u6eab\u70d8\u70e4\uff0c\u7d19\u5f35\u4e0a\u9810\u5148\u66f8\u5beb\u7684\u7a00\u6ab8\u6aac\u9178\uff08\u5f31\u6709\u6a5f\u9178\uff09\u6c34\u5206\u53d7\u71b1\u84b8\u767c\u6fc3\u5ea6\u9a5f\u5347\uff0c\u596a\u53d6\u7d19\u5f35\u7e96\u7dad\u6c34\u5206\u5b50\u4f7f\u78b3\u7d20\u6790\u51fa\u8b8a\u9ed1\uff0c\u6d6e\u73fe\u51fa\u4fdd\u7ba1\u7bb1\u5bc6\u78bc\uff01\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u67ef\u5357\u52a0\u71b1\u986f\u5f71\u624b\u6cd5\u8207\u6709\u6a5f\u9178\u812b\u6c34\u70ad\u5316\u5316\u5b78 | \u51fa\u8655\uff1a\u300a\u540d\u5075\u63a2\u67ef\u5357\u300b\u7d93\u5178\u7406\u79d1\u5bc6\u5ba4\uff08\u5982\u7b2c 74 \u5377\u300c\u6bd2\u8207\u5e7b\u7684\u8a2d\u8a08\u300d\u3001\u65e9\u671f\u52a0\u71b1\u96b1\u5f62\u58a8\u6c34\u624b\u6cd5\uff09\u3002 | \u539f\u7406\uff1a\u3010\u79d1\u5b78\u56b4\u8b39\u898f\u7bc4\u3011\u55ae\u4e00\u53ef\u9a57\u8b49\u4e4b\u5f31\u9178\u9ad8\u6eab\u812b\u6c34\u70ad\u5316\u53cd\u61c9\uff08C6H12O6 \u2192 6C + 6H2O\uff09\uff0c\u4e0d\u6df7\u96dc\u6c2f\u5316\u9237\u6216\u786b\u78fa\u84b8\u6c23\u6df7\u6dc6\u53cd\u61c9\uff1b\u4e26\u52a0\u8a3b\u9ad8\u6eab\u5b89\u5168\u9632\u8b77\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u5317\u6295\u70ba\u53f0\u7063\u4eab\u8b7d\u570b\u969b\u4e4b\u6eab\u6cc9\u540d\u52dd\uff0c\u9752\u78fa\u6cc9\u6c34\u6eab\u6975\u9ad8\uff0c\u65e5\u5f0f\u6728\u9020\u53e4\u8e5f\u74b0\u7e5e\u3002\n\n\n### \u3010CASE-09\u3011\u58eb\u6797\u79d1\u6559\u9928\u93e1\u9762\u8ff7\u5bae\u6d88\u5931\u7684\u96f7\u5c04\u7b46\uff08\u5168\u670d\u5171\u4eab\u7af6\u901f (Shared Speedrun)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u67ef\u5357\u5e73\u9762\u93e1\u591a\u6b21\u5168\u53cd\u5c04\u8207\u5149\u5b78\u8ff7\u5bae\n- \u8abf\u67e5\u821e\u53f0\uff1a\u570b\u7acb\u53f0\u7063\u79d1\u5b78\u6559\u80b2\u9928\uff08\u58eb\u6797\u79d1\u6559\u9928\uff09\u5149\u5b78\u5c55\u5ef3\uff08\u53ef\u9032\u5165\u6a19\u8a18\uff1a\ud83d\udcda \u5b78\u7fd2\u8b1b\u5802\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u5168\u670d\u516c\u544a\u3011\u79d1\u6559\u9928\u5c55\u51fa\u4e4b\u570b\u5bb6\u7d1a\u9ad8\u7cbe\u5ea6\u96f7\u5c04\u5149\u7b46\u5728\u5c01\u9589\u93e1\u9762\u8ff7\u5bae\u5c55\u9593\u5931\u7aca\uff0c\u7d05\u5916\u7dda\u8b66\u5831\u5668\u672a\u66fe\u97ff\u8d77\uff0c\u5168\u670d\u5075\u63a2\u524d\u5f80\u58eb\u6797\u79d1\u5b78\u63a2\u7d22\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u5c55\u9593\u56db\u58c1\u8cbc\u6eff\u5e73\u9762\u93e1\u3002\u73a9\u5bb6\u9032\u5165\u79d1\u6559\u9928\u7269\u7406\u8b1b\u5802\uff0c\u5b78\u7fd2\u53cd\u5c04\u5b9a\u5f8b\uff08\u5165\u5c04\u89d2\u7b49\u65bc\u53cd\u5c04\u89d2\uff09\u3002\u5728\u5c55\u9593\u4e2d\u592e\u4f7f\u7528\u7159\u9727\u5674\u5291\u7167\u51fa\u7d05\u5916\u7dda\u9632\u76dc\u5149\u675f\u8def\u5f91\uff0c\u767c\u73fe\u5acc\u72af\u5229\u7528\u5169\u9762 45 \u5ea6\u593e\u89d2\u7cbe\u5bc6\u5149\u5b78\u5e73\u9762\u93e1\u7d44\u5408\uff0c\u5728\u5c55\u6ac3\u56db\u5468\u67b6\u69cb\u51fa\u5168\u53cd\u5c04\u5c0e\u5149\u8ff4\u8def\uff0c\u5c07\u8b66\u5831\u5149\u675f\u300c\u7e5e\u9053\u6298\u5c04\u300d\uff0c\u5b8c\u6210\u9694\u7a7a\u53d6\u7b46\uff01\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u67ef\u5357\u5149\u5b78\u93e1\u9762\u53cd\u5c04\u3001\u6f5b\u671b\u93e1\u539f\u7406\u8207\u5e7e\u4f55\u5149\u5b78 | \u51fa\u8655\uff1a\u300a\u540d\u5075\u63a2\u67ef\u5357\u300b\u5229\u7528\u93e1\u9762\u5168\u53cd\u5c04\u53cd\u5c04\u5149\u675f\u907f\u958b\u7d05\u5916\u7dda\u8b66\u5831\u5668\u7d93\u5178\u624b\u6cd5\u3002 | \u539f\u7406\uff1a\u5149\u5b78\u53cd\u5c04\u5b9a\u5f8b\uff08Law of Reflection\uff09\u3001\u5168\u53cd\u5c04\u689d\u4ef6\u3001\u591a\u5e73\u9762\u93e1\u7d44\u5408\u4e4b\u6f5b\u671b\u93e1\u5149\u8def\u8a2d\u8a08\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u570b\u7acb\u53f0\u7063\u79d1\u5b78\u6559\u80b2\u9928\u70ba\u96d9\u5317\u4e2d\u5c0f\u5b78\u751f\u81ea\u7136\u79d1\u5b78\u63a2\u7a76\u9996\u9078\u5834\u9928\uff0c\u4e92\u52d5\u5c55\u54c1\u8c50\u5bcc\u3002\n\n\n### \u3010CASE-10\u3011\u5927\u5b89\u68ee\u6797\u516c\u5712\u96e8\u591c\u6ce5\u5730\u7121\u8173\u5370\u6848\uff08\u7a81\u767c\u4e8b\u4ef6 (Dynamic Event)\uff09\n- \u81f4\u656c\u4f86\u6e90\uff1a\u81f4\u656c\uff1a\u798f\u723e\u6469\u65af\u3008\u8840\u5b57\u7684\u7814\u7a76\u3009\u58d3\u5f37\u516c\u5f0f\u63a8\u7406\n- \u8abf\u67e5\u821e\u53f0\uff1a\u5927\u5b89\u68ee\u6797\u516c\u5712\u751f\u614b\u6c34\u6c60\u65c1\u6ce5\u6fd8\u8349\u5730\uff08\u53ef\u9032\u5165\u5efa\u7bc9\u6a19\u8a18\uff1a\ud83d\udeaa \u516c\u5712\u5165\u53e3\uff09\n- \u89f8\u767c\u60c5\u5883\uff1a\u3010\u7a81\u767c\u89f8\u767c\u3011\u4e0b\u96e8\u5929\u5728\u96d9\u5317\u8857\u9053\u6f2b\u6b65\u8d70\u9032\u5927\u5b89\u68ee\u6797\u516c\u5712\u6642\uff0c\u516c\u5712\u5de1\u8b66\u6b63\u5728\u5c01\u9396\u6c34\u9ce5\u89c0\u6e2c\u53f0\uff1a\u89c0\u6e2c\u53f0\u540d\u8cb4\u671b\u9060\u93e1\u88ab\u76dc\uff0c\u4f46\u56db\u5468\u6578\u5341\u516c\u5c3a\u6ce5\u6fd8\u8349\u5730\u4e0a\u7adf\u300c\u5b8c\u5168\u6c92\u6709\u7559\u4e0b\u4efb\u4f55\u4eba\u8e29\u8e0f\u7684\u8173\u5370\u300d\uff01\n- \u8abf\u67e5\u89e3\u5bc6\uff1a\u96e8\u5929\u8349\u5730\u6ce5\u6fd8\u9b06\u8edf\uff0c\u6b63\u5e38\u6210\u5e74\u4eba\u8e29\u4e0b\u5fc5\u7559\u4e0b\u6df1\u9054 3 \u516c\u5206\u978b\u5370\u3002\u73a9\u5bb6\u6e2c\u91cf\u6ce5\u571f\u627f\u8f09\u529b\uff08\u58d3\u5f37 P = F / A\uff09\uff0c\u63a8\u8ad6\u5acc\u72af\u4e26\u975e\u6703\u98db\uff0c\u800c\u662f\u7a7f\u8457\u985e\u4f3c\u6ed1\u96ea\u677f\u7684\u7279\u88fd\u5927\u9762\u7a4d\u8f15\u8cea\u8edf\u6728\u5927\u5e95\u978b\uff0c\u5c07\u6bcf\u5e73\u65b9\u516c\u5206\u7684\u53d7\u529b\u58d3\u5f37\u5206\u6563\u81f3\u4eba\u9ad4\u6b63\u5e38\u58d3\u5f37\u7684\u4e94\u5206\u4e4b\u4e00\u4ee5\u4e0b\uff0c\u4f7f\u8349\u8449\u56de\u5f48\u4e0d\u7559\u4e0b\u51f9\u75d5\uff01\u5faa\u8457\u8349\u8449\u5fae\u5c0f\u7684\u6c34\u5e73\u5f4e\u6298\u671d\u5411\u6210\u529f\u5728\u51fa\u53e3\u704c\u6728\u53e2\u8d77\u7372\u671b\u9060\u93e1\u3002\n- \u8003\u64da\u8207\u79d1\u5b78\u539f\u7406\uff1a\u798f\u723e\u6469\u65af\u58d3\u5f37\u516c\u5f0f P=F/A \u8207\u6ce5\u571f\u75d5\u8de1\u529b\u5b78 | \u51fa\u8655\uff1a\u67ef\u5357\u00b7\u9053\u723e\u300a\u798f\u723e\u6469\u65af\u63a2\u6848\u96c6\uff1a\u8840\u5b57\u7684\u7814\u7a76\u300b\u4e2d\u5c0d\u5acc\u72af\u6b65\u614b\u3001\u9ad4\u91cd\u8207\u5730\u9762\u58d3\u5f37\u4e4b\u7d93\u5178\u5206\u6790\u3002 | \u539f\u7406\uff1a\u7269\u7406\u58d3\u5f37\u516c\u5f0f P = F / A\uff08\u58d3\u529b\u8207\u63a5\u89f8\u9762\u7a4d\u53cd\u6bd4\uff09\u3001\u5f48\u6027\u9650\u5ea6\u8207\u6ce5\u571f\u5851\u6027\u8b8a\u5f62\u529b\u5b78\u3002 | \u5728\u5730\u7d50\u5408\uff1a\u5927\u5b89\u68ee\u6797\u516c\u5712\u70ba\u53f0\u5317\u5e02\u4e2d\u5fc3\u7684\u300c\u90fd\u5e02\u4e4b\u80ba\u300d\uff0c\u751f\u614b\u6c60\u9ce5\u985e\u7e41\u591a\uff0c\u96e8\u5929\u6f2b\u6b65\u6975\u5177\u610f\u5883\u3002\n\n\n\u3010\u2605 \u672a\u4f86 AI \u6848\u4ef6\u751f\u6210\u6a21\u7d44\u67b6\u69cb\uff08AI Case Generator Engine\uff09\u3011\n\u70ba\u4e86\u5be6\u73fe\u300c\u6c38\u4e0d\u7d50\u675f\u7684\u63a8\u7406\u4e16\u754c\u300d\uff0c\u7cfb\u7d71\u8a2d\u8a08\u4e86\u6a19\u6e96\u5316 AI \u6848\u4ef6\u751f\u6210\u4ecb\u9762\uff1a\n1. \u6a19\u6e96 JSON \u6848\u4ef6\u8cc7\u6599\u683c\u5f0f\uff08Schema\uff09\uff1a\n   {\n     \"case_id\": \"CASE-AI-0101\",\n     \"title\": \"\u5927\u7a3b\u57d5\u5e03\u838a\u6d88\u5931\u7684\u85cd\u67d3\u5e03\",\n     \"type\": \"dynamic_event | shared_speedrun | personal_quest\",\n     \"location\": {\n       \"name\": \"\u8fea\u5316\u8857\u4e00\u6bb5\u50b3\u7d71\u5e03\u838a\",\n       \"district\": \"\u5927\u540c\u5340\",\n       \"coordinates\": [25.0565, 121.5098],\n       \"enterable_marker\": \"store\"\n     },\n     \"trigger_condition\": {\n       \"event_type\": \"enter_store | walk_nearby | server_broadcast\",\n       \"probability\": 0.35,\n       \"cooldown_minutes\": 60\n     },\n     \"npcs\": [\n       {\"id\": \"npc_01\", \"name\": \"\u5e03\u838a\u8001\u95c6\u5a18\", \"dialogue\": \"\u9019\u584a\u5e03\u539f\u672c\u6d78\u5728\u67d3\u7f38\u88e1\uff0c\u600e\u9ebc\u7a81\u7136\u8b8a\u6210\u767d\u8272\u4e86\uff1f\"},\n       {\"id\": \"npc_02\", \"name\": \"\u8def\u904e\u67d3\u5de5\", \"dialogue\": \"\u6211\u525b\u624d\u805e\u5230\u4e00\u80a1\u5fae\u5f31\u7684\u96d9\u6c27\u6c34\u5473\u9053...\"}\n     ],\n     \"clues\": [\n       {\"id\": \"clue_01\", \"type\": \"physical\", \"name\": \"\u767d\u8272\u67d3\u5e03\u7e96\u7dad\", \"science_note\": \"\u6c27\u5316\u9084\u539f\u892a\u8272\u53cd\u61c9\"},\n       {\"id\": \"clue_02\", \"type\": \"testimony\", \"name\": \"\u76e3\u8996\u5668\u6642\u9593\u6233\", \"science_note\": \"14:15 \u6709\u4eba\u651c\u5e36\u5674\u9727\u74f6\u9032\u5165\"}\n     ],\n     \"reasoning_graph\": {\n       \"motive\": \"\u76dc\u53d6\u96b1\u85cf\u5728\u5e03\u6599\u7e96\u7dad\u4e2d\u7684\u9ad8\u50f9\u67d3\u6599\",\n       \"method\": \"\u5229\u7528\u9084\u539f\u5291\u4f7f\u975b\u85cd\u66ab\u6642\u7121\u8272\u5316\",\n       \"contradiction\": \"\u5acc\u72af\u8863\u670d\u53e3\u888b\u6b98\u7559\u96d9\u6c27\u6c34\u8a66\u5291\u74f6\"\n     },\n     \"verification_hash\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n   }\n2. AI \u81ea\u52d5\u751f\u6210\u5de5\u4f5c\u6d41\uff08AI Generation Pipeline\uff09\uff1a\n   - \u7531 AI Agent\uff08\u5982\u5fd7\u70ab / \u96f2\u7aef\u5927\u6a21\u578b\uff09\u6839\u64da\u96d9\u5317 OSM \u5730\u7406\u5716\u8cc7\u3001\u53f0\u7063\u4e2d\u5c0f\u5b78\u81ea\u7136\u79d1\u5b78\u8ab2\u7db1\u6982\u5ff5\u3001\u8207\u540d\u8457\u63a8\u7406\u6838\u5fc3\u624b\u6cd5\u81ea\u52d5\u7d44\u5408\u3002\n   - \u7d93\u908f\u8f2f\u81ea\u6d3d\u6027\u9a57\u8b49\u5f8c\uff0c\u7531\u5f8c\u7aef\u52d5\u614b\u6ce8\u5165\u6848\u4ef6\u8cc7\u6599\u5eab\uff0c\u5be6\u73fe\u5b9a\u671f\u751a\u81f3\u6bcf\u65e5\u81ea\u52d5\u63a8\u51fa\u5168\u65b0\u7a81\u767c\u8207\u5168\u670d\u6848\u4ef6\uff01\n\n============================================================\n\u25a0 04A\uff5c\u5171\u4eab\u4e16\u754c\u9ad4\u7cfb\uff1a\u7a81\u767c\u4e8b\u4ef6\u3001\u5168\u670d\u6436\u6848\u540c\u6b65\u7d50\u675f vs \u500b\u4eba\u6649\u5347\u4efb\u52d9\n============================================================\n\u3010\u2605 \u7a81\u767c\u4e8b\u4ef6\u89f8\u767c\u6a5f\u5236\uff08Dynamic Events\uff09\u3011\n- \u4e0d\u5b9a\u6642\u96a8\u6a5f\u89f8\u767c\uff1a\u6848\u4ef6\u4e0d\u4e00\u5b9a\u5168\u6578\u4e8b\u5148\u6a19\u5728\u5730\u5716\u4e0a\u3002\u7576\u73a9\u5bb6\u5728\u5496\u5561\u5e97\u7528\u9910\u3001\u642d\u516c\u8eca\u3001\u901b\u8d85\u5546\u6642\uff0c\u53ef\u80fd\u7a81\u767c\u610f\u5916\uff08\u4f8b\u5982\u5ba2\u4eba\u5496\u5561\u88ab\u4e0b\u6bd2\u3001\u516c\u8eca\u6025\u715e\u8abf\u5305\uff09\u3002\n- \u73fe\u5834\u5373\u6642\u5c01\u9396\uff1a\u89f8\u767c\u77ac\u9593\u9580\u7a97\u62c9\u4e0b\u5c01\u9396\uff0c\u9032\u5165 20~25 \u5206\u9418\u9650\u6642\u73fe\u5834\u8abf\u67e5\uff0c\u8eab\u6b77\u5176\u5883\u5b9b\u5982\u67ef\u5357\u9644\u9ad4\uff01\n\n\u3010\u2605 \u5168\u670d\u5171\u4eab\u516c\u958b\u6848\u4ef6\uff08Shared Public Cases\uff09\u3011\n- \u5168\u9ad4\u73a9\u5bb6\u5728\u540c\u4e00\u4e16\u754c\u540c\u6b65\u770b\u5230\u3002\n- \u652f\u63f4\u7d44\u968a\u5408\u4f5c\u8207\u5168\u670d\u9996\u89e3\u7af6\u901f\u6436\u6848\u3002\n- \u3010\u5168\u670d\u540c\u6b65\u7d50\u675f\u6a5f\u5236\u3011\uff1a\u4e00\u65e6\u4efb\u4f55\u73a9\u5bb6\u6210\u529f\u63d0\u4ea4\u5b8c\u6574\u63a8\u7406\u9a57\u8b49\uff0c\u6216\u9650\u6642\u5012\u6578\u7d50\u675f\uff0c\u4f3a\u670d\u5668\u7acb\u5373\u767c\u5e03\u5168\u670d\u5feb\u8a0a\uff0c\u6240\u6709\u73a9\u5bb6\u756b\u9762\u4e0a\u7684\u8a72\u6848\u4ef6\u300c\u540c\u6b65\u7d50\u675f\u300d\uff0c\u81ea\u52d5\u6b78\u6a94\u81f3\u300c\u6b77\u53f2\u6a94\u6848\u5ba4\uff08\u4e0d\u8a08\u5206\u56de\u9867\u6a21\u5f0f\uff09\u300d\u3002\n\n\u3010\u2605 \u500b\u4eba\u5c08\u5c6c\u6649\u5347\u4efb\u52d9\uff08Personal Milestone Quests\uff09\u3011\n- \u5c08\u5c6c\u6bcf\u4f4d\u73a9\u5bb6\u7684\u500b\u4eba\u6210\u5c31\u8207\u80fd\u529b\u9032\u968e\uff08\u4f8b\u5982\u65b0\u624b\u4efb\u52d9\uff1a\u7834\u7372\u4efb\u610f 3 \u500b\u6848\u4ef6\u6649\u5347\u968e\u7d1a\u3001\u53d6\u5f97\u7279\u5b9a\u9053\u5177\uff09\u3002\n- \u89e3\u9396\u689d\u4ef6\uff1a\u9700\u8981\u7d2f\u7a4d\u300c\u500b\u4eba\u4eba\u969b\u4fe1\u8cf4\u5ea6\uff08\u8207\u7279\u5b9a NPC \u719f\u8b58\uff09\u300d\u6216\u300c\u89f8\u767c\u7279\u5b9a\u8857\u9053\u5f69\u86cb\uff08\u5982\u9047\u898b\u9ed1\u8c93\u963f\u5de7\uff09\u300d\u3002\n- \u3010\u7121\u6436\u4efb\u52d9\u6a5f\u5236\u3011\uff1a\u6bcf\u4f4d\u73a9\u5bb6\u7684\u500b\u4eba\u4efb\u52d9\u9032\u5ea6\u5b8c\u5168\u7368\u7acb\uff0c\u4eba\u4eba\u5e73\u7b49\uff0c\u81ea\u5df1\u6309\u7bc0\u594f\u4e00\u500b\u4e00\u500b\u5f80\u4e0a\u89e3\uff0c\u7d55\u4e0d\u6703\u88ab\u5176\u4ed6\u73a9\u5bb6\u6436\u8d70\uff01\n\n============================================================\n\u25a0 05\uff5c\u5834\u6240\u4e92\u52d5\u3001\u77ed\u6642\u5fae\u578b\u5b78\u7fd2\u624b\u518a\u8207\u53f0\u5473\u96b1\u85cf\u5f69\u86cb\n============================================================\n\u30101~3 \u5206\u9418\u5fae\u578b\u5b78\u7fd2\u8b1b\u5802\uff08\u62d2\u7d55\u67af\u71e5\u8b1b\u7fa9\uff09\u3011\n1. \u58eb\u6797\u79d1\u6559\u9928\uff1a\u64cd\u4f5c\u5149\u5f71\u6298\u5c04\u8207\u71b1\u654f\u986f\u5f71\u6a21\u64ec\u69fd\uff0c\u89e3\u9396\u300c\u71b1\u654f\u9451\u8b58\u77e5\u8b58\u5361\u300d\u3002\n2. \u5317\u5e02\u5716\u7e3d\u9928\uff1a\u82f1\u6587\u5b57\u6bcd\u983b\u7387\u5c0d\u7167\u7df4\u7fd2\u5c0f\u904a\u6232\uff0c\u89e3\u9396\u300c\u5bc6\u78bc\u901f\u67e5\u5b57\u5178\u300d\u3002\n3. \u6de1\u6c34\u6d77\u95dc\u6545\u4e8b\u9928\uff1a\u5224\u8b80 1860 \u5e74\u4ee3\u82f1\u570b\u5546\u8239\u822a\u6d77\u65e5\u8a8c\uff0c\u89e3\u9396\u8001\u8239\u9577\u6587\u53f2\u5c0d\u8a71\u3002\n4. \u65b0\u5317\u5e02\u5716\u7e3d\u9928\uff1a\u65e5\u6677\u6e2c\u6642\u6cd5\u8207\u76f8\u4f3c\u4e09\u89d2\u5f62\u5f71\u5b50\u9577\u5ea6\u6e2c\u91cf\u6a21\u64ec\u5668\uff0c\u89e3\u9396\u65e5\u5f71\u5e7e\u4f55\u91cf\u89d2\u5668\u3002\n\n\u3010\u96d9\u5317\u8857\u982d\u56db\u5927\u7279\u8272\u5f69\u86cb (Easter Eggs)\u3011\n1. \u5275\u4f5c\u5718\u968a\u5ba2\u4e32\u5f69\u86cb\uff1a\u53f0\u5317\u8eca\u7ad9\u5df7\u5f04\u8c46\u6f3f\u5e97\u89d2\u843d\uff0c\u5750\u8457\u4e09\u4f4d\u516d\u5e74\u7d1a\u7368\u7acb\u7814\u7a76\u5b78\u751f NPC\uff0c\u7b46\u96fb\u4e0a\u6b63\u958b\u8457\u9019\u672c\u4f01\u5283\u66f8\u8207 AI \u7a0b\u5f0f\u78bc\uff0c\u5e7d\u9ed8\u611f\u8b1d\u6240\u6709\u73a9\u5bb6\u8a66\u73a9\uff01\n2. \u6de1\u6c34\u8001\u8857\u9ed1\u8c93\u300c\u963f\u5de7\u300d\uff1a\u5728\u6de1\u6c34\u7d05\u78da\u5df7\u5f04\u9935\u7260\u5403\u4e00\u9846\u9b5a\u4e38\uff0c\u963f\u5de7\u6703\u55b5\u55b5\u53eb\u5e36\u4f60\u7a7f\u904e\u9632\u7a7a\u6d1e\uff0c\u6307\u5f15\u51fa\u7246\u9762\u4e0a\u7684\u96b1\u85cf\u7d93\u7def\u5ea6\u5ea7\u6a19\u6697\u865f\uff01\n3. \u53f0\u5317 101 \u5c4b\u9802\u79d8\u5bc6\u5c55\u671b\u53f0\uff1a\u5b8c\u6210\u7279\u5b9a\u652f\u7dda\u5f8c\u7372\u5f97\u5929\u53f0\u9470\u5319\uff0c\u5728\u6674\u6717\u591c\u9593\u53ef\u767b\u4e0a 101 \u5c4b\u9802\u98fd\u89bd\u5927\u53f0\u5317 3D \u661f\u7a7a\u8207\u842c\u5bb6\u71c8\u706b\u5168\u666f\u3002\n4. \u540d\u8457\u81f4\u656c\u5f69\u86cb\u7ad9\u724c\u8cbc\u7d19\uff1a\u96d9\u5317\u67d0\u500b\u516c\u8eca\u7ad9\u724c\u89d2\u843d\uff0c\u6084\u6084\u8cbc\u8457\u300c221B \u8c9d\u514b\u8857\u300d\u8207\u300c\u7c73\u82b1\u753a\u4e94\u4e01\u76ee\u300d\u7684\u5fa9\u53e4\u516c\u8eca\u8def\u7dda\u8cbc\u7d19\uff0c\u5411\u67ef\u5357\u8207\u798f\u723e\u6469\u65af\u81f4\u656c\uff01\n\n============================================================\n\u25a0 06\uff5c\u751f\u6d3b\u6162\u6d3b\u3001\u771f\u5be6\u5be6\u9ad4\u5546\u5e97\u5230\u5e97\u8cfc\u8cb7\u6a5f\u5236\u3001\u96d9\u8ecc\u8ca8\u5e63\u8207\u7121\u969c\u7919\u9632\u5361\u95dc\n============================================================\n\u3010\u2605 \u771f\u5be6\u5be6\u9ad4\u5546\u5e97\u5230\u5e97\u8cfc\u8cb7\u6a5f\u5236\uff08Real In-Store Shopping\uff09\u3011\n- \u62d2\u7d55\u9694\u7a7a\u7db2\u8cfc\u76f4\u9001\uff01\u5075\u63a2\u5fc5\u9808\u89aa\u81ea\u8d70\u5230\u8857\u9053\u771f\u5be6\u5b58\u5728\u7684\u5be6\u9ad4\u5e97\u9762\u63a8\u9580\u9032\u53bb\u8cfc\u8cb7\uff1a\n  1. \u4fbf\u5229\u8d85\u5546\uff087-11 / \u5168\u5bb6 / \u840a\u723e\u5bcc\uff09\uff1a\u52a0\u9577\u7af9\u593e ($35)\u30013\u865f\u96fb\u6c60\u7d44 ($50)\u3001\u5c0f\u5305\u98df\u9e7d ($15)\u3001\u77f3\u854a\u8a66\u7d19 ($30)\u3001\u7926\u6cc9\u6c34 ($20)\u3001\u71b1\u62ff\u9435 ($45)\u3002\n  2. \u5728\u5730\u4e94\u91d1\u884c / \u96dc\u8ca8\u5e97\uff08\u592a\u539f\u8def / \u842c\u83ef\u4e94\u91d1\u8857\uff09\uff1a\u9ad8\u7cbe\u5ea6\u92fc\u6372\u5c3a ($80)\u3001\u9ad8\u6d41\u660e LED \u624b\u96fb\u7b52 ($120)\u3001\u9632\u975c\u96fb\u9477\u5b50 ($45)\u3001\u68c9\u7dda\u8207\u6ed1\u8f2a\u7d44 ($65)\u3002\n  3. \u5927\u7a3b\u57d5\u767e\u5e74\u4e2d\u85e5\u884c\uff08\u8fea\u5316\u8857\uff09\uff1a\u7d2b\u7518\u85cd\u8403\u53d6\u8a66\u5291 ($50)\u3001\u5929\u7136\u767d\u82b7\u7c89\u672b ($40)\u3001\u7cbe\u5bc6\u5929\u5e73\u514d\u8cbb\u501f\u7528\u3002\n  4. \u5149\u83ef\u6578\u4f4d\u65b0\u5929\u5730 / \u4e09\u5275\u5712\u5340\uff1a\u4fbf\u651c\u7d2b\u5916\u5149\u9451\u8b58\u7b46 (400 \u5075\u63a2\u5e63)\u3001\u6539\u88dd\u9ad8\u626d\u529b\u6ed1\u677f (500 \u5075\u63a2\u5e63)\u3001\u9ad8\u9748\u654f\u5b9a\u5411\u964d\u566a\u9304\u97f3\u7b46 (350 \u5075\u63a2\u5e63)\u3002\n  5. \u6377\u904b\u7ad9\u670d\u52d9\u8655 / \u60a0\u904a\u5361\u52a0\u503c\u6a5f\uff1a\u60a0\u904a\u5361\u67e5\u8a62\u8207\u751f\u6d3b\u91d1\u52a0\u503c\u3001\u8cfc\u8cb7\u6377\u904b\u4e00\u65e5\u7968 ($150)\u3002\n\n\u3010\u5075\u63a2\u7cbe\u529b\u503c\u7cfb\u7d71\u8207\u53f0\u7063\u5c0f\u5403\u56de\u8840\u3011\n\u5954\u8dd1\u8207\u8abf\u67e5\u6d88\u8017\u7cbe\u529b\u503c\uff1b\u5728\u4e8b\u52d9\u6240\u6c99\u767c\u4f11\u606f\u3001\u8d85\u5546\u98f2\u6c34\u6a5f\u7686\u53ef\u514d\u8cbb\u56de\u6eff\u7cbe\u529b\uff1b\u9032\u5e97\u54c1\u5690\u6de1\u6c34\u963f\u7d66\u9b5a\u4e38\u6e6f\u3001\u5317\u6295\u6392\u9aa8\u9165\u9eb5\u3001\u73cd\u5976\u3001\u6c38\u548c\u8c46\u6f3f\u6cb9\u689d\u56de\u8840\u3002\n\n\u3010\u96d9\u8ecc\u8ca8\u5e63\u9ad4\u7cfb\u3011\n1. \u7834\u6848\u59d4\u8a17\u8cde\u91d1 (Detective Coins)\uff1a\u7834\u7372\u4e3b\u652f\u7dda\u5927\u6848\u3001\u89e3\u958b\u540d\u8457\u7d93\u5178\u6a5f\u95dc\u7372\u5f97\uff0c\u7528\u65bc\u8cfc\u8cb7\u6c38\u4e45\u52a0\u901f\u88dd\u5099\u8207\u5916\u89c0\u3002\n2. \u65e5\u5e38\u751f\u6d3b\u6d41\u901a\u91d1 (Daily Cash)\uff1a\u6bcf\u65e5\u751f\u6d3b\u6d25\u8cbc\u3001\u8857\u982d\u5c0f\u59d4\u8a17\u3001\u8d85\u5546\u6253\u5de5\u7372\u5f97\uff0c\u7528\u65bc\u642d\u8eca\u3001\u5be6\u9ad4\u5e97\u8cb7\u6750\u6599\u3001\u5c0f\u5403\u5403\u98ef\u3002\n\n\u3010\u7d55\u5c0d\u4e0d\u5361\u6b7b (Anti-Softlock) \u8207\u7121\u969c\u7919\u4e09\u968e\u63d0\u793a\u3011\n\u751f\u6d3b\u91d1\u82b1\u5149\u4f9d\u7136\u53ef\u4ee5\u514d\u8cbb\u6b65\u884c\u3001\u4e8b\u52d9\u6240\u514d\u8cbb\u4f11\u606f\u3001\u8857\u982d\u505a\u8cc7\u6e90\u56de\u6536\u8cfa\u8eca\u8cc7\u3002\u7b2c 1 \u968e\u63d0\u793a\u514d\u8cbb\uff1b\u7b2c 2\u30013 \u968e\u63d0\u793a\u63d0\u4f9b\u300c\u7b49\u5f85 5 \u5206\u9418\u51b7\u537b\u300d\u6216\u300c\u5b8c\u6210\u6307\u5b9a\u74b0\u5883\u89c0\u5bdf\u300d\u4e4b\u514d\u8cbb\u89e3\u9396\u7ba1\u9053\u3002\n\n============================================================\n\u25a0 07\uff5c\u57ce\u5e02\u52d5\u614b NPC \u4f5c\u606f\u3001\u793e\u5340\u4fe1\u8cf4\u5ea6\u8207\u73ed\u7d1a\u6848\u4ef6\u5de5\u4f5c\u574a\n============================================================\n- NPC \u52d5\u614b\u4f5c\u606f\uff1a\u6668\u904b\u9577\u8f29\u3001\u5348\u5f8c\u4e0a\u73ed\u65cf\u3001\u9ec3\u660f\u591c\u5e02\u6524\u8ca9\uff0c\u4e0d\u540c\u6642\u6bb5\u8a2a\u8ac7\u7372\u4e0d\u540c\u96f6\u788e\u7dda\u7d22\u3002\n- \u793e\u5340\u4fe1\u8cf4\u5ea6\u4e92\u52d5\uff1a\u96a8\u624b\u6276\u8d77\u5012\u4e0b\u7684 YouBike\u3001\u5354\u52a9\u9577\u8f29\u904e\u99ac\u8def\u3001\u96a8\u624b\u505a\u8cc7\u6e90\u56de\u6536\uff0c\u63d0\u5347\u4fe1\u8cf4\u5ea6\u7372\u5f97\u5c0f\u5403\u5e97\u963f\u59e8\u514d\u8cbb\u62db\u5f85\u8207\u96b1\u85cf\u516b\u5366\u3002\n- \u73ed\u7d1a\u6848\u4ef6\u5de5\u4f5c\u574a\uff1a\u5167\u5efa\u6975\u7c21\u6848\u4ef6\u7de8\u8f2f\u5668\uff0c\u7522\u751f 6 \u78bc\u5927\u5beb\u82f1\u6578\u4ee3\u78bc\uff08\u5982 TP8801\uff09\uff0c\u5168\u73ed\u540c\u5b78\u8f38\u5165\u4ee3\u78bc\u5373\u53ef\u6311\u6230\u5f7c\u6b64\u8a2d\u8a08\u7684\u81ea\u88fd\u6848\u4ef6\uff01\n\n============================================================\n\u25a0 08\uff5c\u8de8\u5e73\u53f0\u756b\u9762 UI\u3001\u7121\u969c\u7919\u64cd\u4f5c\u8207\u5f8c\u7aef\u8cc7\u6599\u5eab\u67b6\u69cb\n============================================================\n- 3D \u4fef\u77b0\u8857\u9053 + 2D \u50cf\u7d20\u4e3b\u89d2 + \u908a\u89d2 HUD + \u667a\u6167\u578b\u624b\u6a5f\u591a\u529f\u80fd\u9078\u55ae\uff08\u6848\u4ef6\u7c3f\u3001\u7dda\u7d22\u767d\u677f\u3001\u901a\u8a0a\u9304\u3001\u4e09\u968e\u63d0\u793a\u3001\u76f8\u7c3f\uff09\u3002\n- \u652f\u63f4\u96fb\u8166\u9375\u76e4 WASD + \u624b\u6a5f\u89f8\u63a7\u6416\u687f\u8207\u9ede\u64ca\uff1b\u652f\u63f4\u7e41\u4e2d\u5927\u5b57\u5e55\u3001\u8272\u76f2\u8f14\u52a9\u6a19\u7c64\u3002\n- \u4f3a\u670d\u5668\u7aef\u63a1\u7528 Transaction Row Lock \u9632\u6b62\u96d9\u9996\u89e3\uff0c\u4fdd\u969c\u5168\u670d\u7af6\u8cfd\u7d55\u5c0d\u516c\u5e73\u3002\n\n============================================================\n\u25a0 09\uff5c\u52d9\u5be6\u7814\u767c\u7b56\u7565\uff1a\u7b2c\u4e00\u7248\u300c\u5782\u76f4\u5207\u7247 (Vertical Slice)\u300d\u8207\u5c08\u6848\u6642\u7a0b\n============================================================\n- \u5782\u76f4\u5207\u7247\u7b56\u7565\uff1a\u5148\u958b\u653e 1 \u689d\u771f\u5be6\u8857\u9053\uff08\u53f0\u5317\u8eca\u7ad9\u5468\u908a\uff09+ 2 \u500b\u516c\u8eca\u7ad9 + 1 \u500b\u53ef\u9032\u5165\u5b78\u7fd2\u9928\u820d + 1 \u5bb6\u5c0f\u5403\u5e97 + 1 \u500b\u591a\u4eba\u53ef\u7af6\u901f\u9996\u89e3\u5c0f\u6848\uff0c\u5b8c\u6574\u8dd1\u901a\u6838\u5fc3\u5faa\u74b0\u3002\n- 8 \u9031\u63a8\u9032\u91cc\u7a0b\u7891\uff1a\u7b2c 1~2 \u9031\u4f01\u5283\u5b9a\u6848\u8207\u5716\u8cc7\u898f\u7bc4 \u2794 \u7b2c 3~4 \u9031\u5782\u76f4\u5207\u7247\u539f\u578b\u88fd\u4f5c \u2794 \u7b2c 5~6 \u9031\u4ea4\u901a\u8f49\u4e58\u3001\u56db\u5927\u6a5f\u95dc\u8207\u5be6\u9ad4\u5546\u5e97\u5be6\u88dd \u2794 \u7b2c 7~8 \u9031\u5168\u73ed\u8a66\u73a9\u8207\u6210\u679c\u767c\u8868\u6703\u3002\n\n============================================================\n\u25a0 10\uff5c\u6c7a\u7b56\u5f85\u8fa6\u6e05\u55ae\u3001\u516c\u5e73\u6027\u4fdd\u969c\u8207\u672a\u4f86\u64f4\u5145\u6307\u5f15\n============================================================\n- \u5efa\u7bc9\u5ba4\u5167\u958b\u653e\u6392\u7a0b\uff08\u7368\u7279\u5ba4\u5167 vs \u5171\u7528\u6a21\u677f\uff0c\u672a\u958b\u653e\u660e\u78ba\u6a19\u8a18\u300c\u5c1a\u672a\u958b\u653e\u300d\uff09\u3002\n- \u5171\u4eab\u6848\u4ef6\u767c\u5e03\u983b\u7387\uff08\u6bcf 2~4 \u9031\u767c\u5e03 1 \u6279\uff0c\u5230\u671f\u8f49\u5165\u6b77\u53f2\u61f8\u6848\u6a94\u6848\u5eab\uff09\u3002\n- \u767c\u8868\u6703\u96e2\u7dda\u5b89\u5168\u5099\u6848\uff08\u82e5\u5c55\u5834 Wi-Fi \u4e0d\u7a69\uff0c\u652f\u63f4\u5168\u96e2\u7dda\u9810\u6f14\u6a21\u5f0f\uff09\u3002\n- \u539f\u5275\u7f8e\u8853\u8207\u97f3\u6548\u5be9\u67e5\uff08\u52d5\u6f2b\u81f4\u656c\u5143\u7d20\u5168\u90e8\u539f\u5275\u7e6a\u88fd\uff0c\u5408\u6cd5\u5408\u898f\uff09\u3002";
 
     function copyFullProposal() {
       const buffer = document.getElementById('copyBuffer');
