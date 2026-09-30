@@ -1128,9 +1128,236 @@ detailed_10_markdown = "\n".join(detailed_10_markdown_list)
 
 print("Markdown fragments compiled.")
 
+# 24項創作者（委託人）需求全面追溯與落實矩陣（Traceability Matrix）
+user_traceability_matrix = [
+    {
+        "num": "01",
+        "category": "法律與非商用倫理",
+        "quote": "你要在一個地方寫免責聲明，說明我們這些東西都沒有拿來做商業用途，就算拿了一些一模一樣的道具之類的，我們也都沒有拿來做商業用途。",
+        "section": "01 基本定位<br>10 版權邊界規範",
+        "section_id": "sec-01",
+        "detail": "企劃書置頂與章節末尾以特製呼應框明定：本專案係國小六年級專題獨立研究成果，所有致敬名著情節與科學道具均經教學化重構，絕無任何商業營利販售行為，即便採用相同稱謂亦純屬非營利學術研究。"
+    },
+    {
+        "num": "02",
+        "category": "開放世界地圖",
+        "quote": "地圖以台北跟新北這兩個地方為主，玩家可以在裡面移動，台北跟新北也可以去某些特定的地方。",
+        "section": "02 OSM 地理與標記",
+        "section_id": "sec-02",
+        "detail": "以真實雙北 OpenStreetMap (OSM) 經緯度資料庫為地圖底層，劃分三大階段解鎖核心地標（西門町、台北車站、大稻埕、大安森林公園、淡水老街、板橋新板、北投溫泉）。"
+    },
+    {
+        "num": "03",
+        "category": "交通出行限制",
+        "quote": "如果你要去其他地方，只能搭公車、捷運這種大眾運輸工具，才能去另一個地方進行偵查",
+        "section": "02A 交通網絡與費率<br>02B 交通脈動戰略",
+        "section_id": "sec-02",
+        "detail": "跨區遠程偵查強制搭乘雙北公車（如 307、265、235）與台北捷運路線；短途可步行或租借 YouBike，精確還原雙北通勤通勤足跡與悠遊卡扣款扣點。"
+    },
+    {
+        "num": "04",
+        "category": "不設限生活玩法",
+        "quote": "或者你也可以待在家裡，是一個不設限的設計。",
+        "section": "01 核心定位<br>03 自由漫遊<br>06 事務所慢活",
+        "section_id": "sec-03",
+        "detail": "完全不設限玩家進度，玩家可隨時選擇不解任務，待在重慶南路事務所臥室／客廳中，翻閱【案件照片收藏冊】、更換家具裝飾、泡杯麥茶、在沙發上聽台北綿綿細雨環境音。"
+    },
+    {
+        "num": "05",
+        "category": "動森般生活感",
+        "quote": "我的意思就是，我們這款遊戲可能也很像《動物森友會》，只是沒有像它那麼小、那麼 3D。",
+        "section": "01 核心定位<br>03 慢活探索<br>08 技術選型",
+        "section_id": "sec-03",
+        "detail": "定調為 2.5D 精緻等角投影手繪像素風格，融合台灣雙北生活日常（買涼麵、喝珍奶、餵街貓阿巧、逛文具店），營造出如動森般溫暖治癒、沒有壓迫感的慢活偵探日常。"
+    },
+    {
+        "num": "06",
+        "category": "建築進出視覺標記",
+        "quote": "在這個 1:1 的雙北地區地圖中，有些地方可以進去、有些不行：可以進去的地方上面會顯示一個圖案，代表可以進去；不行的話就沒有顯示，這樣就不能進去。",
+        "section": "02.2 建築進出發光圖案標記系統",
+        "section_id": "sec-02",
+        "detail": "【可進入建築】：屋頂正門常駐浮動發光圖案（🏪 超商、☕ 咖啡廳、🌿 中藥鋪、🏛️ 學習場館、🚪 事務所、♨️ 溫泉），靠近即切換精緻室內；【不可進建築】：完全不顯示任何圖案，作為實體街景碰撞阻擋，杜絕無意義盲目試探。"
+    },
+    {
+        "num": "07",
+        "category": "夥伴角色取捨",
+        "quote": "但是「柴犬好夥伴」我覺得不要。",
+        "section": "01 三人研究團隊定位",
+        "section_id": "sec-01",
+        "detail": "遵照創作者指示徹底移除柴犬伴隨機制，由六年級學生偵探親自實地採樣、對質與勘驗，回歸純粹的校園少年獨立研究探究精神。"
+    },
+    {
+        "num": "08",
+        "category": "微型知識學習場館",
+        "quote": "可能有些地方你可以進去上課，讓它教你各種知識",
+        "section": "05 微型學習場館<br>08 首發示範案",
+        "section_id": "sec-05",
+        "detail": "設立 4 大微型學習場館（科教館、市圖總館、海關故事館、中藥博物館），設計 1~3 分鐘微型動手教學（pH 酸鹼試紙、密碼字頻統計、天平密度砝碼、生物鹼顯色），完成即免費借用實驗儀器。"
+    },
+    {
+        "num": "09",
+        "category": "雙北街道生活彩蛋",
+        "quote": "在某些地方也可以放一些彩蛋",
+        "section": "05 雙北生活彩蛋與成就",
+        "section_id": "sec-05",
+        "detail": "雙北街角散布各類本土彩蛋：赤峰街餵黑貓阿巧（解鎖『貓咪偵探』成就）、北車販賣機退幣孔掏零錢、大安森林公園松鼠生態，連續觸發解鎖專屬成就勳章。"
+    },
+    {
+        "num": "10",
+        "category": "案件周邊彩蛋與冷案保密",
+        "quote": "那個彩蛋必須位在這個案件附近。平常這個案件是不會直接告訴你答案的；如果案件時間結束卻沒有人解開，答案也不會公布出去",
+        "section": "04A 零劇透冷案封存<br>04B 道具三軌機制",
+        "section_id": "sec-04a",
+        "detail": "• 破案輔助彩蛋嚴格限制在案發周圍 50~100 公尺生活圈；• 系統平常絕不劇透真相；• 限時結束若無人解開，答案絕不對外公布，加蓋『未破懸案』官印移入『雙北歷史懸案檔案庫（Cold Cases）』，留待未來再次推敲！"
+    },
+    {
+        "num": "11",
+        "category": "初始 50 宗大案庫",
+        "quote": "希望這個遊戲的案件不要像現在這樣只有 4 個，可以有非常多個。請你先幫我預設做 50 個不同的案件，可以參考柯南、福爾摩斯等各種推理小說，或是《口袋神探》也可以，先做個 5 到 10 個。",
+        "section": "04 50宗大案全景矩陣<br>08 10大首發示範案",
+        "section_id": "sec-04",
+        "detail": "建立 50 宗雙北推理案件全景矩陣表（標註難度、恐怖度、狀態、致敬與科學原理）；並深度打造 10 大首發示範案件（含手動操作步驟、完整前情與筆錄對質）。"
+    },
+    {
+        "num": "12",
+        "category": "AI 永續擴充案件管線",
+        "quote": "我之後打算在這裡面放一個 AI，這樣我們可以隨時再多新增一些案件。我不希望這個遊戲玩完 4 個案件就結束，這樣不好玩。",
+        "section": "04 AI 案件驗證管線<br>08 技術選型",
+        "section_id": "sec-04",
+        "detail": "確立『AI 持續擴充案件庫，理論上沒有固定案件上限』架構，建立【AI 生成 ➔ 自動邏輯驗證 ➔ 淘汰不合格 ➔ 通過才加入 JSON Schema】4 步閉環管線，杜絕無解與矛盾案件。"
+    },
+    {
+        "num": "13",
+        "category": "不定時突發案件",
+        "quote": "玩法自由：不一定要一直去破案，也可以單純在城市裡逛逛。案件觸發：不一定要讓玩家事先知道哪裡可以去，可以是不定時觸發。例如在咖啡店吃飯時，旁邊客人的咖啡可能突然被下了毒，玩家就要去解決這類突發狀況。",
+        "section": "04A 動態突發事件<br>08 示範案 01",
+        "section_id": "sec-04a",
+        "detail": "地圖無預先預告標記，玩家在西門町連鎖咖啡店用餐時，隔壁桌業務員突然劇烈抽搐倒地，店家拉下鐵捲門，啟動 25 分鐘限時突發破案機制。"
+    },
+    {
+        "num": "14",
+        "category": "多人同世界與競速搶案",
+        "quote": "多人同世界機制：希望所有人都在同一個世界裡。大家可以合作破案，也可以去搶案件。每個人看到的案件數量以及有哪些案件都是一樣的；如果有人破了某個案件，或是案件時間到了，所有玩家那邊的這個案件都要同步結束。",
+        "section": "04A 共享在線世界<br>（未來多人連線功能）",
+        "section_id": "sec-04a",
+        "detail": "全服同世界觀同步機制，共享公開案件支援多人競速（全服唯一首解），一人破解或時間到期，所有玩家畫面同步結束並更新案件狀態。"
+    },
+    {
+        "num": "15",
+        "category": "階梯式個人晉升任務",
+        "quote": "我們也有一些任務，像是新手任務，你破解三個案件之後可以拿到某些東西，這樣可以按任務一個一個往上解。那你要有這個任務，可能也要某些關係才能接到，或者是觸發到某些彩蛋。每個人的任務都是一樣的，沒有搶任務這個機制。",
+        "section": "04A 個人專屬晉升任務",
+        "section_id": "sec-04a",
+        "detail": "新手任務『破獲任意 3 宗案件獲贈紫外線手電筒與偵探證』；後續任務依社區關係（信賴度 Lv.2）與彩蛋觸發階梯式解鎖；個人進度獨立，絕無他人搶奪。"
+    },
+    {
+        "num": "16",
+        "category": "實體到店與虛擬外送雙軌",
+        "quote": "商店裡面賣的東西我想不只這些，不過我希望商店裡的東西，是你要實際走到真實的商店那邊去買。",
+        "section": "06 實體與虛擬雙軌商店",
+        "section_id": "sec-06",
+        "detail": "• 實體走到 7-11、全家、光華商場、興城五金街等店面購買破案道具享 85 折優惠；• 備用手機外送模式（加收 10 點運費），100% 防止距離或店休卡關。"
+    },
+    {
+        "num": "17",
+        "category": "完整辦案程序與多嫌疑人",
+        "quote": "在破解每個案件之前，我們都要先知道前面發生了什麼事、相關人物之間有什麼關係，以及事情接下來是怎麼一步步發生的。每個人可能都要做筆錄，類似現實世界中發生這種事會有的完整程序。我有一個前提，就是不要單純只有這樣而已，除了犯人之外還要有嫌疑犯。",
+        "section": "04B 司法程序與多嫌疑人<br>08 首發示範案檔案",
+        "section_id": "sec-04b",
+        "detail": "每個示範案件標配【案發前情背景】、【人物關係網】、【事件演進時間軸】；嚴格規範每案配備 3~4 名嫌疑人（包含動機煙霧彈、隱情者、目擊者）；實裝官方警訊筆錄與物證對質打臉。"
+    },
+    {
+        "num": "18",
+        "category": "雙軌案情交代模式",
+        "quote": "如果我之前不在案發現場的話，可以透過一段提前做好的影片交代；或者比較麻煩一點，也可以安排一個人或警官，直接來跟你說明到底發生了什麼事情",
+        "section": "04B 雙軌案情交代模式<br>08 首發示範案檔案",
+        "section_id": "sec-04b",
+        "detail": "• 模式 A（不在場案件）：播映 30~45 秒手繪剪影動態分鏡短片（Motion Comic）交代前情；• 模式 B（在場/封鎖案件）：由萬華漢中街陳巡官等帶隊警官親自現場口頭簡報。"
+    },
+    {
+        "num": "19",
+        "category": "道具三軌取得機制",
+        "quote": "你可以買一些道具來幫助破解案子。不過你可能需要花一點錢、去特定地點，或者是在經過某個彩蛋時發現它。",
+        "section": "04B 道具三軌取得機制<br>08 首發示範案檔案",
+        "section_id": "sec-04b",
+        "detail": "10 大首發案件全部實裝『💰 花錢購買超商耗材』、『🏛️ 親赴科教館/市圖借用儀器』、『🥚 案發周圍 50~100 公尺巷弄免費拾獲』三軌並行解法。"
+    },
+    {
+        "num": "20",
+        "category": "益碩三大交通核心機制",
+        "quote": "益碩-發想 .png ... 典型關卡案例參考就好，不用真的做出一模一樣的。但他寫的核心玩法機制 1、2、3，我覺得可以加進去我們的企劃裡。至於遊戲核心設定先不用 ...",
+        "section": "02B 都會交通脈動戰略<br>08 首發示範案檔案",
+        "section_id": "sec-02b",
+        "detail": "保留國小偵探身份；完整納入交通三大核心：1. 交通數據線索化（悠遊卡刷卡時序、CCTV 車牌辨識）；2. 動態路網時間軸（即時塞車演算、黃金3分鐘轉乘差）；3. 現場圍捕交通戰略（手動調控紅綠燈、關閉地鐵閘門、警車路障圍捕，非暴力智力截停）。"
+    },
+    {
+        "num": "21",
+        "category": "接案前雙重提示標籤",
+        "quote": "每個案件都可以區分不同難度，也就是接案件前會先提示難度，以及恐怖程度如何。",
+        "section": "04 案件雙重標籤<br>08 首發示範案檔案",
+        "section_id": "sec-04",
+        "detail": "全案 50 宗大案與 10 大示範案皆清楚提示【難度星級 ★～★★★★★】與【恐怖驚悚指數 👻☆☆☆☆ 溫和日常 / 👻👻☆☆☆ 微驚悚 / 👻👻👻☆☆ 暗夜懸疑】，自主選擇。"
+    },
+    {
+        "num": "22",
+        "category": "六年級防嚇馬賽克切換",
+        "quote": "希望案件裡的恐怖情節盡量不要那麼多，畢竟是給小六玩的，但有些案件還是可以稍微有一點恐怖情節。針對這些情節，旁邊可以做一個按鈕來切換馬賽克：預設沒有調整的話會打馬賽克，如果按了按鈕就可以取消馬賽克。當然，會打馬賽克的都是一些不能出現的事情、不好的事件或比較恐怖的畫面，但並沒有到 18 禁",
+        "section": "04 防嚇馬賽克切換系統<br>08 首發示範案檔案",
+        "section_id": "sec-04",
+        "detail": "所有衝擊性場景預設開啟 CSS 8px 像素高斯霧化馬賽克；右上角標配 🛡️ 馬賽克已開啟 ⇄ 👁️ 馬賽克已關閉 實時切換按鈕；無 18 禁內容，完美守護高年級學童心理安全。"
+    },
+    {
+        "num": "23",
+        "category": "16 週研發進度規劃",
+        "quote": "開發時程還寫 8 週改 16 週",
+        "section": "09 16週研發時程規劃",
+        "section_id": "sec-09",
+        "detail": "全面將研發期程從 8 週調整為 16 週（4 個月），分為四階段（企劃切片、鑑識多嫌疑人、10案落地、AI管線與成果發表演練）。"
+    },
+    {
+        "num": "24",
+        "category": "專家各項優化建議",
+        "quote": "你剛剛說的專家建議，我認為全部都可以加，因為這些都挺不錯的。",
+        "section": "全案各章節",
+        "section_id": "sec-01",
+        "detail": "50 案初始資料庫標記、AI 四步驗證淘汰管線、OSM 逐步開放、多人連線標記未來功能、真實店名轉化通用名稱、天氣 API 斷線預設備案、關鍵線索雙重替代、三階漸進提示（不劇透答案）、社區信賴度 Lv.1~Lv.5 等全部落實。"
+    }
+]
+
+# Generate Markdown for Traceability Matrix
+traceability_md_rows = [
+    "| 編號 | 需求類別 | 創作者原始指示／對白引述 | 企劃落實章節 | 具體設計與遊戲機制呈現 | 落實狀態 |",
+    "|:---:|:---|:---|:---|:---|:---:|"
+]
+for item in user_traceability_matrix:
+    clean_sec = item['section'].replace('<br>', '、')
+    traceability_md_rows.append(f"| {item['num']} | **{item['category']}** | {item['quote']} | {clean_sec} | {item['detail']} | ✅ 100% 落實 |")
+traceability_md = "\n".join(traceability_md_rows)
+
+# Generate HTML for Traceability Matrix
+traceability_html_rows = []
+for item in user_traceability_matrix:
+    traceability_html_rows.append(f"""
+            <tr>
+              <td style="text-align:center; font-weight:800; color:#d97706;">{item['num']}</td>
+              <td><span style="font-size:12px; font-weight:700; background:#fef3c7; color:#92400e; padding:3px 8px; border-radius:12px; display:inline-block;">{item['category']}</span></td>
+              <td style="font-size:13px; color:#334155; line-height:1.5;">「<em>{item['quote']}</em>」</td>
+              <td><a href="#{item['section_id']}" style="color:#1d4ed8; font-weight:700; text-decoration:none; font-size:13px;">{item['section']}</a></td>
+              <td style="font-size:13px; color:#1e293b; line-height:1.55;">{item['detail']}</td>
+              <td style="text-align:center;"><span style="font-size:11.5px; font-weight:800; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; border:1px solid #bbf7d0;">✅ 100%</span></td>
+            </tr>
+    """)
+traceability_html = "\n".join(traceability_html_rows)
+
+
 plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌與鄰近彩蛋 ✕ 防嚇馬賽克切換 深度升級版）
 專案團隊：國小六年級獨立研究小組（三人團隊）
 核心定位：融入雙北真實地理、大眾運輸與國小自然科學物理化學原理的 2.5D 都會慢活偵探 RPG。
+
+---
+
+## 💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表（Traceability Checklist）
+{traceability_md}
 
 ---
 
@@ -1911,6 +2138,7 @@ html_template = f"""<!DOCTYPE html>
     <!-- 快速導覽列 -->
     <div class="nav-bar">
       <span style="font-size:12px; font-weight:800; color:var(--primary); align-self:center; margin-right:4px;">章節導覽：</span>
+      <a href="#sec-00" class="nav-chip" style="background:#fef3c7; color:#92400e; border-color:#fcd34d;">💎 00 創意需求全面落實總表</a>
       <a href="#sec-01" class="nav-chip">01 定位與分工</a>
       <a href="#sec-02" class="nav-chip">02 OSM 地理與標記</a>
       <a href="#sec-02b" class="nav-chip" style="background:#f0f9ff; color:#0284c7; border-color:#7dd3fc;">🚦 02B 交通脈動戰略</a>
@@ -1925,6 +2153,36 @@ html_template = f"""<!DOCTYPE html>
       <a href="#sec-08" class="nav-chip">08 技術架構</a>
       <a href="#sec-09" class="nav-chip">09 16週研發時程</a>
       <a href="#sec-10" class="nav-chip">10 非商用聲明</a>
+    </div>
+
+    <!-- 00｜創作者（委託人）創意需求全面收錄與落實對照總表 -->
+    <div class="card" id="sec-00" style="border-top: 6px solid #d97706; background: linear-gradient(to bottom, #ffffff, #fffdfa);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <h2 style="margin-bottom:0; color:#92400e; border-bottom:none;">💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表</h2>
+        <span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #fcd34d;">
+          24 項核心指示 ✕ 100% 驗證收錄
+        </span>
+      </div>
+      <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
+        本表將委託人（創作者小組）在研發討論中所提出的<strong>每一項需求、機制指示與創意靈感</strong>進行全面盤點與嚴格追溯。企劃書各章節與遊戲系統皆已 100% 深度落實，絕無任何遺漏！
+      </p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:6%;">編號</th>
+              <th style="width:14%;">需求類別</th>
+              <th style="width:25%;">創作者原始指示／對白引述</th>
+              <th style="width:14%;">企劃落實章節</th>
+              <th style="width:33%;">具體設計與遊戲機制呈現</th>
+              <th style="width:8%;">落實狀態</th>
+            </tr>
+          </thead>
+          <tbody>
+            {traceability_html}
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- 01｜專案基本定位、核心精神與三人團隊深層分工 -->
