@@ -3,19 +3,12 @@
 build_full_procedural_proposal.py
 Comprehensive generator script implementing:
 1. All 22 previous table commitments (16-week timeline, 50 initial cases, AI 4-step pipeline, OSM phased unlock, dual shops, Lv.1~5 trust, etc.)
-2. Section 04B: 現代鑑識與司法偵查程序（前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統）
-3. Clue-Assisting Prop Acquisition Trio & Proximity Easter Egg System (破案輔助道具三軌機制 ✕ 案發鄰近彩蛋 ✕ 零劇透未解封存)
-4. Enriched 10 launch demonstration cases with:
-   - Briefing Mode (模式 A 預錄動態短片 vs 模式 B 現場警官簡報)
-   - Pre-incident Story (案發前情背景)
-   - Step-by-Step Evolution (事件逐步演進時間軸 Step 1~Step 4)
-   - Interpersonal Relationship Network (人物關係網)
-   - Multiple Suspects Pool (3~4 名嫌疑人：動機煙霧彈、隱瞞私情者、真兇、偏誤證人)
-   - Police Interrogation Deposition (標準警訊筆錄檔案與交叉質詢物證打臉破案)
-   - Clue-Assisting Prop Trio (金錢購買 ✕ 特定地點 ✕ 案發鄰近彩蛋)
-   - Zero-Spoiler Cold Case Rule (零劇透未解封存規範)
-   - Player Hands-on Actions (玩家實際要做什麼)
-   - Codex Cards (名著致敬、物理化學科學原理、雙北在地文史)
+2. Section 02B: 🚦 都會交通脈動與戰略偵查機制（取材自組員益碩發想，交通數據線索化 ✕ 動態路網時空時序 ✕ 智力圍捕交通戰略）
+3. Section 04B: 現代鑑識與司法偵查程序（前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統）
+4. Clue-Assisting Prop Acquisition Trio & Proximity Easter Egg System (破案輔助道具三軌機制 ✕ 案發鄰近彩蛋 ✕ 零劇透未解封存)
+5. Dual Case Badges: 難度星級 (★~★★★★★) ✕ 恐怖驚悚指數 (👻~👻👻👻)
+6. Safe-Viewing Mosaic Toggle (六年級友善防嚇馬賽克切換按鈕，預設遮罩，點擊解除，無 18 禁)
+7. Enriched 10 launch demonstration cases with full data, traffic mechanics, and interactive mosaic toggles!
 """
 import json
 import os
@@ -27,13 +20,27 @@ artifact_path = '/Users/home/.gemini/antigravity-cli/brain/7ad98725-be8e-47f2-96
 # Import cases_50_data from update_all_proposal to ensure 100% data consistency
 from update_all_proposal import cases_50_data
 
-# Comprehensive 10 Launch Demonstration Cases with full procedural investigation and prop datasets
+# Enhance cases_50_data with spookiness ratings
+def get_spookiness(c):
+    cid = int(c["id"].split("-")[1])
+    if cid in [10, 20, 35, 45, 50]:
+        return "👻👻👻☆☆ (暗夜懸疑)"
+    elif cid in [1, 5, 7, 12, 14, 18, 22, 28, 31, 38, 42, 48]:
+        return "👻👻☆☆☆ (微驚悚)"
+    else:
+        return "👻☆☆☆☆ (溫和日常)"
+
+for c in cases_50_data:
+    c["spookiness"] = get_spookiness(c)
+
+# Comprehensive 10 Launch Demonstration Cases with full procedural investigation, prop datasets, and traffic mechanics
 launch_demo_cases = [
     {
         "id": "首發示範案 01",
         "title": "西門町連鎖咖啡店拿鐵中毒案",
         "type": "突發案件",
         "difficulty": "★★☆☆☆",
+        "spookiness": "👻👻☆☆☆ (微驚悚懸疑)",
         "badge_class": "badge-conan",
         "homage_author": "致敬：名偵探柯南經典咖啡廳密室",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -95,6 +102,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於案發咖啡店後方 45 公尺峨嵋街徒步區防火巷，步行 1 分鐘內，符合局部半徑鄰近性。",
             "unsolved_cold_case_rule": "平常遊戲絕不跳出兇手答案；25 分鐘限時若結束無人破案，答案絕不公開，案件標記為「西門町 0901 咖啡懸案」封入歷史冷案庫，玩家可擇日回顧摸索。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：調閱西門町成都路口與漢中街路口 CCTV 監視器，回溯外送員機車抵達秒數；比對捷運西門站 13:30~14:20 悠遊卡刷卡數據，精確掌握在場人員進站時序！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-01",
+            "label": "商務客突發抽搐痛苦倒地之衝擊畫面（微驚悚）",
+            "desc": "被害人突然臉色發青緊抓喉嚨痛苦呻吟倒地，翻倒的焦糖熱拿鐵在木地板上蔓延，杯口散發微弱苦杏仁味白煙。（預設已套用安全像素馬賽克遮罩，點擊按鈕可解除查看真實線索細節）"
+        },
         "hands_on": "1. 點擊死者桌上的咖啡杯，使用取樣滴管吸取上層奶泡。<br>2. 打開道具欄拖曳「pH 廣用試紙」浸入咖啡樣品，觀察色卡變色判定弱酸性。<br>3. 點擊指紋刷刷取咖啡杯把手與方糖包紙袋，比對 4 名在場嫌疑人指紋檔案。<br>4. 點擊手機開啟「色層分析工具」，拖曳沉澱物至展開液試管分離出苦杏仁苷生物鹼色帶，出示證據指認同桌客戶與真兇服務生。",
         "codex_title": "柯南咖啡密室與有機生物鹼化學檢驗",
         "codex_origin": "青山剛昌《名偵探柯南》早期經典餐廳與咖啡廳下毒密室案件。",
@@ -106,6 +119,7 @@ launch_demo_cases = [
         "title": "台北車站三鐵連通長廊水力延時案",
         "type": "共享競速（未來多人連線）",
         "difficulty": "★★★☆☆",
+        "spookiness": "👻☆☆☆☆ (溫和日常)",
         "badge_class": "badge-conan",
         "homage_author": "致敬：名偵探柯南〈霧天狗傳說〉與建築聲學",
         "briefing_mode": "模式 A：事發重現動態短片（Motion Comic）",
@@ -167,6 +181,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於長廊東側通道轉角處自動販賣機，距案發保險櫃 35 公尺，同屬封閉長廊區域內。",
             "unsolved_cold_case_rule": "競速倒數若至 00:00 仍無玩家破案，全服絕不廣播兇手身分，僅宣告「嫌犯已逃逸，案件未解」，封入全服懸案檔案室。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：嫌犯自超商逃跑時，啟動【現場追逐與交通戰略】：遠端協調站務鎖定高鐵轉乘匝道旋轉閘門，並調派鐵路警察於地下街 M8 出口佈設路障攔阻！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-02",
+            "label": "長廊避難室重金屬保險櫃砸凹毀損現場（溫和）",
+            "desc": "重型防盜保險櫃外殼被數十公斤重物砸得凹陷龜裂，電線斷裂冒出微弱火花，地面散落水漬與破碎零件。（畫面溫和無血腥，預設開啟模糊保護）"
+        },
         "hands_on": "1. 沿長廊走動，點擊檢查 300 公尺處鐵門前的水漬與破裂塑膠桶。<br>2. 抬頭調查天花板通風口，發現隱蔽軟管，點擊使用「鋼捲尺」測量高低落差，計算虹吸水位差。<br>3. 點擊手機調閱監視器畫面，按住時間軸滾輪精確比對 14:00 嫌犯掛上水桶與 14:30 桶倒水落的時間戳。<br>4. 進入線索白板，將「聲速 340m/s（傳播 300 公尺僅需 0.88 秒）」與「虹吸蓄水 30 分鐘延遲」拖曳連線，破解假不在場證明。",
         "codex_title": "柯南〈霧天狗傳說〉水力延時與建築聲學糾錯",
         "codex_origin": "《名偵探柯南》動畫第 52 集〈霧天狗傳說殺人事件〉（水流蓄力延遲手法）。",
@@ -178,6 +198,7 @@ launch_demo_cases = [
         "title": "淡水海關碼頭跳舞小人航海磚案",
         "type": "主線案件",
         "difficulty": "★★★★☆",
+        "spookiness": "👻☆☆☆☆ (溫和日常)",
         "badge_class": "badge-holmes",
         "homage_author": "致敬：福爾摩斯〈跳舞的人〉經典替換密碼",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -239,6 +260,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於碼頭老舢舨木船舵後，距暗格石壁 60 公尺，屬於海關園區碼頭沿岸生活圈。",
             "unsolved_cold_case_rule": "密碼盤絕不直接標記解答單詞；若放棄委託，密碼答案絕不對外透露，留待玩家日後再次挑戰解密。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：嫌疑人宣稱搭乘紅 26 公車往返淡水捷運站，調閱悠遊卡刷卡時間差僅 8 分鐘，扣除公車停等紅綠燈根本不足以完成往返，直接揭穿假不在場證明！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-03",
+            "label": "百年海關石壁暗格遭暴力撬開之石粉狼藉現場（溫和）",
+            "desc": "1860 年代古老花崗岩壁被鑿出孔洞，碎石粉末散落一地，暗格空空如也。（古蹟文物失竊現場，無驚悚要素）"
+        },
         "hands_on": "1. 來到淡水碼頭石壁前，手動點擊各小人圖案抄錄至密碼筆記本。<br>2. 走進海關故事館翻閱英文航海日誌，點擊啟動「字母頻率統計儀」，將出現頻率前三名小人映射為 E、T、A。<br>3. 觀察手持旗幟的小人判定單詞間隔，在鍵盤上逐字輸入解密出的單詞 'PORT KEY'。<br>4. 石壁暗格彈開，點擊取出純銀懷錶證物。",
         "codex_title": "福爾摩斯〈跳舞的人〉單表替換密碼與頻率分析",
         "codex_origin": "柯南·道爾《福爾摩斯探案集：歸來記》之〈跳舞的人〉（The Dancing Men, 1903）。",
@@ -250,6 +277,7 @@ launch_demo_cases = [
         "title": "北投溫泉老旅店空白遺書熱敏案",
         "type": "主線案件",
         "difficulty": "★★★☆☆",
+        "spookiness": "👻☆☆☆☆ (溫和日常)",
         "badge_class": "badge-conan",
         "homage_author": "致敬：名偵探柯南理科加熱顯影與有機酸",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -311,6 +339,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於旅店庭院戶外泡腳池神像底座，距案發湯屋 50 公尺，步行數十步即達。",
             "unsolved_cold_case_rule": "系統絕不直接浮現遺囑文字；超時未解則旅店進入查封懸案程序，答案絕不對外公布，維持本格推理純粹性。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：調閱秘書謝明宏手機基地台訊號，比對其搭乘小 9 公車上山時之即時路況，推算其在溫泉路口與開發商密會之時間戳！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-04",
+            "label": "百年老湯屋熱氣蒸騰與老董事長遺物現場（溫和）",
+            "desc": "青磺溫泉蒸氣繚繞，老木桌上平放著白色信封與古董放大鏡，氣氛靜謐莊嚴。（傳統日式溫泉旅店場景，無驚悚元素）"
+        },
         "hands_on": "1. 走進溫泉旅店湯屋，點擊桌上的空白信紙。<br>2. 從背包拖曳「防熱加長竹夾」夾住信紙邊緣，避免手指燙傷。<br>3. 將信紙移動到溫泉蒸氣口上方（溫度計顯示 85°C），維持烘烤 5 秒。<br>4. 觀察弱檸檬酸脫水炭化，原本無色的字跡漸漸浮現出褐色數字 '4-0-9'，點擊開門輸入密碼。",
         "codex_title": "柯南加熱顯影手法與有機酸脫水炭化化學",
         "codex_origin": "《名偵探柯南》經典理科密室（如第 74 卷「毒與幻的設計」、早期加熱隱形墨水手法）。",
@@ -322,6 +356,7 @@ launch_demo_cases = [
         "title": "板橋林家花園秋分漏窗日影幾何案",
         "type": "主線案件",
         "difficulty": "★★★★☆",
+        "spookiness": "👻👻☆☆☆ (微驚悚懸疑)",
         "badge_class": "badge-holmes",
         "homage_author": "致敬：福爾摩斯〈馬斯格雷夫禮儀〉日影幾何",
         "briefing_mode": "模式 A：事發重現動態短片（Motion Comic）",
@@ -382,6 +417,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於方鑑齋水榭對面假山洞穴石壁內，距案發現場 40 公尺，古蹟範圍內。",
             "unsolved_cold_case_rule": "日落（17:30）時限若過，光線散去暗格隱沒，答案絕不直接揭曉，封存至林家花園歷史懸案簿。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：郭副教授得手後企圖逃跑，玩家透過公車管理系統操控板橋公車站周邊號誌維持長紅燈，創造車流阻隔，配合巡邏員警於文化路口成功攔截！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-05",
+            "label": "老族老方鑑齋遇襲倒地手撫額頭受驚畫面（微驚悚）",
+            "desc": "老先生倒在水榭石板上，家譜殘卷撕裂在旁，神色惶恐。（預設開啟動態馬賽克保護，點擊切換解除查看掉落的撕裂紙片）"
+        },
         "hands_on": "1. 站在方鑑齋戲台前，點擊拿出「日影幾何量測儀」。<br>2. 旋轉畫面時間轉盤至秋分午後，調整量角器至太陽高度角 35°、方位角 240°。<br>3. 依據相似三角形定理（物高比影長），推算八角漏窗投影至假山石縫的精確焦點。<br>4. 點擊石縫暗孔，伸手取出藏匿百年的清代古銅鑰匙。",
         "codex_title": "福爾摩斯〈馬斯格雷夫禮儀〉幾何投影與日影測量",
         "codex_origin": "柯南·道爾《福爾摩斯探案集：回憶錄》之〈馬斯格雷夫禮儀〉（The Musgrave Ritual）。",
@@ -393,6 +434,7 @@ launch_demo_cases = [
         "title": "西門町超商冷藏櫃隱形指紋竊案",
         "type": "突發案件",
         "difficulty": "★☆☆☆☆",
+        "spookiness": "👻☆☆☆☆ (溫和日常)",
         "badge_class": "badge-holmes",
         "homage_author": "致敬：《口袋神探》艾小坡科學推理",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -453,6 +495,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於超商外牆轉角扭蛋機旁，距案發現場僅 30 公尺，屬於超商門口人行道範圍。",
             "unsolved_cold_case_rule": "限時若到顧客離去，小偷身分絕不跳出劇透，金卡列為失竊懸案封入檔案庫。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：調閱超商門口 CCTV 監視器比對 16:15 門口違規並排的黑色計程車車牌，查出買手孫小姐包車準備前往桃園機場之逃逸路線！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-06",
+            "label": "超商冷藏櫃撬開鎖具與空壓克力盒（溫和）",
+            "desc": "壓克力盒鎖頭被細鐵絲撥開，限量金卡原本放置的絨布底座空空如也，旁有未乾的冷凝水珠。（標準日常超商失竊畫面）"
+        },
         "hands_on": "1. 走近超商冷藏櫃，點擊玻璃門，對著麥克風吹氣或點擊「熱水蒸氣罐」噴灑微量水霧。<br>2. 觀察玻璃表面冷凝露珠形成的指紋殘留，使用放大鏡微距拍照存證。<br>3. 從背包拿出「便攜紫外光燈」點擊照射收銀機周邊地面與顧客外套。<br>4. 點擊標記發出綠色螢光反應的可疑顧客袖口，觸發對質對話。",
         "codex_title": "《口袋神探》冷凝水汽顯影與紫外螢光鑑識",
         "codex_origin": "科普推理小說《口袋神探》艾小坡利用日常物理光學與水氣凝結破案手法。",
@@ -464,6 +512,7 @@ launch_demo_cases = [
         "title": "捷運板南線末班車急煞調包案",
         "type": "主線案件",
         "difficulty": "★★★☆☆",
+        "spookiness": "👻👻☆☆☆ (微驚悚懸疑)",
         "badge_class": "badge-holmes",
         "homage_author": "致敬：《口袋神探》車廂慣性力學",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -524,6 +573,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於第 4 車廂停靠月台地面 25 公尺處消防栓旁，在同一站台可及視線內。",
             "unsolved_cold_case_rule": "若列車發車放行前未破案，晶片下落成謎，列為歷史重大懸案，答案永不公布。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：調閱台北捷運全線行車控制中心 (OCC) 號誌伺服器，發現善導寺號誌燈曾遭無線電短暫干擾 12 秒，精確推算嫌犯預知急煞時間點！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-07",
+            "label": "地下隧道急煞全車乘客撲倒翻覆混亂畫面（微驚悚）",
+            "desc": "末班車廂燈光閃爍，多名乘客向前摔跌堆疊，公事包物品翻覆灑落一地，場面混亂。（預設已套用安全像素馬賽克遮罩，點擊按鈕可解除查看站姿受力細節）"
+        },
         "hands_on": "1. 進入車廂，點擊四名乘客，使用「重心與受力方向分析儀」檢查每人站姿與抓握手勢。<br>2. 依列車行駛方向箭頭，觀察急煞時人體向前的傾倒慣性向量。<br>3. 點擊嫌疑人反向朝後的手臂與手腕拉傷紅印，揭露其預先抵抗慣性之蓄意調包動作。<br>4. 點擊開啟其公事包內夾，取出磁性晶片物證。",
         "codex_title": "《口袋神探》牛頓第一運動定律與車廂慣性力學",
         "codex_origin": "科普推理《口袋神探》利用公車/地鐵急煞時物體前衝方向破解慣性案件手法。",
@@ -535,6 +590,7 @@ launch_demo_cases = [
         "title": "大稻埕百年中藥鋪消失的人蔘",
         "type": "主線案件",
         "difficulty": "★★★☆☆",
+        "spookiness": "👻☆☆☆☆ (溫和日常)",
         "badge_class": "badge-holmes",
         "homage_author": "致敬：福爾摩斯〈銀色馬〉盲點思維與天平",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -595,6 +651,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於藥鋪後院水井旁石臼下方，距藥鋪後門 35 公尺，屬於藥鋪日常生活後巷。",
             "unsolved_cold_case_rule": "天平砝碼真偽不直接標出答案；若打烊結案未果，人蔘案轉入迪化街未結懸案卷宗，絕不劇透手法。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：調閱大徒弟陳建邦昨夜計程車行車記錄器 GPS，比對民生西路塞車即時路況，確認其確實受困於車陣中無作案時間！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-08",
+            "label": "百年老中藥展示櫃假人蔘調包微距痕跡（溫和）",
+            "desc": "防彈玻璃展示盒內，假山蘿蔔根表面黏附著細微金屬溶液封蠟痕，老黑狗靜臥在一旁。（純古風藥鋪靜物，無驚悚要素）"
+        },
         "hands_on": "1. 進入大稻埕百年藥鋪，點擊櫃檯上的古董等臂銅天平。<br>2. 從道具欄選擇「量筒與清水」，將嫌疑天平右側的 50g 銅砝碼放入水中測量排水體積。<br>3. 計算密度：體積 7.5cm³，密度僅約 6.6 g/cm³（純銅應為 8.9 g/cm³），證實砝碼中空內嵌輕合金。<br>4. 調閱藥鋪過去四週每週盤點之秤量進出帳本，比對少重累計數據指認內賊。",
         "codex_title": "福爾摩斯〈銀色馬〉盲點心理與天平槓桿原理",
         "codex_origin": "柯南·道爾《福爾摩斯回憶錄》之〈銀色馬〉（「狗在夜間為何沒有吠叫」的逆向盲點思維）。",
@@ -606,6 +668,7 @@ launch_demo_cases = [
         "title": "雙北 307 公車急煞皮夾調包案",
         "type": "突發案件",
         "difficulty": "★★☆☆☆",
+        "spookiness": "👻☆☆☆☆ (溫和日常)",
         "badge_class": "badge-conan",
         "homage_author": "致敬：《口袋神探》離心力與手指魔術錯覺",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
@@ -664,7 +727,13 @@ launch_demo_cases = [
             "location_route": "【特定地點途徑】：前往首都客運松山調度站，向調度員借調「307 路線行車記錄器 GPS 與向心加速度分析圖」。",
             "egg_route": "【案發鄰近彩蛋途徑】：在南京東路公車專用道候車亭（距停靠公車僅 20 公尺）座椅後方的愛心傘架內，觸發彩蛋【司機失落的工具】，拾獲一把「隨車小型金屬探測筆」！",
             "proximity_egg_detail": "位於公車臨停的公車站台候車亭長椅後，距車門僅 20 公尺，乘客上下車視線可及。",
-            "unsolved_cold_case_rule": "不直接指出贓物在誰身上；若公車到站放行未果，皮夾失竊列入未破冷案，答案絕不對外公布。"
+            "unsolved_cold_case_rule": "不直接指出皮夾在誰身上；若公車到站放行未果，皮夾失竊列入未破冷案，答案絕不對外公布。"
+        },
+        "traffic_intel_application": "【益碩交通機制應用】：調閱 307 公車車載 GPS 與悠遊卡上下車刷卡秒數，精確推算公車通過敦化北路右轉彎道之精確向心加速度，證實馬致遠反向施力！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-09",
+            "label": "公車專用道急煞靠邊與老奶奶焦急哭泣場景（溫和）",
+            "desc": "307 公車雙黃燈閃爍靠邊停妥，買菜推車傾倒在博愛座旁，老花布包拉鍊敞開。（生活日常公車扒竊畫面，無暴力情節）"
         },
         "hands_on": "1. 在 307 公車急煞停靠時，點擊公車平面圖，調閱南京東路轉彎行車記錄器 GPS。<br>2. 計算轉彎向心加速度方向，標記車內無固定物體向右滑移的運動軌跡。<br>3. 點擊左側乘客背包，使用金屬探測器掃描出內襯暗袋中的皮夾。<br>4. 詢問司機刷卡時間，確認嫌犯在轉彎前刻意更換至左側座位的故意行為。",
         "codex_title": "《口袋神探》向心力、離心運動與觸覺神經適應",
@@ -677,6 +746,7 @@ launch_demo_cases = [
         "title": "大安森林公園雨夜泥地無腳印案",
         "type": "突發案件",
         "difficulty": "★★☆☆☆",
+        "spookiness": "👻👻👻☆☆ (暗夜懸疑)",
         "badge_class": "badge-holmes",
         "homage_author": "致敬：福爾摩斯〈血字的研究〉壓強公式推理",
         "briefing_mode": "模式 A：事發重現動態短片（Motion Comic）",
@@ -738,6 +808,12 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於生態池木棧道下方蘆葦叢，距案發觀測台 55 公尺，同屬生態水池環形步道範圍內。",
             "unsolved_cold_case_rule": "雨停天亮若未破案，現場腳印全消，案件轉為大安歷史懸案檔案庫，答案永不公開。"
         },
+        "traffic_intel_application": "【益碩交通機制應用】：嫌犯孫耀輝企圖將望遠鏡搬上小貨車逃脫，偵探調閱大安森林公園周邊信義路與新生南路 CCTV，調派大安分局巡邏警車在和平東路口設下路障封截！",
+        "mosaic_feature": {
+            "target_id": "mosaic-demo-10",
+            "label": "暴雨雷電下觀測台空無一人幽靈般無腳印泥地（暗夜懸疑）",
+            "desc": "電閃雷鳴撕裂夜空，手電筒慘白光線照亮一片深褐色的爛泥濘地，三腳架空空如也，四周 30 公尺竟無半個鞋印，宛如幽靈作案。（預設已套用安全像素馬賽克遮罩，點擊按鈕可解除查看草葉彈性折痕）"
+        },
         "hands_on": "1. 雨夜走進大安森林公園，點擊泥濘草地，使用「土質壓強測量儀」在地面點選取樣。<br>2. 記錄泥土下陷深度需大於 25 kPa 壓強，而現場草葉僅有輕微彎折無下陷泥痕。<br>3. 點擊測量步行步幅長達 85 公分，推算出嫌犯體重 70 公斤但接地面積高達 1200 平方公分。<br>4. 順著草葉折痕方向前進，在出入口排水溝起獲嫌犯脫下的寬版軟木大底套鞋與失竊望遠鏡。",
         "codex_title": "福爾摩斯壓強公式 P=F/A 與泥土痕跡力學",
         "codex_origin": "柯南·道爾《福爾摩斯探案集：血字的研究》中對嫌犯步態、體重與地面壓強之經典分析。",
@@ -748,36 +824,41 @@ launch_demo_cases = [
 
 print(f"Loaded {len(cases_50_data)} cases in database and {len(launch_demo_cases)} launch demonstration cases.")
 
-# 1. Build 50-Case Table HTML
+# 1. Build 50-Case Table HTML (with Difficulty and Spookiness columns)
 case_rows_html = []
 for c in cases_50_data:
     type_color = "#dc2626" if c["type"] == "突發案件" else ("#7c3aed" if c["type"] == "共享競速" else ("#059669" if c["type"] == "個人任務" else "#1d4ed8"))
     status_color = "#059669" if "已完成" in c["status"] else ("#d97706" if "規劃中" in c["status"] else "#64748b")
+    
+    # Spookiness style
+    spook_style = "color:#15803d; font-weight:700;" if "溫和" in c["spookiness"] else ("color:#a16207; font-weight:700;" if "微驚悚" in c["spookiness"] else "color:#b91c1c; font-weight:800;")
+
     case_rows_html.append(f"""
     <tr>
       <td style="font-weight:700; color:#1e293b;">{c['id']}</td>
       <td>
-        <strong style="font-size:14.5px; color:#0f172a;">{c['title']}</strong>
+        <strong style="font-size:14px; color:#0f172a;">{c['title']}</strong>
       </td>
       <td>
-        <span style="font-size:12px; color:{type_color}; font-weight:700; background:#f1f5f9; padding:2px 8px; border-radius:12px; display:inline-block;">{c['type']}</span>
+        <span style="font-size:11.5px; color:{type_color}; font-weight:700; background:#f1f5f9; padding:2px 7px; border-radius:12px; display:inline-block;">{c['type']}</span>
       </td>
-      <td style="color:#d97706; font-size:13px; font-weight:700;">{c['difficulty']}</td>
+      <td style="color:#d97706; font-size:12.5px; font-weight:700;">{c['difficulty']}</td>
+      <td style="{spook_style} font-size:12px;">{c['spookiness']}</td>
       <td>
-        <span style="font-size:12px; color:{status_color}; font-weight:700;">{c['status']}</span>
+        <span style="font-size:11.5px; color:{status_color}; font-weight:700;">{c['status']}</span>
       </td>
-      <td style="font-size:13px; color:#334155;">{c['location']}</td>
-      <td style="font-size:12.5px; color:#475569;">
+      <td style="font-size:12.5px; color:#334155;">{c['location']}</td>
+      <td style="font-size:12px; color:#475569;">
         <strong>{c['homage']}</strong><br>
         <span style="color:#0284c7;">【科學原理】{c['science']}</span>
       </td>
-      <td style="font-size:12.5px; color:#334155;">{c['synopsis']}</td>
+      <td style="font-size:12px; color:#334155;">{c['synopsis']}</td>
     </tr>
     """)
 
 cases_table_html = "\n".join(case_rows_html)
 
-# 2. Build 10 Detailed Demonstration Cases Cards HTML with Procedural Narrative & Clue Props System
+# 2. Build 10 Detailed Demonstration Cases Cards HTML
 detailed_cards_html = []
 for d in launch_demo_cases:
     card_border_class = "conan" if "conan" in d["badge_class"] else "holmes"
@@ -872,6 +953,29 @@ for d in launch_demo_cases:
     </div>
     """
 
+    # Mosaic Feature Interactive HTML
+    mosaic = d.get("mosaic_feature", {})
+    mosaic_html = f"""
+    <div class="mosaic-container">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+        <span style="font-size:13px; font-weight:800; color:#475569; display:inline-flex; align-items:center; gap:5px;">
+          🛡️ <strong>【國小防嚇保護機制】</strong>：{mosaic.get('label', '現場畫面')}
+        </span>
+        <button class="btn-mosaic-toggle" onclick="toggleMosaic(this, '{mosaic.get('target_id', 'mosaic-demo')}')">
+          🛡️ 馬賽克已開啟（點擊解除遮罩）
+        </button>
+      </div>
+      <div id="{mosaic.get('target_id', 'mosaic-demo')}" class="mosaic-target blurred">
+        <div style="font-size:13.5px; color:#1e293b; background:#f1f5f9; padding:10px 14px; border-radius:6px; line-height:1.6;">
+          {mosaic.get('desc', '')}
+        </div>
+      </div>
+    </div>
+    """
+
+    # Spookiness badge class
+    spook_badge_class = "spook-mild" if "溫和" in d["spookiness"] else ("spook-medium" if "微驚悚" in d["spookiness"] else "spook-high")
+
     detailed_cards_html.append(f"""
     <div class="case-card {card_border_class}">
       <div class="case-header">
@@ -880,6 +984,7 @@ for d in launch_demo_cases:
         </div>
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           <span style="font-size:12px; font-weight:700; color:#d97706; background:#fef3c7; padding:2px 8px; border-radius:12px;">難度：{d['difficulty']}</span>
+          <span class="spookiness-badge {spook_badge_class}">{d['spookiness']}</span>
           <span class="case-badge {d['badge_class']}">{d['homage_author']}</span>
         </div>
       </div>
@@ -913,6 +1018,16 @@ for d in launch_demo_cases:
           <div class="case-label" style="color:#0284c7;">🕸️ 【相關人物關係網】：</div>
           <div style="font-size:13px; color:#475569; line-height:1.6;">{d['relationship_network']}</div>
         </div>
+
+        <!-- 益碩交通數據線索化與戰略應用 -->
+        <div class="case-section" style="background:#f0f9ff; border-left:4px solid #0284c7; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0;">
+          <div style="font-size:13.5px; color:#0369a1; font-weight:700;">
+            🚦 <strong>{d.get('traffic_intel_application', '')}</strong>
+          </div>
+        </div>
+
+        <!-- 六年級友善防嚇馬賽克切換組件 -->
+        {mosaic_html}
 
         <!-- 事件逐步演進時間軸 -->
         <div class="case-section" style="margin:14px 0;">
@@ -960,7 +1075,7 @@ detailed_cases_html_rendered = "\n".join(detailed_cards_html)
 # 3. Build plainMarkdown for copyBuffer
 case_md_list = []
 for c in cases_50_data:
-    case_md_list.append(f"- 【{c['id']}】{c['title']} | 類型：{c['type']} | 難度：{c['difficulty']} | 狀態：{c['status']} | 地點：{c['location']} | 致敬/原理：{c['homage']}（{c['science']}） | 梗概：{c['synopsis']}")
+    case_md_list.append(f"- 【{c['id']}】{c['title']} | 類型：{c['type']} | 難度：{c['difficulty']} | 恐怖度：{c['spookiness']} | 狀態：{c['status']} | 地點：{c['location']} | 致敬/原理：{c['homage']}（{c['science']}） | 梗概：{c['synopsis']}")
 cases_50_markdown = "\n".join(case_md_list)
 
 detailed_10_markdown_list = []
@@ -987,7 +1102,7 @@ for d in launch_demo_cases:
     - 🔒 零劇透未解封存規範：{prop['unsolved_cold_case_rule']}"""
 
     detailed_10_markdown_list.append(f"""
-### 【{d['id']}】{d['title']}（{d['type']} / 難度：{d['difficulty']}）
+### 【{d['id']}】{d['title']}（{d['type']} / 難度：{d['difficulty']} / 恐怖度：{d['spookiness']}）
 - 致敬來源：{d['homage_author']}
 - 案情交代模式：{d['briefing_mode']}（簡報者/載體：{d['briefing_speaker']}）
   - 案情交代內容：{d['briefing_detail']}
@@ -995,6 +1110,8 @@ for d in launch_demo_cases:
 - 觸發情境：{d['trigger']}
 - 案發前情背景：{d['prequel_story']}
 - 相關人物關係網：{d['relationship_network']}
+- 交通脈動戰略應用：{d.get('traffic_intel_application', '')}
+- 六年級防嚇保護機制：{d.get('mosaic_feature', {}).get('label', '')}（預設像素馬賽克遮罩，可按鈕自主切換解除）
 - 事件逐步演進時間軸：
 {steps_md}
 - 多嫌疑人群像名冊（3~4 名嫌疑人）：
@@ -1011,7 +1128,7 @@ detailed_10_markdown = "\n".join(detailed_10_markdown_list)
 
 print("Markdown fragments compiled.")
 
-plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發時程 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ AI驗證淘汰管線 ✕ 現代司法偵訊與多嫌疑人筆錄 ✕ 破案道具三軌機制與鄰近彩蛋 深度升級版）
+plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌與鄰近彩蛋 ✕ 防嚇馬賽克切換 深度升級版）
 專案團隊：國小六年級獨立研究小組（三人團隊）
 核心定位：融入雙北真實地理、大眾運輸與國小自然科學物理化學原理的 2.5D 都會慢活偵探 RPG。
 
@@ -1028,144 +1145,114 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 ---
 
 ## 🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、建築進出標記與交通費率
-1. 以 OpenStreetMap (OSM) 真實地理為基礎，逐步開放區域：
-   - 階段一（第 1~8 週，垂直切片）：西門町徒步區與台北車站周邊 1.5 平方公里核心示範區。
-   - 階段二（第 9~12 週，Alpha 測試）：擴展至大稻埕、中正紀念堂、大安森林公園。
-   - 階段三（第 13~16 週，完整發布）：串聯淡水碼頭、板橋林家花園與北投溫泉鄉。
-2. 建築進出發光圖案標記系統（Enterable Building Markers）：
-   - 可進入建築頭頂常駐浮動發光圖案標記（🏪 超商、☕ 咖啡廳、🏛️ 場館、🚪 車站、♨️ 旅店等）。
-   - 不可進入之背景建築無任何標記圖示，直觀清晰，大幅節省 3 人開發成本。
-3. 交通費率：步行免費；YouBike 5 點（前 30 分鐘）；雙北聯營公車 15 點（主要交通骨幹）；台北捷運 20~65 點。
-4. 時間與氣象雙軌制：遊戲內時間比率為現實 1:6。氣象串接中央氣象署 CWA API（每 15 分鐘快取）；若 API 斷線自動啟動離線預設氣象循環。
+1. 以 OpenStreetMap (OSM) 真實地理為基礎，逐步開放區域（階段一西門北車、階段二大稻埕大安、階段三淡水板橋北投）。
+2. 建築進出發光圖案標記系統（Enterable Building Markers）：可進入建築頭頂標記🏪、☕、🏛️、🚪、♨️，不可進建築無標記。
+3. 交通費率：步行免費；YouBike 5 點（前 30 分鐘）；雙北公車 15 點（主要骨幹）；台北捷運 20~65 點。
+4. 時間與氣象雙軌制：遊戲時間 1:6。CWA 氣象局 API 每 15 分鐘快取，斷線自動啟動離線預設氣象循環。
+
+---
+
+## 🚦 02B｜都會交通脈動與戰略偵查機制（取材自組員益碩發想）
+本機制融合了研究小組成員益碩提出的《城市脈動：通勤偵探（City Pulse: The Commute Detective）—— 每一次移動，都是線索》創意發想：
+1. 核心機制 1：交通數據線索化 (Transit Trait Matching)
+   - 電子票證刷卡紀錄：調閱悠遊卡/一卡通扣款秒數與站點，比對不在場陳述。若嫌疑人稱案發在甲地，但公車站扣款卻在乙地，當場拆穿謊言！
+   - CCTV 監視器與車牌行徑分析：串聯路口監視器路徑，分析車速慢行或短暫停靠巷弄拋棄物證之行為。
+2. 核心機制 2：動態路網與時間軸推理 (Time-Space Timeline)
+   - 塞車與即時路況演算：嫌疑人宣稱開車 15 分鐘趕到現場，調閱當下路況若為時速低於 10 公里之大塞車，證明其必然使用了隱密秘道或捷運！
+   - 時刻表與轉乘「黃金 3 分鐘」：利用捷運班次與公車轉乘時間差，推算嫌疑人極短時間內完成作案並搭車脫身之可能性。
+3. 核心機制 3：現場圍捕與交通戰略 (Strategic Chase)
+   - 六年級友善智力圍捕，嚴禁槍戰暴力！
+   - 手動控制路口紅綠燈創造車流阻擋逃跑路線；
+   - 遠端通知站務關閉特定地鐵閘門封鎖月台迴廊；
+   - 調派轄區派出所巡邏警車佈設路障攔阻截停嫌犯！
 
 ---
 
 ## 🍃 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘
-1. 玩法自由：不強制推動主線，可在雙北街頭慢活散步、便利商店買飲料、圖書館借閱科學小百科。
-2. NPC 動態作息與關鍵線索替代原則（Non-Blocking Clue Principle）：
-   - NPC 擁有日常作息（如早餐店阿姨 06:00~14:00 營業）。
-   - 關鍵線索永遠有 2 種以上替代取得管道（若 NPC 下班，可調查門口留言夾或詢問隔壁超商店員），絕對不卡關。
-3. 三階段漸進提示（提示不會直接破壞遊戲體驗）：
-   - 第一階（觀察方向）：引導玩家注意案發現場未注意到的角落。
-   - 第二階（推理方向）：提示涉案科學原理（如酸鹼度、密度、慣性）。
-   - 第三階（答案步驟）：明確給出證物合成與指認步驟。
-4. 零劇透保護原則（Zero-Spoiler Rule）：
-   - 提示與輔助道具絕不直接跳出「兇手就是某某人」的字眼，只提供科學方向與檢驗途徑，保留親自破案之成就感。
-5. 新手前 15 分鐘：
-   - 0~5 分鐘：從老舊公寓偵探事務所醒來，完成新手移動與事務所拍照。
-   - 5~10 分鐘：搭乘 307 公車前往西門町，於便利商店購買放大鏡。
-   - 10~15 分鐘：於西門町咖啡店觸發「首發示範案 01：拿鐵中毒案」，完成第一次手動試紙檢驗與嫌犯指認。
+1. 玩法自由：漫步雙北街道、超商買涼麵、中藥鋪認識草藥、咖啡廳聽雨聲。
+2. NPC 動態作息與關鍵線索替代原則（Non-Blocking Clue Principle）：關鍵線索永遠有 2 種以上管道，絕不卡死。
+3. 三階段漸進提示：觀察方向 ➔ 推理方向 ➔ 答案步驟。
+4. 零劇透保護原則（Zero-Spoiler Rule）：提示與工具只給方向，絕不直接公布兇手姓名！
 
 ---
 
 ## 🔍 04｜案件體系重大擴充：50 宗初始案件庫、10 大首發示範案與 AI 驗證淘汰管線
 - 50 案為初始案件庫，並非全部需要一次完成。
-- 案件類型統一為 4 種：主線案件、突發案件、共享競速（未來多人連線）、個人任務。
-- AI 持續擴充案件庫，理論上沒有固定案件上限。
-- 4 步 AI 生成與淘汰管線：AI 生成 ➔ 自動驗證 ➔ 不合格淘汰 ➔ 通過才加入資料庫。
+- 案件雙重標籤：每案接取前均標明「難度星級 (★~★★★★★)」與「恐怖驚悚指數 (👻~👻👻👻)」。
+- 六年級友善防嚇馬賽克切換系統（Safe-Viewing Mosaic Toggle）：衝擊性畫面預設像素模糊遮罩，旁邊設有按鈕可自主切換解除。無 18 禁血腥暴力。
+- AI 持續擴充案件庫（4 步管線：生成 ➔ 自動驗證 ➔ 不合格淘汰 ➔ 通過入庫）。
 
 ### 📋 50 宗雙北推理案件全景矩陣（初始規劃庫）
 {cases_50_markdown}
 
-### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、官方警訊筆錄、破案道具三軌機制與鄰近彩蛋）
+### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、官方警訊筆錄、破案道具三軌機制、鄰近彩蛋與防嚇馬賽克切換）
 {detailed_10_markdown}
 
 ---
 
 ## 🌐 04A｜共享世界體系：突發事件、未來多人連線搶案 vs 個人晉升任務
 1. 不定時突發事件（Dynamic Events）：柯南式用餐遭遇，咖啡店、公車或超商無預警拉起封鎖線，限時 20~25 分鐘突發排查！
-2. 共享競速公開案件（標記為：未來多人連線功能）：全服在線玩家同步看見共享案件與倒數計時。
+2. 共享競速公開案件（標記為：未來多人連線功能）：全服同步進行，一人首解全服結束。
 3. ★ 零劇透保護與未破懸案封存協議（Zero-Spoiler Cold Case Protocol）：
-   - 平常案件絕對不會直接告訴玩家答案，僅提供可實證之客觀物證與方向。
-   - 若限時倒數結束卻無任何玩家解開，**系統絕對不會在全服廣播或畫面中公開答案**！
-   - 該案件將蓋上「未結案印章」，正式封存至「雙北歷史懸案檔案庫（Cold Cases Archive）」。日後玩家可在離線或個人模式下重新啟動調閱卷宗再次挑戰，維護推理世界的真實感與懸念！
-4. 個人專屬晉升任務（Personal Milestone Quests）：無搶任務機制，每個人各自累積偵探段位與人脈好感。
+   - 平常絕不公布答案；限時結束若無人破解，答案絕不公布！
+   - 蓋上「未結案印章」，正式封存至「雙北歷史懸案檔案庫（Cold Cases Archive）」，留待玩家日後再次摸索。
+4. 個人專屬晉升任務（Personal Milestone Quests）：無搶任務機制，各自成長。
 
 ---
 
 ## ⚖️ 04B｜現代鑑識與司法偵查程序：前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統
-1. 雙軌案情交代模式（Dual Briefing System）：
-   - 模式 A（事發重現動態短片／幻燈片）：不在場案件的前情提要。30~45 秒黑白剪影與復古拍立得動態分鏡短片（Motion Comic），還原案發前夕醞釀、嫌疑人動態與案發一瞬間，自動將關鍵時間節點寫入偵探智慧型手機時間軸。
-   - 模式 B（現場帶隊警官／報案人口頭簡報）：現場遭遇或接獲報案抵達時。轄區警官（如台北市警局巡官陳正男、捷警郭小隊長）或第一發現人在黃色封鎖線（Police Crime Scene Tape）前親身口頭簡報現場初始狀況、初步法醫與法規調查，並交付《現場初步警訊卷宗》。
-2. 事件演進時間軸系統（Minute-by-minute Timeline）：
-   - 案件具備嚴格的時序推進（案發前夕動機 ➔ 嫌疑人進場與互動 ➔ 關鍵動作手法 ➔ 案發瞬間 ➔ 事後偽裝破壞現場）。
-   - 玩家可操作手機時間滑桿比對各人物位置與狀態。
-3. 相關人物關係網系統（Dynamic Interpersonal Relationship Network）：
-   - 案發前人物矛盾：金錢借貸、職場競爭、專利搶奪、情感糾紛、家族財產分配等。
-   - 手機「案件白板」支援動態節點連線圖，隨玩家調查自動點亮紅線（衝突）、綠線（合作）、虛線（隱瞞）。
-4. 多嫌疑人機制規範（Multiple Suspects Standard）：
-   - 嚴格禁止「犯人＝唯一嫌疑人」的粗糙設計！每個案件標配 3~4 名具備合理嫌疑的涉案人群像：
-     - ① 嫌疑人 A（高動機／明面嫌疑人／煙霧彈）：與被害人有深刻矛盾或激烈爭吵，動機顯著，但不在場證明查實無懈可擊。
-     - ② 嫌疑人 B（可疑舉止／隱瞞私情者）：案發前後行蹤詭異、神色慌張，企圖藏匿物品，但深入追查後發現只是在掩蓋與案情無關的個人隱私或輕微違規。
-     - ③ 嫌疑人 C（真兇／致命科學破綻）：表面配合度極高、甚至無辜熱心，但在警訊筆錄與物理/化學物證交叉對質下露出破綻。
-     - ④ 嫌疑人 D（目擊證人／提供偏差證詞）：提供第一手見聞，但因角度、光線、心理錯覺等存在認知偏差，需要玩家以客觀科學物證校正。
-5. 現代標準警訊筆錄程序與「筆錄打臉」機制（Police Deposition & Cross-Examination）：
-   - 依循現代刑事偵查規範的四部曲：
-     - 一、受訊問人身分人別核對（姓名、年齡、職業、與涉案人關係）。
-     - 二、案發時段行蹤與不在場證明陳述（時間戳比對）。
-     - 三、現場見聞與感官觀察（視覺、聽覺、嗅覺之主觀陳述）。
-     - 四、交叉質詢與物證對質（「筆錄打臉」系統）：玩家在筆錄系統中圈選矛盾詞句，從背包出示對應物證（例如：試紙檢測紀錄、阿基米德排水量筒密度報告、聲波計算時間差、日影幾何照片等），擊潰假供詞，迫使嫌犯認罪！
+1. 雙軌案情交代模式：模式 A（事發重現動態短片 30~45s） vs 模式 B（現場帶隊警官/報案人口頭簡報）。
+2. 事件演進時間軸系統（Minute-by-minute Timeline）：Step 1 醞釀 ➔ Step 2 進場 ➔ Step 3 實施 ➔ Step 4 掩飾。
+3. 相關人物關係網系統：利益衝突紅線、隱情秘密藍線、公務服務綠線。
+4. 多嫌疑人機制規範：嚴禁單一犯人！標配 3~4 名嫌疑人（動機煙霧彈、隱瞞私情者、真兇致命破綻、偏誤目擊證人）。
+5. 現代標準警訊筆錄程序與「筆錄打臉」機制：人別 ➔ 不在場 ➔ 見聞 ➔ 交叉質詢物證對質打臉破案！
 6. ★ 破案輔助道具「三軌取得機制」與「案發鄰近彩蛋規範」：
-   - 玩家若在案件現場推導遇阻，可透過三種靈活管道取得關鍵輔助道具：
-     (1) **花錢購買途徑**：在超商、五金店、電子行花費少量生活幣或探幣購買通用試劑或測量儀。
-     (2) **親赴特定地點途徑**：搭乘公車捷運親赴科教館、圖書館、海關公署故事館或中藥博物館等文教場館，完成 1 分鐘微互動後借用專業鑑識儀器。
-     (3) **案發鄰近彩蛋途徑**：在案發現場周圍 **50~100 公尺半徑生活圈**（步行 1~2 分鐘內）的後巷、長椅、自動販賣機、扭蛋機旁觸發彩蛋，直接免費拾獲專屬輔助道具！
-   - **彩蛋地理鄰近性規範**：輔助彩蛋必須座落於案件附近，嚴禁無意義遠程跑圖，緊扣案件生活場景。
+   - 💰 花錢購買途徑（超商、五金店、電子行花少許生活幣/探幣）
+   - 🏛️ 親赴特定地點途徑（科教館、市圖總館、中藥博物館微互動借用高階設備）
+   - 🥚 案發鄰近彩蛋途徑（案發現場半徑 50~100 公尺生活圈巷弄免費拾獲）
+   - 彩蛋地理鄰近性規範：嚴格鎖定於案件附近，嚴禁無意義遠程跑圖。
 
 ---
 
 ## 🏛️ 05｜場所微型互動、隱藏成就與台味彩蛋
-1. 1~3 分鐘微型互動學習場館：
-   - 台灣科學教育館（光影與熱敏顯影小實驗）➔ 獲得「熱敏顯影鑑識卡」。
-   - 台北市立圖書館總館（英文頻率分析小工具）➔ 獲得「密碼速查字典」。
-   - 淡水海關碼頭故事館（判讀開港航海日誌）➔ 獲得台灣海洋貿易文史卡。
-2. 雙北隱藏成就系統：
-   - 「巷弄貓咪之友」：在雙北巷弄遇見流浪貓阿巧 3 次。
-   - 「公車達人」：搭乘 307 公車累計超過 10 次。
-   - 「柯南級直覺」：突發案件限時剩餘 5 分鐘內成功破案。
-3. ★ 案件周圍 50~100 公尺微型彩蛋體系：
-   - 每個示範案與突發案周遭均隱藏著緊扣當前情境的微型彩蛋（如西門町後巷披薩盒中的比色卡、北車長廊販賣機退幣孔的流速草圖、大安生態池木棧道下的軟木墊板碎塊），兼顧趣味與實用價值。
+1. 1~3 分鐘微型互動學習場館（科教館熱敏卡、市圖密碼字典、海關開港日誌、中藥密度手冊）。
+2. 雙北隱藏成就系統（巷弄貓咪之友、公車之王、柯南直覺等）。
+3. ★ 案件周圍 50~100 公尺微型彩蛋體系（西門町貓咪藏寶處、北車長廊販賣機退幣孔、大安生態池木棧道等）。
 
 ---
 
 ## 🏪 06｜生活慢活、實體到店與虛擬商店雙軌、雙軌貨幣與無障礙防卡關
-1. 實體到店購買 ＋ 虛擬手機配送雙軌商店機制：
-   - 實體到店：走入地圖真實便利超商、電子街、五金行可享 85 折優惠。
-   - 虛擬商店：玩家若無法親臨或店家非營業時段，可打開手機 App 訂購，無人機外送 3 分鐘送達事務所（需支付 10 點外送費），徹底防卡死。
-2. 事務所輕量個人化裝飾與【案件照片收藏冊】：
-   - 破案後可將拍立得照片貼在破案照片牆上，自由更換桌布、擺放結案獎盃。
-3. 雙軌貨幣體系：
-   - 探幣（Investigation Coins）：破案、升級與每日任務獲得，用於購買高階鑑識儀器。
-   - 生活新台幣（Civic NTD）：打工、答題與尋找失物獲得，用於搭乘公車捷運、吃滷肉飯恢復體力。
+1. 實體到店購買（85折優惠） ＋ 虛擬手機配送雙軌商店機制（無人機外送加 10 點外送費，100% 防卡死）。
+2. 事務所輕量個人化裝飾與【案件照片收藏冊】。
+3. 雙軌貨幣體系：探幣（專業設備） ✕ 生活幣（交通飲食）。
 
 ---
 
 ## 👥 07｜城市動態 NPC 作息、社區信賴度 Lv.1~Lv.5 與班級案件工作坊
-1. 社區信賴度等級系統：
-   - Lv.1 陌生點頭 ➔ Lv.2 熟悉常客 ➔ Lv.3 熱心街坊 ➔ Lv.4 患難之交 ➔ Lv.5 榮譽街坊守護者。
-2. 班級自製案件工作坊（Classroom Workshop）：
-   - 提供國小自然科老師與同學「視覺化案件編輯器」，支援自訂被害人、多嫌疑人、物證、三軌道具與筆錄打臉點。
+1. 社區信賴度等級系統（Lv.1 陌生 ➔ Lv.2 熟面孔 ➔ Lv.3 小常客 ➔ Lv.4 名偵探 ➔ Lv.5 榮譽守護者）。
+2. 班級自製案件工作坊（拖曳式編輯器 ✕ AI 邏輯相容性檢查）。
 
 ---
 
 ## 💻 08｜技術選型、工程實現路徑與無障礙友善設計
 - 前端核心：HTML5 Canvas / Pixi.js 2.5D 等角投影渲染引擎。
-- 地理地圖：OpenStreetMap (OSM) GeoJSON 瓦片解析與道路網轉化。
-- 輕量架構：靜態網頁可本機離線執行，展場展示具備離線備案。
+- 地理資訊：OpenStreetMap (OSM) GeoJSON 道路網。
+- 氣象連線：中央氣象署 CWA API 實時同步與本地預設循環。
+- 防嚇保護：CSS Canvas 像素馬賽克動態濾鏡與按鈕即時切換。
 
 ---
 
 ## 📅 09｜16 週研發進度規劃與獨立研究推進時程表
-- 第 1~4 週：企劃確立、OSM 西門町核心地圖繪製、垂直切片原型開發。
-- 第 5~8 週：首發 4 宗示範案件深度實裝、多嫌疑人筆錄與三軌道具系統研發。
-- 第 9~12 週：擴充至 10 宗首發示範案、OSM 大稻埕與大安地圖開放、Alpha 測試。
-- 第 13~16 週：AI 驗證管線實裝、成就與照片收藏冊、專案成果發表會演練。
+- 第 1~4 週：企劃確立、OSM 西門町地圖、垂直切片。
+- 第 5~8 週：鑑識互動、多嫌疑人筆錄、交通數據線索化實裝。
+- 第 9~12 週：10 宗大案落地、三軌道具與防嚇馬賽克實裝、Alpha 測試。
+- 第 13~16 週：AI 驗證管線、成果發表會全離線演練、論文與展板製作。
 
 ---
 
 ## ⚖️ 10｜非商業獨立研究免責聲明與版權邊界規範
-- 本作品為國小六年級獨立研究專題成果，僅供學術教育與教學展示，絕不作任何商業用途。
-- 遊戲內涉及名著名作手法，均屬教育致敬與二次創作，美術素材與代碼皆為團隊原創繪製。
+- 本專案係國小六年級學生獨立研究成果，僅供學術教育，絕無任何商業販售或營利行為。
+- 店家均採通用街區稱謂，名著致敬均依合理使用原則教學化轉譯，素材與代碼皆原創。
 """
 
 print("Plain markdown compiled successfully.")
@@ -1176,7 +1263,7 @@ html_template = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ AI驗證淘汰管線 ✕ 司法偵訊多嫌疑人 ✕ 道具三軌機制與鄰近彩蛋 深度升級版）- 六年級獨立研究專題</title>
+  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌機制 ✕ 防嚇馬賽克切換 深度升級版）- 六年級獨立研究專題</title>
   <style>
     :root {{
       --primary: #1d4ed8;
@@ -1371,12 +1458,12 @@ html_template = f"""<!DOCTYPE html>
       width: 100%;
       border-collapse: collapse;
       margin: 18px 0;
-      font-size: 13.5px;
+      font-size: 13px;
     }}
 
     th, td {{
       border: 1px solid var(--border);
-      padding: 10px 11px;
+      padding: 9px 10px;
       text-align: left;
       vertical-align: top;
     }}
@@ -1481,6 +1568,20 @@ html_template = f"""<!DOCTYPE html>
     .badge-conan {{ background: #fee2e2; color: var(--conan-red); border: 1px solid #fca5a5; }}
     .badge-holmes {{ background: #fef3c7; color: var(--holmes-gold); border: 1px solid #fcd34d; }}
 
+    /* 恐怖指數徽章 */
+    .spookiness-badge {{
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }}
+    .spook-mild {{ background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }}
+    .spook-medium {{ background: #fefce8; color: #a16207; border: 1px solid #fef08a; }}
+    .spook-high {{ background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }}
+
     .case-body {{ padding: 20px; }}
     .case-section {{ margin-bottom: 12px; font-size: 14.5px; }}
     .case-label {{ font-weight: 700; color: #1e293b; font-size: 14px; margin-bottom: 4px; display: inline-flex; align-items: center; gap: 6px; }}
@@ -1502,6 +1603,51 @@ html_template = f"""<!DOCTYPE html>
       padding: 2px 10px;
       border-radius: 12px;
       margin-bottom: 4px;
+    }}
+
+    /* 六年級友善防嚇馬賽克組件 */
+    .mosaic-container {{
+      border: 1px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 12px 0;
+    }}
+
+    .mosaic-target {{
+      transition: all 0.3s ease;
+    }}
+
+    .mosaic-target.blurred {{
+      filter: blur(8px) grayscale(60%);
+      user-select: none;
+      pointer-events: none;
+    }}
+
+    .btn-mosaic-toggle {{
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }}
+
+    .btn-mosaic-toggle:hover {{
+      background: #1e293b;
+      transform: translateY(-1px);
+    }}
+
+    .btn-mosaic-toggle.unmasked {{
+      background: #dc2626;
+      border-color: #b91c1c;
+      color: white;
     }}
 
     /* 事件時間軸樣式 */
@@ -1767,8 +1913,9 @@ html_template = f"""<!DOCTYPE html>
       <span style="font-size:12px; font-weight:800; color:var(--primary); align-self:center; margin-right:4px;">章節導覽：</span>
       <a href="#sec-01" class="nav-chip">01 定位與分工</a>
       <a href="#sec-02" class="nav-chip">02 OSM 地理與標記</a>
+      <a href="#sec-02b" class="nav-chip" style="background:#f0f9ff; color:#0284c7; border-color:#7dd3fc;">🚦 02B 交通脈動戰略</a>
       <a href="#sec-03" class="nav-chip">03 自由漫遊流程</a>
-      <a href="#sec-04" class="nav-chip">04 50 案庫與 AI 管線</a>
+      <a href="#sec-04" class="nav-chip">04 50 案庫與雙重標籤</a>
       <a href="#sec-demo" class="nav-chip">🌟 10 大首發示範案</a>
       <a href="#sec-04a" class="nav-chip">04A 共享世界體系</a>
       <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 司法筆錄與道具三軌</a>
@@ -1931,6 +2078,50 @@ html_template = f"""<!DOCTYPE html>
       </ul>
     </div>
 
+    <!-- 02B｜都會交通脈動與戰略偵查機制（取材自組員益碩發想） -->
+    <div class="card" id="sec-02b">
+      <h2>🚦 02B｜都會交通脈動與戰略偵查機制（取材自組員益碩發想）</h2>
+      <p>
+        本專案特別整合了研究小組成員益碩提出的<strong>《城市脈動：通勤偵探（City Pulse: The Commute Detective）—— 每一次移動，都是線索》</strong>三大核心玩法機制。
+        我們堅持以「雙北獨立少年偵探」為核心主角設定，將大眾運輸的時空數據轉化為偵破案件的鋒利手術刀：
+      </p>
+
+      <div style="text-align:center; margin:18px 0;">
+        <img src="yishuo_concept.png" alt="組員益碩創意發想圖" style="max-width:100%; border-radius:10px; border:1px solid var(--border); box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+        <div style="font-size:12.5px; color:#64748b; margin-top:6px;">
+          ▲ 圖 2B-1：六年級研究小組組員益碩繪製之《城市脈動：通勤偵探》核心玩法機制發想原圖
+        </div>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card" style="border-left:4px solid #0284c7;">
+          <div class="team-role" style="color:#0284c7;">1. 交通數據線索化 (Transit Trait Matching)</div>
+          <ul style="margin-left:16px; margin-top:6px; font-size:13.5px; color:#334155;">
+            <li><strong>電子票證與刷卡紀錄時序對照</strong>：調閱嫌疑人的悠遊卡/一卡通扣款數據。若嫌疑人聲稱「案發時正在板橋家裡睡覺」，但悠遊卡紀錄卻顯示他在 14:05 於台北車站捷運閘門刷卡進站，瞬間拆穿不在場謊言！</li>
+            <li><strong>監視器與車牌路徑串聯 (CCTV)</strong>：利用雙北路口監視器串聯嫌疑車輛行車軌跡，分析車速是否曾慢行或短暫停靠特定暗巷拋棄物證。</li>
+          </ul>
+        </div>
+
+        <div class="team-card" style="border-left:4px solid #7c3aed;">
+          <div class="team-role" style="color:#7c3aed;">2. 動態路網與時間軸推理 (Time-Space Timeline)</div>
+          <ul style="margin-left:16px; margin-top:6px; font-size:13.5px; color:#334155;">
+            <li><strong>塞車與即時路況演算</strong>：嫌犯聲稱開車 15 分鐘趕抵現場，但調閱 CWA/交通局案發當下即時路況，若該路段正逢大塞車（時速低於 10 公里），開車絕無可能到達！進而推論其使用隱密秘道或搭乘捷運。</li>
+            <li><strong>時刻表與轉乘「黃金 3 分鐘」</strong>：利用捷運與公車轉乘時間差，精確推算嫌疑人是否可能在極短時間內完成犯罪並搭上下班車離去。</li>
+          </ul>
+        </div>
+
+        <div class="team-card" style="border-left:4px solid #059669;">
+          <div class="team-role" style="color:#059669;">3. 現場圍捕與交通戰略 (Strategic Chase)</div>
+          <ul style="margin-left:16px; margin-top:6px; font-size:13.5px; color:#334155;">
+            <li><strong>六年級友善智力圍捕，拒絕槍戰暴力！</strong>：當鎖定嫌疑人位置後，進入「智力圍捕模式」：</li>
+            <li><strong>手動切換紅綠燈</strong>：在關鍵路口延長紅燈秒數，創造車流阻擋嫌疑人逃跑。</li>
+            <li><strong>遠端關閉地鐵特定閘門</strong>：通知站務關閉旋轉閘門，將嫌犯封鎖在特定月台通道。</li>
+            <li><strong>調派轄區巡邏警車</strong>：引導附近派出所巡邏警車於路口佈設路障攔截。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘 -->
     <div class="card" id="sec-03">
       <h2>🍃 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘</h2>
@@ -1970,7 +2161,7 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- 04｜案件體系重大擴充：50 宗初始案件庫、10 大首發示範案與 AI 驗證淘汰管線 -->
     <div class="card" id="sec-04">
-      <h2>🔍 04｜案件體系重大擴充：50 宗初始案件庫、10 大首發示範案與 AI 驗證淘汰管線</h2>
+      <h2>🔍 04｜案件體系重大擴充：50 宗初始案件庫、10 大首發示範案與雙重標籤</h2>
 
       <div class="callout info">
         <div class="callout-title">📋 關於案件庫的特別說明</div>
@@ -1978,19 +2169,30 @@ html_template = f"""<!DOCTYPE html>
         團隊第一期專注將 <strong>10 宗「首發示範案件」</strong> 進行深度手繪、手動操作驗證與考據；其餘 40 案作為後續版本與 AI 自動擴充管線之規範母本。
       </div>
 
-      <h3>📋 50 宗雙北推理案件全景矩陣表（含案件難度與狀態）</h3>
+      <div class="callout tip">
+        <div class="callout-title">🛡️ ★ 雙重警示標籤 ✕ 六年級友善防嚇馬賽克切換系統（Safe-Viewing Mosaic Toggle）</div>
+        為了兼顧高年級獨立研究的探索樂趣與國小學童的心理健康保護，本專案首創兩大教育友善機制：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>承接案件前雙重標籤</strong>：每個案件皆清楚提示<strong>「難度星級（★～★★★★★）」</strong>與<strong>「恐怖驚悚指數（👻☆☆☆☆ 溫和日常 / 👻👻☆☆☆ 微驚悚懸疑 / 👻👻👻☆☆ 暗夜驚魂）」</strong>，讓同學自主選擇適合的案件。</li>
+          <li><strong>預設開啟像素馬賽克遮罩</strong>：遇到案件中較為緊張或衝擊性的畫面（如突發抽搐倒地、暗巷混亂翻倒物品、假人模型受損、深夜荒廢長廊），<strong>畫面預設覆蓋動態像素馬賽克遮罩</strong>。</li>
+          <li><strong>一鍵按鈕自由切換</strong>：畫面右上角附設<strong>【👁️ 切換馬賽克】</strong>按鈕。一般同學若感到害怕可維持遮罩，想仔細觀察細節線索的同學可點擊按鈕解除馬賽克。所有畫面<strong>嚴格符合國小獨立研究教育倫理，絕無 18 禁血腥暴力</strong>！</li>
+        </ul>
+      </div>
+
+      <h3>📋 50 宗雙北推理案件全景矩陣表（含難度星級與恐怖指數）</h3>
       <div style="overflow-x:auto;">
         <table>
           <thead>
             <tr>
-              <th style="width:9%;">編號</th>
-              <th style="width:17%;">案件名稱</th>
-              <th style="width:11%;">類型</th>
-              <th style="width:8%;">難度</th>
-              <th style="width:9%;">狀態</th>
-              <th style="width:14%;">調查舞台與地點</th>
-              <th style="width:18%;">致敬原型與科學原理</th>
-              <th style="width:14%;">核心案件梗概</th>
+              <th style="width:8%;">編號</th>
+              <th style="width:16%;">案件名稱</th>
+              <th style="width:10%;">類型</th>
+              <th style="width:7%;">難度</th>
+              <th style="width:11%;">恐怖指數</th>
+              <th style="width:8%;">狀態</th>
+              <th style="width:13%;">調查舞台與地點</th>
+              <th style="width:14%;">致敬原型與科學原理</th>
+              <th style="width:13%;">核心案件梗概</th>
             </tr>
           </thead>
           <tbody>
@@ -1999,9 +2201,9 @@ html_template = f"""<!DOCTYPE html>
         </table>
       </div>
 
-      <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、官方警訊筆錄、破案道具三軌機制與鄰近彩蛋）</h3>
+      <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、交通戰略、防嚇馬賽克切換、前情時間軸、多嫌疑人名冊、官方筆錄、破案三軌道具）</h3>
       <p style="font-size:14px; color:var(--text-muted);">
-        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>官方警訊筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
+        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>交通數據戰略應用</strong>、<strong>防嚇馬賽克互動切換</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>官方警訊筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
       </p>
       <div class="case-container">
         {detailed_cases_html_rendered}
@@ -2025,6 +2227,7 @@ html_template = f"""<!DOCTYPE html>
   "title": "大稻埕中藥行消失的藏紅花",
   "type": "突發案件", // 主線案件 | 突發案件 | 共享競速 | 個人任務
   "difficulty": "★★★☆☆",
+  "spookiness": "👻☆☆☆☆", // 恐怖驚悚指數
   "location": {{
     "name": "迪化街百年中藥行",
     "district": "大同區",
@@ -2305,7 +2508,7 @@ html_template = f"""<!DOCTYPE html>
       </p>
       <ul>
         <li><strong>西門町峨嵋街暗巷</strong>：咖啡店後方 45 公尺紙箱觸發【貓咪藏寶處】，拾獲取樣滴管。</li>
-        <li><strong>北車長廊自動販賣機</strong>：案發處 35 公尺退幣口觸發【水電工的小失誤】，掏出虹吸流速草圖。</li>
+        <li><strong>北車長廊自動販賣機</strong>：案發處 35 公尺退幣孔觸發【水電工的小失誤】，掏出虹吸流速草圖。</li>
         <li><strong>大安生態池木棧道</strong>：觀測台 55 公尺蘆葦叢觸發【園丁的廢料堆】，拾獲軟木大底套鞋碎片。</li>
       </ul>
     </div>
@@ -2443,6 +2646,11 @@ html_template = f"""<!DOCTYPE html>
             <td>台灣官方權威氣象數據，15 分鐘精確快取，並具備本地循環離線保護機制。</td>
           </tr>
           <tr>
+            <td><strong>友善防嚇馬賽克濾鏡</strong></td>
+            <td>CSS Filter + Canvas 像素動態矩陣</td>
+            <td>零延遲切換，預設保護學童視線，按鈕點擊可自由解鎖探索，符合教育心理學。</td>
+          </tr>
+          <tr>
             <td><strong>AI 擴充與驗證管線</strong></td>
             <td>JSON Schema 驗證 + Python 語法樹檢驗</td>
             <td>確保 AI 生成案件邏輯無矛盾、唯一解且符合國小自然課綱教學規範。</td>
@@ -2469,18 +2677,18 @@ html_template = f"""<!DOCTYPE html>
         <tbody>
           <tr>
             <td><strong>第 1~4 週<br>（基礎構建期）</strong></td>
-            <td>企劃與垂直切片原型</td>
+            <td>企劃確立與垂直切片</td>
             <td>完成 50 案總綱與首發示範案 01、02 詳細設計；西門町核心 OSM 地圖匯入；2.5D 角色步行與建築進出標記原型。</td>
           </tr>
           <tr>
             <td><strong>第 5~8 週<br>（核心系統期）</strong></td>
-            <td>鑑識互動與氣象交通</td>
-            <td>實裝手動試紙、紫外光燈、天平密度等物理化學檢驗介面；完成 CWA 氣象串接與離線備案；實裝 307 公車路線與體力系統。</td>
+            <td>鑑識互動、交通數據與筆錄</td>
+            <td>實裝手動試紙、紫外光燈、天平密度等物理化學檢驗介面；完成 CWA 氣象串接與離線備案；實裝交通數據線索化與多嫌疑人筆錄。</td>
           </tr>
           <tr>
             <td><strong>第 9~12 週<br>（內容擴充期）</strong></td>
             <td>10 大首發示範案深層落實</td>
-            <td>深度實裝首發 10 宗大案；解鎖大稻埕、中正紀念堂與大安森林公園；完成雙軌商店與案件照片收藏冊功能；展開校內同儕 Alpha 測試。</td>
+            <td>深度實裝首發 10 宗大案；解鎖大稻埕、中正紀念堂與大安森林公園；完成雙軌商店、防嚇馬賽克切換與案件照片收藏冊功能；展開同儕 Alpha 測試。</td>
           </tr>
           <tr>
             <td><strong>第 13~16 週<br>（發表與優化期）</strong></td>
@@ -2514,7 +2722,7 @@ html_template = f"""<!DOCTYPE html>
 
     function copyFullProposal() {{
       navigator.clipboard.writeText(fullMarkdownText).then(() => {{
-        showToast("✅ 企劃書全文已成功複製到剪貼簿！包含 16 週時程、50 宗大案、10 大首發示範案、道具三軌機制、案發鄰近彩蛋與零劇透未解封存！");
+        showToast("✅ 企劃書全文已成功複製到剪貼簿！包含交通脈動戰略、雙重標籤、防嚇馬賽克切換、司法筆錄與道具三軌！");
       }}).catch(err => {{
         console.error("複製失敗：", err);
         alert("複製失敗，請手動選取頁面文字複製。");
@@ -2528,6 +2736,20 @@ html_template = f"""<!DOCTYPE html>
       setTimeout(() => {{
         t.style.display = "none";
       }}, 3500);
+    }}
+
+    function toggleMosaic(btn, targetId) {{
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      if (target.classList.contains('blurred')) {{
+        target.classList.remove('blurred');
+        btn.classList.add('unmasked');
+        btn.innerHTML = '👁️ 馬賽克已關閉（點擊重新遮罩）';
+      }} else {{
+        target.classList.add('blurred');
+        btn.classList.remove('unmasked');
+        btn.innerHTML = '🛡️ 馬賽克已開啟（點擊解除遮罩）';
+      }}
     }}
   </script>
 </body>
