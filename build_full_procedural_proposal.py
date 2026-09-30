@@ -3,14 +3,17 @@
 build_full_procedural_proposal.py
 Comprehensive generator script implementing:
 1. All 22 previous table commitments (16-week timeline, 50 initial cases, AI 4-step pipeline, OSM phased unlock, dual shops, Lv.1~5 trust, etc.)
-2. New Chapter 04B: 現代鑑識與司法偵查程序（前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統）
-3. Enriched 10 launch demonstration cases with:
+2. Section 04B: 現代鑑識與司法偵查程序（前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統）
+3. Clue-Assisting Prop Acquisition Trio & Proximity Easter Egg System (破案輔助道具三軌機制 ✕ 案發鄰近彩蛋 ✕ 零劇透未解封存)
+4. Enriched 10 launch demonstration cases with:
    - Briefing Mode (模式 A 預錄動態短片 vs 模式 B 現場警官簡報)
    - Pre-incident Story (案發前情背景)
    - Step-by-Step Evolution (事件逐步演進時間軸 Step 1~Step 4)
    - Interpersonal Relationship Network (人物關係網)
    - Multiple Suspects Pool (3~4 名嫌疑人：動機煙霧彈、隱瞞私情者、真兇、偏誤證人)
    - Police Interrogation Deposition (標準警訊筆錄檔案與交叉質詢物證打臉破案)
+   - Clue-Assisting Prop Trio (金錢購買 ✕ 特定地點 ✕ 案發鄰近彩蛋)
+   - Zero-Spoiler Cold Case Rule (零劇透未解封存規範)
    - Player Hands-on Actions (玩家實際要做什麼)
    - Codex Cards (名著致敬、物理化學科學原理、雙北在地文史)
 """
@@ -24,7 +27,7 @@ artifact_path = '/Users/home/.gemini/antigravity-cli/brain/7ad98725-be8e-47f2-96
 # Import cases_50_data from update_all_proposal to ensure 100% data consistency
 from update_all_proposal import cases_50_data
 
-# Comprehensive 10 Launch Demonstration Cases with full procedural investigation datasets
+# Comprehensive 10 Launch Demonstration Cases with full procedural investigation and prop datasets
 launch_demo_cases = [
     {
         "id": "首發示範案 01",
@@ -83,6 +86,14 @@ launch_demo_cases = [
             "suspect_statement": "吳冠宇供述：『我把熱拿鐵端過去時，咖啡是剛做好的。我全程都有戴食品手套，杯蓋是從密封消毒盒拿出來的，我怎麼可能下毒？桌上的方糖又不是我加的！』",
             "contradiction_point": "【致命矛盾】：紫外線鑑識燈照射下，4 號桌塑膠杯蓋內緣飲用孔殘留有微量凡士林脂質混合苦杏仁苷色帶，且杯蓋底座檢出吳冠宇右手食指滲漏汗液指紋！",
             "punchline": "出示【TLC 薄層色層分析展開圖】＋【杯蓋內緣汗液指紋比對】！當場打臉吳冠宇『手套完好未碰觸杯蓋內側』的謊言，真兇伏法！"
+        },
+        "case_props_system": {
+            "prop_name": "【有機弱酸與苦杏仁苷比色卡套組】（輔助快速比對咖啡樣品試紙色帶與展開層析）",
+            "money_route": "【花錢購買途徑】：在漢中街便利商店花費 25 點生活幣購買「化學廣用試紙補充包」。",
+            "location_route": "【特定地點途徑】：親赴士林台灣科教館微型實驗台，完成 1 分鐘弱酸顯色互動，免費借用「便攜型有機生物鹼比色分光鏡」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：走進咖啡店後方峨嵋街塗鴉暗巷（距咖啡店僅 45 公尺），在流浪貓玩耍的披薩空紙箱夾層中，觸發彩蛋【貓咪藏寶處】，免費拾獲「未開封微量取樣滴管與對照色卡」！",
+            "proximity_egg_detail": "位於案發咖啡店後方 45 公尺峨嵋街徒步區防火巷，步行 1 分鐘內，符合局部半徑鄰近性。",
+            "unsolved_cold_case_rule": "平常遊戲絕不跳出兇手答案；25 分鐘限時若結束無人破案，答案絕不公開，案件標記為「西門町 0901 咖啡懸案」封入歷史冷案庫，玩家可擇日回顧摸索。"
         },
         "hands_on": "1. 點擊死者桌上的咖啡杯，使用取樣滴管吸取上層奶泡。<br>2. 打開道具欄拖曳「pH 廣用試紙」浸入咖啡樣品，觀察色卡變色判定弱酸性。<br>3. 點擊指紋刷刷取咖啡杯把手與方糖包紙袋，比對 4 名在場嫌疑人指紋檔案。<br>4. 點擊手機開啟「色層分析工具」，拖曳沉澱物至展開液試管分離出苦杏仁苷生物鹼色帶，出示證據指認同桌客戶與真兇服務生。",
         "codex_title": "柯南咖啡密室與有機生物鹼化學檢驗",
@@ -148,6 +159,14 @@ launch_demo_cases = [
             "contradiction_point": "【致命矛盾】：造成 20 分鐘時間差的根本不是聲速延遲，而是天花板排風管上方隱蔽虹吸蓄水桶的注水延遲裝置！",
             "punchline": "出示【常溫聲速計算表（300m 僅需 0.88s）】＋【排風管虹吸注水軟管殘留水滴】＋【滑輪鋼索高溫摩擦碳化痕】！揭穿物理偽證，起獲量子硬碟！"
         },
+        "case_props_system": {
+            "prop_name": "【常溫聲速計算對照表與 5 米鋼捲尺】（輔助測量天花板落差與排風管水痕距離）",
+            "money_route": "【花錢購買途徑】：在北車地下一街電子五金攤位花費 30 點生活幣購買「5 米微型雷射測距鋼捲尺」。",
+            "location_route": "【特定地點途徑】：前往台北市立圖書館總館科技閱覽室借閱《雙北地下管線工程水力學手冊》獲取計算公式。",
+            "egg_route": "【案發鄰近彩蛋途徑】：在長廊東側轉角（距案發現場僅 35 公尺）一台故障的「三色果汁自動販賣機」退幣孔暗槽中，觸發彩蛋【水電工的小失誤】，免費掏出「虹吸管定時流速刻度草圖」！",
+            "proximity_egg_detail": "位於長廊東側通道轉角處自動販賣機，距案發保險櫃 35 公尺，同屬封閉長廊區域內。",
+            "unsolved_cold_case_rule": "競速倒數若至 00:00 仍無玩家破案，全服絕不廣播兇手身分，僅宣告「嫌犯已逃逸，案件未解」，封入全服懸案檔案室。"
+        },
         "hands_on": "1. 沿長廊走動，點擊檢查 300 公尺處鐵門前的水漬與破裂塑膠桶。<br>2. 抬頭調查天花板通風口，發現隱蔽軟管，點擊使用「鋼捲尺」測量高低落差，計算虹吸水位差。<br>3. 點擊手機調閱監視器畫面，按住時間軸滾輪精確比對 14:00 嫌犯掛上水桶與 14:30 桶倒水落的時間戳。<br>4. 進入線索白板，將「聲速 340m/s（傳播 300 公尺僅需 0.88 秒）」與「虹吸蓄水 30 分鐘延遲」拖曳連線，破解假不在場證明。",
         "codex_title": "柯南〈霧天狗傳說〉水力延時與建築聲學糾錯",
         "codex_origin": "《名偵探柯南》動畫第 52 集〈霧天狗傳說殺人事件〉（水流蓄力延遲手法）。",
@@ -211,6 +230,14 @@ launch_demo_cases = [
             "suspect_statement": "江語晨供述：『我連航海日誌的原稿都沒碰過，那些跳舞小人我一直以為是原住民圖騰，根本看不懂！』",
             "contradiction_point": "【致命矛盾】：海關故事館雲端快取紀錄顯示，江語晨上午曾檢索 19 世紀英文字母頻率表，且暗格滑動旋鈕上採集到其護手霜特殊玫瑰精油殘留！",
             "punchline": "出示【平板頻率分析檢索歷史】＋【玫瑰精油化學檢測譜】＋【保溫杯底座暗格起獲金懷錶】！擊潰柔弱助理偽裝！"
+        },
+        "case_props_system": {
+            "prop_name": "【十九世紀英文字母頻率對照表與密碼速查字典】（輔助對映小人符號）",
+            "money_route": "【花錢購買途徑】：在淡水老街懷舊文創店花費 15 點生活幣購買「航海密碼明信片紀念冊」。",
+            "location_route": "【特定地點途徑】：親赴淡水海關公署故事館，完成 1 分鐘開港航海日誌判讀微互動，免費獲得「密碼速查字典」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：漫步至海關碼頭繫船石柱旁（距石壁 60 公尺），在停泊的廢棄舢舨木船舵後方，觸發彩蛋【老水手的信號旗】，拾獲一本泛黃的「英國領事館旗語與跳舞小人對照筆記殘頁」！",
+            "proximity_egg_detail": "位於碼頭老舢舨木船舵後，距暗格石壁 60 公尺，屬於海關園區碼頭沿岸生活圈。",
+            "unsolved_cold_case_rule": "密碼盤絕不直接標記解答單詞；若放棄委託，密碼答案絕不對外透露，留待玩家日後再次挑戰解密。"
         },
         "hands_on": "1. 來到淡水碼頭石壁前，手動點擊各小人圖案抄錄至密碼筆記本。<br>2. 走進海關故事館翻閱英文航海日誌，點擊啟動「字母頻率統計儀」，將出現頻率前三名小人映射為 E、T、A。<br>3. 觀察手持旗幟的小人判定單詞間隔，在鍵盤上逐字輸入解密出的單詞 'PORT KEY'。<br>4. 石壁暗格彈開，點擊取出純銀懷錶證物。",
         "codex_title": "福爾摩斯〈跳舞的人〉單表替換密碼與頻率分析",
@@ -276,6 +303,14 @@ launch_demo_cases = [
             "contradiction_point": "【致命矛盾】：紙張纖維吸附了弱有機檸檬酸分子，置於北投青磺泉 85°C 高溫蒸氣上方，檸檬酸將在數秒內脫水炭化顯現褐色字跡！",
             "punchline": "使用【防熱加長竹夾】將白紙置於【85°C 溫泉出水口蒸氣】烘烤 5 秒！紙面瞬間浮現老董字跡『全部產權歸美玲，違者逐出宗族』！謝秘書收賄合約當場被搜出！"
         },
+        "case_props_system": {
+            "prop_name": "【加長型防燙竹夾與紅外表面測溫槍】（安全夾取信紙於 85°C 溫泉蒸氣口）",
+            "money_route": "【花錢購買途徑】：在北投光明路生活五金雜貨行花費 20 點生活幣購買「加長型竹製防燙夾」。",
+            "location_route": "【特定地點途徑】：走進北投溫泉博物館文史展廳，免費領取「青磺泉礦物熱敏科學簡章」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：旅店戶外泡腳池旁邊的木雕地熱神像底座縫隙（距大門 50 公尺），觸發彩蛋【溫泉鄉的童年回憶】，拾獲老董事長生前藏匿在此的「密封備用竹夾與新鮮黃檸檬片」！",
+            "proximity_egg_detail": "位於旅店庭院戶外泡腳池神像底座，距案發湯屋 50 公尺，步行數十步即達。",
+            "unsolved_cold_case_rule": "系統絕不直接浮現遺囑文字；超時未解則旅店進入查封懸案程序，答案絕不對外公布，維持本格推理純粹性。"
+        },
         "hands_on": "1. 走進溫泉旅店湯屋，點擊桌上的空白信紙。<br>2. 從背包拖曳「防熱加長竹夾」夾住信紙邊緣，避免手指燙傷。<br>3. 將信紙移動到溫泉蒸氣口上方（溫度計顯示 85°C），維持烘烤 5 秒。<br>4. 觀察弱檸檬酸脫水炭化，原本無色的字跡漸漸浮現出褐色數字 '4-0-9'，點擊開門輸入密碼。",
         "codex_title": "柯南加熱顯影手法與有機酸脫水炭化化學",
         "codex_origin": "《名偵探柯南》經典理科密室（如第 74 卷「毒與幻的設計」、早期加熱隱形墨水手法）。",
@@ -338,6 +373,14 @@ launch_demo_cases = [
             "suspect_statement": "郭副教授供述：『光線照進水池自然是光學折射（Refraction），古人的智慧都在水影裡！你們這群不懂建築物理的人休想誣賴我！』",
             "contradiction_point": "【致命矛盾】：八角漏窗的光線投射在假山壁上是純粹的『日影幾何直線投影（Projection）』，非折射！且郭副教授西裝內袋正裝著高精度工程測量儀！",
             "punchline": "出示【相似三角形物高與影長比率推算表】＋【高度角 35° 方位角 240° 幾何焦點圖】＋【鞋底假山暗洞專屬紅黏土】！直指郭副教授！"
+        },
+        "case_props_system": {
+            "prop_name": "【多功能日影高度角量角儀與相似三角形對照表】（輔助推算假山焦點）",
+            "money_route": "【花錢購買途徑】：在板橋府中路老牌文具行花費 25 點生活幣購買「透明工程三角板與量角規」。",
+            "location_route": "【特定地點途徑】：前往新北市立圖書館總館古建築文獻區，查閱《林本源園邸方鑑齋營造圖錄》取得原始尺寸。",
+            "egg_route": "【案發鄰近彩蛋途徑】：走進方鑑齋對面假山石洞深處（距戲台 40 公尺），在刻有「汲古」二字的石壁青苔底下，觸發彩蛋【清代測繪石刻】，發現前人鑿留的「秋分日影長度對照基準刻痕」！",
+            "proximity_egg_detail": "位於方鑑齋水榭對面假山洞穴石壁內，距案發現場 40 公尺，古蹟範圍內。",
+            "unsolved_cold_case_rule": "日落（17:30）時限若過，光線散去暗格隱沒，答案絕不直接揭曉，封存至林家花園歷史懸案簿。"
         },
         "hands_on": "1. 站在方鑑齋戲台前，點擊拿出「日影幾何量測儀」。<br>2. 旋轉畫面時間轉盤至秋分午後，調整量角器至太陽高度角 35°、方位角 240°。<br>3. 依據相似三角形定理（物高比影長），推算八角漏窗投影至假山石縫的精確焦點。<br>4. 點擊石縫暗孔，伸手取出藏匿百年的清代古銅鑰匙。",
         "codex_title": "福爾摩斯〈馬斯格雷夫禮儀〉幾何投影與日影測量",
@@ -402,6 +445,14 @@ launch_demo_cases = [
             "contradiction_point": "【致命矛盾】：冷凝水汽顯影法下，食指破洞處汗液微量油脂在 4°C 玻璃表面形成凝結核散射，留下清晰三條箕形指紋紋路！且紫外光照射其袖口呈亮綠色防偽螢光！",
             "punchline": "噴灑【熱水蒸氣罐水霧】使指紋清晰浮現＋照射【365nm 便攜紫外光燈】！袖口內襯起獲失竊動漫金卡！"
         },
+        "case_props_system": {
+            "prop_name": "【便攜微霧熱水罐與 365nm 紫外鑑識手電筒】（低溫凝結顯影與激發螢光）",
+            "money_route": "【花錢購買途徑】：在超商收銀台花費 15 點生活幣購買「微型保溫熱水壺（可製造熱水汽）」與「簡易驗鈔筆」。",
+            "location_route": "【特定地點途徑】：前往萬華青年公園科學實驗室，借用「法醫指紋冷凝散射鑑識模組」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：走出超商大門在旁邊轉角處（距門口僅 30 公尺）扭蛋機與自動資源回收桶的夾縫間，觸發彩蛋【卡牌迷的殘念】，拾獲前一位顧客遺落的「未拆封 365nm 便攜驗鈔紫外燈」！",
+            "proximity_egg_detail": "位於超商外牆轉角扭蛋機旁，距案發現場僅 30 公尺，屬於超商門口人行道範圍。",
+            "unsolved_cold_case_rule": "限時若到顧客離去，小偷身分絕不跳出劇透，金卡列為失竊懸案封入檔案庫。"
+        },
         "hands_on": "1. 走近超商冷藏櫃，點擊玻璃門，對著麥克風吹氣或點擊「熱水蒸氣罐」噴灑微量水霧。<br>2. 觀察玻璃表面冷凝露珠形成的指紋殘留，使用放大鏡微距拍照存證。<br>3. 從背包拿出「便攜紫外光燈」點擊照射收銀機周邊地面與顧客外套。<br>4. 點擊標記發出綠色螢光反應的可疑顧客袖口，觸發對質對話。",
         "codex_title": "《口袋神探》冷凝水汽顯影與紫外螢光鑑識",
         "codex_origin": "科普推理小說《口袋神探》艾小坡利用日常物理光學與水氣凝結破案手法。",
@@ -464,6 +515,14 @@ launch_demo_cases = [
             "suspect_statement": "彭曉嵐供述：『我當時穿高跟鞋站都站不穩，煞車一來我就往前撲倒尖叫，哪有能力去偷換處長的包包？』",
             "contradiction_point": "【致命矛盾】：牛頓第一運動定律！全車廂乘客均朝列車前進方向向前撲倒，唯獨彭曉嵐手腕呈現朝後拉扯抓立柱的深紅瘀痕，證明其預先抵抗向前慣性！",
             "punchline": "調閱【人體重心與慣性向量受力分析】＋出示【右腕逆向抗加速度勒痕】＋【鞋底高摩擦力防滑紋】！在其手袋暗層起獲 2nm 晶片樣品！"
+        },
+        "case_props_system": {
+            "prop_name": "【人體受力向量分析儀與防磁強磁檢驗貼片】（分析急煞慣性向量與晶片磁性）",
+            "money_route": "【花錢購買途徑】：在忠孝新生站地下商場 3C 配件攤位花費 20 點探幣購買「高敏度釹鐵硼強磁檢驗貼片」。",
+            "location_route": "【特定地點途徑】：前往台北科技大學物理實驗室借用「非慣性系加速度測定儀」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：在捷運月台 4 號車廂候車線旁的消防栓箱底層（距車門僅 25 公尺），觸發彩蛋【捷運遺失物謎題】，免費拾獲站務人員撿到的「強磁測試指南針」！",
+            "proximity_egg_detail": "位於第 4 車廂停靠月台地面 25 公尺處消防栓旁，在同一站台可及視線內。",
+            "unsolved_cold_case_rule": "若列車發車放行前未破案，晶片下落成謎，列為歷史重大懸案，答案永不公布。"
         },
         "hands_on": "1. 進入車廂，點擊四名乘客，使用「重心與受力方向分析儀」檢查每人站姿與抓握手勢。<br>2. 依列車行駛方向箭頭，觀察急煞時人體向前的傾倒慣性向量。<br>3. 點擊嫌疑人反向朝後的手臂與手腕拉傷紅印，揭露其預先抵抗慣性之蓄意調包動作。<br>4. 點擊開啟其公事包內夾，取出磁性晶片物證。",
         "codex_title": "《口袋神探》牛頓第一運動定律與車廂慣性力學",
@@ -528,6 +587,14 @@ launch_demo_cases = [
             "contradiction_point": "【致命矛盾】：阿基米德浮力與密度定律！右盤 50g 砝碼外型完好，但放入量筒排水量達 7.5cm³，換算密度僅 6.6 g/cm³，遠低於純銅的 8.9 g/cm³，內部早被掏空！",
             "punchline": "使用【排水量筒量測密度】證實砝碼中空＋指出【看門黑狗夜間未吠盲點】！在吳俊凱研磨機底座暗格搜出百年真人蔘！"
         },
+        "case_props_system": {
+            "prop_name": "【阿基米德排水量筒與純銅密度對照標準手冊】（測量金屬排水體積換算密度）",
+            "money_route": "【花錢購買途徑】：在迪化街南北貨五金行花費 20 點生活幣購買「玻璃刻度量筒與純水瓶」。",
+            "location_route": "【特定地點途徑】：走進迪化街中藥博物館，完成 1 分鐘等臂銅天平秤藥互動，獲贈「本草比重與密度手冊」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：在藥鋪後巷老水井旁邊的石臼底座下（距後門 35 公尺），觸發彩蛋【老店看門狗的秘密】，發現黑狗黑旋風常啃咬的一顆「純銅實心老砝碼」作為密度對照組！",
+            "proximity_egg_detail": "位於藥鋪後院水井旁石臼下方，距藥鋪後門 35 公尺，屬於藥鋪日常生活後巷。",
+            "unsolved_cold_case_rule": "天平砝碼真偽不直接標出答案；若打烊結案未果，人蔘案轉入迪化街未結懸案卷宗，絕不劇透手法。"
+        },
         "hands_on": "1. 進入大稻埕百年藥鋪，點擊櫃檯上的古董等臂銅天平。<br>2. 從道具欄選擇「量筒與清水」，將嫌疑天平右側的 50g 銅砝碼放入水中測量排水體積。<br>3. 計算密度：體積 7.5cm³，密度僅約 6.6 g/cm³（純銅應為 8.9 g/cm³），證實砝碼中空內嵌輕合金。<br>4. 調閱藥鋪過去四週每週盤點之秤量進出帳本，比對少重累計數據指認內賊。",
         "codex_title": "福爾摩斯〈銀色馬〉盲點心理與天平槓桿原理",
         "codex_origin": "柯南·道爾《福爾摩斯回憶錄》之〈銀色馬〉（「狗在夜間為何沒有吠叫」的逆向盲點思維）。",
@@ -590,6 +657,14 @@ launch_demo_cases = [
             "suspect_statement": "馬致遠供述：『轉彎離心力把所有人都往右邊甩，我只是沒抓穩扶手稍微撞到老太太，我身上沒有任何贓物，你們搜身也搜過了，憑什麼扣留我？』",
             "contradiction_point": "【致命矛盾】：物理向心加速度！車輛向右轉彎，車內假想離心力必定指向『左側』！且金屬探測器在他特製加厚的右皮鞋鞋跟處發出強烈蜂鳴！",
             "punchline": "展示【307 公車右轉向心加速度運動軌跡】＋【鞋底金屬探測蜂鳴回饋】！旋開皮鞋暗槽起獲李奶奶的黃金戒指！"
+        },
+        "case_props_system": {
+            "prop_name": "【公車轉彎向心加速度向量圖與便攜金屬探測筆】（比對離心受力方向與掃描皮鞋暗槽）",
+            "money_route": "【花錢購買途徑】：在南京東路電子材料行花費 15 點生活幣購買「微型金屬感應蜂鳴筆」。",
+            "location_route": "【特定地點途徑】：前往首都客運松山調度站，向調度員借調「307 路線行車記錄器 GPS 與向心加速度分析圖」。",
+            "egg_route": "【案發鄰近彩蛋途徑】：在南京東路公車專用道候車亭（距停靠公車僅 20 公尺）座椅後方的愛心傘架內，觸發彩蛋【司機失落的工具】，拾獲一把「隨車小型金屬探測筆」！",
+            "proximity_egg_detail": "位於公車臨停的公車站台候車亭長椅後，距車門僅 20 公尺，乘客上下車視線可及。",
+            "unsolved_cold_case_rule": "不直接指出贓物在誰身上；若公車到站放行未果，皮夾失竊列入未破冷案，答案絕不對外公布。"
         },
         "hands_on": "1. 在 307 公車急煞停靠時，點擊公車平面圖，調閱南京東路轉彎行車記錄器 GPS。<br>2. 計算轉彎向心加速度方向，標記車內無固定物體向右滑移的運動軌跡。<br>3. 點擊左側乘客背包，使用金屬探測器掃描出內襯暗袋中的皮夾。<br>4. 詢問司機刷卡時間，確認嫌犯在轉彎前刻意更換至左側座位的故意行為。",
         "codex_title": "《口袋神探》向心力、離心運動與觸覺神經適應",
@@ -655,6 +730,14 @@ launch_demo_cases = [
             "contradiction_point": "【致命矛盾】：泥土力學壓強極限！泥濘草地下陷需壓強大於 25 kPa，而使用接地面積 2000cm² 的軟木套鞋行走，壓強僅 3.7 kPa，草葉只彎不陷！",
             "punchline": "出示【土質壓強極限測量報告】＋【步幅 85cm 草葉折痕幾何測定】！並在生態池出水口大排管起獲特製軟木套鞋與光學望遠鏡鏡筒！"
         },
+        "case_props_system": {
+            "prop_name": "【土壤壓強屈服測定儀與幾何步幅皮尺】（測量泥土 25kPa 臨界值與草葉 85cm 步幅）",
+            "money_route": "【花錢購買途徑】：在大安森林公園旁建國花市園藝資材攤花費 20 點生活幣購買「園藝土壤硬度計」。",
+            "location_route": "【特定地點途徑】：前往台大農業工程系陳列館，查閱《雙北土壤塑性變形與承載力研究報告》。",
+            "egg_route": "【案發鄰近彩蛋途徑】：在生態池水鳥觀測木棧道下方的蘆葦叢邊緣（距觀測台 55 公尺），觸發彩蛋【園丁的廢料堆】，拾獲嫌犯裁切套鞋剩下的「防潮高密度軟木墊板小碎塊」！",
+            "proximity_egg_detail": "位於生態池木棧道下方蘆葦叢，距案發觀測台 55 公尺，同屬生態水池環形步道範圍內。",
+            "unsolved_cold_case_rule": "雨停天亮若未破案，現場腳印全消，案件轉為大安歷史懸案檔案庫，答案永不公開。"
+        },
         "hands_on": "1. 雨夜走進大安森林公園，點擊泥濘草地，使用「土質壓強測量儀」在地面點選取樣。<br>2. 記錄泥土下陷深度需大於 25 kPa 壓強，而現場草葉僅有輕微彎折無下陷泥痕。<br>3. 點擊測量步行步幅長達 85 公分，推算出嫌犯體重 70 公斤但接地面積高達 1200 平方公分。<br>4. 順著草葉折痕方向前進，在出入口排水溝起獲嫌犯脫下的寬版軟木大底套鞋與失竊望遠鏡。",
         "codex_title": "福爾摩斯壓強公式 P=F/A 與泥土痕跡力學",
         "codex_origin": "柯南·道爾《福爾摩斯探案集：血字的研究》中對嫌犯步態、體重與地面壓強之經典分析。",
@@ -694,7 +777,7 @@ for c in cases_50_data:
 
 cases_table_html = "\n".join(case_rows_html)
 
-# 2. Build 10 Detailed Demonstration Cases Cards HTML with Procedural Narrative System
+# 2. Build 10 Detailed Demonstration Cases Cards HTML with Procedural Narrative & Clue Props System
 detailed_cards_html = []
 for d in launch_demo_cases:
     card_border_class = "conan" if "conan" in d["badge_class"] else "holmes"
@@ -760,6 +843,35 @@ for d in launch_demo_cases:
     </div>
     """
 
+    # Props system HTML
+    prop = d["case_props_system"]
+    props_html = f"""
+    <div class="prop-box">
+      <div class="prop-title">🎁 【破案輔助道具三軌取得機制 & 案發鄰近彩蛋】</div>
+      <div style="font-size:13.5px; color:#1e293b; margin-bottom:8px;">
+        <strong>🔑 關鍵破案輔助道具：</strong>{prop['prop_name']}
+      </div>
+      <div class="trio-grid">
+        <div class="trio-card" style="border-left:3px solid #16a34a;">
+          <strong style="color:#16a34a;">💰 花錢購買途徑</strong><br>
+          {prop['money_route']}
+        </div>
+        <div class="trio-card" style="border-left:3px solid #2563eb;">
+          <strong style="color:#2563eb;">🏛️ 親赴特定地點途徑</strong><br>
+          {prop['location_route']}
+        </div>
+        <div class="trio-card" style="border-left:3px solid #d97706;">
+          <strong style="color:#d97706;">🥚 案發鄰近彩蛋途徑</strong><br>
+          {prop['egg_route']}<br>
+          <span style="font-size:11.5px; color:#b45309; background:#fef3c7; padding:1px 6px; border-radius:4px; display:inline-block; margin-top:4px;">📍 {prop['proximity_egg_detail']}</span>
+        </div>
+      </div>
+      <div class="cold-case-box">
+        🔒 <strong>【零劇透未解封存規範】：</strong>{prop['unsolved_cold_case_rule']}
+      </div>
+    </div>
+    """
+
     detailed_cards_html.append(f"""
     <div class="case-card {card_border_class}">
       <div class="case-header">
@@ -821,6 +933,9 @@ for d in launch_demo_cases:
         <!-- 官方警訊筆錄檔案與打臉破案 -->
         {deposition_html}
 
+        <!-- 破案輔助道具三軌機制與案發鄰近彩蛋 -->
+        {props_html}
+
         <!-- 玩家實際要做什麼（操作步驟） -->
         <div class="case-section" style="background:#eff6ff; border-left:4px solid #2563eb; padding:12px 16px; border-radius:0 8px 8px 0; margin:14px 0;">
           <div class="case-label" style="color:#1e3a8a;">🎮 【玩家實際要做什麼（手動操作步驟）】：</div>
@@ -864,6 +979,13 @@ for d in launch_demo_cases:
     - 矛盾破綻：{dep['contradiction_point']}
     - 筆錄打臉破案：{dep['punchline']}"""
 
+    prop = d["case_props_system"]
+    prop_md = f"""    - 輔助道具：{prop['prop_name']}
+    - 💰 金錢購買途徑：{prop['money_route']}
+    - 🏛️ 親赴特定地點途徑：{prop['location_route']}
+    - 🥚 案發鄰近彩蛋途徑：{prop['egg_route']}（{prop['proximity_egg_detail']}）
+    - 🔒 零劇透未解封存規範：{prop['unsolved_cold_case_rule']}"""
+
     detailed_10_markdown_list.append(f"""
 ### 【{d['id']}】{d['title']}（{d['type']} / 難度：{d['difficulty']}）
 - 致敬來源：{d['homage_author']}
@@ -879,6 +1001,8 @@ for d in launch_demo_cases:
 {suspects_md}
 - 官方警訊偵查筆錄檔案：
 {dep_md}
+- 破案輔助道具三軌機制與案發鄰近彩蛋：
+{prop_md}
 - 玩家實際要做什麼（手動操作步驟）：
     {clean_hands_on}
 - 考據與科學原理：{d['codex_title']} | 出處：{d['codex_origin']} | 原理：{d['codex_science']} | 在地結合：{d['codex_local']}
@@ -887,7 +1011,7 @@ detailed_10_markdown = "\n".join(detailed_10_markdown_list)
 
 print("Markdown fragments compiled.")
 
-plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發時程 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ AI驗證淘汰管線 ✕ 現代司法偵訊與多嫌疑人筆錄系統 深度升級版）
+plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發時程 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ AI驗證淘汰管線 ✕ 現代司法偵訊與多嫌疑人筆錄 ✕ 破案道具三軌機制與鄰近彩蛋 深度升級版）
 專案團隊：國小六年級獨立研究小組（三人團隊）
 核心定位：融入雙北真實地理、大眾運輸與國小自然科學物理化學原理的 2.5D 都會慢活偵探 RPG。
 
@@ -925,7 +1049,9 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
    - 第一階（觀察方向）：引導玩家注意案發現場未注意到的角落。
    - 第二階（推理方向）：提示涉案科學原理（如酸鹼度、密度、慣性）。
    - 第三階（答案步驟）：明確給出證物合成與指認步驟。
-4. 新手前 15 分鐘：
+4. 零劇透保護原則（Zero-Spoiler Rule）：
+   - 提示與輔助道具絕不直接跳出「兇手就是某某人」的字眼，只提供科學方向與檢驗途徑，保留親自破案之成就感。
+5. 新手前 15 分鐘：
    - 0~5 分鐘：從老舊公寓偵探事務所醒來，完成新手移動與事務所拍照。
    - 5~10 分鐘：搭乘 307 公車前往西門町，於便利商店購買放大鏡。
    - 10~15 分鐘：於西門町咖啡店觸發「首發示範案 01：拿鐵中毒案」，完成第一次手動試紙檢驗與嫌犯指認。
@@ -941,15 +1067,19 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 ### 📋 50 宗雙北推理案件全景矩陣（初始規劃庫）
 {cases_50_markdown}
 
-### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊與官方警訊筆錄）
+### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、官方警訊筆錄、破案道具三軌機制與鄰近彩蛋）
 {detailed_10_markdown}
 
 ---
 
 ## 🌐 04A｜共享世界體系：突發事件、未來多人連線搶案 vs 個人晉升任務
 1. 不定時突發事件（Dynamic Events）：柯南式用餐遭遇，咖啡店、公車或超商無預警拉起封鎖線，限時 20~25 分鐘突發排查！
-2. 共享競速公開案件（標記為：未來多人連線功能）：全服在線玩家同步看見共享案件與倒數計時。一旦有人率先提交正確答案或時間到，全服案件同步結束並轉入歷史檔案庫。
-3. 個人專屬晉升任務（Personal Milestone Quests）：無搶任務機制，每個人各自累積偵探段位與人脈好感。
+2. 共享競速公開案件（標記為：未來多人連線功能）：全服在線玩家同步看見共享案件與倒數計時。
+3. ★ 零劇透保護與未破懸案封存協議（Zero-Spoiler Cold Case Protocol）：
+   - 平常案件絕對不會直接告訴玩家答案，僅提供可實證之客觀物證與方向。
+   - 若限時倒數結束卻無任何玩家解開，**系統絕對不會在全服廣播或畫面中公開答案**！
+   - 該案件將蓋上「未結案印章」，正式封存至「雙北歷史懸案檔案庫（Cold Cases Archive）」。日後玩家可在離線或個人模式下重新啟動調閱卷宗再次挑戰，維護推理世界的真實感與懸念！
+4. 個人專屬晉升任務（Personal Milestone Quests）：無搶任務機制，每個人各自累積偵探段位與人脈好感。
 
 ---
 
@@ -975,6 +1105,12 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
      - 二、案發時段行蹤與不在場證明陳述（時間戳比對）。
      - 三、現場見聞與感官觀察（視覺、聽覺、嗅覺之主觀陳述）。
      - 四、交叉質詢與物證對質（「筆錄打臉」系統）：玩家在筆錄系統中圈選矛盾詞句，從背包出示對應物證（例如：試紙檢測紀錄、阿基米德排水量筒密度報告、聲波計算時間差、日影幾何照片等），擊潰假供詞，迫使嫌犯認罪！
+6. ★ 破案輔助道具「三軌取得機制」與「案發鄰近彩蛋規範」：
+   - 玩家若在案件現場推導遇阻，可透過三種靈活管道取得關鍵輔助道具：
+     (1) **花錢購買途徑**：在超商、五金店、電子行花費少量生活幣或探幣購買通用試劑或測量儀。
+     (2) **親赴特定地點途徑**：搭乘公車捷運親赴科教館、圖書館、海關公署故事館或中藥博物館等文教場館，完成 1 分鐘微互動後借用專業鑑識儀器。
+     (3) **案發鄰近彩蛋途徑**：在案發現場周圍 **50~100 公尺半徑生活圈**（步行 1~2 分鐘內）的後巷、長椅、自動販賣機、扭蛋機旁觸發彩蛋，直接免費拾獲專屬輔助道具！
+   - **彩蛋地理鄰近性規範**：輔助彩蛋必須座落於案件附近，嚴禁無意義遠程跑圖，緊扣案件生活場景。
 
 ---
 
@@ -987,7 +1123,8 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
    - 「巷弄貓咪之友」：在雙北巷弄遇見流浪貓阿巧 3 次。
    - 「公車達人」：搭乘 307 公車累計超過 10 次。
    - 「柯南級直覺」：突發案件限時剩餘 5 分鐘內成功破案。
-   - 「夜市美食大偵探」：吃遍寧夏、士林、饒河三大夜市美食。
+3. ★ 案件周圍 50~100 公尺微型彩蛋體系：
+   - 每個示範案與突發案周遭均隱藏著緊扣當前情境的微型彩蛋（如西門町後巷披薩盒中的比色卡、北車長廊販賣機退幣孔的流速草圖、大安生態池木棧道下的軟木墊板碎塊），兼顧趣味與實用價值。
 
 ---
 
@@ -1007,7 +1144,7 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 1. 社區信賴度等級系統：
    - Lv.1 陌生點頭 ➔ Lv.2 熟悉常客 ➔ Lv.3 熱心街坊 ➔ Lv.4 患難之交 ➔ Lv.5 榮譽街坊守護者。
 2. 班級自製案件工作坊（Classroom Workshop）：
-   - 提供國小自然科老師與同學「視覺化案件編輯器」，支援自訂被害人、多嫌疑人、物證與筆錄打臉點。
+   - 提供國小自然科老師與同學「視覺化案件編輯器」，支援自訂被害人、多嫌疑人、物證、三軌道具與筆錄打臉點。
 
 ---
 
@@ -1020,7 +1157,7 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ## 📅 09｜16 週研發進度規劃與獨立研究推進時程表
 - 第 1~4 週：企劃確立、OSM 西門町核心地圖繪製、垂直切片原型開發。
-- 第 5~8 週：首發 4 宗示範案件深度實裝、多嫌疑人筆錄系統研發。
+- 第 5~8 週：首發 4 宗示範案件深度實裝、多嫌疑人筆錄與三軌道具系統研發。
 - 第 9~12 週：擴充至 10 宗首發示範案、OSM 大稻埕與大安地圖開放、Alpha 測試。
 - 第 13~16 週：AI 驗證管線實裝、成就與照片收藏冊、專案成果發表會演練。
 
@@ -1039,7 +1176,7 @@ html_template = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ AI驗證淘汰管線 ✕ 現代司法偵訊與多嫌疑人筆錄系統 深度升級版）- 六年級獨立研究專題</title>
+  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ AI驗證淘汰管線 ✕ 司法偵訊多嫌疑人 ✕ 道具三軌機制與鄰近彩蛋 深度升級版）- 六年級獨立研究專題</title>
   <style>
     :root {{
       --primary: #1d4ed8;
@@ -1508,6 +1645,51 @@ html_template = f"""<!DOCTYPE html>
       padding: 6px 10px;
     }}
 
+    /* 破案輔助道具與鄰近彩蛋卡片 */
+    .prop-box {{
+      background: #fdfbf7;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 14px 0;
+    }}
+
+    .prop-title {{
+      font-weight: 800;
+      font-size: 14px;
+      color: #92400e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+
+    .trio-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }}
+
+    .trio-card {{
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.55;
+    }}
+
+    .cold-case-box {{
+      background: #f8fafc;
+      border: 1px dashed #64748b;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: #475569;
+    }}
+
     .codex-card {{
       background: #fdf6ec;
       border: 1px dashed #d97706;
@@ -1589,8 +1771,8 @@ html_template = f"""<!DOCTYPE html>
       <a href="#sec-04" class="nav-chip">04 50 案庫與 AI 管線</a>
       <a href="#sec-demo" class="nav-chip">🌟 10 大首發示範案</a>
       <a href="#sec-04a" class="nav-chip">04A 共享世界體系</a>
-      <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 司法筆錄與嫌疑人</a>
-      <a href="#sec-05" class="nav-chip">05 微型學習與成就</a>
+      <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 司法筆錄與道具三軌</a>
+      <a href="#sec-05" class="nav-chip">05 微型學習與鄰近彩蛋</a>
       <a href="#sec-06" class="nav-chip">06 雙軌商店與貨幣</a>
       <a href="#sec-07" class="nav-chip">07 信賴度與工作坊</a>
       <a href="#sec-08" class="nav-chip">08 技術架構</a>
@@ -1817,9 +1999,9 @@ html_template = f"""<!DOCTYPE html>
         </table>
       </div>
 
-      <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【玩家實際要做什麼】手動操作步驟）</h3>
+      <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、官方警訊筆錄、破案道具三軌機制與鄰近彩蛋）</h3>
       <p style="font-size:14px; color:var(--text-muted);">
-        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>官方警訊筆錄檔案（含打臉破案對質點）</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
+        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>官方警訊筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
       </p>
       <div class="case-container">
         {detailed_cases_html_rendered}
@@ -1885,10 +2067,21 @@ html_template = f"""<!DOCTYPE html>
       <ul>
         <li><strong>同一個在線雙北</strong>：所有人登入同一個在線世界，所有人看到的共享案件數量、內容與倒數計時<strong>完全同步</strong>。</li>
         <li><strong>合作與競速搶案</strong>：同學們可以組隊分工調查，也可以競速爭奪全服唯一首解榮譽與高額破案賞金。</li>
-        <li><strong>【全服同步結束機制】</strong>：<strong>一旦任何一名玩家率先向伺服器提交了正確且完整的推理驗證，或者案件時限倒數結束，伺服器會立即發布全服號外廣播，全服所有玩家的該案件畫面「同步結束」</strong>！已結案案件自動轉入「歷史檔案室」，其他玩家仍可不計分回顧劇情，維護世界的時間流動感。</li>
+        <li><strong>【全服同步結束機制】</strong>：<strong>一旦任何一名玩家率先向伺服器提交了正確且完整的推理驗證，或者案件時限倒數結束，伺服器會立即發布全服號外廣播，全服所有玩家的該案件畫面「同步結束」</strong>！</li>
       </ul>
 
-      <h3>3. 🎖️ 個人專屬晉升任務（Personal Milestone Quests）—— 無搶任務機制！</h3>
+      <h3>3. 🔒 ★ 零劇透保護與未破懸案封存協議（Zero-Spoiler Cold Case Protocol）</h3>
+      <div class="callout purple">
+        <div class="callout-title">📁 懸念永遠守護：答案絕不公布！</div>
+        在真實世界中，未解之謎絕不會突然從天上掉下一張答案卷。為了維護每位玩家的推理沉浸感與獨立思考價值，遊戲確立了嚴格的<strong>「零劇透保護協議」</strong>：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>平常絕不給答案</strong>：遊戲內的提示道具、三階提示與 NPC 對話，永遠只提供客觀線索、科學物理化學現象與檢驗工具，<strong>絕對不會直接跳出兇手姓名或手法答案</strong>。</li>
+          <li><strong>時間結束答案絕不公布</strong>：如果突發案件限時結束、或共享競速倒數至 00:00 仍無任何人破解，<strong>系統絕對不會在全服或玩家畫面上跳出「兇手其實是誰、手法是什麼」的破壞體驗劇透</strong>！</li>
+          <li><strong>轉入歷史懸案庫（Cold Cases Archive）</strong>：該案件畫面會蓋上深紅色<strong>「未破懸案（Cold Case）」</strong>官印，正式封存移入「雙北歷史懸案檔案庫」。玩家未來隨時可以在個人自由探索模式下調出檔案重新推敲，直到自己真正想通為止！</li>
+        </ul>
+      </div>
+
+      <h3>4. 🎖️ 個人專屬晉升任務（Personal Milestone Quests）—— 無搶任務機制！</h3>
       <div class="callout tip">
         <div class="callout-title">🛡️ 專屬於你自己的成長線——絕對沒有搶任務！</div>
         除了全服競爭的公開案件外，遊戲擁有平行的<strong>「個人偵探晉升與主線委託」</strong>體系：
@@ -2002,6 +2195,35 @@ html_template = f"""<!DOCTYPE html>
         <li><strong>三、現場感官見聞陳述</strong>：受訊人宣稱自己「看到了什麼」、「聞到了什麼」、「碰到了什麼」。</li>
         <li><strong>四、交叉質詢與物證對質（「筆錄打臉」核心機制）</strong>：玩家在筆錄供詞文本中圈選出關鍵字句（如：『我手套乾燥未碰杯蓋內側』、『聲音傳 300 公尺跑了 15 分鐘』），隨後從道具背包中拖曳出對應之客觀科學物證（如：紫外螢光汗液指紋、聲速 340m/s 計算單、天平密度測量表），<strong>當場擊潰虛假陳述，使犯人心理防線崩潰認罪！</strong></li>
       </ul>
+
+      <h3>6. ★ 破案輔助道具「三軌取得機制」與「案發鄰近彩蛋規範」</h3>
+      <div class="callout tip">
+        <div class="callout-title">🎁 解謎卡關時的救命稻草：三大靈活管道！</div>
+        若玩家在現場推理遇到瓶頸，系統設計了三種合理的道具與情報獲取途徑，兼顧金錢經濟、地理探索與觀察力獎勵：
+      </div>
+      <div class="trio-grid">
+        <div class="trio-card" style="border-top:3px solid #16a34a;">
+          <strong style="color:#16a34a; font-size:14px;">💰 途徑一：花錢購買（商業流通）</strong>
+          <p style="margin-top:6px; margin-bottom:0; font-size:13px; color:#334155;">
+            花費少許遊戲內貨幣（生活幣或探幣），走進便利商店、五金街或電子攤位，購買常用耗材與通用檢測工具（如試紙包、放大鏡、量角規、測距皮尺）。
+          </p>
+        </div>
+        <div class="trio-card" style="border-top:3px solid #2563eb;">
+          <strong style="color:#2563eb; font-size:14px;">🏛️ 途徑二：親赴特定地點（實體探索）</strong>
+          <p style="margin-top:6px; margin-bottom:0; font-size:13px; color:#334155;">
+            某些專業等級鑑識儀器有錢也買不到！玩家必須搭乘捷運公車，親自走進科教館實驗室、市立圖書館總館古籍部、或中藥博物館，完成 1~3 分鐘微互動後免費借用。
+          </p>
+        </div>
+        <div class="trio-card" style="border-top:3px solid #d97706;">
+          <strong style="color:#d97706; font-size:14px;">🥚 途徑三：案發鄰近彩蛋（探索拾獲）</strong>
+          <p style="margin-top:6px; margin-bottom:0; font-size:13px; color:#334155;">
+            最受玩家歡迎的免費取得方式！在<strong>案發現場半徑 50~100 公尺周遭（步行 1~2 分鐘生活圈）</strong>的塗鴉後巷、長椅夾層、販賣機退幣孔或草叢木棧道，藏有微型彩蛋，點擊即可直接獲得破案輔助道具！
+          </p>
+        </div>
+      </div>
+      <p style="font-size:13.5px; color:#64748b; margin-top:10px;">
+        ※ <strong>【彩蛋地理鄰近性規範】</strong>：破案輔助彩蛋嚴格禁止隨機漂移至遠方，必須鎖定在當前案件的局部生活圈內，確保玩家能藉由巡視案發周遭環境獲得及時啟發。
+      </p>
     </div>
 
     <!-- 05｜場所微型互動、隱藏成就與台味彩蛋 -->
@@ -2076,6 +2298,16 @@ html_template = f"""<!DOCTYPE html>
           </tr>
         </tbody>
       </table>
+
+      <h3>3. ★ 案件周圍 50~100 公尺微型彩蛋體系</h3>
+      <p>
+        案件現場不是一座孤島！每個示範案與突發案周遭，均配置了<strong>「生活圈微型彩蛋」</strong>：
+      </p>
+      <ul>
+        <li><strong>西門町峨嵋街暗巷</strong>：咖啡店後方 45 公尺紙箱觸發【貓咪藏寶處】，拾獲取樣滴管。</li>
+        <li><strong>北車長廊自動販賣機</strong>：案發處 35 公尺退幣口觸發【水電工的小失誤】，掏出虹吸流速草圖。</li>
+        <li><strong>大安生態池木棧道</strong>：觀測台 55 公尺蘆葦叢觸發【園丁的廢料堆】，拾獲軟木大底套鞋碎片。</li>
+      </ul>
     </div>
 
     <!-- 06｜生活慢活、實體到店與虛擬商店雙軌、雙軌貨幣與無障礙防卡關 -->
@@ -2282,7 +2514,7 @@ html_template = f"""<!DOCTYPE html>
 
     function copyFullProposal() {{
       navigator.clipboard.writeText(fullMarkdownText).then(() => {{
-        showToast("✅ 企劃書全文已成功複製到剪貼簿！包含 16 週時程、50 宗大案、10 大首發示範案、司法偵查程序與多嫌疑人筆錄！");
+        showToast("✅ 企劃書全文已成功複製到剪貼簿！包含 16 週時程、50 宗大案、10 大首發示範案、道具三軌機制、案發鄰近彩蛋與零劇透未解封存！");
       }}).catch(err => {{
         console.error("複製失敗：", err);
         alert("複製失敗，請手動選取頁面文字複製。");
