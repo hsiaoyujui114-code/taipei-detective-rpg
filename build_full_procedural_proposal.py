@@ -1345,6 +1345,14 @@ user_traceability_matrix = [
         "section": "04A 共享世界體系<br>08 首發示範案檔案",
         "section_id": "sec-04a",
         "detail": "打造雙北四大時令節慶限定突發案件：春季平溪天燈熱對流升力案、夏季大稻埕煙火聲光 3 秒時差（340m/s × 3 = 1020m）案、秋季台北燈會偏光鏡暗號案、冬季新北耶誕城人流防踩踏動力學案。"
+    },
+    {
+        "num": "28",
+        "category": "交通出行與時空快轉",
+        "quote": "移動太遠可以設定好位置，付完錢後快轉過去",
+        "section": "02A 交通網絡與費率",
+        "section_id": "sec-02",
+        "detail": "實裝「遠程大眾運輸時空快轉機制」：當調查目的地太遠時，玩家可在站牌、閘門或手機 App 直接設定目的地站點，系統自動扣除悠遊卡／生活幣車資，隨即播放 2.5 秒精緻像素車窗剪影動畫（雙北街景、淡水河夕照快速滑過＋報站廣播）快轉抵達；遊戲內時鐘依真實路況等比推移（如台北到淡水快轉 35 分鐘），兼顧流暢不枯燥與時間管理推理解謎真實性。"
     }
 ]
 
@@ -1428,7 +1436,8 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 1. 以 OpenStreetMap (OSM) 真實地理為基礎，逐步開放區域（階段一西門北車、階段二大稻埕大安、階段三淡水板橋北投）。
 2. 建築進出發光圖案標記系統（Enterable Building Markers）：可進入建築頭頂標記🏪、☕、🏛️、🚪、♨️，不可進建築無標記。
 3. 交通費率：步行免費；YouBike 5 點（前 30 分鐘）；雙北公車 15 點（主要骨幹）；台北捷運 20~65 點。
-4. 時間與氣象雙軌制：遊戲時間 1:6。CWA 氣象局 API 每 15 分鐘快取，斷線自動啟動離線預設氣象循環。
+4. ★ 遠程大眾運輸「預設目的地 ➔ 票證扣款 ➔ 車程時空快轉」系統（拒絕跑圖疲勞）：移動太遠時，玩家可在站牌、閘門或手機 App 直接設定目的地，系統自動結算並扣除悠遊卡／生活幣車資，隨即切換 2.5 秒精緻像素車窗剪影快轉抵達；遊戲內時鐘依真實路況等比推移（如台北至淡水快轉推進 35 分鐘），兼顧遊玩節奏與時空解謎真實性。
+5. 時間與氣象雙軌制：遊戲時間 1:6。CWA 氣象局 API 每 15 分鐘快取，斷線自動啟動離線預設氣象循環。
 
 ---
 
@@ -2258,7 +2267,7 @@ html_template = f"""<!DOCTYPE html>
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <h2 style="margin-bottom:0; color:#92400e; border-bottom:none;">💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表</h2>
         <span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #fcd34d;">
-          27 項核心指示 ✕ 100% 驗證收錄
+          28 項核心指示 ✕ 100% 驗證收錄
         </span>
       </div>
       <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
@@ -2560,7 +2569,39 @@ html_template = f"""<!DOCTYPE html>
         </tbody>
       </table>
 
-      <h3>4. 時間、日夜與動態氣象雙軌制（正式系統規格）</h3>
+      <h3>4. ★ 遠程大眾運輸「預設目的地 ➔ 票證扣款 ➔ 車程時空快轉」系統（拒絕跑圖疲勞）</h3>
+      <div class="callout tip">
+        <div class="callout-title">⚡ 遠程通勤免枯燥！設定位置、付完錢直接快轉</div>
+        針對雙北橫跨數十公里的遠程調查（例如西門町直奔淡水老街、或台北車站跨橋至板橋新板特區），為了避免玩家在電腦前枯等數十分鐘真實車程，遊戲貼心實裝了<strong>「目標預設 ➔ 扣款 ➔ 2.5 秒剪影快轉」</strong>機制：
+      </div>
+      <div class="team-grid">
+        <div class="team-card" style="border-left:4px solid #0284c7;">
+          <div class="team-role" style="color:#0284c7;">📍 1. 設定目標站點</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            在公車站牌、捷運進站閘門，或打開手機<strong>【雙北等公車／捷運 App】</strong>，於等角地圖上點選目標站點（如「西門町 ➔ 淡水老街站」）。
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #16a34a;">
+          <div class="team-role" style="color:#16a34a;">💳 2. 算準票價扣款</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            系統精確依雙北里程計費自動結算（公車 15~30 點、捷運 20~65 點）。嗶悠遊卡扣點；餘額不足時自動提示最近超商加值機。
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #7c3aed;">
+          <div class="team-role" style="color:#7c3aed;">⏩ 3. 2.5 秒車窗剪影快轉</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            付費後畫面切換為 2.5 秒精緻像素車窗剪影（市民大道高架路燈、淡水河夕陽微光快速掠過），伴隨捷運或公車報站廣播音效，流暢抵達！
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #d97706;">
+          <div class="team-role" style="color:#d97706;">⏳ 4. 遊戲時鐘等比推進</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>實體等待只需 2.5 秒</strong>，但<strong>遊戲內時鐘會等比推進</strong>（西門至淡水前進 35 分鐘），完美串聯 NPC 動態作息與交通數據時序比對！
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px;">5. 時間、日夜與動態氣象雙軌制（正式系統規格）</h3>
       <ul>
         <li><strong>真實 CWA API 同步（在線模式）</strong>：每 15 分鐘透過後端輪詢中央氣象署 API。當台北真實下大雨時，遊戲內西門町天空同步陰雲密布，路人撐起各色雨傘，大安森林公園泥土軟化觸發無腳印奇案！</li>
         <li><strong>離線預設氣象循環（API 失效保護）</strong>：若在發表會現場遇到無 Wi-Fi、或氣象局伺服器維護時，系統<strong>自動切換至離線預設氣象循環</strong>（晴朗 ➔ 陣雨 ➔ 陰天 ➔ 夕陽 ➔ 乾爽涼夜，依據遊戲內 24 小時週期平滑變換），確保展示 100% 穩定不報錯。</li>
