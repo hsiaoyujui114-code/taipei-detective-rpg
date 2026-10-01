@@ -1465,6 +1465,14 @@ user_traceability_matrix = [
         "section": "01B 研發分期規劃總表",
         "section_id": "sec-01b",
         "detail": "新增 01B 專案研發分期規劃總表：清晰劃分【第一期核心系統（10案深度實裝、50案總綱、OSM核心區、真實票價、雙軌商店、防嚇馬賽克）】、【第二期進階優化（AI管線、節慶案、全城搜捕）】、【第三期未來擴充（全服連線、案件工作坊）】，展現成熟的軟體工程管理思維。"
+    },
+    {
+        "num": "43",
+        "category": "專屬私服器與同屏可視",
+        "quote": "這個遊戲我是要做成私服器 所有玩家都在同一個私服器，世界 互相看得到彼此",
+        "section": "04A 專屬私服器共享世界<br>08 技術選型",
+        "section_id": "sec-04a",
+        "detail": "確立採用「校園專屬私服器（Dedicated Private Server）」架構：所有玩家登入同一個私服世界實例，在雙北街頭互相看得到彼此的 2.5D 像素偵探角色跑動、搭車或調查；角色頭頂標記自訂暱稱、階級徽章與即時動態氣泡（🔍採樣、☕休息、🗺️尋路）；突發案件同屏可見，全服號外廣播即時結案，發表會現場全班同服震撼互動！"
     }
 ]
 
@@ -1596,13 +1604,15 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ---
 
-## 🌐 04A｜共享世界體系：突發事件、未來多人連線搶案 vs 個人晉升任務
-1. 不定時突發事件（Dynamic Events）：柯南式用餐遭遇，咖啡店、公車或超商無預警拉起封鎖線，限時 20~25 分鐘突發排查！
-2. 共享競速公開案件（標記為：未來多人連線功能）：全服同步進行，一人首解全服結束。
-3. ★ 零劇透保護與未破懸案封存協議（Zero-Spoiler Cold Case Protocol）：
+## 🌐 04A｜專屬私服器共享世界：全體玩家同屏可見、同地圖互動與同步案件體系
+1. ★ 專屬校園私服器架構（Dedicated Private Server）：所有玩家登入同一個私服世界實例，拒絕單機分流！
+2. ★ 街頭同屏可視化（Visual Player Co-Presence）：在西門町、台北車站或淡水老街漫步時，即時看見其他在線同學的 2.5D 像素偵探角色在奔跑、查案、騎 YouBike 或搭公車。角色頭頂標記【自訂暱稱】、【偵探階級徽章】與即時動態氣泡（🔍採樣中、☕休息中、🗺️尋路中）。走近可揮手打招呼、交換線索或發起組隊！
+3. 不定時突發事件（Dynamic Events）：同場景所有玩家同步觸發！咖啡店、公車或超商無預警拉起封鎖線，全員同屏見證並展開限時 20~25 分鐘排查。
+4. 私服器競速搶案與全服號外廣播（Server-wide Breaking News）：一人首解破案，私服器向全服所有在線玩家螢幕上方推播即時新聞號外廣播，同步結案！
+5. ★ 零劇透保護與未破懸案封存協議（Zero-Spoiler Cold Case Protocol）：
    - 平常絕不公布答案；限時結束若無人破解，答案絕不公布！
    - 蓋上「未結案印章」，正式封存至「雙北歷史懸案檔案庫（Cold Cases Archive）」，留待玩家日後再次摸索。
-4. 個人專屬晉升任務（Personal Milestone Quests）：無搶任務機制，各自成長。
+6. 個人專屬晉升任務（Personal Milestone Quests）：無搶任務機制，各自獨立成長。
 
 ### 5. 🎆 雙北時令節慶與四季限定突發案件（平溪天燈、大稻埕煙火、台北燈會、新北耶誕城）
 雙北具有鮮明的四季在地節慶，遊戲內依據真實時序或伺服器節日活動，開啟四大「時令限定突發大案」：
@@ -2371,7 +2381,7 @@ html_template = f"""<!DOCTYPE html>
       <a href="#sec-03" class="nav-chip">03 自由漫遊流程</a>
       <a href="#sec-04" class="nav-chip">04 50 案庫與雙重標籤</a>
       <a href="#sec-demo" class="nav-chip">🌟 10 大首發示範案</a>
-      <a href="#sec-04a" class="nav-chip">04A 共享世界體系</a>
+      <a href="#sec-04a" class="nav-chip" style="background:#f0fdf4; color:#15803d; border-color:#86efac;">🌐 04A 專屬私服器同屏</a>
       <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 遊戲化偵查與鑑識</a>
       <a href="#sec-05" class="nav-chip">05 微型學習與鄰近彩蛋</a>
       <a href="#sec-06" class="nav-chip">06 雙軌商店與貨幣</a>
@@ -2386,7 +2396,7 @@ html_template = f"""<!DOCTYPE html>
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <h2 style="margin-bottom:0; color:#92400e; border-bottom:none;">💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表</h2>
         <span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #fcd34d;">
-          42 項核心指示 ✕ 100% 驗證收錄
+          43 項核心指示 ✕ 100% 驗證收錄
         </span>
       </div>
       <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
@@ -2613,7 +2623,8 @@ html_template = f"""<!DOCTYPE html>
                 • <strong>實體到店 85 折 ＋ 手機外送防卡死雙軌商店</strong><br>
                 • <strong>案件照片收藏冊</strong> 與 <strong>社區信賴度 Lv.1~Lv.5</strong><br>
                 • <strong>六年級友善防嚇馬賽克按鈕</strong>（預設遮罩，零 18 禁）<br>
-                • <strong>遊戲虛構偵查筆錄</strong>（嫌疑人全員具備真實姓名）
+                • <strong>遊戲虛構偵查筆錄</strong>（嫌疑人全員具備真實姓名）<br>
+                • <strong>專屬校園私服器同屏可視化</strong>（全班連入同一個私服世界、街頭互相看見彼此角色跑動、頭頂名牌與狀態氣泡、全服破案號外廣播）
               </td>
               <td>獨立研究成果展現場 100% 可供評審與同學親自動手試玩之完整垂直切片與可遊玩版本。</td>
               <td><span style="font-size:12px; font-weight:800; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px;">✅ 16週核心</span></td>
@@ -3158,23 +3169,34 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- 04A｜共享世界體系：突發事件、未來多人連線搶案 vs 個人晉升任務 -->
     <div class="card" id="sec-04a">
-      <h2>🌐 04A｜共享世界體系：突發事件、未來多人連線搶案 vs 個人晉升任務</h2>
+      <h2>🌐 04A｜專屬私服器共享世界：全體玩家同屏可見、同地圖互動與同步案件體系</h2>
 
-      <h3>1. ⚡ 不定時突發事件（Dynamic Events）—— 柯南式用餐遭遇！</h3>
-      <div class="callout accent">
-        <div class="callout-title">☕ 誰說破案一定要事先接單？</div>
-        如同《名偵探柯南》中柯南去咖啡店吃三明治必遇命案，本遊戲設計了逼真的<strong>「街頭突發事件」</strong>：
+      <div class="callout tip">
+        <div class="callout-title">🖥️ 專屬校園私服器架構（Dedicated Private Server）—— 同一個雙北世界，互相看得到彼此！</div>
+        本專案拒絕孤立閉塞的單機模式，核心確立採用<strong>「校園／班級專屬私服器（Private Dedicated Server）」</strong>架構：
         <ul style="margin-top:6px; margin-bottom:0;">
-          <li><strong>不定時隨機觸發</strong>：玩家在咖啡店用餐、搭乘 307 公車、或在便利超商買飲料時，可能無預警遭遇鄰桌客人中毒、錢包調包等緊急事件。</li>
-          <li><strong>現場立即封鎖</strong>：突發瞬間鐵捲門拉下或公車靠邊停駛，現場進入 20~25 分鐘限時排查，代入感極強！</li>
+          <li><strong>同一個私服器、同一個世界</strong>：所有同學連入同一個私服世界實例，共同漫遊於同一座 2.5D 雙北開放地圖中，杜絕分流副本！</li>
+          <li><strong>★ 街頭同屏可視化（Visual Player Co-Presence）</strong>：在西門町騎樓、台北車站大廳、淡水老街漫步時，<strong>能即時看到身邊其他同學的 2.5D 像素小偵探角色在奔跑、查案、騎 YouBike 或搭公車</strong>！</li>
+          <li><strong>頭頂名牌與即時狀態氣泡</strong>：每位玩家角色頭頂清楚標示<strong>【自訂暱稱】</strong>與<strong>【偵探階級徽章】</strong>；並支援即時動作狀態氣泡（例如正在調查時頭頂冒出 <code>🔍 採樣中</code>、在咖啡店時顯示 <code>☕ 休息中</code>、查地圖時顯示 <code>🗺️ 尋路中</code>）。</li>
+          <li><strong>輕量社交與打招呼</strong>：走近其他同學按空白鍵即可<strong>揮手打招呼（Wave）</strong>或發送萌趣表情符號，並可發起<strong>「交換線索」</strong>或<strong>「組隊邀請」</strong>！</li>
         </ul>
       </div>
 
-      <h3>2. 🏆 共享競速公開案件（標記為：未來多人連線擴充功能，首發版採單機對手模擬）</h3>
+      <h3>1. ⚡ 不定時突發事件（Dynamic Events）—— 柯南式用餐遭遇與全員同屏見證！</h3>
+      <div class="callout accent">
+        <div class="callout-title">☕ 誰說破案一定要事先接單？全員同屏見證突發案件！</div>
+        如同《名偵探柯南》中柯南去咖啡店吃三明治必遇命案，本遊戲設計了逼真的<strong>「街頭突發事件」</strong>：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>同場景所有玩家同步觸發</strong>：當西門町連鎖咖啡店突發下毒事件時，<strong>身處該咖啡店與周邊的所有在線同學，同屏看到店家拉下鐵捲門拉起黃色封鎖線</strong>！</li>
+          <li><strong>限時現場共同排查</strong>：現場進入 20~25 分鐘限時突發偵查，大家各自在同一空間內尋找物證、詢問證人，臨場緊張感直接拉滿！</li>
+        </ul>
+      </div>
+
+      <h3>2. 🏆 私服器競速搶案與全服號外廣播（Server-wide Breaking News）</h3>
       <ul>
-        <li><strong>同一個在線雙北</strong>：所有人登入同一個在線世界，所有人看到的共享案件數量、內容與倒數計時<strong>完全同步</strong>。</li>
-        <li><strong>合作與競速搶案</strong>：同學們可以組隊分工調查，也可以競速爭奪全服唯一首解榮譽與高額破案賞金。</li>
-        <li><strong>【全服同步結束機制】</strong>：<strong>一旦任何一名玩家率先向伺服器提交了正確且完整的推理驗證，或者案件時限倒數結束，伺服器會立即發布全服號外廣播，全服所有玩家的該案件畫面「同步結束」</strong>！</li>
+        <li><strong>同一個在線雙北世界</strong>：所有人登入同一個專屬私服器，所有人看到的共享公開案件數量、內容與倒數計時<strong>完全同步</strong>。</li>
+        <li><strong>合作分工或競速搶案</strong>：同學們可以組隊分頭搜尋案發現場周邊的三軌道具彩蛋，也可以各憑本事競速爭奪全服首解榮譽！</li>
+        <li><strong>【全服同步結案號外廣播】</strong>：<strong>一旦任何一名同學率先透過物證對質打臉破案，私服器會向全服所有在線玩家螢幕上方推播滾動式「全服新聞號外廣播（Breaking News）」</strong>，所有玩家畫面上的該案件「同步結束」並揭示破案英雄榜！</li>
       </ul>
 
       <h3>3. 🔒 ★ 零劇透保護與未破懸案封存協議（Zero-Spoiler Cold Case Protocol）</h3>
@@ -3651,6 +3673,11 @@ html_template = f"""<!DOCTYPE html>
             <td><strong>AI 擴充與驗證管線</strong></td>
             <td>6階閉環驗證管線（格式＋規則＋線索完整性＋解題測試）</td>
             <td>自動淘汰格式錯誤、邏輯衝突或不可解之案件，確保遞補入庫案件質量達標。</td>
+          </tr>
+          <tr>
+            <td><strong>專屬私服器與同屏同步</strong></td>
+            <td>Node.js + WebSockets (Socket.io) 輕量私服器</td>
+            <td>全體玩家登入同一個私服器世界實例，15Hz 座標廣播與客戶端插值平滑移動，同屏看見彼此跑動調查；成果發表會支援班級區域網路（LAN）私服模式，免外網即可全班同屏連線！</td>
           </tr>
         </tbody>
       </table>
