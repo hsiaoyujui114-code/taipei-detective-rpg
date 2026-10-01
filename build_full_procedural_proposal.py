@@ -224,7 +224,7 @@ launch_demo_cases = [
                 "truth_revelation": "對密碼學一知半解，將小人誤判為凱撒位移密碼，實際上根本解不開暗格的語料庫頻率密碼。"
             },
             {
-                "name": "趙老爹（淡水在地泥水修復匠師）",
+                "name": "趙坤元（人稱趙老爹，泥水修復匠師）",
                 "role_tag": "【嫌疑人 B：行徑可疑／隱瞞私情】",
                 "motive": "兒子在八里簽賭欠錢，老爹見到警察神色慌張，懷中沉甸甸鼓起一大包。",
                 "alibi_statement": "我只是做工的粗人，我不懂什麼小人大人，我懷裡是自己的工具！",
@@ -238,7 +238,7 @@ launch_demo_cases = [
                 "truth_revelation": "精通 19 世紀古典單表替換密碼（Substitution Cipher），利用語料庫字母頻率分析法（E/T/A 頻率），早已算出解密單詞「PORT KEY」，趁午休溜回取走金錶！"
             },
             {
-                "name": "孫小姐（海關園區售票員）",
+                "name": "孫佩芬（海關園區售票員）",
                 "role_tag": "【嫌疑人 D：目擊證人／偏誤陳述】",
                 "motive": "無作案動機，為午間出入登記站哨人員。",
                 "alibi_statement": "12:20 我看到一個穿深色寬大雨衣的高大男子走進倉庫，很像趙老爹的身材！",
@@ -317,7 +317,7 @@ launch_demo_cases = [
                 "truth_revelation": "明知老董生前常用檸檬汁書寫秘密，私下攜帶吹風機試圖高溫破壞纖維未果，極力主張判定為廢紙！"
             },
             {
-                "name": "何伯（溫泉旅館資深管家）",
+                "name": "何福壽（人稱何伯，溫泉旅館資深管家）",
                 "role_tag": "【嫌疑人 D：目擊證人／提供證言】",
                 "motive": "無繼承權，誓死捍衛老董事長心願。",
                 "alibi_statement": "老爺昨晚寫信前，特別叫我去廚房切了一整顆屏東產的新鮮黃檸檬，並拿了全新狼毫毛筆。",
@@ -395,7 +395,7 @@ launch_demo_cases = [
                 "truth_revelation": "故意拋出水面折射謬論調虎離山，實則精確等待太陽高度角 35°、方位角 240° 的直線日影幾何投影，其鞋底沾有只有第三層假山暗洞才有的特製防潮紅黏土！"
             },
             {
-                "name": "謝媽媽（資深文史導覽志工）",
+                "name": "謝淑慧（文史導覽志工）",
                 "role_tag": "【嫌疑人 D：目擊證人／提供證言】",
                 "motive": "無作案動機，長期熱心導覽。",
                 "alibi_statement": "案發前 14:10 左右，我看見一個戴金絲眼鏡、穿西裝外套的人拿著一把紅色雷射測距儀在測量漏窗高度。",
@@ -452,28 +452,28 @@ launch_demo_cases = [
         "relationship_network": "【店方】店長阿信、店員阿豪 ➔ 狂熱粉絲：周同學（高二生，動漫徽章滿身） ➔ 急躁商務：趙先生（急於結帳趕高鐵） ➔ 卡牌黃牛：孫小姐（二手卡買手，戴薄羊皮手套）。",
         "suspects_pool": [
             {
-                "name": "周同學（高中動漫社社長）",
+                "name": "周子翔（高中動漫社社長）",
                 "role_tag": "【嫌疑人 A：強烈動機／煙霧彈】",
                 "motive": "身上背著滿滿該動漫徽章的「痛包」，在展示櫃前拍照徘徊超過十分鐘，動機極高。",
                 "alibi_statement": "我只是在跟立牌拍照打卡！我零用錢都買公仔了，哪敢偷東西？",
                 "truth_revelation": "背包搜出只有教科書與超商冷便當發票，無涉案工具。"
             },
             {
-                "name": "趙先生（外商金融主管）",
+                "name": "趙博文（外商金融主管）",
                 "role_tag": "【嫌疑人 B：行徑可疑／隱瞞私情】",
                 "motive": "不斷看錶推擠旋轉門，破口大罵店長限制人身自由，行為極端抗拒盤查。",
                 "alibi_statement": "我趕著去台北車站搭高鐵！一張小孩子卡片關我什麼事？耽誤我幾百萬生意你們賠得起嗎？",
                 "truth_revelation": "公事包夾層偷藏著私房錢存摺與名牌香水，怕被隨行同事發現，與金卡失竊完全無涉。"
             },
             {
-                "name": "孫小姐（二手卡牌精品買手）",
+                "name": "孫韻婷（二手卡牌精品買手）",
                 "role_tag": "【嫌疑人 C：真兇／致命破綻】",
                 "motive": "專門收購限量特典卡轉賣海外市場，獲利豐厚，進店全程佩戴黑色薄羊皮手套。",
                 "alibi_statement": "我雙手一直戴著羊皮手套，連櫃子把手都沒碰，展示盒上怎麼可能會有我的痕跡？",
                 "truth_revelation": "其右手套食指處有細小磨損破洞，且不知 4°C 冷藏櫃遇外界熱空氣冷凝成露珠時，其呼出的熱水汽在低溫玻璃表面瞬間凝結形成露點水珠散射，清晰映出其指紋！大衣內袋具有防偽紫外螢光反應！"
             },
             {
-                "name": "阿豪（超商當班早班店員）",
+                "name": "李志豪（人稱阿豪，超商當班早班店員）",
                 "role_tag": "【嫌疑人 D：目擊證人／提供證言】",
                 "motive": "無動機，為第一發現人。",
                 "alibi_statement": "我補貨時看到那個穿黑大衣戴手套的小姐靠展示架最近，而且還對著冷藏櫃吹了口氣。",
@@ -551,7 +551,7 @@ launch_demo_cases = [
                 "truth_revelation": "力學重心分析顯示：車廂向正前方急煞，所有人體慣性向量必定朝車頭方向傾倒；唯獨彭曉嵐右臂有朝車尾死命對抗 1.2G 加速度的反向拉傷，且穿著專業防滑深蹲鞋！"
             },
             {
-                "name": "列車調度員與行車記錄儀",
+                "name": "崔立國（北捷列車調度員）",
                 "role_tag": "【嫌疑人 D：目擊證人／提供技術數據】",
                 "motive": "無作案動機，提供官方行車數據。",
                 "alibi_statement": "行車記錄儀顯示減速度高達 1.3 m/s²，車內所有未固定物體全部朝前方移動。",
@@ -629,7 +629,7 @@ launch_demo_cases = [
                 "truth_revelation": "黑狗因熟識他故整夜未吠（福爾摩斯〈銀色馬〉盲點）！更致命的是：其調包的山蘿蔔根重量僅 112 公克，為了讓天平平衡，他私自將天平右側的 50g 銅砝碼內部掏空熔入輕鋁合金！"
             },
             {
-                "name": "黑旋風（藥鋪十歲老黑狗）",
+                "name": "蔡秉憲（藥鋪配藥助理兼黑犬飼養人）",
                 "role_tag": "【嫌疑人 D：關鍵生物證人】",
                 "motive": "無作案動機，對陌生人極為兇狠暴躁。",
                 "alibi_statement": "（無聲）",
@@ -693,7 +693,7 @@ launch_demo_cases = [
                 "truth_revelation": "外送箱打開散發熱騰騰香氣，完全無長輩皮夾與金飾，純粹因超時焦慮。"
             },
             {
-                "name": "吳同學（高中棒球隊校隊隊長）",
+                "name": "吳冠佑（高中棒球隊校隊隊長）",
                 "role_tag": "【嫌疑人 B：行徑可疑／隱瞞私情】",
                 "motive": "將長型球棒袋死命夾在兩腿之間，神情緊繃、不敢與任何人對視。",
                 "alibi_statement": "我袋子裡只是我的手套跟球棒，沒什麼好看的！",
@@ -707,7 +707,7 @@ launch_demo_cases = [
                 "truth_revelation": "車身向右轉彎時，車內物體受向心加速度與假想離心力影響應朝「左側走道」傾斜；但他卻逆向朝「右側單人座」李奶奶壓去！更利用連續手肘壓迫麻痺李奶奶的觸覺神經受器！"
             },
             {
-                "name": "坐在後排的王大學生",
+                "name": "王崇遠（國立大學心理系大學生）",
                 "role_tag": "【嫌疑人 D：目擊證人／提供證言】",
                 "motive": "無涉案利益，後排清晰視角。",
                 "alibi_statement": "公車轉彎前明明還有空位，那個西裝男卻故意離開座位站到奶奶身邊，而且右手一直放在西裝暗袋邊緣。",
@@ -786,7 +786,7 @@ launch_demo_cases = [
                 "truth_revelation": "運用固體壓強公式 P = F / A！利用庫房內的寬版造園高密度軟木墊板，自製了長 80cm 寬 25cm 的超寬套鞋底（接地面積達 2000cm²），將體重均勻分攤使對地壓強低至 3.7 kPa（遠小於泥土塑性降伏點 25 kPa），行走不留坑陷！"
             },
             {
-                "name": "老趙（大安森林公園夜班巡守員）",
+                "name": "趙清風（人稱老趙，大安森林公園夜班巡守員）",
                 "role_tag": "【嫌疑人 D：目擊證人／提供證言】",
                 "motive": "無作案動機，為第一報案人。",
                 "alibi_statement": "21:30 我巡邏時看見工班工具庫房的推車被動過，草坪邊緣雖然沒有腳坑，但草葉尖端有整齊的一排伏倒折痕。",
@@ -1352,7 +1352,79 @@ user_traceability_matrix = [
         "quote": "移動太遠可以設定好位置，付完錢後快轉過去",
         "section": "02A 交通網絡與費率",
         "section_id": "sec-02",
-        "detail": "實裝「遠程大眾運輸時空快轉機制」：當調查目的地太遠時，玩家可在站牌、閘門或手機 App 直接設定目的地站點，系統自動扣除悠遊卡／生活幣車資，隨即播放 2.5 秒精緻像素車窗剪影動畫（雙北街景、淡水河夕照快速滑過＋報站廣播）快轉抵達；遊戲內時鐘依真實路況等比推移（如台北到淡水快轉 35 分鐘），兼顧流暢不枯燥與時間管理推理解謎真實性。"
+        "detail": "實裝「遠程大眾運輸時空快轉機制」：當調查目的地太遠時，玩家可在站牌、閘門或手機 App 直接設定目的地站點，系統自動扣除悠遊卡／生活幣車資，隨即播放 2.5 秒精緻像素車窗剪影動畫（雙北街景、淡水河夕照快速滑過＋報站廣播）快轉抵達；遊戲內時鐘維持自然流速不強迫跳躍，兼顧流暢不枯燥與自由漫遊體驗。"
+    },
+    {
+        "num": "29",
+        "category": "大眾運輸官方票價",
+        "quote": "大眾運輸價錢要跟實際一樣!",
+        "section": "02A 交通網絡與費率",
+        "section_id": "sec-02",
+        "detail": "全面參照雙北官方現行計費：公車全票 15 元、學生票 12 元（一段票 15/二段票 30）；台北捷運里程計費 20～65 元（0~5km 20元至 31km+ 65元）；捷運公車雙向轉乘享 8 元轉乘優惠（學生折 6 元）；YouBike 2.0 台北市前 30 分鐘免費、新北市前 30 分鐘 5 元（轉乘前30分免費）。"
+    },
+    {
+        "num": "30",
+        "category": "真實建築與商品類型",
+        "quote": "進入的建築位置要跟現實一樣，但賣的東西類型要一樣",
+        "section": "02.2 建築標記與真實店鋪",
+        "section_id": "sec-02",
+        "detail": "所有可進入建築位置 100% 參照 OSM 現實雙北地址座標；店鋪販售物品類型完全吻合現實：7-11/全家賣熱茶葉蛋（13元）、真飽涼麵、乾電池、夾鏈袋；迪化街中藥行賣當歸人蔘天平；五金行賣螺絲起子捲尺；光華電子賣紫外線手電筒與錄音筆。"
+    },
+    {
+        "num": "31",
+        "category": "團隊協同不設分工",
+        "quote": "不用分工",
+        "section": "01 基本定位與團隊協同",
+        "section_id": "sec-01",
+        "detail": "徹底移除僵化之三人研究員 A/B/C 個別分工卡片，確立「三人全員全能協同研發模式」，全體組員共同參與案件劇本、地圖測繪、程式開發與科學考據，全員具備全方位探究能力。"
+    },
+    {
+        "num": "32",
+        "category": "驚悚懸疑案件強化",
+        "quote": "多一點驚悚的案件",
+        "section": "04 案件庫與驚悚專題",
+        "section_id": "sec-04",
+        "detail": "大幅提高驚悚指數（👻👻 微驚悚與 👻👻👻 暗夜驚魂案件比例擴增至 40% 以上），增闢「辛亥隧道深夜熄火幽靈鬼火案」、「北投廢棄舊溫泉人偶黑影案」、「金瓜石礦坑午夜鐘聲案」、「西門町百年老戲院暗夜鋼琴案」，嚴守科學揭秘本質並輔以防嚇馬賽克保護。"
+    },
+    {
+        "num": "33",
+        "category": "快轉不強迫跳時間",
+        "quote": "不需要遊戲時鐘等比推進",
+        "section": "02A 交通快轉機制",
+        "section_id": "sec-02",
+        "detail": "修正快轉機制：搭乘公車或捷運付費快轉抵達目的地時，遊戲內時鐘維持自然平緩流速，【不進行等比強制快轉跳時間】！徹底免除時間跳躍帶來的錯過 NPC 作息或天氣變化的焦慮感，確保動森般的無壓力漫遊。"
+    },
+    {
+        "num": "34",
+        "category": "全城大規模搜捕案件",
+        "quote": "還是可以有一些搜捕規模較大的案件",
+        "section": "02B 交通戰略與大規模搜捕",
+        "section_id": "sec-02b",
+        "detail": "實裝大規模全城警民聯合大搜捕案件：【台北車站至西門町地下街三路全封鎖圍捕】、【淡水河水陸空全域大追緝】、【新板特區空中迴廊天羅地網搜捕】，跨多個行政區與警局轄區，調動防煙鐵捲門、號誌控管與巡邏警車路障，震撼智力截停！"
+    },
+    {
+        "num": "35",
+        "category": "嫌疑人全員實名制",
+        "quote": "嫌疑人要有一個明子（名字）",
+        "section": "04B 司法程序與嫌疑人名冊",
+        "section_id": "sec-04b",
+        "detail": "全面推行「嫌疑人實名制」：所有涉案嫌疑人一律擁有具體、真實的華人全名（如：趙坤元、孫佩芬、何福壽、謝淑慧、周子翔、趙博文、孫韻婷、李志豪、崔立國、王崇遠、趙清風等），嚴禁以模糊稱謂或代號取代。"
+    },
+    {
+        "num": "36",
+        "category": "NPC問候與超商買蛋",
+        "quote": "NPC 開始主動打招呼，便利超商買茶葉蛋偶爾多給一張衛生紙。   不用給衛生紙",
+        "section": "03 自由漫遊<br>07 社區信賴度",
+        "section_id": "sec-03",
+        "detail": "NPC 走在街上會主動向小偵探冒對話泡泡熱情打招呼；走到超商夾取熱茶葉蛋（13元）結帳時店員親切加油打氣；同時落實綠色環保【不用給衛生紙】，以溫暖人情味取代垃圾耗材。"
+    },
+    {
+        "num": "37",
+        "category": "PaGamO領地開拓風格",
+        "quote": "可以向pagamo的顯示方式",
+        "section": "02 OSM 地理與標記<br>08 技術選型",
+        "section_id": "sec-02",
+        "detail": "地圖全面導入 PaGamO 2.5D 等角六角領地開拓視覺風格：雙北地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「淨化點亮」街區地塊，並在領地中央插上專屬的「金色小偵探榮譽旗幟」，享受如 PaGamO 般的領地擴張與全域點亮成就感！"
     }
 ]
 
@@ -1393,13 +1465,13 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ---
 
-## 📌 01｜專案基本定位、核心精神與三人團隊深層分工
+## 📌 01｜專案基本定位、核心精神與團隊全員協同研發（不設固定分工）
 - 核心精神：結合真實雙北 OpenStreetMap 地圖的 2.5D 都會慢活探索推理遊戲。以公車為主、捷運為輔，兼具日常漫遊與突發案件偵破。
 - 專案身分聲明：本企劃書為國小六年級獨立研究專題成果，非商業營利產品。
-- 三人分工架構：
-  * 研究員 A（總策劃與劇情敘事）：負責主線與突發案件劇本、名著致敬與自然科學融入、NPC 劇本與台味彩蛋。
-  * 研究員 B（世界觀與地理架構）：負責 OSM 雙北地圖匯入、分區逐步開放排程、公車與捷運路線整合、建築可進入標記系統。
-  * 研究員 C（遊戲機制與系統工程）：負責核心偵查玩法、動態天氣雙軌制、道具系統、多嫌疑人筆錄交叉比對系統、AI 案件自動驗證管線。
+- 團隊協同研發模式（全員全能，不搞僵化分工）：
+  * 三名組員全員共同參與案件劇本發想、名著致敬與自然科學實驗考據。
+  * 全員共同進行雙北 OSM 真實地理測繪、公車路線踩點與店鋪座標核對。
+  * 全員共同參與系統介面規劃、筆錄對質邏輯設計、AI 自動驗證管線與發表會演練。
 
 ---
 
@@ -1432,12 +1504,17 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ---
 
-## 🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、建築進出標記與交通費率
+## 🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、PaGamO式領地開拓、建築進出標記與真實大眾運輸運價
 1. 以 OpenStreetMap (OSM) 真實地理為基礎，逐步開放區域（階段一西門北車、階段二大稻埕大安、階段三淡水板橋北投）。
-2. 建築進出發光圖案標記系統（Enterable Building Markers）：可進入建築頭頂標記🏪、☕、🏛️、🚪、♨️，不可進建築無標記。
-3. 交通費率：步行免費；YouBike 5 點（前 30 分鐘）；雙北公車 15 點（主要骨幹）；台北捷運 20~65 點。
-4. ★ 遠程大眾運輸「預設目的地 ➔ 票證扣款 ➔ 車程時空快轉」系統（拒絕跑圖疲勞）：移動太遠時，玩家可在站牌、閘門或手機 App 直接設定目的地，系統自動結算並扣除悠遊卡／生活幣車資，隨即切換 2.5 秒精緻像素車窗剪影快轉抵達；遊戲內時鐘依真實路況等比推移（如台北至淡水快轉推進 35 分鐘），兼顧遊玩節奏與時空解謎真實性。
-5. 時間與氣象雙軌制：遊戲時間 1:6。CWA 氣象局 API 每 15 分鐘快取，斷線自動啟動離線預設氣象循環。
+2. ★ PaGamO 式 2.5D 等角六角領地開拓視覺風格：地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「點亮淨化」街區，並在中央插上「金色小偵探榮譽旗幟」，享受領地拓荒成就感！
+3. ★ 建築進出標記與「真實地理位置 ✕ 真實商品類型」原則：建築位置 100% 參照現實地址；超商（7-11/全家）賣溫熱茶葉蛋（13元）、真飽涼麵、乾電池、夾鏈證物袋；中藥行賣當歸人蔘天平；五金行賣螺絲起子捲尺；光華電子賣紫外線手電筒與錄音筆。
+4. ★ 大眾運輸價錢 100% 與現實一致：
+   - 雙北公車：一段票全票 15 元、學生票 12 元，二段票 30 元。公車與捷運雙向轉乘享 8 元轉乘優惠（學生折 6 元）！
+   - 台北捷運：里程計費 20～65 元（0~5km 20元、5~8km 25元、8~11km 30元...最高 31km+ 65元），支援常客優惠 10%~30%。
+   - YouBike 2.0：台北市前 30 分鐘免費（2024新制）；新北市前 30 分鐘 5 元（公車捷運轉乘享前30分免費）。
+   - 步行：免費。
+5. ★ 遠程大眾運輸「預設目的地 ➔ 票證扣款 ➔ 車程時空快轉」系統（【不需要遊戲時鐘等比推進！】）：移動太遠時，玩家在站牌、閘門或手機 App 直接設定目的地，系統自動扣除悠遊卡車資，隨即播放 2.5 秒精緻像素車窗剪影快轉抵達；遊戲時鐘維持自然流速，不強制快轉跳躍時間，遊玩無壓力！
+6. 時間與氣象雙軌制：遊戲時間 1:6。CWA 氣象局 API 每 15 分鐘快取，斷線自動啟動離線預設氣象循環。
 
 ---
 
@@ -2245,7 +2322,7 @@ html_template = f"""<!DOCTYPE html>
     <div class="nav-bar">
       <span style="font-size:12px; font-weight:800; color:var(--primary); align-self:center; margin-right:4px;">章節導覽：</span>
       <a href="#sec-00" class="nav-chip" style="background:#fef3c7; color:#92400e; border-color:#fcd34d;">💎 00 創意需求全面落實總表</a>
-      <a href="#sec-01" class="nav-chip">01 定位與分工</a>
+      <a href="#sec-01" class="nav-chip">01 定位與團隊協同</a>
       <a href="#sec-01a" class="nav-chip" style="background:#fdf2f8; color:#be185d; border-color:#fbcfe8;">📚 01A 108課綱素養對照</a>
       <a href="#sec-02" class="nav-chip">02 OSM 地理與標記</a>
       <a href="#sec-02b" class="nav-chip" style="background:#f0f9ff; color:#0284c7; border-color:#7dd3fc;">🚦 02B 交通脈動戰略</a>
@@ -2267,7 +2344,7 @@ html_template = f"""<!DOCTYPE html>
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <h2 style="margin-bottom:0; color:#92400e; border-bottom:none;">💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表</h2>
         <span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #fcd34d;">
-          28 項核心指示 ✕ 100% 驗證收錄
+          37 項核心指示 ✕ 100% 驗證收錄
         </span>
       </div>
       <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
@@ -2294,7 +2371,7 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- 01｜專案基本定位、核心精神與三人團隊深層分工 -->
     <div class="card" id="sec-01">
-      <h2>📌 01｜專案基本定位、核心精神與三人團隊深層分工</h2>
+      <h2>📌 01｜專案基本定位、核心精神與團隊全員協同研發（不設固定分工）</h2>
       <p>
         《雙北漫遊偵探：都會行蹤》是一部由<strong>國小六年級三名同學組成的獨立研究小組</strong>自主設計與研發的原創 2.5D 都會慢活偵探 RPG。
         本專案旨在將<strong>台灣雙北真實地理人文（OpenStreetMap）</strong>、<strong>真實大眾運輸費率</strong>與<strong>國小高年級自然科學物理化學知識</strong>，
@@ -2313,35 +2390,15 @@ html_template = f"""<!DOCTYPE html>
         <li><strong>動態突發與共享在線世界</strong>：在咖啡廳喝飲料可能鄰桌突發食物中毒；或者在全服同步的世界裡，與同學們競速搶破同一宗台北車站大案！</li>
       </ul>
 
-      <h3>👥 三人研究團隊詳細職責規劃</h3>
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-role">👑 研究員 A（總策劃與劇情敘事）</div>
-          <strong>核心職責：</strong>
-          <ul style="margin-left:16px; margin-top:6px; font-size:13px;">
-            <li>50 宗大案總綱編寫與 10 大首發示範案深層情境設計。</li>
-            <li>經典推理小說（柯南、福爾摩斯、口袋神探）手法之國小科學轉譯。</li>
-            <li>人物對白、在地 NPC 故事與台灣街道彩蛋編寫。</li>
-          </ul>
-        </div>
-        <div class="team-card">
-          <div class="team-role">🗺️ 研究員 B（世界觀與地理架構）</div>
-          <strong>核心職責：</strong>
-          <ul style="margin-left:16px; margin-top:6px; font-size:13px;">
-            <li>雙北真實 OSM (OpenStreetMap) 地理座標校準與圖層分級。</li>
-            <li>公車 307 等代表性路線、台北捷運站點與 YouBike 點位測繪。</li>
-            <li>「建築進出發光圖案標記系統」規劃與室內外空間對應表。</li>
-          </ul>
-        </div>
-        <div class="team-card">
-          <div class="team-role">💻 研究員 C（遊戲機制與系統工程）</div>
-          <strong>核心職責：</strong>
-          <ul style="margin-left:16px; margin-top:6px; font-size:13px;">
-            <li>HTML5 / Canvas / 2.5D 等角投影引擎與手動鑑識工具互動程式。</li>
-            <li>氣象局 CWA API 實時對接與離線安全備案切換邏輯。</li>
-            <li>AI 案件生成自動驗證管線與 JSON Schema 規格制訂。</li>
-          </ul>
-        </div>
+      <h3>👥 三人研究團隊全員全能協同研發模式（無固定分工，全員一體！）</h3>
+      <div class="callout tip">
+        <div class="callout-title">🤝 全員全能協作，打破職能壁壘！</div>
+        本專案由國小六年級獨立研究小組<strong>三名組員全員共同協作、全方位參與各項研發</strong>，不進行生硬的個人職責分工：
+        <ul style="margin-top:6px; margin-bottom:0;">
+          <li><strong>全員參與劇本與案件設計</strong>：三人共同研讀《名偵探柯南》、《福爾摩斯》與《口袋神探》，一起發想 50 宗大案、設計人物關係與設計動手操作步驟。</li>
+          <li><strong>全員參與地理測繪與田野調查</strong>：三人實地走訪西門町、大稻埕、北車與淡水老街，比對 OpenStreetMap 道路與店鋪座標，校對真實公車站牌。</li>
+          <li><strong>全員參與程式開發與實驗考據</strong>：共同在教室動手做廣用試紙、天平浮力與透鏡光學實驗，共同驗證 AI 案件生成管線與 Canvas 互動邏輯。</li>
+        </ul>
       </div>
     </div>
 
@@ -2514,64 +2571,116 @@ html_template = f"""<!DOCTYPE html>
         </tbody>
       </table>
 
-      <h3>2. ★ 建築進出發光圖案標記系統（Enterable Building Markers）</h3>
+      <h3>2. ★ 建築進出標記與「真實地理位置 ✕ 真實商品類型」原則</h3>
       <p>
-        為了兼顧開放世界的真實感與三人研發團隊的美術工作量，遊戲採用了<strong>「建築進出標記標準化」</strong>機制：
+        遊戲中所有可進入之店鋪與場館，其<strong>經緯度地理位置 100% 依據 OpenStreetMap (OSM) 真實雙北地址測繪</strong>，且店內<strong>販售之商品類型與真實店家完全一致</strong>：
       </p>
-      <ul>
-        <li><strong>可進入建築（Enterable Buildings）</strong>：建築屋頂或正門上方會常駐<strong>浮動發光圖案標記</strong>。走近時會發出輕柔光芒與微弱音效，玩家點擊或靠近即可平滑切換進入精緻手繪室內場景：
-          <ul style="margin-top:4px;">
-            <li>🏪 <strong>便利商店</strong>：漢中街超商、北車地下一街超商（購買電池、試紙、飲料、零食）。</li>
-            <li>☕ <strong>咖啡店／餐廳</strong>：西門町三層連鎖咖啡廳、大稻埕老茶館（用餐回體力、觸發突發案件）。</li>
-            <li>🌿 <strong>中藥草堂</strong>：迪化街百年南北貨老鋪（微型學習、辨識密度砝碼）。</li>
-            <li>🏛️ <strong>文化場館／圖書館</strong>：淡水海關公署故事館、市圖總館（解鎖密碼表與歷史檔案）。</li>
-            <li>♨️ <strong>溫泉旅店</strong>：北投老日式溫泉湯屋（熱敏反應實驗舞台）。</li>
-          </ul>
-        </li>
-        <li><strong>不可進入建築（Non-Enterable Buildings）</strong>：雙北街道兩旁大部分的民宅公寓與辦公大樓，作為真實城市天際線的背景街景。<strong>上方完全不顯示任何發光標記</strong>，玩家自然理解其為背景，省去到處撞門的困擾，確保遊玩流暢度。</li>
-      </ul>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:16%;">建築與標記</th>
+              <th style="width:26%;">雙北真實地理位置（地址）</th>
+              <th style="width:34%;">店內真實販售物品類型（完全符合現實）</th>
+              <th style="width:24%;">在破案偵查中的實用功能</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🏪 <strong>便利超商</strong><br>(7-11 / 全家)</td>
+              <td>• 萬華區漢中街 7-11 西門門市<br>• 中正區忠孝西路一段北車地下一街門市<br>• 大同區迪化街一段全家門市</td>
+              <td>• 溫熱茶葉蛋（13元）、真飽麻醬涼麵（49元）、微波肉燥便當、現萃冰紅茶<br>• 金頂/黑貓 3 號與 4 號乾電池、水性簽字筆、透氣膠帶、透明夾鏈密封袋</td>
+              <td>食用熱食快速恢復精力值；乾電池供應紫外線手電筒；夾鏈袋作為現場無菌證物袋。</td>
+            </tr>
+            <tr>
+              <td>🌿 <strong>中藥蔘藥行</strong></td>
+              <td>• 大同區迪化街一段乾元蔘藥行<br>• 萬華區民樂街青草茶百年老鋪</td>
+              <td>• 特等高麗人蔘、當歸片、枸杞、杜仲、純草本青草茶<br>• 傳統等臂十六兩銅天平、純銅秤砣砝碼組、生鐵研磨缽</td>
+              <td>藉由等臂天平與標準砝碼檢驗金屬比重；購買青草茶解暑解除疲勞 Debuff。</td>
+            </tr>
+            <tr>
+              <td>🔧 <strong>打鐵五金行</strong></td>
+              <td>• 大同區興城街打鐵五金街老鋪<br>• 萬華區環河南路一段五金工具行</td>
+              <td>• 多功能十字/一字螺絲起子組、5米不鏽鋼捲尺、工業電氣絕緣黑膠帶、防滑棉紗手套、手動高壓吹塵球</td>
+              <td>撬開鬆動石壁暗格、測量命案現場煞車痕與拋物距離、絕緣採集高壓電路微痕。</td>
+            </tr>
+            <tr>
+              <td>💻 <strong>數位電子商場</strong></td>
+              <td>• 中正區市民大道三段光華數位新天地<br>• 中正區八德路一段三創生活園區</td>
+              <td>• 365nm 波長高純度紫外線鑑識手電筒、便攜高抗噪微型錄音筆、手持數位微量電子秤（精度 0.01g）、高倍率 LED 放大檢查鏡</td>
+              <td>檢測血跡與有機生物鹼色帶展開；微型秤精準秤量微量粉末物證；錄音筆備份供詞。</td>
+            </tr>
+            <tr>
+              <td>📚 <strong>書店文具行</strong></td>
+              <td>• 中正區重慶南路一段書店街門市<br>• 中正區衡陽路經典文具老店</td>
+              <td>• 硬殼格紋偵探速記本、60倍手持雙凸透鏡、化學廣用試紙補充包、紅藍雙色標記筆、密碼字頻對照表字典</td>
+              <td>手動抄錄筆錄自述、比對試紙酸鹼度變色、手動破解英文字頻替代密碼。</td>
+            </tr>
+            <tr>
+              <td>♨️ <strong>溫泉浴場</strong></td>
+              <td>• 北投區光明路瀧乃湯浴場<br>• 北投區溫泉路古老日式大眾湯屋</td>
+              <td>• 硫磺溫泉原湯浸泡服務、青磺泉水採樣瓶、特製竹編水瓢、溫泉毛巾</td>
+              <td>利用 45°C 高溫泉水蒸氣還原熱敏變色墨水；檢驗硫化氫與金屬銀飾之硫化黑斑反應。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px; color:#64748b; margin-top:8px;">
+        ※ <strong>不可進入建築（Non-Enterable Buildings）</strong>：雙北街道兩旁之普通民宅公寓與商業辦公大樓，上方完全不顯示任何圖案標記，作為實體街景碰撞阻擋，杜絕無意義盲目試探。
+      </p>
 
-      <h3>3. 公車為主，捷運、YouBike 與步行四軌並行</h3>
+      <h3>3. 🚌 大眾運輸價錢 100% 參照雙北官方現行計費！</h3>
       <table>
         <thead>
           <tr>
-            <th>運具類型</th>
-            <th>代表路線／形式</th>
-            <th>車資／耗費</th>
-            <th>遊戲內機制與體力消耗</th>
+            <th style="width:18%;">運具類型</th>
+            <th style="width:25%;">代表路線／形式</th>
+            <th style="width:27%;">官方真實車資計費（100% 吻合現實）</th>
+            <th style="width:30%;">遊戲內機制與官方轉乘優惠</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>雙北公車（主軸）</strong></td>
+            <td><strong>雙北公車（主幹）</strong></td>
             <td>307（板橋-撫遠街）、265、235 等</td>
-            <td>生活幣 15 點</td>
-            <td><strong>最能看見雙北街景的交通方式</strong>。上車後可選擇沿途看街景或快進，並可能在轉彎時觸發公車竊案！</td>
+            <td><strong>全票 15 元／學生票 12 元</strong><br>（一段票 15 元、二段票 30 元、三段票 45 元）</td>
+            <td><strong>最能看見雙北街景的交通方式</strong>。持悠遊卡於 1 小時內搭捷運轉乘公車，<strong>享有 8 元轉乘優惠（學生票享 6 元優惠）</strong>！</td>
           </tr>
           <tr>
             <td><strong>台北捷運</strong></td>
-            <td>板南線、淡水信義線等</td>
-            <td>生活幣 20~65 點</td>
-            <td>跨大行政區（如西門町至淡水）快速移動必備，耗費體力極低。</td>
+            <td>板南線、淡水信義線、中和新蘆線等</td>
+            <td><strong>里程階梯計費 20～65 元</strong><br>
+              • 0~5km：20 元<br>
+              • 5~8km：25 元<br>
+              • 8~11km：30 元<br>
+              • 11~14km：35 元<br>
+              • 14~17km：40 元<br>
+              • 17~20km：45 元<br>
+              • 20~23km：50 元<br>
+              • 23~27km：55 元<br>
+              • 27~31km：60 元<br>
+              • 31km以上最高：65 元
+            </td>
+            <td>跨大行政區（如西門町至淡水 50 元）快速移動必備。支援<strong>「常客優惠」</strong>每月搭乘達標享 10%～30% 票價回饋！</td>
           </tr>
           <tr>
             <td><strong>YouBike 2.0</strong></td>
-            <td>全雙北站點借還</td>
-            <td>生活幣 5 點（前30分）</td>
+            <td>全雙北租借站點借還</td>
+            <td><strong>台北市：前 30 分鐘免費</strong>（2024 年實施新制）<br><strong>新北市：前 30 分鐘 5 元</strong>（捷運公車轉乘享前 30 分免費）</td>
             <td>速度為步行 3 倍，可自由穿梭雙北防火巷與小弄堂，微量消耗體力。</td>
           </tr>
           <tr>
             <td><strong>步行／慢跑</strong></td>
             <td>方向鍵 / 搖桿操作</td>
-            <td>免費</td>
-            <td>最容易發現路邊隱藏彩蛋（如黑貓阿巧、街角塗鴉），每走 5 分鐘扣除 2 點體力。</td>
+            <td><strong>免費（0 元）</strong></td>
+            <td>最容易發現路邊隱藏彩蛋（如黑貓阿巧、街角塗鴉），每走 5 分鐘微量扣除 2 點體力。</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>4. ★ 遠程大眾運輸「預設目的地 ➔ 票證扣款 ➔ 車程時空快轉」系統（拒絕跑圖疲勞）</h3>
+      <h3>4. ★ 遠程大眾運輸「預設目的地 ➔ 票證扣款 ➔ 車程時空快轉」系統（【不強迫跳躍時間！】）</h3>
       <div class="callout tip">
-        <div class="callout-title">⚡ 遠程通勤免枯燥！設定位置、付完錢直接快轉</div>
+        <div class="callout-title">⚡ 遠程通勤免枯燥！設定位置、付完錢直接快轉（不強迫推進遊戲時鐘）</div>
         針對雙北橫跨數十公里的遠程調查（例如西門町直奔淡水老街、或台北車站跨橋至板橋新板特區），為了避免玩家在電腦前枯等數十分鐘真實車程，遊戲貼心實裝了<strong>「目標預設 ➔ 扣款 ➔ 2.5 秒剪影快轉」</strong>機制：
       </div>
       <div class="team-grid">
@@ -2582,9 +2691,9 @@ html_template = f"""<!DOCTYPE html>
           </p>
         </div>
         <div class="team-card" style="border-left:4px solid #16a34a;">
-          <div class="team-role" style="color:#16a34a;">💳 2. 算準票價扣款</div>
+          <div class="team-role" style="color:#16a34a;">💳 2. 算準官方票價扣款</div>
           <p style="font-size:13px; color:#334155; margin-top:6px;">
-            系統精確依雙北里程計費自動結算（公車 15~30 點、捷運 20~65 點）。嗶悠遊卡扣點；餘額不足時自動提示最近超商加值機。
+            系統完全依據雙北官方票價自動結算（公車 15~30 元、捷運 20~65 元）。嗶悠遊卡扣點；餘額不足時自動提示超商加值。
           </p>
         </div>
         <div class="team-card" style="border-left:4px solid #7c3aed;">
@@ -2593,15 +2702,48 @@ html_template = f"""<!DOCTYPE html>
             付費後畫面切換為 2.5 秒精緻像素車窗剪影（市民大道高架路燈、淡水河夕陽微光快速掠過），伴隨捷運或公車報站廣播音效，流暢抵達！
           </p>
         </div>
-        <div class="team-card" style="border-left:4px solid #d97706;">
-          <div class="team-role" style="color:#d97706;">⏳ 4. 遊戲時鐘等比推進</div>
+        <div class="team-card" style="border-left:4px solid #059669;">
+          <div class="team-role" style="color:#059669;">🍃 4. 自然時間流速（不跳時間！）</div>
           <p style="font-size:13px; color:#334155; margin-top:6px;">
-            <strong>實體等待只需 2.5 秒</strong>，但<strong>遊戲內時鐘會等比推進</strong>（西門至淡水前進 35 分鐘），完美串聯 NPC 動態作息與交通數據時序比對！
+            <strong>不需要遊戲時鐘等比推進！</strong>快轉抵達後，遊戲時鐘維持自然平緩流動，<strong>絕不跳躍時間</strong>，玩家不用擔心錯過 NPC 作息或天氣，漫遊探索最愜意！
           </p>
         </div>
       </div>
 
-      <h3 style="margin-top:20px;">5. 時間、日夜與動態氣象雙軌制（正式系統規格）</h3>
+      
+      <h3>5. ★ PaGamO 式 2.5D 等角六角領地開拓與點亮視覺風格（PaGamO-Style Isometric Map）</h3>
+      <div class="callout purple">
+        <div class="callout-title">🗺️ 如同 PaGamO 般的領地開拓與榮譽插旗感！</div>
+        參考台灣中小學生最喜愛、最熟悉的 <strong>PaGamO 遊戲化學習視覺風格</strong>，雙北開放世界地圖採用<strong>「2.5D 等角六角形領地開拓體系（Isometric Hexagonal Territory）」</strong>：
+      </div>
+      <div class="team-grid">
+        <div class="team-card" style="border-left:4px solid #7c3aed;">
+          <div class="team-role" style="color:#7c3aed;">⬡ 1. 2.5D 等角六角地塊劃分</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            整座雙北地圖劃分為西門町、台北車站、大稻埕、大安、淡水、板橋等經典六角形地塊，街道建築呈現精緻等角立體模型，視覺層次分明。
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #2563eb;">
+          <div class="team-role" style="color:#2563eb;">🌫️ 2. 懸案迷霧與破案點亮</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            尚未偵破案件的街區被「灰色懸案迷霧」籠罩。每當玩家破獲該區的主線案、突發案或答對自然科學題目，地塊瞬間<strong>點亮為明亮彩色繁榮街區</strong>！
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #d97706;">
+          <div class="team-role" style="color:#d97706;">🚩 3. 領地插上榮譽偵探旗印</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            被成功點亮的領地中央會自豪地插上一面專屬的<strong>「金色小偵探榮譽旗幟」</strong>！看著雙北六角地塊一個個被自己點亮插旗，成就感爆棚！
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #059669;">
+          <div class="team-role" style="color:#059669;">🏰 4. 街區情報站與地塊升級</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            如同 PaGamO 的領地升級，玩家可在已佔領的地塊建立「小偵探情報站」，解鎖該區專屬的快速通勤傳送點與隱藏生活彩蛋！
+          </p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px;">6. 時間、日夜與動態氣象雙軌制（正式系統規格）</h3>
       <ul>
         <li><strong>真實 CWA API 同步（在線模式）</strong>：每 15 分鐘透過後端輪詢中央氣象署 API。當台北真實下大雨時，遊戲內西門町天空同步陰雲密布，路人撐起各色雨傘，大安森林公園泥土軟化觸發無腳印奇案！</li>
         <li><strong>離線預設氣象循環（API 失效保護）</strong>：若在發表會現場遇到無 Wi-Fi、或氣象局伺服器維護時，系統<strong>自動切換至離線預設氣象循環</strong>（晴朗 ➔ 陣雨 ➔ 陰天 ➔ 夕陽 ➔ 乾爽涼夜，依據遊戲內 24 小時週期平滑變換），確保展示 100% 穩定不報錯。</li>
@@ -2650,11 +2792,50 @@ html_template = f"""<!DOCTYPE html>
           </ul>
         </div>
       </div>
+
+      <h3>4. 🚨 ★ 跨區全城大規模聯合大搜捕案件（Large-Scale Citywide Manhunt Operations）</h3>
+      <p>
+        除了局部街角偵查外，遊戲規劃了震撼人心的<strong>「跨區全城大規模聯合大搜捕案件」</strong>，調動多個警局轄區與智慧交控網絡，展開智力圍捕：
+      </p>
+      <div class="team-grid">
+        <div class="team-card" style="border-left:4px solid #dc2626;">
+          <div class="team-role" style="color:#dc2626;">🚨 大搜捕 01：台北車站至西門町地下街三路全封鎖圍捕</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【搜捕規模】：</strong>跨越中正區與萬華區，調動中正一分局、萬華分局與捷警隊聯合佈控。<br>
+            <strong>【戰略操作】：</strong>嫌犯盜取國寶級晶片鑽入北車地下迴廊，小偵探遠端協調捷運站務員降下 6 處防煙防火鐵捲門，關閉西門站 M6 出口，並引導路面巡邏警車在中華路口設置阻截帶，將嫌犯精準壓縮在 Z8 出口封閉梯間！
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #2563eb;">
+          <div class="team-role" style="color:#2563eb;">🚤 大搜捕 02：淡水河水陸空全域大追緝</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【搜捕規模】：</strong>橫跨淡水渡船頭、八里左岸、關渡大橋水陸空流域。<br>
+            <strong>【戰略操作】：</strong>嫌犯劫持水上快艇意圖渡河逃亡，小偵探聯動淡水水警巡邏艇水面封鎖，並調度新北市交控中心封閉關渡大橋北上匝道，岸邊巡邏警網探照燈鎖定八里沙洲，逼迫快艇停俥就擒！
+          </p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #7c3aed;">
+          <div class="team-role" style="color:#7c3aed;">🌉 大搜捕 03：新板特區空中迴廊天羅地網搜捕</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【搜捕規模】：</strong>新北市政府、板橋車站四鐵共構與遠東百貨間 2.5 公里空中步道系統。<br>
+            <strong>【戰略操作】：</strong>嫌犯意圖藉空中天橋混入人潮，小偵探手動啟動空橋出入口磁吸安全閘門，變換單向通行號誌，引導警犬隊雙向合圍，在透明玻璃迴廊中截獲嫌犯！
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘 -->
     <div class="card" id="sec-03">
       <h2>🍃 03｜玩家遊玩流程：自由漫遊、動森式慢活與新手前 15 分鐘</h2>
+
+
+      <h3>★ NPC 主動熱情打招呼 ✕ 便利超商買茶葉蛋溫馨互動（貫徹環保不給衛生紙！）</h3>
+      <div class="callout tip">
+        <div class="callout-title">👋 雙北街坊主動問候，充滿台灣在地人情味！</div>
+        <ul>
+          <li><strong>走在街道上 NPC 主動打招呼</strong>：當小偵探走在雙北街道或騎樓時，附近的里長、早餐店阿姨、巡邏警官與高中生會主動冒出對話氣泡問候：「大偵探早安！今天路上風大要注意安全喔！」、「小偵探辛苦了，今天繼續加油！」，讓整座城市充滿生機。</li>
+          <li><strong>便利超商買茶葉蛋溫情互動</strong>：走進 7-11 或全家夾取熱騰騰茶葉蛋（13元）結帳時，店員會送上親切笑容與辦案打氣：「大偵探今天也辛苦了，這顆剛滷好的最香，小心燙喔！」。</li>
+          <li><strong>【明確規範：不用給衛生紙！】</strong>：響應教育部環保減塑政策，超商結帳時<strong>堅決不隨意塞衛生紙與多餘耗材</strong>，以溫暖親切的對話取代實體垃圾，養成綠色環保的良好習慣！</li>
+        </ul>
+      </div>
 
       <h3>★ NPC 動態作息與關鍵線索替代原則（Non-Blocking Clue Principle）</h3>
       <div class="callout tip">
@@ -2697,6 +2878,49 @@ html_template = f"""<!DOCTYPE html>
         <div class="callout-title">📋 關於案件庫的特別說明</div>
         <strong>「50 案為專案規劃之初始案件庫，並非全部需要一次性完成。」</strong><br>
         團隊第一期專注將 <strong>10 宗「首發示範案件」</strong> 進行深度手繪、手動操作驗證與考據；其餘 40 案作為後續版本與 AI 自動擴充管線之規範母本。
+      </div>
+
+
+      <h3>👻 ★ 暗夜驚悚與懸疑系列案件專題（驚險氛圍 ✕ 科學解密 ✕ 防嚇馬賽克保護）</h3>
+      <p>
+        為滿足高年級同學對「本格派驚悚懸疑」的探索熱情，案件庫特別大幅增加了<strong>微驚悚（👻👻）與暗夜懸疑（👻👻👻）</strong>風格的深度案件，融合雙北著名都市傳說與幽暗歷史場館：
+      </p>
+      <div class="team-grid">
+        <div class="team-card" style="border-left:4px solid #b91c1c;">
+          <div class="team-role" style="color:#b91c1c;">👻👻👻 辛亥隧道半夜熄火幽靈鬼火案</div>
+          <div style="font-size:12px; color:#64748b;">📍 地點：文山區辛亥隧道 ✕ 👻👻👻 暗夜懸疑</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【驚悚情節】：</strong>午夜 00:44，多輛計程車行經辛亥隧道深處時引擎無預警同時熄火，後照鏡浮現漂浮藍綠色鬼火冷光！<br>
+            <strong>【科學真相】：</strong>隧道深處排水閥積累之低溫沼氣甲烷與有機磷化物緩慢滲漏，遇排氣管高溫自燃；嫌犯利用強磁裝置干擾車輛行車電腦電路，藉鬼火傳說掩護走私。
+          </p>
+        </div>
+
+        <div class="team-card" style="border-left:4px solid #b91c1c;">
+          <div class="team-role" style="color:#b91c1c;">👻👻👻 北投荒山舊日式溫泉人偶黑影案</div>
+          <div style="font-size:12px; color:#64748b;">📍 地點：北投廢棄舊溫泉街 ✕ 👻👻👻 暗夜懸疑</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【驚悚情節】：</strong>荒廢三十年的日式木造溫泉湯屋深夜傳來淒厲木屐踱步聲，窗戶上映照出擺動的人形黑影，嚇跑多名前來探險的網紅！<br>
+            <strong>【科學真相】：</strong>嫌疑人利用天然地熱孔噴出的定時蒸氣脈衝，驅動木質齒輪連桿帶動懸掛的舊和服木偶；並利用高濃度的硫化氫氣體腐蝕探險者電筒電池接觸片造成閃爍斷電。
+          </p>
+        </div>
+
+        <div class="team-card" style="border-left:4px solid #a16207;">
+          <div class="team-role" style="color:#a16207;">👻👻 金瓜石廢棄礦坑午夜幽魂鐘聲案</div>
+          <div style="font-size:12px; color:#64748b;">📍 地點：瑞芳金瓜石舊本山坑道 ✕ 👻👻 微驚悚</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【驚悚情節】：</strong>封閉半世紀的五坑深處，每逢午夜陰雨必傳出沉悶如巨鐘的低頻長鳴，進入者皆感到胸悶心慌、視線搖晃。<br>
+            <strong>【科學真相】：</strong>暴雨灌入坑道通風豎井形成「亥姆霍茲風洞共振（Helmholtz Resonance）」，產生約 19Hz 的次聲波，引發人體眼球微共振產生黑影錯覺。
+          </p>
+        </div>
+
+        <div class="team-card" style="border-left:4px solid #a16207;">
+          <div class="team-role" style="color:#a16207;">👻👻 西門町百年老戲院暗夜自鳴鋼琴案</div>
+          <div style="font-size:12px; color:#64748b;">📍 地點：西門町徒步區老紅磚戲院 ✕ 👻👻 微驚悚</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">
+            <strong>【驚悚情節】：</strong>空無一人的老戲院舞台正中央，百年骨董大平台鋼琴在午夜兩點會自動彈奏不和諧的斷奏降E大調旋律！<br>
+            <strong>【科學真相】：</strong>琴箱下方暗藏感溫雙金屬片與微型滾輪發條機關，利用老戲院深夜冷氣關閉後的劇烈熱脹冷縮溫差釋放棘輪，撥動琴弦偽造幽靈彈琴。
+          </p>
+        </div>
       </div>
 
       <div class="callout tip">
@@ -2759,7 +2983,7 @@ html_template = f"""<!DOCTYPE html>
   "difficulty": "★★★☆☆",
   "spookiness": "👻☆☆☆☆", // 恐怖驚悚指數
   "location": {{
-    "name": "迪化街百年中藥行",
+    "name": "陳正道（中藥商公會常務理事）",
     "district": "大同區",
     "coordinates": [25.0565, 121.5098],
     "enterable_marker": "store" // 必須對應實體可進入標記
@@ -2918,6 +3142,12 @@ html_template = f"""<!DOCTYPE html>
       </div>
 
       <h3>4. 多嫌疑人機制規範（Multiple Suspects Standard）</h3>
+
+      <div class="callout info" style="margin-top:14px;">
+        <div class="callout-title">🏷️ ★ 嫌疑人全名實名制（嚴禁無名氏代號！）</div>
+        在《雙北漫遊偵探》中，<strong>所有涉案關係人與嫌疑人皆具備正式華人全名</strong>（如：趙坤元、孫佩芬、何福壽、謝淑慧、周子翔、趙博文、孫韻婷、李志豪、崔立國、王崇遠、趙清風等）。每位人物皆有血有肉，具備完整的社會身分與生活軌跡，嚴禁以模糊稱號或無名氏代號敷衍！
+      </div>
+
       <div class="callout info">
         <div class="callout-title">👥 嚴格禁止「真兇＝唯一嫌疑人」的扁平設計！</div>
         在《雙北漫遊偵探》中，<strong>每個案件皆標準配置 3~4 名具有充分嫌疑的涉案人群像</strong>，絕無一眼看穿的單一嫌疑人：
