@@ -44,8 +44,8 @@ launch_demo_cases = [
         "badge_class": "badge-conan",
         "homage_author": "致敬：名偵探柯南經典咖啡廳密室",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
-        "briefing_speaker": "台北市警局萬華分局漢中街派出所 巡官 陳正男",
-        "briefing_detail": "西門町徒步區午後，咖啡店外拉起黃色封鎖線。陳巡官手持平板電腦向趕到的偵探說明：「大約 15 分鐘前（14:20），二樓靠窗座位一名 38 歲科技業務林建宏突然劇烈抽搐陷入昏迷，經送台大醫院搶救中。杯中剩餘的焦糖熱拿鐵散發出淡淡苦杏仁味。店家已即時拉下鐵捲門封鎖現場。現場共有 4 名涉案關係人，每個人都堅稱自己沒碰過林建宏的咖啡！」",
+        "briefing_speaker": "漢中街治安巡邏小隊長 陳正男（遊戲虛構角色）",
+        "briefing_detail": "西門町徒步區午後，咖啡店外拉起黃色封鎖線。陳隊長手持平板電腦向趕到的偵探說明：「大約 15 分鐘前（14:20），二樓靠窗座位一名 38 歲科技業務林建宏突然劇烈抽搐陷入昏迷，經送台大醫院搶救中。杯中剩餘的焦糖熱拿鐵散發出淡淡苦杏仁味。店家已即時拉下鐵捲門封鎖現場。現場共有 4 名涉案關係人，每個人都堅稱自己沒碰過林建宏的咖啡！」",
         "stage": "西門町商圈連鎖咖啡店二樓（可進入標記：☕ 咖啡杯）",
         "trigger": "【突發觸發】玩家在咖啡店用餐休息或路過時，隔壁桌商務客突然抽搐倒地，杯中熱拿鐵散發出淡淡苦杏仁味。店家立即拉下鐵捲門封鎖現場，啟動 25 分鐘限時突發破案！",
         "prequel_story": "被害人林建宏為科技公司專案採購經理，近期因百萬標案利益分配與外包商、業務同事關係極度惡化。案發當天他相約外包工程師張世傑與同事許雅筑在西門町連鎖咖啡店洽談，桌底下暗流湧動。",
@@ -54,7 +54,7 @@ launch_demo_cases = [
             ("14:02", "咖啡送達", "服務生吳冠宇端上熱咖啡與水杯，此時林建宏接聽了一通長達 8 分鐘的激烈爭執電話。"),
             ("14:15", "方糖撕開", "林建宏向服務生多要了兩包方糖，張世傑順手幫忙撕開一包倒入杯中攪拌。"),
             ("14:18", "飲用發病", "林建宏喝下大半杯拿鐵，隨即臉色發青、呼吸急促並緊抓喉嚨痛苦呻吟。"),
-            ("14:20", "倒地封鎖", "林建宏翻倒咖啡杯倒地，店長立即報警並按下警報器關閉門禁，陳巡官帶隊封鎖現場。")
+            ("14:20", "倒地封鎖", "林建宏翻倒咖啡杯倒地，店長立即報警並按下警報器關閉門禁，陳隊長帶隊封鎖現場。")
         ],
         "relationship_network": "【被害人】林建宏（採購經理） ➔ 業務競爭：許雅筑（資深業務，升遷競爭） ➔ 欠款糾紛：張世傑（外包廠商，遭林惡意扣款 150 萬） ➔ 服務端：吳冠宇（咖啡店服務生，弟因欠款延誤就醫病逝） ➔ 旁觀者：王大偉（外送員，等餐目擊）。",
         "suspects_pool": [
@@ -89,7 +89,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "WT-2026-0901-DP",
-            "interrogator": "台北市警局萬華分局 巡官 陳正男",
+            "interrogator": "漢中街治安巡邏小隊長 陳正男（遊戲虛構角色）",
             "suspect_statement": "吳冠宇供述：『我把熱拿鐵端過去時，咖啡是剛做好的。我全程都有戴食品手套，杯蓋是從密封消毒盒拿出來的，我怎麼可能下毒？桌上的方糖又不是我加的！』",
             "contradiction_point": "【致命矛盾】：紫外線鑑識燈照射下，4 號桌塑膠杯蓋內緣飲用孔殘留有微量凡士林脂質混合苦杏仁苷色帶，且杯蓋底座檢出吳冠宇右手食指滲漏汗液指紋！",
             "punchline": "出示【TLC 薄層色層分析展開圖】＋【杯蓋內緣汗液指紋比對】！當場打臉吳冠宇『手套完好未碰觸杯蓋內側』的謊言，真兇伏法！"
@@ -168,7 +168,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "TP-2026-1102-RR",
-            "interrogator": "台北捷運警察隊 巡官 郭威廷",
+            "interrogator": "捷運安全巡查小組 郭威廷（遊戲虛構角色）",
             "suspect_statement": "周宏儒供述：『長廊全長 300 公尺，常溫下聲速每秒 340 公尺，0.88 秒全走廊都聽見巨響了。我 23:45 分在超商買關東煮有發票與監視器，我難道會分身術嗎？』",
             "contradiction_point": "【致命矛盾】：造成 20 分鐘時間差的根本不是聲速延遲，而是天花板排風管上方隱蔽虹吸蓄水桶的注水延遲裝置！",
             "punchline": "出示【常溫聲速計算表（300m 僅需 0.88s）】＋【排風管虹吸注水軟管殘留水滴】＋【滑輪鋼索高溫摩擦碳化痕】！揭穿物理偽證，起獲量子硬碟！"
@@ -202,7 +202,7 @@ launch_demo_cases = [
         "badge_class": "badge-holmes",
         "homage_author": "致敬：福爾摩斯〈跳舞的人〉經典替換密碼",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
-        "briefing_speaker": "新北市文化局古蹟修復組 組長 沈若蘭",
+        "briefing_speaker": "古蹟文史修復專員 沈若蘭（遊戲虛構角色）",
         "briefing_detail": "淡水紅毛城旁的海關碼頭紅磚倉庫前，海風徐徐。沈組長引導偵探來到一面剛清理出苔蘚的古老花崗岩壁前：「大偵探，我們在清理 1860 年代清法戰爭時期的領事館石壁時，發現原本封閉的暗格被暴力撬開過，裡面珍藏的英國領事私人航海金懷錶失竊了！現場只留下 26 塊刻有神秘小人圖案的磚塊，而且修復團隊的三名文史專家各執一詞，互相指責對方偷換了密碼石磚！」",
         "stage": "淡水海關碼頭歷史展示園區（可進入標記：🏛️ 博物館）",
         "trigger": "【主線啟動】淡水碼頭古老石壁修復工程意外挖掘出 26 塊刻有神秘小人符號的石磚，據傳通往十九世紀英國領事館保險庫，偵探受託前往破譯密碼！",
@@ -247,7 +247,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "TS-2026-1003-HM",
-            "interrogator": "新北市警局淡水分局 偵查佐 柯志豪",
+            "interrogator": "淡水河口巡防員 柯志豪（遊戲虛構角色）",
             "suspect_statement": "江語晨供述：『我連航海日誌的原稿都沒碰過，那些跳舞小人我一直以為是原住民圖騰，根本看不懂！』",
             "contradiction_point": "【致命矛盾】：海關故事館雲端快取紀錄顯示，江語晨上午曾檢索 19 世紀英文字母頻率表，且暗格滑動旋鈕上採集到其護手霜特殊玫瑰精油殘留！",
             "punchline": "出示【平板頻率分析檢索歷史】＋【玫瑰精油化學檢測譜】＋【保溫杯底座暗格起獲金懷錶】！擊潰柔弱助理偽裝！"
@@ -326,7 +326,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "BT-2026-1004-TS",
-            "interrogator": "台北市警局北投分局 偵查隊長 吳正德",
+            "interrogator": "北投山林巡守組長 吳正德（遊戲虛構角色）",
             "suspect_statement": "謝明宏供述：『我反覆檢查過，這就是一張普通的道林白紙，老董事長臨終前根本沒動筆，誰說有字就是偽造文書！』",
             "contradiction_point": "【致命矛盾】：紙張纖維吸附了弱有機檸檬酸分子，置於北投青磺泉 85°C 高溫蒸氣上方，檸檬酸將在數秒內脫水炭化顯現褐色字跡！",
             "punchline": "使用【防熱加長竹夾】將白紙置於【85°C 溫泉出水口蒸氣】烘烤 5 秒！紙面瞬間浮現老董字跡『全部產權歸美玲，違者逐出宗族』！謝秘書收賄合約當場被搜出！"
@@ -404,7 +404,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "PC-2026-0905-LM",
-            "interrogator": "新北市警局板橋分局 偵查佐 楊宗憲",
+            "interrogator": "新板特區安保調查員 楊宗憲（遊戲虛構角色）",
             "suspect_statement": "郭副教授供述：『光線照進水池自然是光學折射（Refraction），古人的智慧都在水影裡！你們這群不懂建築物理的人休想誣賴我！』",
             "contradiction_point": "【致命矛盾】：八角漏窗的光線投射在假山壁上是純粹的『日影幾何直線投影（Projection）』，非折射！且郭副教授西裝內袋正裝著高精度工程測量儀！",
             "punchline": "出示【相似三角形物高與影長比率推算表】＋【高度角 35° 方位角 240° 幾何焦點圖】＋【鞋底假山暗洞專屬紅黏土】！直指郭副教授！"
@@ -482,7 +482,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "XM-2026-1006-PK",
-            "interrogator": "台北市警局萬華分局 警員 許芳儀",
+            "interrogator": "西門徒步區巡邏員 許芳儀（遊戲虛構角色）",
             "suspect_statement": "孫小姐供述：『我皮膚容易過敏，整天都戴著羊皮手套，這家超商玻璃上不可能有我的生物痕跡，你們少含血噴人！』",
             "contradiction_point": "【致命矛盾】：冷凝水汽顯影法下，食指破洞處汗液微量油脂在 4°C 玻璃表面形成凝結核散射，留下清晰三條箕形指紋紋路！且紫外光照射其袖口呈亮綠色防偽螢光！",
             "punchline": "噴灑【熱水蒸氣罐水霧】使指紋清晰浮現＋照射【365nm 便攜紫外光燈】！袖口內襯起獲失竊動漫金卡！"
@@ -516,7 +516,7 @@ launch_demo_cases = [
         "badge_class": "badge-holmes",
         "homage_author": "致敬：《口袋神探》車廂慣性力學",
         "briefing_mode": "模式 B：現場帶隊警官親身簡報",
-        "briefing_speaker": "台北捷運警察隊第三分隊 小隊長 郭威廷",
+        "briefing_speaker": "捷運安全巡查小組 郭威廷（遊戲虛構角色）",
         "briefing_detail": "板南線忠孝新生站月台，一列停靠的列車被封鎖。郭小隊長向登上列車的偵探敬禮並簡報：「偵探你好！末班車在行駛於台北車站至善導寺區間的地下隧道時，因號誌異常突發強烈緊急煞車！全車廂乘客向前撲倒成一片。一名聯發科資深 IC 設計處長的黑色保密公事包在此瞬間被調包，裡面的 2nm 次世代晶片工程樣品被換成普通鐵塊！列車目前滯留本站，車廂門全數鎖定，涉案的第四車廂內共有 3 名乘客與處長本人！」",
         "stage": "捷運台北車站至忠孝新生行駛中之車廂（可進入標記：🚇 捷運站）",
         "trigger": "【主線啟動】板南線末班列車在隧道內突發緊急煞車，車廂全體乘客向前倒成一片，起立後某科技主管裝有商業機密晶片的公事包被調包！列車已靠站封鎖！",
@@ -560,7 +560,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "BL-2026-1107-NT",
-            "interrogator": "台北捷運警察隊 巡官 郭威廷",
+            "interrogator": "捷運安全巡查小組 郭威廷（遊戲虛構角色）",
             "suspect_statement": "彭曉嵐供述：『我當時穿高跟鞋站都站不穩，煞車一來我就往前撲倒尖叫，哪有能力去偷換處長的包包？』",
             "contradiction_point": "【致命矛盾】：牛頓第一運動定律！全車廂乘客均朝列車前進方向向前撲倒，唯獨彭曉嵐手腕呈現朝後拉扯抓立柱的深紅瘀痕，證明其預先抵抗向前慣性！",
             "punchline": "調閱【人體重心與慣性向量受力分析】＋出示【右腕逆向抗加速度勒痕】＋【鞋底高摩擦力防滑紋】！在其手袋暗層起獲 2nm 晶片樣品！"
@@ -638,7 +638,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "DC-2026-1008-RS",
-            "interrogator": "台北市警局大同分局 巡官 葉明堂",
+            "interrogator": "大稻埕街區巡防組長 葉明堂（遊戲虛構角色）",
             "suspect_statement": "吳俊凱供述：『師父，老天平是清代傳下來的等臂純銅天平，砝碼也是整組配好的。今天早上大家都在場，秤出來分毫不差就是 150 克，這代表東西根本沒換啊！』",
             "contradiction_point": "【致命矛盾】：阿基米德浮力與密度定律！右盤 50g 砝碼外型完好，但放入量筒排水量達 7.5cm³，換算密度僅 6.6 g/cm³，遠低於純銅的 8.9 g/cm³，內部早被掏空！",
             "punchline": "使用【排水量筒量測密度】證實砝碼中空＋指出【看門黑狗夜間未吠盲點】！在吳俊凱研磨機底座暗格搜出百年真人蔘！"
@@ -716,7 +716,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "BS-2026-0909-CF",
-            "interrogator": "台北市警局松山分局 巡佐 謝長廷",
+            "interrogator": "松山公車交通秩序員 謝志剛（遊戲虛構角色）",
             "suspect_statement": "馬致遠供述：『轉彎離心力把所有人都往右邊甩，我只是沒抓穩扶手稍微撞到老太太，我身上沒有任何贓物，你們搜身也搜過了，憑什麼扣留我？』",
             "contradiction_point": "【致命矛盾】：物理向心加速度！車輛向右轉彎，車內假想離心力必定指向『左側』！且金屬探測器在他特製加厚的右皮鞋鞋跟處發出強烈蜂鳴！",
             "punchline": "展示【307 公車右轉向心加速度運動軌跡】＋【鞋底金屬探測蜂鳴回饋】！旋開皮鞋暗槽起獲李奶奶的黃金戒指！"
@@ -795,7 +795,7 @@ launch_demo_cases = [
         ],
         "deposition_records": {
             "docket_no": "DA-2026-1010-SF",
-            "interrogator": "台北市警局大安分局 偵查佐 施俊吉",
+            "interrogator": "大安園區生態巡邏員 施俊吉（遊戲虛構角色）",
             "suspect_statement": "孫耀輝供述：『我一直在水泥管理室烤火，草地上連一公分深的泥巴坑都沒有，我體重快八十公斤，走上去還不陷成泥娃娃？這根本是不可能犯罪！』",
             "contradiction_point": "【致命矛盾】：泥土力學壓強極限！泥濘草地下陷需壓強大於 25 kPa，而使用接地面積 2000cm² 的軟木套鞋行走，壓強僅 3.7 kPa，草葉只彎不陷！",
             "punchline": "出示【土質壓強極限測量報告】＋【步幅 85cm 草葉折痕幾何測定】！並在生態池出水口大排管起獲特製軟木套鞋與光學望遠鏡鏡筒！"
@@ -909,7 +909,7 @@ for d in launch_demo_cases:
     deposition_html = f"""
     <div class="police-docket">
       <div class="docket-header">
-        <div class="docket-title">📁 官方警訊偵查筆錄案卷（{dep['docket_no']}）</div>
+        <div class="docket-title">📁 遊戲虛構偵查筆錄案卷（{dep['docket_no']}）</div>
         <div class="docket-officer">偵訊員警：{dep['interrogator']}</div>
       </div>
       <div class="docket-content">
@@ -1045,7 +1045,7 @@ for d in launch_demo_cases:
           </div>
         </div>
 
-        <!-- 官方警訊筆錄檔案與打臉破案 -->
+        <!-- 遊戲虛構偵查筆錄檔案與打臉破案 -->
         {deposition_html}
 
         <!-- 破案輔助道具三軌機制與案發鄰近彩蛋 -->
@@ -1264,7 +1264,7 @@ user_traceability_matrix = [
         "quote": "在破解每個案件之前，我們都要先知道前面發生了什麼事、相關人物之間有什麼關係，以及事情接下來是怎麼一步步發生的。每個人可能都要做筆錄，類似現實世界中發生這種事會有的完整程序。我有一個前提，就是不要單純只有這樣而已，除了犯人之外還要有嫌疑犯。",
         "section": "04B 司法程序與多嫌疑人<br>08 首發示範案檔案",
         "section_id": "sec-04b",
-        "detail": "每個示範案件標配【案發前情背景】、【人物關係網】、【事件演進時間軸】；嚴格規範每案配備 3~4 名嫌疑人（包含動機煙霧彈、隱情者、目擊者）；實裝官方警訊筆錄與物證對質打臉。"
+        "detail": "每個示範案件標配【案發前情背景】、【人物關係網】、【事件演進時間軸】；嚴格規範每案配備 3~4 名嫌疑人（包含動機煙霧彈、隱情者、目擊者）；實裝虛構偵查筆錄與物證對質打臉。"
     },
     {
         "num": "18",
@@ -1272,7 +1272,7 @@ user_traceability_matrix = [
         "quote": "如果我之前不在案發現場的話，可以透過一段提前做好的影片交代；或者比較麻煩一點，也可以安排一個人或警官，直接來跟你說明到底發生了什麼事情",
         "section": "04B 雙軌案情交代模式<br>08 首發示範案檔案",
         "section_id": "sec-04b",
-        "detail": "• 模式 A（不在場案件）：播映 30~45 秒手繪剪影動態分鏡短片（Motion Comic）交代前情；• 模式 B（在場/封鎖案件）：由萬華漢中街陳巡官等帶隊警官親自現場口頭簡報。"
+        "detail": "• 模式 A（不在場案件）：播映 30~45 秒手繪剪影動態分鏡短片（Motion Comic）交代前情；• 模式 B（在場/封鎖案件）：由萬華漢中街陳隊長等帶隊警官親自現場口頭簡報。"
     },
     {
         "num": "19",
@@ -1425,6 +1425,46 @@ user_traceability_matrix = [
         "section": "02 OSM 地理與標記<br>08 技術選型",
         "section_id": "sec-02",
         "detail": "地圖全面導入 PaGamO 2.5D 等角六角領地開拓視覺風格：雙北地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「淨化點亮」街區地塊，並在領地中央插上專屬的「金色小偵探榮譽旗幟」，享受如 PaGamO 般的領地擴張與全域點亮成就感！"
+    },
+    {
+        "num": "38",
+        "category": "真實警方改虛構設定",
+        "quote": "官方警訊／真實警察全部改成虛構遊戲設定，刪除身分證字號",
+        "section": "04B 遊戲化偵查與鑑識",
+        "section_id": "sec-04b",
+        "detail": "全面去官方真實化：『官方警訊偵查筆錄』改為『遊戲虛構偵查筆錄』；真實警局巡官改為虛構角色（如漢中街巡查隊長陳正男、淡水巡防員柯志豪）；刪除所有身分證字號，避免被誤會為真實警方公權力參與。"
+    },
+    {
+        "num": "39",
+        "category": "AI 六階閉環驗證管線",
+        "quote": "JSON Schema + Python AST 不能證明唯一解，改成格式＋規則＋線索＋自動解題測試",
+        "section": "04 AI 案件驗證管線<br>08 技術架構",
+        "section_id": "sec-04",
+        "detail": "升級 AI 驗證架構為 6 階閉環管線：JSON Schema 格式檢查 ➔ 地點角色規則檢查 ➔ 線索完整性檢查 ➔ 自動解題測試 ➔ 重複案件篩選 ➔ 淘汰遞補入庫，科學嚴謹杜絕無解與矛盾案件。"
+    },
+    {
+        "num": "40",
+        "category": "真實地理基礎連續地圖",
+        "quote": "1:1 雙北改成以真實雙北地理為基礎的連續城市地圖，首發先做核心區後續擴充",
+        "section": "02 OSM 地理與標記",
+        "section_id": "sec-02",
+        "detail": "釐清地圖實作邊界：由誇張的『1:1 雙北整座城市』修正為『以真實雙北地理為基礎的連續城市地圖』，明確標註首發版本先完成西門町、大稻埕、北車、淡水、北投核心示範區，後續逐步擴充。"
+    },
+    {
+        "num": "41",
+        "category": "著作權邊界嚴謹修訂",
+        "quote": "不要自己宣稱已經合法合理使用，改成依著作權規定確認",
+        "section": "10 版權邊界規範",
+        "section_id": "sec-10",
+        "detail": "修訂免責條款：嚴謹聲明正式遊戲內容以團隊原創為主，涉及他人著作之使用方式將依著作權法規定確認是否需要授權或符合合理使用規範，避免自作主張認定合法。"
+    },
+    {
+        "num": "42",
+        "category": "系統三層分級研發表",
+        "quote": "加一張核心系統／第二階段／未來擴充表，把工作量分清楚",
+        "section": "01B 研發分期規劃總表",
+        "section_id": "sec-01b",
+        "detail": "新增 01B 專案研發分期規劃總表：清晰劃分【第一期核心系統（10案深度實裝、50案總綱、OSM核心區、真實票價、雙軌商店、防嚇馬賽克）】、【第二期進階優化（AI管線、節慶案、全城搜捕）】、【第三期未來擴充（全服連線、案件工作坊）】，展現成熟的軟體工程管理思維。"
     }
 ]
 
@@ -1505,7 +1545,7 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 ---
 
 ## 🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、PaGamO式領地開拓、建築進出標記與真實大眾運輸運價
-1. 以 OpenStreetMap (OSM) 真實地理為基礎，逐步開放區域（階段一西門北車、階段二大稻埕大安、階段三淡水板橋北投）。
+1. 以真實雙北地理為基礎的連續城市地圖，逐步開放區域（首發版本先完成西門町、大稻埕、台北車站、淡水、北投等核心示範區域，後續再擴充）（階段一西門北車、階段二大稻埕大安、階段三淡水板橋北投）。
 2. ★ PaGamO 式 2.5D 等角六角領地開拓視覺風格：地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「點亮淨化」街區，並在中央插上「金色小偵探榮譽旗幟」，享受領地拓荒成就感！
 3. ★ 建築進出標記與「真實地理位置 ✕ 真實商品類型」原則：建築位置 100% 參照現實地址；超商（7-11/全家）賣溫熱茶葉蛋（13元）、真飽涼麵、乾電池、夾鏈證物袋；中藥行賣當歸人蔘天平；五金行賣螺絲起子捲尺；光華電子賣紫外線手電筒與錄音筆。
 4. ★ 大眾運輸價錢 100% 與現實一致：
@@ -1551,7 +1591,7 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 ### 📋 50 宗雙北推理案件全景矩陣（初始規劃庫）
 {cases_50_markdown}
 
-### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、官方警訊筆錄、破案道具三軌機制、鄰近彩蛋與防嚇馬賽克切換）
+### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、虛構偵查筆錄、破案道具三軌機制、鄰近彩蛋與防嚇馬賽克切換）
 {detailed_10_markdown}
 
 ---
@@ -1589,12 +1629,13 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ---
 
-## ⚖️ 04B｜現代鑑識與司法偵查程序：前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統
+## ⚖️ 04B｜遊戲化偵查與鑑識系統：前情敘事、雙軌案情交代、人物關係網與虛構偵查筆錄
+本遊戲參考一般案件調查、證詞比對、時間線分析與物證推理等概念，將其轉化為適合兒童玩家的遊戲化偵查與鑑識機制。遊戲中的警察、巡查人員、筆錄與案件均為虛構設定，不代表任何真實機關或案件。
 1. 雙軌案情交代模式：模式 A（事發重現動態短片 30~45s） vs 模式 B（現場帶隊警官/報案人口頭簡報）。
 2. 事件演進時間軸系統（Minute-by-minute Timeline）：Step 1 醞釀 ➔ Step 2 進場 ➔ Step 3 實施 ➔ Step 4 掩飾。
 3. 相關人物關係網系統：利益衝突紅線、隱情秘密藍線、公務服務綠線。
 4. 多嫌疑人機制規範：嚴禁單一犯人！標配 3~4 名嫌疑人（動機煙霧彈、隱瞞私情者、真兇致命破綻、偏誤目擊證人）。
-5. 現代標準警訊筆錄程序與「筆錄打臉」機制：人別 ➔ 不在場 ➔ 見聞 ➔ 交叉質詢物證對質打臉破案！
+5. 遊戲虛構偵查筆錄程序與「物證對質打臉」機制：人別 ➔ 不在場 ➔ 見聞 ➔ 交叉質詢物證對質打臉破案！
 6. ★ 破案輔助道具「三軌取得機制」與「案發鄰近彩蛋規範」：
    - 💰 花錢購買途徑（超商、五金店、電子行花少許生活幣/探幣）
    - 🏛️ 親赴特定地點途徑（科教館、市圖總館、中藥博物館微互動借用高階設備）
@@ -2152,7 +2193,7 @@ html_template = f"""<!DOCTYPE html>
       line-height: 1.5;
     }}
 
-    /* 官方警訊筆錄夾樣式 */
+    /* 虛構偵查筆錄夾樣式 */
     .police-docket {{
       background: #fffdf5;
       border: 1px solid #d97706;
@@ -2324,13 +2365,14 @@ html_template = f"""<!DOCTYPE html>
       <a href="#sec-00" class="nav-chip" style="background:#fef3c7; color:#92400e; border-color:#fcd34d;">💎 00 創意需求全面落實總表</a>
       <a href="#sec-01" class="nav-chip">01 定位與團隊協同</a>
       <a href="#sec-01a" class="nav-chip" style="background:#fdf2f8; color:#be185d; border-color:#fbcfe8;">📚 01A 108課綱素養對照</a>
+      <a href="#sec-01b" class="nav-chip" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">🧭 01B 研發分期規劃</a>
       <a href="#sec-02" class="nav-chip">02 OSM 地理與標記</a>
       <a href="#sec-02b" class="nav-chip" style="background:#f0f9ff; color:#0284c7; border-color:#7dd3fc;">🚦 02B 交通脈動戰略</a>
       <a href="#sec-03" class="nav-chip">03 自由漫遊流程</a>
       <a href="#sec-04" class="nav-chip">04 50 案庫與雙重標籤</a>
       <a href="#sec-demo" class="nav-chip">🌟 10 大首發示範案</a>
       <a href="#sec-04a" class="nav-chip">04A 共享世界體系</a>
-      <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 司法筆錄與道具三軌</a>
+      <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 遊戲化偵查與鑑識</a>
       <a href="#sec-05" class="nav-chip">05 微型學習與鄰近彩蛋</a>
       <a href="#sec-06" class="nav-chip">06 雙軌商店與貨幣</a>
       <a href="#sec-07" class="nav-chip">07 信賴度與工作坊</a>
@@ -2344,7 +2386,7 @@ html_template = f"""<!DOCTYPE html>
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <h2 style="margin-bottom:0; color:#92400e; border-bottom:none;">💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表</h2>
         <span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #fcd34d;">
-          37 項核心指示 ✕ 100% 驗證收錄
+          42 項核心指示 ✕ 100% 驗證收錄
         </span>
       </div>
       <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
@@ -2374,7 +2416,7 @@ html_template = f"""<!DOCTYPE html>
       <h2>📌 01｜專案基本定位、核心精神與團隊全員協同研發（不設固定分工）</h2>
       <p>
         《雙北漫遊偵探：都會行蹤》是一部由<strong>國小六年級三名同學組成的獨立研究小組</strong>自主設計與研發的原創 2.5D 都會慢活偵探 RPG。
-        本專案旨在將<strong>台灣雙北真實地理人文（OpenStreetMap）</strong>、<strong>真實大眾運輸費率</strong>與<strong>國小高年級自然科學物理化學知識</strong>，
+        本專案旨在將<strong>台灣以真實雙北地理為基礎的連續城市地圖（OpenStreetMap）</strong>、<strong>真實大眾運輸費率</strong>與<strong>國小高年級自然科學物理化學知識</strong>，
         深度熔鑄進引人入勝的偵探破案歷程中。
       </p>
 
@@ -2535,11 +2577,78 @@ html_template = f"""<!DOCTYPE html>
       </div>
     </div>
 
+
+    <!-- 01B｜專案研發範疇與分期規劃總表 -->
+    <div class="card" id="sec-01b" style="border-top: 6px solid #0284c7;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <h2 style="margin-bottom:0; color:#0369a1; border-bottom:none;">🧭 01B｜專案研發範疇與分期規劃總表（分級減壓，確保可交付）</h2>
+        <span style="background:#e0f2fe; color:#0284c7; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #bae6fd;">
+          核心系統 ✕ 第二階段 ✕ 未來擴充
+        </span>
+      </div>
+      <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
+        為了確保國小六年級獨立研究專題在 <strong>16 週時程內具備極高可行性與紮實完成度</strong>，團隊拒絕盲目堆砌不切實際的功能，制定了明確的<strong>「三層分級研發範疇」</strong>：
+      </p>
+
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:20%;">研發分期</th>
+              <th style="width:30%;">包含系統與功能模組</th>
+              <th style="width:35%;">交付成果與可遊玩驗證</th>
+              <th style="width:15%;">執行狀態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f0fdf4;">
+              <td><strong style="color:#15803d;">第一期：核心系統<br>（16週內必做交付）</strong></td>
+              <td>
+                • <strong>10 宗首發示範案件可遊玩版本</strong>（含手動操作與對質打臉）<br>
+                • <strong>規劃 50 宗雙北推理案件總綱全景矩陣</strong><br>
+                • <strong>以真實雙北 OSM 為基礎之核心連續地圖</strong>（西門、北車、大稻埕、淡水、北投）<br>
+                • <strong>真實大眾運輸運價</strong>（公車 15/12、捷運 20~65、YouBike 台北免費/新北 5 元）<br>
+                • <strong>遠程大眾運輸 2.5 秒車窗剪影快轉</strong>（自然流速不強迫跳躍時間）<br>
+                • <strong>建築進出圖案標記與真實店鋪商品</strong>（7-11 茶葉蛋/涼麵/電池）<br>
+                • <strong>實體到店 85 折 ＋ 手機外送防卡死雙軌商店</strong><br>
+                • <strong>案件照片收藏冊</strong> 與 <strong>社區信賴度 Lv.1~Lv.5</strong><br>
+                • <strong>六年級友善防嚇馬賽克按鈕</strong>（預設遮罩，零 18 禁）<br>
+                • <strong>遊戲虛構偵查筆錄</strong>（嫌疑人全員具備真實姓名）
+              </td>
+              <td>獨立研究成果展現場 100% 可供評審與同學親自動手試玩之完整垂直切片與可遊玩版本。</td>
+              <td><span style="font-size:12px; font-weight:800; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px;">✅ 16週核心</span></td>
+            </tr>
+            <tr style="background:#eff6ff;">
+              <td><strong style="color:#1d4ed8;">第二期：進階優化<br>（學期中後期測試）</strong></td>
+              <td>
+                • <strong>AI 案件 6 階閉環驗證管線</strong>（格式＋規則＋線索＋解題測試）<br>
+                • <strong>雙北四季時令節慶限定突發案件</strong>（平溪天燈、大稻埕煙火、台北燈會、新北耶誕城）<br>
+                • <strong>跨區全城大規模聯合大搜捕案件</strong>（北車西門地下封鎖、淡水水陸大追緝、新板空橋天羅地網）<br>
+                • <strong>台灣生活聲景老收音機</strong> 與 <strong>小偵探大衣櫃自由換裝</strong>
+              </td>
+              <td>豐富城市生活感與深化自然科學動手實驗，於成果展發表會作為延伸展示亮點。</td>
+              <td><span style="font-size:12px; font-weight:800; background:#dbeafe; color:#1d4ed8; padding:2px 8px; border-radius:12px;">🚀 進階優化</span></td>
+            </tr>
+            <tr style="background:#faf5ff;">
+              <td><strong style="color:#7c3aed;">第三期：未來擴充<br>（後續版本延伸規劃）</strong></td>
+              <td>
+                • <strong>全服即時連線同步與多人競速首解</strong>（第一版先做單機模擬與本地對手模擬）<br>
+                • <strong>班級自製案件拖曳式工作坊</strong>（待 AI 管線完全成熟後推廣至全年級班級共創）<br>
+                • <strong>雙北外圍特色鄉鎮地塊進一步擴充</strong>（鶯歌陶瓷老街、九份山城、烏來溫泉台車）
+              </td>
+              <td>作為專題研究論文中「未來研究展望與教育推廣方向」之長遠規劃。</td>
+              <td><span style="font-size:12px; font-weight:800; background:#f3e8ff; color:#7c3aed; padding:2px 8px; border-radius:12px;">🔮 未來展望</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- 02 & 02A｜雙北世界、OSM 地理逐步開放、建築進出標記與交通費率 -->
     <div class="card" id="sec-02">
       <h2>🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、建築進出標記與交通費率</h2>
 
-      <h3>1. 以 OpenStreetMap (OSM) 真實地理為基礎，逐步開放區域</h3>
+      <h3>1. 以真實雙北地理為基礎的連續城市地圖，逐步開放區域（首發版本先完成西門町、大稻埕、台北車站、淡水、北投等核心示範區域，後續再擴充）</h3>
       <div class="callout tip">
         <div class="callout-title">🗺️ 科學與務實的區域解鎖規劃</div>
         雙北面積廣達 2,324 平方公里，對於三人小組而言，若妄圖第一天就一次性做完所有街廓是不切實際的。因此我們制定了<strong>「OSM 基礎真實比例，三階段逐步解鎖」</strong>的研發路徑：
@@ -2801,7 +2910,7 @@ html_template = f"""<!DOCTYPE html>
         <div class="team-card" style="border-left:4px solid #dc2626;">
           <div class="team-role" style="color:#dc2626;">🚨 大搜捕 01：台北車站至西門町地下街三路全封鎖圍捕</div>
           <p style="font-size:13px; color:#334155; margin-top:6px;">
-            <strong>【搜捕規模】：</strong>跨越中正區與萬華區，調動中正一分局、萬華分局與捷警隊聯合佈控。<br>
+            <strong>【搜捕規模】：</strong>跨越中正區與萬華區，調動西門與北車聯合安保隊聯合佈控。<br>
             <strong>【戰略操作】：</strong>嫌犯盜取國寶級晶片鑽入北車地下迴廊，小偵探遠端協調捷運站務員降下 6 處防煙防火鐵捲門，關閉西門站 M6 出口，並引導路面巡邏警車在中華路口設置阻截帶，將嫌犯精準壓縮在 Z8 出口封閉梯間！
           </p>
         </div>
@@ -2876,10 +2985,45 @@ html_template = f"""<!DOCTYPE html>
 
       <div class="callout info">
         <div class="callout-title">📋 關於案件庫的特別說明</div>
-        <strong>「50 案為專案規劃之初始案件庫，並非全部需要一次性完成。」</strong><br>
+        <strong>「50 案為初始規劃案件庫總綱，團隊第一期重點在於完成 10 宗首發示範案的可遊玩版本，並非要求短時間內一次手工做完 50 個超大型案件。」</strong><br>
         團隊第一期專注將 <strong>10 宗「首發示範案件」</strong> 進行深度手繪、手動操作驗證與考據；其餘 40 案作為後續版本與 AI 自動擴充管線之規範母本。
       </div>
 
+
+
+      <h3>🤖 ★ AI 案件生成與多階閉環驗證管線（AI Pipeline）</h3>
+      <div class="callout info">
+        <div class="callout-title">⚙️ 從「50 宗初始案件庫」到「持續擴充的案件世界」</div>
+        團隊確立<strong>「50 案為初始案件庫，首發版本深度完成 10 案可遊玩示範版本」</strong>。未來當案件庫低於設定數量時，透過後端 AI 進行持續擴充。
+        針對大語言模型（LLM）可能產生的邏輯矛盾或無解問題，系統建立了嚴謹的<strong>「6 階閉環驗證管線」</strong>（非單純依賴語法樹，而是引入規則檢驗與解題測試）：
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card" style="border-left:4px solid #2563eb;">
+          <div class="team-role" style="color:#2563eb;">1. JSON Schema 格式檢查</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">嚴格檢驗案件 JSON 欄位完整性，確保標題、嫌疑人群像、物證、矛盾句格式完全符合遊戲讀取規範。</p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #059669;">
+          <div class="team-role" style="color:#059669;">2. 地點與角色規則檢查</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">驗證案發地點是否為雙北 OSM 真實地標；確認涉案人皆有名有姓，且關係網邏輯相容無衝突。</p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #d97706;">
+          <div class="team-role" style="color:#d97706;">3. 線索完整性檢查</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">檢查破解該案所需的關鍵科學物證（如 pH 試紙、分光鏡）是否可透過三軌途徑完整取得，杜絕死局案件。</p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #7c3aed;">
+          <div class="team-role" style="color:#7c3aed;">4. 自動解題模擬測試</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">利用啟發式求解演算法，模擬虛擬偵探從線索推導至兇手認罪的完整路徑，確保題目具備可行解。</p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #b91c1c;">
+          <div class="team-role" style="color:#b91c1c;">5. 重複案件與抄襲篩選</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;">計算新案與歷史 50 案的文本與手法相似度向量，淘汰核心手法重複之平庸生成內容。</p>
+        </div>
+        <div class="team-card" style="border-left:4px solid #0284c7;">
+          <div class="team-role" style="color:#0284c7;">6. 合格入庫與淘汰遞補</div>
+          <p style="font-size:13px; color:#334155; margin-top:6px;"><strong>❌ 任何一階不合格 ➔ 自動淘汰拋棄</strong>；<strong>✅ 6 階全部通過 ➔ 自動納入候選案件庫</strong>，隨時遞補上架！</p>
+        </div>
+      </div>
 
       <h3>👻 ★ 暗夜驚悚與懸疑系列案件專題（驚險氛圍 ✕ 科學解密 ✕ 防嚇馬賽克保護）</h3>
       <p>
@@ -2923,6 +3067,12 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
+
+      <div class="callout tip">
+        <div class="callout-title">🧪 兒少科學教育與安全防護聲明</div>
+        本遊戲中所有涉及化學試劑檢驗（如弱酸性變色、熱敏墨水、酚酞反應）與機關裝置，<strong>均為遊戲化之自然科學教育模擬，絕不提供任何危險化學品配方、實際投毒方式或違法操作步驟</strong>，嚴格恪守國小獨立研究倫理與兒少網路安全規範。
+      </div>
+
       <div class="callout tip">
         <div class="callout-title">🛡️ ★ 雙重警示標籤 ✕ 六年級友善防嚇馬賽克切換系統（Safe-Viewing Mosaic Toggle）</div>
         為了兼顧高年級獨立研究的探索樂趣與國小學童的心理健康保護，本專案首創兩大教育友善機制：
@@ -2957,7 +3107,7 @@ html_template = f"""<!DOCTYPE html>
 
       <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、交通戰略、防嚇馬賽克切換、前情時間軸、多嫌疑人名冊、官方筆錄、破案三軌道具）</h3>
       <p style="font-size:14px; color:var(--text-muted);">
-        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>交通數據戰略應用</strong>、<strong>防嚇馬賽克互動切換</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>官方警訊筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
+        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>交通數據戰略應用</strong>、<strong>防嚇馬賽克互動切換</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>遊戲虛構偵查筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
       </p>
       <div class="case-container">
         {detailed_cases_html_rendered}
@@ -3020,7 +3170,7 @@ html_template = f"""<!DOCTYPE html>
         </ul>
       </div>
 
-      <h3>2. 🏆 共享競速公開案件（標記為：未來多人連線功能）</h3>
+      <h3>2. 🏆 共享競速公開案件（標記為：未來多人連線擴充功能，首發版採單機對手模擬）</h3>
       <ul>
         <li><strong>同一個在線雙北</strong>：所有人登入同一個在線世界，所有人看到的共享案件數量、內容與倒數計時<strong>完全同步</strong>。</li>
         <li><strong>合作與競速搶案</strong>：同學們可以組隊分工調查，也可以競速爭奪全服唯一首解榮譽與高額破案賞金。</li>
@@ -3092,13 +3242,18 @@ html_template = f"""<!DOCTYPE html>
       </div>
     </div>
 
-    <!-- 04B｜現代鑑識與司法偵查程序：前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統 -->
+    <!-- 04B｜遊戲化偵查與鑑識系統：前情敘事、雙軌案情交代、人物關係網與虛構偵查筆錄 -->
     <div class="card" id="sec-04b">
-      <h2>⚖️ 04B｜現代鑑識與司法偵查程序：前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統</h2>
+      <h2>⚖️ 04B｜遊戲化偵查與鑑識系統：前情敘事、雙軌案情交代、人物關係網與虛構偵查筆錄</h2>
+
+      <div class="callout info">
+        <div class="callout-title">🛡️ 遊戲虛構偵查體系聲明（非真實公權力／非真實訴訟）</div>
+        本遊戲參考一般案件調查、證詞比對、時間線分析與物證推理等概念，將其轉化為適合兒童玩家的<strong>「遊戲化偵查與鑑識機制」</strong>。遊戲中的警察、巡邏人員、筆錄與案件情節<strong>均為團隊純屬虛構之創作設定，不代表亦未涉及任何真實執法機關、公權力單位或真實司法案件</strong>。
+      </div>
 
       <p>
-        為使《雙北漫遊偵探》脫離「一言堂式猜犯人」的幼稚套路，本系統全面導入<strong>現代刑事訴訟程序與專業鑑識司法規範</strong>。
-        每個案件在偵破前，均具備完整的<strong>前因後果時序推演</strong>、<strong>錯綜複雜的人物關係網</strong>、<strong>嚴格配置 3~4 名嫌疑人的多嫌疑人機制</strong>，以及逼真的<strong>警方偵訊筆錄與物證對質系統</strong>！
+        為使《雙北漫遊偵探》脫離「一言堂式猜犯人」的幼稚套路，遊戲設計了引人入勝的<strong>邏輯推理與證詞比對體系</strong>。
+        每個示範案件均具備完整的<strong>前因後果時序推演</strong>、<strong>錯綜複雜的人物關係網</strong>、<strong>配置 3~4 名具名涉案人的多嫌疑人機制</strong>，以及逼真的<strong>遊戲內虛構偵查筆錄與物證對質打臉系統</strong>！
       </p>
 
       <h3>1. 雙軌案情交代模式（Dual Briefing Modes）</h3>
@@ -3114,7 +3269,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="team-role" style="color:var(--primary);">👮 模式 B：現場帶隊警官／報案人口頭簡報</div>
           <p style="font-size:13.5px; color:#334155; line-height:1.6;">
             <strong>適用情境：</strong>玩家抵達案發現場、或在場突發遭遇的緊急案件。<br>
-            <strong>呈現形式：</strong>命案現場拉起黃色封鎖線（Crime Scene Tape）。轄區警官（如台北市萬華分局巡官陳正男、捷警郭小隊長）或第一發現人親自在警戒線前向偵探交代現場初始狀況、初步法醫體溫測定、四名涉案人基本清冊，並遞交一份《現場初步警訊卷宗》。
+            <strong>呈現形式：</strong>命案現場拉起黃色封鎖線（Crime Scene Tape）。轄區警官（如台北市漢中街巡查隊長陳正男、捷運安全郭隊長）或第一發現人親自在警戒線前向偵探交代現場初始狀況、初步法醫體溫測定、四名涉案人基本清冊，並遞交一份《現場初步警訊卷宗》。
           </p>
         </div>
       </div>
@@ -3191,12 +3346,12 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <h3>5. 現代標準警訊筆錄程序與「筆錄打臉」機制</h3>
+      <h3>5. 遊戲虛構偵查筆錄程序與「物證對質打臉」機制</h3>
       <p>
-        遊戲嚴格比照現代刑事訴訟法偵查規範，玩家可調閱每一位涉案人的<strong>《警訊筆錄》</strong>：
+        遊戲參考一般案件調查流程設計遊戲機制，玩家可調閱每一位涉案人的<strong>《遊戲虛構偵查筆錄》</strong>：
       </p>
       <ul>
-        <li><strong>一、受訊問人身分人別核對</strong>：姓名、年齡、身分證字號、職業、與被害人關係。</li>
+        <li><strong>一、受訊問人基本資訊核對</strong>：姓名、年齡、職業、與被害人關係（遊戲純屬虛構，不收錄亦不涉及身分證字號等個人隱私）。</li>
         <li><strong>二、關鍵時間點行蹤陳述</strong>：以時間戳為基準的不在場證明自述。</li>
         <li><strong>三、現場感官見聞陳述</strong>：受訊人宣稱自己「看到了什麼」、「聞到了什麼」、「碰到了什麼」。</li>
         <li><strong>四、交叉質詢與物證對質（「筆錄打臉」核心機制）</strong>：玩家在筆錄供詞文本中圈選出關鍵字句（如：『我手套乾燥未碰杯蓋內側』、『聲音傳 300 公尺跑了 15 分鐘』），隨後從道具背包中拖曳出對應之客觀科學物證（如：紫外螢光汗液指紋、聲速 340m/s 計算單、天平密度測量表），<strong>當場擊潰虛假陳述，使犯人心理防線崩潰認罪！</strong></li>
@@ -3401,7 +3556,7 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- 07｜城市動態 NPC 作息、社區信賴度 Lv.1~Lv.5 與班級案件工作坊 -->
     <div class="card" id="sec-07">
-      <h2>👥 07｜城市動態 NPC 作息、社區信賴度 Lv.1~Lv.5 與班級案件工作坊</h2>
+      <h2>👥 07｜城市動態 NPC 作息、社區信賴度 Lv.1~Lv.5 與班級案件工作坊（延伸擴充功能）</h2>
 
       <h3>1. ★ 社區信賴度等級系統 (Community Trust Levels)</h3>
       <p>
@@ -3494,8 +3649,8 @@ html_template = f"""<!DOCTYPE html>
           </tr>
           <tr>
             <td><strong>AI 擴充與驗證管線</strong></td>
-            <td>JSON Schema 驗證 + Python 語法樹檢驗</td>
-            <td>確保 AI 生成案件邏輯無矛盾、唯一解且符合國小自然課綱教學規範。</td>
+            <td>6階閉環驗證管線（格式＋規則＋線索完整性＋解題測試）</td>
+            <td>自動淘汰格式錯誤、邏輯衝突或不可解之案件，確保遞補入庫案件質量達標。</td>
           </tr>
         </tbody>
       </table>
@@ -3549,7 +3704,7 @@ html_template = f"""<!DOCTYPE html>
         <ol style="margin-top:6px; margin-bottom:0;">
           <li><strong>非商業教育用途</strong>：本專案係台北市國小六年級學生獨立研究課程之學術成果，旨在探討「遊戲化學習與本土科學推理之結合」，<strong>絕無任何商業販售、營利廣告、內購收費或商業贊助行為</strong>。</li>
           <li><strong>商標與實體店家稱謂規範</strong>：遊戲中出現之便利商店、咖啡店、電子商城、中藥行等，均採用<strong>通用街區類型稱謂</strong>。真實店名與商標僅存於本企劃書之學術調研參考，遊戲正式發布版本全部使用團隊原創之虛擬招牌名稱。</li>
-          <li><strong>名著手法之二次創作與教學轉譯</strong>：專案中致敬青山剛昌《名偵探柯南》、柯南·道爾《福爾摩斯探案集》與《口袋神探》之經典橋段，均依據著作權法之合理使用原則進行國小自然科學教學化轉譯，美術插圖與程式代碼 100% 為團隊原創繪製與編寫。</li>
+          <li><strong>名著啟發與原創性保證</strong>：本遊戲案件受到經典推理名著（《名偵探柯南》、《福爾摩斯探案集》、《口袋神探》）與科學推理概念啟發，正式遊戲內容以團隊原創角色、劇情、美術與程式為主；涉及他人著作之使用方式，將依著作權法相關規定確認是否需要授權或符合合理使用規範，絕不作任何商業營利販售用途。</li>
         </ol>
       </div>
     </div>
