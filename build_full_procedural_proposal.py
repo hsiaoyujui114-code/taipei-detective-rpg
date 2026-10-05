@@ -1473,6 +1473,14 @@ user_traceability_matrix = [
         "section": "04A 專屬私服器共享世界<br>08 技術選型",
         "section_id": "sec-04a",
         "detail": "確立採用「校園專屬私服器（Dedicated Private Server）」架構：所有玩家登入同一個私服世界實例，在雙北街頭互相看得到彼此的 2.5D 像素偵探角色跑動、搭車或調查；角色頭頂標記自訂暱稱、階級徽章與即時動態氣泡（🔍採樣、☕休息、🗺️尋路）；突發案件同屏可見，全服號外廣播即時結案，發表會現場全班同服震撼互動！"
+    },
+    {
+        "num": "44",
+        "category": "NPC語音與分支對話腳本",
+        "quote": "我想要在跟 NPC 講話的時候，NPC 可以用語音跟我說話，並且每個 NPC 的語音可以有一點不一樣（但就只是單純這樣講而已，其實你不用真的做出來）。然後，跟每個 NPC 講話時，他們都有一個固定的腳本，就是可能這樣講，然後我按了什麼話會發生什麼事情，類似這樣子。",
+        "section": "07 NPC 語音與對話樹<br>08 技術選型架構",
+        "section_id": "sec-07",
+        "detail": "實裝「NPC 差異化語音特色（Voice Bites / TTS 規格）」與「固定多分支互動對話腳本樹（Branching Dialogue Tree）」：為不同 NPC 設計老中青、性別與性格鮮明的專屬語音特徵（透過 Web Speech API 參數化 Pitch/Rate 與 2~3 秒 Audio Sprites 音效標記，無需額外聘請配音員，兼顧國小專題可行性）；每位 NPC 配置結構化 JSON 對話樹腳本，玩家點擊不同選項將觸發不同反應、信賴度增減、逼出不在場證明矛盾或獲取關鍵案件物證。"
     }
 ]
 
@@ -1691,7 +1699,8 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ## 👥 07｜城市動態 NPC 作息、社區信賴度 Lv.1~Lv.5 與班級案件工作坊
 1. 社區信賴度等級系統（Lv.1 陌生 ➔ Lv.2 熟面孔 ➔ Lv.3 小常客 ➔ Lv.4 名偵探 ➔ Lv.5 榮譽守護者）。
-2. 班級自製案件工作坊（拖曳式編輯器 ✕ AI 邏輯相容性檢查）。
+2. ★ NPC 專屬語音特色（Voice Bites / TTS 規格）與固定多分支互動對話腳本樹（Branching Dialogue Tree）。
+3. 班級自製案件工作坊（拖曳式編輯器 ✕ AI 邏輯相容性檢查）。
 
 ---
 
@@ -1700,6 +1709,8 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 - 地理資訊：OpenStreetMap (OSM) GeoJSON 道路網。
 - 氣象連線：中央氣象署 CWA API 實時同步與本地預設循環。
 - 防嚇保護：CSS Canvas 像素馬賽克動態濾鏡與按鈕即時切換。
+- NPC 語音與對話樹：Web Speech API 輕量合成與 JSON 狀態機多分支樹。
+- 私服世界：Node.js + Socket.io 共享同服與同屏可視。
 
 ---
 
@@ -2385,7 +2396,7 @@ html_template = f"""<!DOCTYPE html>
       <a href="#sec-04b" class="nav-chip" style="background:#eff6ff; color:#1d4ed8; border-color:#93c5fd;">⚖️ 04B 遊戲化偵查與鑑識</a>
       <a href="#sec-05" class="nav-chip">05 微型學習與鄰近彩蛋</a>
       <a href="#sec-06" class="nav-chip">06 雙軌商店與貨幣</a>
-      <a href="#sec-07" class="nav-chip">07 信賴度與工作坊</a>
+      <a href="#sec-07" class="nav-chip">07 NPC語音與信賴度</a>
       <a href="#sec-08" class="nav-chip">08 技術架構</a>
       <a href="#sec-09" class="nav-chip">09 16週研發時程</a>
       <a href="#sec-10" class="nav-chip">10 非商用聲明</a>
@@ -2396,7 +2407,7 @@ html_template = f"""<!DOCTYPE html>
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <h2 style="margin-bottom:0; color:#92400e; border-bottom:none;">💎 00｜創作者（委託人）創意需求全面收錄與落實對照總表</h2>
         <span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:13px; padding:4px 12px; border-radius:20px; border:1px solid #fcd34d;">
-          43 項核心指示 ✕ 100% 驗證收錄
+          44 項核心指示 ✕ 100% 驗證收錄
         </span>
       </div>
       <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
@@ -3603,7 +3614,7 @@ html_template = f"""<!DOCTYPE html>
           <tr>
             <td><strong>Lv. 2</strong></td>
             <td>點頭熟面孔</td>
-            <td>NPC 開始主動打招呼，便利超商買茶葉蛋偶爾多給一張衛生紙。</td>
+            <td>NPC 開始主動打招呼熱情問候，便利超商買茶葉蛋親切加油打氣（落實環保不隨意給衛生紙）。</td>
             <td>超商商品解鎖 95 折。</td>
           </tr>
           <tr>
@@ -3627,7 +3638,135 @@ html_template = f"""<!DOCTYPE html>
         </tbody>
       </table>
 
-      <h3>2. 班級自製案件工作坊 (Classroom Workshop)</h3>
+      <h3>2. ★ NPC 專屬語音特色（Voice Bites / TTS 規格）與固定多分支互動對話腳本系統（Branching Dialogue Tree）</h3>
+      <div class="callout tip">
+        <div class="callout-title">🎙️ 創作者核心要求落實：有聲 NPC ✕ 個性化聲線 ✕ 固定分支腳本互動</div>
+        依據創作者指示：<em>「我想要在跟 NPC 講話的時候，NPC 可以用語音跟我說話，並且每個 NPC 的語音可以有一點不一樣（純企劃規範，不用真的找真人錄製做出來）。然後，跟每個 NPC 講話時，他們都有一個固定的腳本，就是可能這樣講，然後我按了什麼話會發生什麼事情，類似這樣子。」</em><br>
+        本系統兼顧「生動沉浸感」與「國小六年級獨立研究開發可行性」，設計了一套輕量級語音特徵參數庫與 JSON 狀態機對話樹，讓玩家與每位居民交流時都能聽見不同聲音，並透過點擊對話選項引發即時連鎖反應！
+      </div>
+
+      <h4 style="color:#1e3a8a; margin-top:20px;">(1) NPC 專屬語音特徵庫（Voice Archetype Matrix & TTS Spec）</h4>
+      <p>
+        為使雙北街頭栩栩如生，系統為不同身分、年齡與性別的 NPC 規劃專屬語音聲線。技術上採用瀏覽器原生 <code>Web Speech API (SpeechSynthesis)</code> 進行即時參數化調節（Pitch 音高、Rate 語速、Voice 語系），配合 2~3 秒特徵開場語氣短語（Voice Bites），<strong>無需額外聘請真人配音員錄音</strong>，即可在前端零延遲生動展現：
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:16%;">NPC 姓名與身分</th>
+            <th style="width:16%;">聲線特徵標籤</th>
+            <th style="width:20%;">Web Speech 參數</th>
+            <th style="width:26%;">經典開場／反應短語 (Voice Bites)</th>
+            <th style="width:22%;">在案件調查中的反饋</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>游信義</strong><br><small style="color:#64748b;">漢中街超商店長</small></td>
+            <td>元氣青年、爽朗親切</td>
+            <td><code>pitch: 1.25</code><br><code>rate: 1.15</code><br><code>voice: zh-TW-Male</code></td>
+            <td>「歡迎光臨！今天茶葉蛋滷得很香喔！」</td>
+            <td>若出示店內消費發票，會熱心調出收銀台監視器時間記錄。</td>
+          </tr>
+          <tr>
+            <td><strong>李德濟</strong><br><small style="color:#64748b;">迪化街中藥鋪老掌櫃</small></td>
+            <td>滄桑老翁、沙啞沉穩</td>
+            <td><code>pitch: 0.70</code><br><code>rate: 0.85</code><br><code>voice: zh-TW-Male</code></td>
+            <td>「咳…小偵探慢步，案子要查，身子骨更得顧好啊。」</td>
+            <td>若提到特殊草藥或微量毒物，會瞇起眼睛給予關鍵鑑識指引。</td>
+          </tr>
+          <tr>
+            <td><strong>陳正男</strong><br><small style="color:#64748b;">漢中街治安巡邏小隊長</small></td>
+            <td>威嚴沉著、公務嚴謹</td>
+            <td><code>pitch: 0.95</code><br><code>rate: 1.00</code><br><code>voice: zh-TW-Male</code></td>
+            <td>「偵探，現場已拉上封鎖線，證物採樣請務必謹慎。」</td>
+            <td>若出示符合刑案邏輯的有效推論，會主動給予警用封鎖區通行證。</td>
+          </tr>
+          <tr>
+            <td><strong>許雅筑</strong><br><small style="color:#dc2626;">咖啡店副店長（嫌疑人）</small></td>
+            <td>緊張急促、尾音顫抖</td>
+            <td><code>pitch: 1.35</code><br><code>rate: 1.30</code><br><code>voice: zh-TW-Female</code></td>
+            <td>「我…我真的只是去庫房補奶精！真的不是我偷的！」</td>
+            <td>被問到關鍵時間點時語速急劇加快、音調拔高，顯露心虛破綻。</td>
+          </tr>
+          <tr>
+            <td><strong>張世傑</strong><br><small style="color:#dc2626;">軟體外包商（嫌疑人）</small></td>
+            <td>訥訥結巴、鼻音深重</td>
+            <td><code>pitch: 0.85</code><br><code>rate: 0.90</code><br><code>voice: zh-TW-Male</code></td>
+            <td>「那…那個系統 log 是自動輪替覆蓋的…不關我的事……」</td>
+            <td>當被追問伺服器重開機時間戳記時，開始頻繁結巴並擦拭眼鏡。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="color:#1e3a8a; margin-top:24px;">(2) 固定多分支互動對話腳本樹（Branching Dialogue Tree System）</h4>
+      <p>
+        遊戲中與 NPC 展開交談時，畫面中央彈出精緻的<strong>「對話與訊問互動視窗」</strong>。NPC 根據當前案情階段說出一句引導台詞，下方提供 2~3 個固定的話語選項（按鈕）。<br>
+        <strong>「玩家按了什麼話，就會發生什麼事情」</strong>——不同的選擇將觸發截然不同的 NPC 反應、情緒聲線變化、社區信賴度增減或解鎖關鍵案情物證：
+      </p>
+
+      <!-- 對話樹案例說明 -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px; margin-bottom:18px;">
+        <div style="font-weight:800; font-size:15px; color:#1e3a8a; margin-bottom:8px;">
+          📌 示範案例：CASE-001【咖啡館停電調包案】—— 詢問嫌疑人副店長 許雅筑
+        </div>
+        <p style="font-size:13.5px; color:#475569; margin-bottom:12px;">
+          <strong>【NPC 當前發言 (Node_Root)】</strong>：<br>
+          <span style="color:#b45309; font-weight:700;">許雅筑（眼神閃爍、語音急促）：</span>「偵探…你為什麼一直盯著我看？停電的時候我明明在廚房深處清點紙杯，吧台那只金牌限量保溫杯不見了，我跟所有人一樣驚訝啊！」
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px; margin-top:10px;">
+          <!-- 分支選項 A -->
+          <div style="background:#ffffff; border-left:4px solid #10b981; border-radius:6px; padding:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+            <div style="font-weight:700; color:#065f46; font-size:13.5px; margin-bottom:4px;">
+              🟢 選項 A：安撫探詢（溫和問話）
+            </div>
+            <div style="font-size:12.5px; color:#1e293b; background:#f0fdf4; padding:6px 10px; border-radius:4px; margin-bottom:8px;">
+              玩家話語：「副店長別緊張，我們只是例行詢問。停電前你有注意到哪位客人特別可疑嗎？」
+            </div>
+            <div style="font-size:12.5px; color:#475569;">
+              <strong>會發生的事情：</strong><br>
+              • <strong>NPC 反應：</strong>許雅筑鬆了一口氣，語速放緩（Rate 降至 1.05），主動透露常客工程師張先生今天坐得離配電箱特別近。<br>
+              • <strong>系統數值：</strong>社區信賴度維持穩定；筆記本新增「張先生鄰近配電箱」線索。
+            </div>
+          </div>
+
+          <!-- 分支選項 B -->
+          <div style="background:#ffffff; border-left:4px solid #3b82f6; border-radius:6px; padding:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+            <div style="font-weight:700; color:#1e40af; font-size:13.5px; margin-bottom:4px;">
+              🔵 選項 B：出示物證（精準擊破心防）
+            </div>
+            <div style="font-size:12.5px; color:#1e293b; background:#eff6ff; padding:6px 10px; border-radius:4px; margin-bottom:8px;">
+              玩家話語：【出示收據】「可是這張收據顯示，停電前 2 分鐘你曾在收銀台登入系統，時間對不上喔。」
+            </div>
+            <div style="font-size:12.5px; color:#475569;">
+              <strong>會發生的事情：</strong><br>
+              • <strong>NPC 反應：</strong>許雅筑語音劇烈顫抖（Pitch 飆高至 1.5），頭頂冒出冷汗動畫，脫口說出「那是因為老闆催我結算，我才跑去前台…」。<br>
+              • <strong>系統數值：</strong>成功突破不在場證明！案情筆記本解鎖<strong>【關鍵矛盾記錄：時間差破綻】</strong>！
+            </div>
+          </div>
+
+          <!-- 分支選項 C -->
+          <div style="background:#ffffff; border-left:4px solid #ef4444; border-radius:6px; padding:12px; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+            <div style="font-weight:700; color:#991b1b; font-size:13.5px; margin-bottom:4px;">
+              🔴 選項 C：無端指控（魯莽質問）
+            </div>
+            <div style="font-size:12.5px; color:#1e293b; background:#fef2f2; padding:6px 10px; border-radius:4px; margin-bottom:8px;">
+              玩家話語：「不用裝了！就是你趁停電把杯子藏進後背包了吧！」
+            </div>
+            <div style="font-size:12.5px; color:#475569;">
+              <strong>會發生的事情：</strong><br>
+              • <strong>NPC 反應：</strong>許雅筑被激怒，語氣冰冷轉身拒答：「沒有證據請不要隨便血口噴人！我要找律師！」<br>
+              • <strong>系統數值：</strong>社區信賴度 <strong>-5 點</strong>；該 NPC 進入防備閉嘴狀態 3 分鐘，無法繼續獲取資訊，需靠完成周遭支線恢復好感。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:13.5px; color:#64748b;">
+        💡 <strong>技術架構實作：</strong>所有 NPC 對話腳本均以固定結構之 JSON 檔案儲存（包含 <code>node_id</code>、<code>speaker</code>、<code>tts_config</code>、<code>choices[]</code>、<code>on_select_event</code>）。程式碼透過極簡的狀態機（Finite State Machine）判斷選項事件，邏輯清晰、擴充容易，非常符合國小獨立研究在資訊科學領域之程式設計能力指標。
+      </p>
+
+      <h3>3. 班級自製案件工作坊 (Classroom Workshop)</h3>
       <p>
         為了實踐六年級獨立研究專題的「教學普及與同儕共創」價值，遊戲內建了<strong>視覺化案件工坊</strong>：
       </p>
@@ -3673,6 +3812,11 @@ html_template = f"""<!DOCTYPE html>
             <td><strong>AI 擴充與驗證管線</strong></td>
             <td>6階閉環驗證管線（格式＋規則＋線索完整性＋解題測試）</td>
             <td>自動淘汰格式錯誤、邏輯衝突或不可解之案件，確保遞補入庫案件質量達標。</td>
+          </tr>
+          <tr>
+            <td><strong>NPC 語音與對話樹系統</strong></td>
+            <td>Web Speech API (TTS) ✕ JSON 狀態機對話樹</td>
+            <td>利用瀏覽器原生語音合成與參數化調節（Pitch/Rate），零成本實現角色差異化聲線（無需真人錄音，兼顧國小專題可行性）；結構化 JSON 對話樹支援多分支選擇與事件回呼，代碼易維護且便於擴充。</td>
           </tr>
           <tr>
             <td><strong>專屬私服器與同屏同步</strong></td>
