@@ -644,7 +644,8 @@
       </div>
       <div class="btn-group">
         <button class="btn-primary" onclick="copyFullProposal()">📋 一鍵複製企劃書全文</button>
-        <a href="index.html" class="btn-link btn-secondary">🎮 開啟遊戲試玩</a>
+        <button class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border-color:#34d399;" onclick="copyAiHandoverPrompt()">🤖 其他 AI 繼續製作</button>
+        <a href="https://hsiaoyujui114-code.github.io/taipei-metro-detective-rpg/" class="btn-link btn-secondary" target="_blank">🎮 開啟遊戲試玩</a>
       </div>
     </div>
 
@@ -6119,6 +6120,50 @@
       }).catch(err => {
         console.error("複製失敗：", err);
         alert("複製失敗，請手動選取頁面文字複製。");
+      });
+    }
+
+    const aiHandoverPromptText = `【專案接手指令：雙北都會通勤 ✕ 交通大數據推理 RPG】
+
+你好！請你接手並繼續開發維護我們的網頁遊戲專案：《雙北漫遊：都會行蹤》（Taipei Metro Detective RPG）。
+
+📦 【專案庫與線上成果】：
+- GitHub 倉庫：https://github.com/hsiaoyujui114-code/taipei-metro-detective-rpg
+- 本地抓取指令：git clone https://github.com/hsiaoyujui114-code/taipei-metro-detective-rpg.git
+- 線上直接試玩：https://hsiaoyujui114-code.github.io/taipei-metro-detective-rpg/
+- 原始專題企劃書：https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html
+
+📖 【動工前必讀：倉庫內的 docs/ 交接文檔庫】：
+請你務必先閱讀倉庫內 docs/ 資料夾下的 5 份完整交接文件，所有討論背景、規格與決策都已完整記錄：
+1. docs/01_ai_handover/AI_HANDOVER.md：交接總綱手冊（架構、測試規範與 Review 流程）
+2. docs/02_project_spec/PROJECT_SPEC.md：最新企劃規格書（現代 2D/2.5D RPG 架構、雙速移動、交通大數據時空分析）
+3. docs/03_discussion_history/DISCUSSION_LOG.md：歷次討論與修改歷史紀錄
+4. docs/04_art_and_style/ART_STYLE_GUIDE.md：美術情境指導手冊（雲端硬碟 41 張圖是情境指標，非貼圖）
+5. docs/05_multiplayer_and_real_map/SERVER_AND_GIS_GUIDE.md：WebSocket 私服器與雙北路網演算法
+
+⚠️ 【核心架構與絕對禁忌（請嚴格遵守）】：
+1. 🈲 嚴格禁用「少年偵探」：專案內全面更名為「都會調查員」或「市民」，不得在任何介面、程式碼或對話出現此稱號。
+2. 🎮 當前遊戲架構：已正式定調為「現代 2D ✕ 2.5D 動漫都會冒險 RPG」（Canvas 萬能相容引擎，具備 Y-Sorting 深度排序、動態陰影與市民大道高架橋，保證 100% 零白屏、60FPS）。
+3. 🏃 雙速移動系統：基礎走路 (0.38) ✕ 奔跑衝刺 (0.75，支援鍵盤 Shift 或點擊 UI 奔跑按鈕)。
+4. 🈲 地圖嚴禁瞬移：點擊地圖僅供路線規劃與站牌查詢，玩家必須親自走到站牌搭公車或進入捷運站。
+5. 🚌 公車主軸與自由乘車機制：
+   - 以 307 幹線公車為主軸，搭車後有點擊 [⏩ 快轉] 按鈕，觸發高空衛星鳥瞰大地圖快速行駛過場動畫。
+   - 【重要設定細節】：搭車可以點快轉，但也「不一定非要快轉」！玩家可以留在車上平穩欣賞雙北沿線街景，隨車自然抵達目的地！
+6. 🏪 多點連鎖商店分佈機制：
+   - 【重要設定細節】：CoCo 都可、全家 FamilyMart、7-Eleven 統一超商等連鎖店，必須在雙北全圖的各個街區（站前、中山、館前、重慶、圓環等）廣泛分佈出現，絕不能全場只有單一一間！
+7. 💻 專屬私服器：根目錄 server.js 支援 WebSocket 多人同步，本地啟動指令為 npm start。
+
+🚀 【請你現在執行的第一步】：
+1. 請確認你已閱讀完 docs/ 內的交接文件。
+2. 請簡短向我回報你對專案現況的理解。
+3. 告訴我你建議我們接下來可以繼續強化、新增什麼功能或細節（例如：更多台北公車路線、案件支線委託、街區音效、或 NPC 互動），先提出規劃與我討論，不要擅自直接覆蓋代碼！`;
+
+    function copyAiHandoverPrompt() {
+      navigator.clipboard.writeText(aiHandoverPromptText).then(() => {
+        showToast("🤖 給其他 AI 的最新交接提示詞已成功複製到剪貼簿！可直接貼給任何 AI 接手！");
+      }).catch(err => {
+        console.error("複製失敗：", err);
+        alert("複製失敗，請手動複製提示詞。");
       });
     }
 
