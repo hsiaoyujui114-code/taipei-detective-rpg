@@ -3,7 +3,7 @@
 build_full_procedural_proposal.py
 Comprehensive generator script implementing:
 1. All 22 previous table commitments (16-week timeline, 50 initial cases, AI 4-step pipeline, OSM phased unlock, dual shops, Lv.1~5 trust, etc.)
-2. Section 02B: 🚦 都會交通脈動與戰略偵查機制（取材自組員益碩發想，交通數據線索化 ✕ 動態路網時空時序 ✕ 智力圍捕交通戰略）
+2. Section 02B: 🚦 都會交通脈動與戰略偵查機制（取材自交通規劃研究發想，交通數據線索化 ✕ 動態路網時空時序 ✕ 智力圍捕交通戰略）
 3. Section 04B: 現代鑑識與司法偵查程序（前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統）
 4. Clue-Assisting Prop Acquisition Trio & Proximity Easter Egg System (破案輔助道具三軌機制 ✕ 案發鄰近彩蛋 ✕ 零劇透未解封存)
 5. Dual Case Badges: 難度星級 (★~★★★★★) ✕ 恐怖驚悚指數 (👻~👻👻👻)
@@ -102,7 +102,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於案發咖啡店後方 45 公尺峨嵋街徒步區防火巷，步行 1 分鐘內，符合局部半徑鄰近性。",
             "unsolved_cold_case_rule": "平常遊戲絕不跳出兇手答案；25 分鐘限時若結束無人破案，答案絕不公開，案件標記為「西門町 0901 咖啡懸案」封入歷史冷案庫，玩家可擇日回顧摸索。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：調閱西門町成都路口與漢中街路口 CCTV 監視器，回溯外送員機車抵達秒數；比對捷運西門站 13:30~14:20 悠遊卡刷卡數據，精確掌握在場人員進站時序！",
+        "traffic_intel_application": "【交通脈動戰略應用】：調閱西門町成都路口與漢中街路口 CCTV 監視器，回溯外送員機車抵達秒數；比對捷運西門站 13:30~14:20 悠遊卡刷卡數據，精確掌握在場人員進站時序！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-01",
             "label": "商務客突發抽搐痛苦倒地之衝擊畫面（微驚悚）",
@@ -181,7 +181,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於長廊東側通道轉角處自動販賣機，距案發保險櫃 35 公尺，同屬封閉長廊區域內。",
             "unsolved_cold_case_rule": "競速倒數若至 00:00 仍無玩家破案，全服絕不廣播兇手身分，僅宣告「嫌犯已逃逸，案件未解」，封入全服懸案檔案室。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：嫌犯自超商逃跑時，啟動【現場追逐與交通戰略】：遠端協調站務鎖定高鐵轉乘匝道旋轉閘門，並調派鐵路警察於地下街 M8 出口佈設路障攔阻！",
+        "traffic_intel_application": "【交通脈動戰略應用】：嫌犯自超商逃跑時，啟動【現場追逐與交通戰略】：遠端協調站務鎖定高鐵轉乘匝道旋轉閘門，並調派鐵路警察於地下街 M8 出口佈設路障攔阻！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-02",
             "label": "長廊避難室重金屬保險櫃砸凹毀損現場（溫和）",
@@ -260,7 +260,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於碼頭老舢舨木船舵後，距暗格石壁 60 公尺，屬於海關園區碼頭沿岸生活圈。",
             "unsolved_cold_case_rule": "密碼盤絕不直接標記解答單詞；若放棄委託，密碼答案絕不對外透露，留待玩家日後再次挑戰解密。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：嫌疑人宣稱搭乘紅 26 公車往返淡水捷運站，調閱悠遊卡刷卡時間差僅 8 分鐘，扣除公車停等紅綠燈根本不足以完成往返，直接揭穿假不在場證明！",
+        "traffic_intel_application": "【交通脈動戰略應用】：嫌疑人宣稱搭乘紅 26 公車往返淡水捷運站，調閱悠遊卡刷卡時間差僅 8 分鐘，扣除公車停等紅綠燈根本不足以完成往返，直接揭穿假不在場證明！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-03",
             "label": "百年海關石壁暗格遭暴力撬開之石粉狼藉現場（溫和）",
@@ -339,7 +339,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於旅店庭院戶外泡腳池神像底座，距案發湯屋 50 公尺，步行數十步即達。",
             "unsolved_cold_case_rule": "系統絕不直接浮現遺囑文字；超時未解則旅店進入查封懸案程序，答案絕不對外公布，維持本格推理純粹性。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：調閱秘書謝明宏手機基地台訊號，比對其搭乘小 9 公車上山時之即時路況，推算其在溫泉路口與開發商密會之時間戳！",
+        "traffic_intel_application": "【交通脈動戰略應用】：調閱秘書謝明宏手機基地台訊號，比對其搭乘小 9 公車上山時之即時路況，推算其在溫泉路口與開發商密會之時間戳！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-04",
             "label": "百年老湯屋熱氣蒸騰與老董事長遺物現場（溫和）",
@@ -417,7 +417,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於方鑑齋水榭對面假山洞穴石壁內，距案發現場 40 公尺，古蹟範圍內。",
             "unsolved_cold_case_rule": "日落（17:30）時限若過，光線散去暗格隱沒，答案絕不直接揭曉，封存至林家花園歷史懸案簿。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：郭副教授得手後企圖逃跑，玩家透過公車管理系統操控板橋公車站周邊號誌維持長紅燈，創造車流阻隔，配合巡邏員警於文化路口成功攔截！",
+        "traffic_intel_application": "【交通脈動戰略應用】：郭副教授得手後企圖逃跑，玩家透過公車管理系統操控板橋公車站周邊號誌維持長紅燈，創造車流阻隔，配合巡邏員警於文化路口成功攔截！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-05",
             "label": "老族老方鑑齋遇襲倒地手撫額頭受驚畫面（微驚悚）",
@@ -495,7 +495,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於超商外牆轉角扭蛋機旁，距案發現場僅 30 公尺，屬於超商門口人行道範圍。",
             "unsolved_cold_case_rule": "限時若到顧客離去，小偷身分絕不跳出劇透，金卡列為失竊懸案封入檔案庫。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：調閱超商門口 CCTV 監視器比對 16:15 門口違規並排的黑色計程車車牌，查出買手孫小姐包車準備前往桃園機場之逃逸路線！",
+        "traffic_intel_application": "【交通脈動戰略應用】：調閱超商門口 CCTV 監視器比對 16:15 門口違規並排的黑色計程車車牌，查出買手孫小姐包車準備前往桃園機場之逃逸路線！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-06",
             "label": "超商冷藏櫃撬開鎖具與空壓克力盒（溫和）",
@@ -573,7 +573,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於第 4 車廂停靠月台地面 25 公尺處消防栓旁，在同一站台可及視線內。",
             "unsolved_cold_case_rule": "若列車發車放行前未破案，晶片下落成謎，列為歷史重大懸案，答案永不公布。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：調閱台北捷運全線行車控制中心 (OCC) 號誌伺服器，發現善導寺號誌燈曾遭無線電短暫干擾 12 秒，精確推算嫌犯預知急煞時間點！",
+        "traffic_intel_application": "【交通脈動戰略應用】：調閱台北捷運全線行車控制中心 (OCC) 號誌伺服器，發現善導寺號誌燈曾遭無線電短暫干擾 12 秒，精確推算嫌犯預知急煞時間點！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-07",
             "label": "地下隧道急煞全車乘客撲倒翻覆混亂畫面（微驚悚）",
@@ -651,7 +651,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於藥鋪後院水井旁石臼下方，距藥鋪後門 35 公尺，屬於藥鋪日常生活後巷。",
             "unsolved_cold_case_rule": "天平砝碼真偽不直接標出答案；若打烊結案未果，人蔘案轉入迪化街未結懸案卷宗，絕不劇透手法。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：調閱大徒弟陳建邦昨夜計程車行車記錄器 GPS，比對民生西路塞車即時路況，確認其確實受困於車陣中無作案時間！",
+        "traffic_intel_application": "【交通脈動戰略應用】：調閱大徒弟陳建邦昨夜計程車行車記錄器 GPS，比對民生西路塞車即時路況，確認其確實受困於車陣中無作案時間！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-08",
             "label": "百年老中藥展示櫃假人蔘調包微距痕跡（溫和）",
@@ -729,7 +729,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於公車臨停的公車站台候車亭長椅後，距車門僅 20 公尺，乘客上下車視線可及。",
             "unsolved_cold_case_rule": "不直接指出皮夾在誰身上；若公車到站放行未果，皮夾失竊列入未破冷案，答案絕不對外公布。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：調閱 307 公車車載 GPS 與悠遊卡上下車刷卡秒數，精確推算公車通過敦化北路右轉彎道之精確向心加速度，證實馬致遠反向施力！",
+        "traffic_intel_application": "【交通脈動戰略應用】：調閱 307 公車車載 GPS 與悠遊卡上下車刷卡秒數，精確推算公車通過敦化北路右轉彎道之精確向心加速度，證實馬致遠反向施力！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-09",
             "label": "公車專用道急煞靠邊與老奶奶焦急哭泣場景（溫和）",
@@ -808,7 +808,7 @@ launch_demo_cases = [
             "proximity_egg_detail": "位於生態池木棧道下方蘆葦叢，距案發觀測台 55 公尺，同屬生態水池環形步道範圍內。",
             "unsolved_cold_case_rule": "雨停天亮若未破案，現場腳印全消，案件轉為大安歷史懸案檔案庫，答案永不公開。"
         },
-        "traffic_intel_application": "【益碩交通機制應用】：嫌犯孫耀輝企圖將望遠鏡搬上小貨車逃脫，偵探調閱大安森林公園周邊信義路與新生南路 CCTV，調派大安分局巡邏警車在和平東路口設下路障封截！",
+        "traffic_intel_application": "【交通脈動戰略應用】：嫌犯孫耀輝企圖將望遠鏡搬上小貨車逃脫，偵探調閱大安森林公園周邊信義路與新生南路 CCTV，調派大安分局巡邏警車在和平東路口設下路障封截！",
         "mosaic_feature": {
             "target_id": "mosaic-demo-10",
             "label": "暴雨雷電下觀測台空無一人幽靈般無腳印泥地（暗夜懸疑）",
@@ -1019,7 +1019,7 @@ for d in launch_demo_cases:
           <div style="font-size:13px; color:#475569; line-height:1.6;">{d['relationship_network']}</div>
         </div>
 
-        <!-- 益碩交通數據線索化與戰略應用 -->
+        <!-- 交通數據線索化與戰略應用 -->
         <div class="case-section" style="background:#f0f9ff; border-left:4px solid #0284c7; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0;">
           <div style="font-size:13.5px; color:#0369a1; font-weight:700;">
             🚦 <strong>{d.get('traffic_intel_application', '')}</strong>
@@ -1284,8 +1284,8 @@ user_traceability_matrix = [
     },
     {
         "num": "20",
-        "category": "益碩三大交通核心機制",
-        "quote": "益碩-發想 .png ... 典型關卡案例參考就好，不用真的做出一模一樣的。但他寫的核心玩法機制 1、2、3，我覺得可以加進去我們的企劃裡。至於遊戲核心設定先不用 ...",
+        "category": "交通大數據三大核心機制",
+        "quote": "交通規劃發想圖 .png ... 典型關卡案例參考就好，不用真的做出一模一樣的。但他寫的核心玩法機制 1、2、3，我覺得可以加進去我們的企劃裡。至於遊戲核心設定先不用 ...",
         "section": "02B 都會交通脈動戰略<br>08 首發示範案檔案",
         "section_id": "sec-02b",
         "detail": "保留國小偵探身份；完整納入交通三大核心：1. 交通數據線索化（悠遊卡刷卡時序、CCTV 車牌辨識）；2. 動態路網時間軸（即時塞車演算、黃金3分鐘轉乘差）；3. 現場圍捕交通戰略（手動調控紅綠燈、關閉地鐵閘門、警車路障圍捕，非暴力智力截停）。"
@@ -1574,8 +1574,8 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ---
 
-## 🚦 02B｜都會交通脈動與戰略偵查機制（取材自組員益碩發想）
-本機制融合了研究小組成員益碩提出的《城市脈動：通勤偵探（City Pulse: The Commute Detective）—— 每一次移動，都是線索》創意發想：
+## 🚦 02B｜都會交通脈動與戰略偵查機制（取材自交通規劃研究發想）
+本機制融合了研究小組組員提出的《城市脈動：通勤偵探（City Pulse: The Commute Detective）—— 每一次移動，都是線索》創意發想：
 1. 核心機制 1：交通數據線索化 (Transit Trait Matching)
    - 電子票證刷卡紀錄：調閱悠遊卡/一卡通扣款秒數與站點，比對不在場陳述。若嫌疑人稱案發在甲地，但公車站扣款卻在乙地，當場拆穿謊言！
    - CCTV 監視器與車牌行徑分析：串聯路口監視器路徑，分析車速慢行或短暫停靠巷弄拋棄物證之行為。
@@ -2881,18 +2881,18 @@ html_template = f"""<!DOCTYPE html>
       </ul>
     </div>
 
-    <!-- 02B｜都會交通脈動與戰略偵查機制（取材自組員益碩發想） -->
+    <!-- 02B｜都會交通脈動與戰略偵查機制（取材自交通規劃研究發想） -->
     <div class="card" id="sec-02b">
-      <h2>🚦 02B｜都會交通脈動與戰略偵查機制（取材自組員益碩發想）</h2>
+      <h2>🚦 02B｜都會交通脈動與戰略偵查機制（取材自交通規劃研究發想）</h2>
       <p>
-        本專案特別整合了研究小組成員益碩提出的<strong>《城市脈動：通勤偵探（City Pulse: The Commute Detective）—— 每一次移動，都是線索》</strong>三大核心玩法機制。
+        本專案特別整合了研究小組組員提出的<strong>《城市脈動：通勤偵探（City Pulse: The Commute Detective）—— 每一次移動，都是線索》</strong>三大核心玩法機制。
         我們堅持以「雙北獨立少年偵探」為核心主角設定，將大眾運輸的時空數據轉化為偵破案件的鋒利手術刀：
       </p>
 
       <div style="text-align:center; margin:18px 0;">
-        <img src="yishuo_concept.png" alt="組員益碩創意發想圖" style="max-width:100%; border-radius:10px; border:1px solid var(--border); box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+        <img src="traffic_concept_poster.png" alt="交通脈動創意發想圖" style="max-width:100%; border-radius:10px; border:1px solid var(--border); box-shadow:0 4px 10px rgba(0,0,0,0.1);">
         <div style="font-size:12.5px; color:#64748b; margin-top:6px;">
-          ▲ 圖 2B-1：六年級研究小組組員益碩繪製之《城市脈動：通勤偵探》核心玩法機制發想原圖
+          ▲ 圖 2B-1：六年級研究小組組員繪製之《城市脈動：通勤偵探》核心玩法機制發想原圖
         </div>
       </div>
 
