@@ -7,7 +7,7 @@ Comprehensive generator script implementing:
 3. Section 04B: 現代鑑識與司法偵查程序（前情敘事、雙軌案情交代、人物關係網與多嫌疑人筆錄系統）
 4. Clue-Assisting Prop Acquisition Trio & Proximity Easter Egg System (破案輔助道具三軌機制 ✕ 案發鄰近彩蛋 ✕ 零劇透未解封存)
 5. Dual Case Badges: 難度星級 (★~★★★★★) ✕ 恐怖驚悚指數 (👻~👻👻👻)
-6. Safe-Viewing Mosaic Toggle (六年級友善防嚇馬賽克切換按鈕，預設遮罩，點擊解除，無 18 禁)
+6. Safe-Viewing Mosaic Toggle (六年級友善案件標籤切換按鈕，預設遮罩，點擊解除，無 18 禁)
 7. Enriched 10 launch demonstration cases with full data, traffic mechanics, and interactive mosaic toggles!
 """
 import json
@@ -1026,7 +1026,7 @@ for d in launch_demo_cases:
           </div>
         </div>
 
-        <!-- 六年級友善防嚇馬賽克切換組件 -->
+        <!-- 六年級友善案件標籤切換組件 -->
         {mosaic_html}
 
         <!-- 事件逐步演進時間軸 -->
@@ -1300,9 +1300,9 @@ user_traceability_matrix = [
     },
     {
         "num": "22",
-        "category": "六年級防嚇馬賽克切換",
+        "category": "六年級案件標籤切換",
         "quote": "希望案件裡的恐怖情節盡量不要那麼多，畢竟是給小六玩的，但有些案件還是可以稍微有一點恐怖情節。針對這些情節，旁邊可以做一個按鈕來切換馬賽克：預設沒有調整的話會打馬賽克，如果按了按鈕就可以取消馬賽克。當然，會打馬賽克的都是一些不能出現的事情、不好的事件或比較恐怖的畫面，但並沒有到 18 禁",
-        "section": "04 防嚇馬賽克切換系統<br>08 首發示範案檔案",
+        "section": "04 案件標籤切換系統<br>08 首發示範案檔案",
         "section_id": "sec-04",
         "detail": "所有衝擊性場景預設開啟 CSS 8px 像素高斯霧化馬賽克；右上角標配 🛡️ 馬賽克已開啟 ⇄ 👁️ 馬賽克已關閉 實時切換按鈕；無 18 禁內容，完美守護高年級學童心理安全。"
     },
@@ -1384,7 +1384,7 @@ user_traceability_matrix = [
         "quote": "多一點驚悚的案件",
         "section": "04 案件庫與驚悚專題",
         "section_id": "sec-04",
-        "detail": "大幅提高驚悚指數（👻👻 微驚悚與 👻👻👻 暗夜驚魂案件比例擴增至 40% 以上），增闢「辛亥隧道深夜熄火幽靈鬼火案」、「北投廢棄舊溫泉人偶黑影案」、「金瓜石礦坑午夜鐘聲案」、「西門町百年老戲院暗夜鋼琴案」，嚴守科學揭秘本質並輔以防嚇馬賽克保護。"
+        "detail": "大幅提高驚悚指數（👻👻 微驚悚與 👻👻👻 暗夜驚魂案件比例擴增至 40% 以上），增闢「辛亥隧道深夜熄火幽靈鬼火案」、「北投廢棄舊溫泉人偶黑影案」、「金瓜石礦坑午夜鐘聲案」、「西門町百年老戲院暗夜鋼琴案」，嚴守科學揭秘本質並輔以案件標籤保護。"
     },
     {
         "num": "33",
@@ -1420,11 +1420,11 @@ user_traceability_matrix = [
     },
     {
         "num": "37",
-        "category": "PaGamO領地開拓風格",
+        "category": "真實連續街廓領地開拓風格",
         "quote": "可以向pagamo的顯示方式",
         "section": "02 OSM 地理與標記<br>08 技術選型",
         "section_id": "sec-02",
-        "detail": "地圖全面導入 PaGamO 2.5D 等角六角領地開拓視覺風格：雙北地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「淨化點亮」街區地塊，並在領地中央插上專屬的「金色小偵探榮譽旗幟」，享受如 PaGamO 般的領地擴張與全域點亮成就感！"
+        "detail": "地圖全面導入 真實連續街廓 2.5D 等角六角領地開拓視覺風格：雙北地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「淨化點亮」街區地塊，並在領地中央插上專屬的「金色小偵探榮譽旗幟」，享受如 真實連續街廓 般的領地擴張與全域點亮成就感！"
     },
     {
         "num": "38",
@@ -1464,7 +1464,7 @@ user_traceability_matrix = [
         "quote": "加一張核心系統／第二階段／未來擴充表，把工作量分清楚",
         "section": "01B 研發分期規劃總表",
         "section_id": "sec-01b",
-        "detail": "新增 01B 專案研發分期規劃總表：清晰劃分【第一期核心系統（10案深度實裝、50案總綱、OSM核心區、真實票價、雙軌商店、防嚇馬賽克）】、【第二期進階優化（AI管線、節慶案、全城搜捕）】、【第三期未來擴充（全服連線、案件工作坊）】，展現成熟的軟體工程管理思維。"
+        "detail": "新增 01B 專案研發分期規劃總表：清晰劃分【第一期核心系統（10案深度實裝、50案總綱、OSM核心區、真實票價、雙軌商店、案件標籤）】、【第二期進階優化（AI管線、節慶案、全城搜捕）】、【第三期未來擴充（全服連線、案件工作坊）】，展現成熟的軟體工程管理思維。"
     },
     {
         "num": "43",
@@ -1510,7 +1510,7 @@ for item in user_traceability_matrix:
 traceability_html = "\n".join(traceability_html_rows)
 
 
-plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌與鄰近彩蛋 ✕ 防嚇馬賽克切換 深度升級版）
+plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌與鄰近彩蛋 ✕ 案件標籤切換 深度升級版）
 專案團隊：國小六年級獨立研究小組（三人團隊）
 核心定位：融入雙北真實地理、大眾運輸與國小自然科學物理化學原理的 2.5D 都會慢活偵探 RPG。
 
@@ -1560,9 +1560,9 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 
 ---
 
-## 🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、PaGamO式領地開拓、建築進出標記與真實大眾運輸運價
+## 🏙️ 02 & 02A｜雙北世界、OSM 地理逐步開放、真實連續街廓式領地開拓、建築進出標記與真實大眾運輸運價
 1. 以真實雙北地理為基礎的連續城市地圖，逐步開放區域（首發版本先完成西門町、大稻埕、台北車站、淡水、北投等核心示範區域，後續再擴充）（階段一西門北車、階段二大稻埕大安、階段三淡水板橋北投）。
-2. ★ PaGamO 式 2.5D 等角六角領地開拓視覺風格：地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「點亮淨化」街區，並在中央插上「金色小偵探榮譽旗幟」，享受領地拓荒成就感！
+2. ★ 真實連續街廓 式 2.5D 等角六角領地開拓視覺風格：地圖劃分為精緻六角地塊，未破街區被懸案迷霧籠罩，破案或答對科學題立刻「點亮淨化」街區，並在中央插上「金色小偵探榮譽旗幟」，享受領地拓荒成就感！
 3. ★ 建築進出標記與「真實地理位置 ✕ 真實商品類型」原則：建築位置 100% 參照現實地址；超商（7-11/全家）賣溫熱茶葉蛋（13元）、真飽涼麵、乾電池、夾鏈證物袋；中藥行賣當歸人蔘天平；五金行賣螺絲起子捲尺；光華電子賣紫外線手電筒與錄音筆。
 4. ★ 大眾運輸價錢 100% 與現實一致：
    - 雙北公車：一段票全票 15 元、學生票 12 元，二段票 30 元。公車與捷運雙向轉乘享 8 元轉乘優惠（學生折 6 元）！
@@ -1601,13 +1601,13 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 ## 🔍 04｜案件體系重大擴充：50 宗初始案件庫、10 大首發示範案與 AI 驗證淘汰管線
 - 50 案為初始案件庫，並非全部需要一次完成。
 - 案件雙重標籤：每案接取前均標明「難度星級 (★~★★★★★)」與「恐怖驚悚指數 (👻~👻👻👻)」。
-- 六年級友善防嚇馬賽克切換系統（Safe-Viewing Mosaic Toggle）：衝擊性畫面預設像素模糊遮罩，旁邊設有按鈕可自主切換解除。無 18 禁血腥暴力。
+- 六年級友善案件標籤切換系統（Safe-Viewing Mosaic Toggle）：衝擊性畫面預設像素模糊遮罩，旁邊設有按鈕可自主切換解除。無 18 禁血腥暴力。
 - AI 持續擴充案件庫（4 步管線：生成 ➔ 自動驗證 ➔ 不合格淘汰 ➔ 通過入庫）。
 
 ### 📋 50 宗雙北推理案件全景矩陣（初始規劃庫）
 {cases_50_markdown}
 
-### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、虛構偵查筆錄、破案道具三軌機制、鄰近彩蛋與防嚇馬賽克切換）
+### 🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、前情時間軸、多嫌疑人名冊、虛構偵查筆錄、破案道具三軌機制、鄰近彩蛋與案件標籤切換）
 {detailed_10_markdown}
 
 ---
@@ -1717,7 +1717,7 @@ plainMarkdown = f"""# 【六年級獨立研究專題】《雙北漫遊偵探：�
 ## 📅 09｜16 週研發進度規劃與獨立研究推進時程表
 - 第 1~4 週：企劃確立、OSM 西門町地圖、垂直切片。
 - 第 5~8 週：鑑識互動、多嫌疑人筆錄、交通數據線索化實裝。
-- 第 9~12 週：10 宗大案落地、三軌道具與防嚇馬賽克實裝、Alpha 測試。
+- 第 9~12 週：10 宗大案落地、三軌道具與案件標籤實裝、Alpha 測試。
 - 第 13~16 週：AI 驗證管線、成果發表會全離線演練、論文與展板製作。
 
 ---
@@ -1735,7 +1735,7 @@ html_template = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌機制 ✕ 防嚇馬賽克切換 深度升級版）- 六年級獨立研究專題</title>
+  <title>《雙北漫遊偵探：都會行蹤》完整遊戲設計企劃書（16週研發 ✕ 50宗初始大案 ✕ 10首發示範案 ✕ 交通脈動戰略 ✕ 司法筆錄 ✕ 道具三軌機制 ✕ 案件標籤切換 深度升級版）- 六年級獨立研究專題</title>
   <style>
     :root {{
       --primary: #1d4ed8;
@@ -2077,7 +2077,7 @@ html_template = f"""<!DOCTYPE html>
       margin-bottom: 4px;
     }}
 
-    /* 六年級友善防嚇馬賽克組件 */
+    /* 六年級友善案件標籤組件 */
     .mosaic-container {{
       border: 1px dashed #cbd5e1;
       background: #f8fafc;
@@ -2633,7 +2633,7 @@ html_template = f"""<!DOCTYPE html>
                 • <strong>建築進出圖案標記與真實店鋪商品</strong>（7-11 茶葉蛋/涼麵/電池）<br>
                 • <strong>實體到店 85 折 ＋ 手機外送防卡死雙軌商店</strong><br>
                 • <strong>案件照片收藏冊</strong> 與 <strong>社區信賴度 Lv.1~Lv.5</strong><br>
-                • <strong>六年級友善防嚇馬賽克按鈕</strong>（預設遮罩，零 18 禁）<br>
+                • <strong>六年級友善案件標籤按鈕</strong>（預設遮罩，零 18 禁）<br>
                 • <strong>遊戲虛構偵查筆錄</strong>（嫌疑人全員具備真實姓名）<br>
                 • <strong>專屬校園私服器同屏可視化</strong>（全班連入同一個私服世界、街頭互相看見彼此角色跑動、頭頂名牌與狀態氣泡、全服破案號外廣播）
               </td>
@@ -2842,10 +2842,10 @@ html_template = f"""<!DOCTYPE html>
       </div>
 
       
-      <h3>5. ★ PaGamO 式 2.5D 等角六角領地開拓與點亮視覺風格（PaGamO-Style Isometric Map）</h3>
+      <h3>5. ★ 真實連續街廓 式 2.5D 等角六角領地開拓與點亮視覺風格（真實連續街廓-Style Isometric Map）</h3>
       <div class="callout purple">
-        <div class="callout-title">🗺️ 如同 PaGamO 般的領地開拓與榮譽插旗感！</div>
-        參考台灣中小學生最喜愛、最熟悉的 <strong>PaGamO 遊戲化學習視覺風格</strong>，雙北開放世界地圖採用<strong>「2.5D 等角六角形領地開拓體系（Isometric Hexagonal Territory）」</strong>：
+        <div class="callout-title">🗺️ 如同 真實連續街廓 般的領地開拓與榮譽插旗感！</div>
+        參考台灣中小學生最喜愛、最熟悉的 <strong>真實連續街廓 遊戲化學習視覺風格</strong>，雙北開放世界地圖採用<strong>「2.5D 等角六角形領地開拓體系（Isometric Hexagonal Territory）」</strong>：
       </div>
       <div class="team-grid">
         <div class="team-card" style="border-left:4px solid #7c3aed;">
@@ -2869,7 +2869,7 @@ html_template = f"""<!DOCTYPE html>
         <div class="team-card" style="border-left:4px solid #059669;">
           <div class="team-role" style="color:#059669;">🏰 4. 街區情報站與地塊升級</div>
           <p style="font-size:13px; color:#334155; margin-top:6px;">
-            如同 PaGamO 的領地升級，玩家可在已佔領的地塊建立「小偵探情報站」，解鎖該區專屬的快速通勤傳送點與隱藏生活彩蛋！
+            如同 真實連續街廓 的領地升級，玩家可在已佔領的地塊建立「小偵探情報站」，解鎖該區專屬的快速通勤傳送點與隱藏生活彩蛋！
           </p>
         </div>
       </div>
@@ -3047,7 +3047,7 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <h3>👻 ★ 暗夜驚悚與懸疑系列案件專題（驚險氛圍 ✕ 科學解密 ✕ 防嚇馬賽克保護）</h3>
+      <h3>👻 ★ 暗夜驚悚與懸疑系列案件專題（驚險氛圍 ✕ 科學解密 ✕ 案件標籤保護）</h3>
       <p>
         為滿足高年級同學對「本格派驚悚懸疑」的探索熱情，案件庫特別大幅增加了<strong>微驚悚（👻👻）與暗夜懸疑（👻👻👻）</strong>風格的深度案件，融合雙北著名都市傳說與幽暗歷史場館：
       </p>
@@ -3096,7 +3096,7 @@ html_template = f"""<!DOCTYPE html>
       </div>
 
       <div class="callout tip">
-        <div class="callout-title">🛡️ ★ 雙重警示標籤 ✕ 六年級友善防嚇馬賽克切換系統（Safe-Viewing Mosaic Toggle）</div>
+        <div class="callout-title">🛡️ ★ 雙重警示標籤 ✕ 六年級友善案件標籤切換系統（Safe-Viewing Mosaic Toggle）</div>
         為了兼顧高年級獨立研究的探索樂趣與國小學童的心理健康保護，本專案首創兩大教育友善機制：
         <ul style="margin-top:6px; margin-bottom:0;">
           <li><strong>承接案件前雙重標籤</strong>：每個案件皆清楚提示<strong>「難度星級（★～★★★★★）」</strong>與<strong>「恐怖驚悚指數（👻☆☆☆☆ 溫和日常 / 👻👻☆☆☆ 微驚悚懸疑 / 👻👻👻☆☆ 暗夜驚魂）」</strong>，讓同學自主選擇適合的案件。</li>
@@ -3127,9 +3127,9 @@ html_template = f"""<!DOCTYPE html>
         </table>
       </div>
 
-      <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、交通戰略、防嚇馬賽克切換、前情時間軸、多嫌疑人名冊、官方筆錄、破案三軌道具）</h3>
+      <h3 id="sec-demo">🌟 10 大首發示範案件完整檔案（含【手動操作步驟】、交通戰略、案件標籤切換、前情時間軸、多嫌疑人名冊、官方筆錄、破案三軌道具）</h3>
       <p style="font-size:14px; color:var(--text-muted);">
-        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>交通數據戰略應用</strong>、<strong>防嚇馬賽克互動切換</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>遊戲虛構偵查筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
+        以下 10 宗案件為第一期深度實裝之<strong>「首發示範案件 (Launch Demonstration Cases)」</strong>，每宗皆具備<strong>雙軌案情交代模式</strong>、<strong>交通數據戰略應用</strong>、<strong>案件標籤互動切換</strong>、<strong>前情演進時間軸</strong>、<strong>多嫌疑人群像名冊</strong>、<strong>遊戲虛構偵查筆錄檔案（含打臉破案對質點）</strong>、<strong>破案輔助道具三軌機制與案發鄰近彩蛋</strong>、<strong>現場手動操作步驟</strong>與<strong>名著考據卡</strong>：
       </p>
       <div class="case-container">
         {detailed_cases_html_rendered}
@@ -3804,7 +3804,7 @@ html_template = f"""<!DOCTYPE html>
             <td>台灣官方權威氣象數據，15 分鐘精確快取，並具備本地循環離線保護機制。</td>
           </tr>
           <tr>
-            <td><strong>友善防嚇馬賽克濾鏡</strong></td>
+            <td><strong>友善案件標籤濾鏡</strong></td>
             <td>CSS Filter + Canvas 像素動態矩陣</td>
             <td>零延遲切換，預設保護學童視線，按鈕點擊可自由解鎖探索，符合教育心理學。</td>
           </tr>
@@ -3856,7 +3856,7 @@ html_template = f"""<!DOCTYPE html>
           <tr>
             <td><strong>第 9~12 週<br>（內容擴充期）</strong></td>
             <td>10 大首發示範案深層落實</td>
-            <td>深度實裝首發 10 宗大案；解鎖大稻埕、中正紀念堂與大安森林公園；完成雙軌商店、防嚇馬賽克切換與案件照片收藏冊功能；展開同儕 Alpha 測試。</td>
+            <td>深度實裝首發 10 宗大案；解鎖大稻埕、中正紀念堂與大安森林公園；完成雙軌商店、案件標籤切換與案件照片收藏冊功能；展開同儕 Alpha 測試。</td>
           </tr>
           <tr>
             <td><strong>第 13~16 週<br>（發表與優化期）</strong></td>
@@ -3890,7 +3890,7 @@ html_template = f"""<!DOCTYPE html>
 
     function copyFullProposal() {{
       navigator.clipboard.writeText(fullMarkdownText).then(() => {{
-        showToast("✅ 企劃書全文已成功複製到剪貼簿！包含交通脈動戰略、雙重標籤、防嚇馬賽克切換、司法筆錄與道具三軌！");
+        showToast("✅ 企劃書全文已成功複製到剪貼簿！包含交通脈動戰略、雙重標籤、案件標籤切換、司法筆錄與道具三軌！");
       }}).catch(err => {{
         console.error("複製失敗：", err);
         alert("複製失敗，請手動選取頁面文字複製。");
