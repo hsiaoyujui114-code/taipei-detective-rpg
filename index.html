@@ -3,1182 +3,763 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>《雙北漫遊偵探：都會行蹤》- 六年級獨立研究網頁 RPG</title>
-  <style>
-    :root {
-      --primary: #1d4ed8;
-      --primary-dark: #1e3a8a;
-      --accent: #f59e0b;
-      --bg: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.95);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --mrt-red: #d90429;
-      --mrt-blue: #0077b6;
-      --mrt-orange: #f77f00;
-      --success: #10b981;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* 頂部 HUD */
-    header {
-      background: #1e293b;
-      border-bottom: 2px solid var(--border);
-      padding: 10px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 20;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand h1 {
-      font-size: 18px;
-      font-weight: 800;
-      background: linear-gradient(90deg, #60a5fa, #fbbf24);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand .location-tag {
-      font-size: 13px;
-      padding: 3px 10px;
-      border-radius: 12px;
-      background: #334155;
-      color: #38bdf8;
-      font-weight: 700;
-    }
-
-    .stats {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .stat-pill {
-      background: #0f172a;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-hud {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: 0.2s;
-    }
-
-    .btn-hud:hover {
-      background: var(--primary-dark);
-    }
-
-    /* 遊戲主視窗 */
-    #game-container {
-      flex: 1;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-      overflow: hidden;
-    }
-
-    canvas {
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-      background: #111;
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    /* 浮動提示引導條 */
-    .controls-hint {
-      position: absolute;
-      bottom: 12px;
-      left: 16px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    /* 行動裝置虛擬按鍵 */
-    .mobile-controls {
-      display: none;
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      gap: 8px;
-      z-index: 15;
-    }
-
-    .dpad-btn {
-      width: 48px;
-      height: 48px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      color: white;
-      border-radius: 10px;
-      font-size: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .dpad-btn:active {
-      background: var(--primary);
-    }
-
-    /* 對話框系統 */
-    #dialog-box {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(800px, 94%);
-      background: var(--card-bg);
-      border: 2px solid #38bdf8;
-      border-radius: 12px;
-      padding: 18px 24px;
-      display: none;
-      flex-direction: row;
-      gap: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      z-index: 50;
-    }
-
-    .dialog-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 10px;
-      background: #1e293b;
-      border: 2px solid #64748b;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 36px;
-      flex-shrink: 0;
-    }
-
-    .dialog-content {
-      flex: 1;
-    }
-
-    .dialog-name {
-      font-size: 14px;
-      font-weight: 800;
-      color: #38bdf8;
-      margin-bottom: 4px;
-    }
-
-    .dialog-text {
-      font-size: 15px;
-      line-height: 1.6;
-      color: #f1f5f9;
-      min-height: 48px;
-    }
-
-    .dialog-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 6px;
-    }
-
-    .btn-dialog {
-      background: #38bdf8;
-      color: #0f172a;
-      border: none;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-weight: 800;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    /* 通用 Modal 彈窗 */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      padding: 16px;
-    }
-
-    .modal-card {
-      background: #1e293b;
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      max-width: 650px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 24px;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-
-    .modal-title {
-      font-size: 18px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .modal-close {
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .modal-close:hover {
-      color: white;
-    }
-
-    /* 捷運轉乘地圖 Modal */
-    .mrt-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 16px 0;
-    }
-
-    .mrt-station-card {
-      background: #0f172a;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      cursor: pointer;
-      transition: 0.2s;
-      position: relative;
-    }
-
-    .mrt-station-card:hover {
-      border-color: #38bdf8;
-      transform: translateY(-2px);
-    }
-
-    .mrt-line-pill {
-      font-size: 11px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 10px;
-      display: inline-block;
-      margin-bottom: 6px;
-    }
-
-    .mrt-line-red { background: #fee2e2; color: #b91c1c; }
-    .mrt-line-blue { background: #e0f2fe; color: #0369a1; }
-
-    /* 機關解謎介面 */
-    .puzzle-ui {
-      background: #0f172a;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 16px 0;
-      text-align: center;
-    }
-
-    .puzzle-grid {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 18px 0;
-    }
-
-    .puzzle-tile {
-      width: 52px;
-      height: 52px;
-      background: #1e293b;
-      border: 2px solid #64748b;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      font-weight: 800;
-      font-size: 16px;
-      transition: 0.2s;
-    }
-
-    .puzzle-tile:hover {
-      border-color: #fbbf24;
-      background: #334155;
-    }
-
-    .puzzle-tile.selected {
-      border-color: #38bdf8;
-      background: #0369a1;
-      color: white;
-    }
-
-    /* 破案考據圖鑑卡 (Codex) */
-    .codex-banner {
-      background: linear-gradient(135deg, #78350f, #b45309);
-      border-radius: 10px;
-      padding: 18px;
-      color: #fef3c7;
-      margin: 16px 0;
-      border: 1px solid #f59e0b;
-    }
-
-    .codex-banner h4 {
-      font-size: 16px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .shop-item-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0f172a;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 768px) {
-      .mobile-controls {
-        display: grid;
-        grid-template-columns: repeat(3, 48px);
-        grid-template-rows: repeat(2, 48px);
-      }
-      .brand h1 { font-size: 15px; }
-      .brand .location-tag { display: none; }
-      .controls-hint { display: none; }
-    }
-  </style>
+  <title>《雙北漫遊：都會行蹤》- 第一版：雙北全域地圖樣式總覽 ✕ 2.5D 動漫都會冒險</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="assets/three.min.js"></script>
+  <script src="assets/vendor/pixi.min.js"></script>
+  <script src="assets/vendor/howler.min.js"></script>
+  <script src="assets/vendor/sat.min.js"></script>
+  <script src="assets/vendor/socket.io.min.js"></script>
 </head>
 <body>
 
-  <!-- 頂部 HUD 資訊列 -->
-  <header>
-    <div class="brand">
-      <span style="font-size: 20px;">🕵️‍♂️</span>
-      <h1>雙北漫遊偵探</h1>
-      <span class="location-tag" id="hudLocation">📍 台北車站大廳</span>
-    </div>
+  <!-- 2D / 2.5D 現代動漫 RPG 畫布容器 (深色沉浸底色，絕不白屏) -->
+  <div id="webgl-container"></div>
 
-    <div class="stats">
-      <div class="stat-pill">
-        <span>💳 悠遊卡:</span>
-        <span id="statMoney" style="color: #38bdf8;">$200</span>
+  <!-- 🛰️ 天眼幽靈巡航 HUD (高度計、縮放倍率、GPS座標、巡航街區) -->
+  <div class="ghost-drone-hud" id="ghostDroneHud">
+    <div class="ghost-stat-item">
+      <span class="ghost-stat-tag">🛰️ 天眼幽靈巡航</span>
+    </div>
+    <div class="ghost-stat-item">
+      <span>高度:</span> <strong id="hudAltitude">380m</strong>
+    </div>
+    <div class="ghost-stat-item">
+      <span>縮放:</span> <strong id="hudZoom">1.0x</strong>
+    </div>
+    <div class="ghost-stat-item">
+      <span>GPS:</span> <strong id="hudCoords">X: 0, Z: 14</strong>
+    </div>
+    <div class="ghost-stat-item">
+      <span>巡航街廓:</span> <strong id="hudDistrict">忠孝西路一段 ✕ 館前路口</strong>
+    </div>
+  </div>
+
+  <!-- 🏪 連鎖品牌雷達連動面板 (Brand Radar Filter Bar) -->
+  <div class="brand-radar-bar" id="brandRadarBar">
+    <button class="radar-filter-btn active" id="filterAll" onclick="setBrandRadarFilter('all')">
+      <span>🌐 全部路網</span>
+    </button>
+    <button class="radar-filter-btn brand-fmart" id="filterFmart" onclick="setBrandRadarFilter('familymart')">
+      <span>🏪 全家 FamilyMart</span>
+    </button>
+    <button class="radar-filter-btn brand-seven" id="filterSeven" onclick="setBrandRadarFilter('seven')">
+      <span>🍙 7-Eleven 統一超商</span>
+    </button>
+    <button class="radar-filter-btn brand-carrefour" id="filterCarrefour" onclick="setBrandRadarFilter('carrefour')">
+      <span>🛒 家樂福 Carrefour</span>
+    </button>
+    <button class="radar-filter-btn brand-pxmart" id="filterPxmart" onclick="setBrandRadarFilter('pxmart')">
+      <span>🧺 全聯 PX Mart</span>
+    </button>
+    <button class="radar-filter-btn brand-coco" id="filterCoco" onclick="setBrandRadarFilter('coco')">
+      <span>🧋 CoCo 都可</span>
+    </button>
+    <button class="radar-filter-btn brand-market" id="filterMarket" onclick="setBrandRadarFilter('market')">
+      <span>🏮 傳統市場與夜市</span>
+    </button>
+  </div>
+
+  <!-- 🧭 雙北行政區快速導航條 (District Quick Jump Bar) -->
+  <div class="district-jump-bar" id="districtJumpBar">
+    <span style="font-size:11px; color:#38bdf8; font-weight:800; margin-right:4px;">🧭 雙北地圖全景:</span>
+    <button class="district-jump-btn highlight" id="btnJumpOverview" onclick="jumpToDistrict('overview')" style="background:linear-gradient(135deg, #1e40af, #2563eb); border-color:#60a5fa; color:#ffffff; font-weight:900;">🗺️ 雙北全景總覽</button>
+    <button class="district-jump-btn" id="btnJumpStation" onclick="jumpToDistrict('station')">🏛️ 台北車站(忠孝)</button>
+    <button class="district-jump-btn" id="btnJumpXuefu" onclick="jumpToDistrict('banqiao_xuefu')">🏫 板橋學府路一段 (1:1)</button>
+    <button class="district-jump-btn" id="btnJumpXimen" onclick="jumpToDistrict('chongqing_ximen')">🎮 萬華西門町</button>
+    <button class="district-jump-btn" id="btnJumpZhongshan" onclick="jumpToDistrict('zhongshan')">🌳 中山南京商圈</button>
+    <button class="district-jump-btn" id="btnJumpDaan" onclick="jumpToDistrict('daan_park')">🌲 大安森林公園</button>
+    <button class="district-jump-btn" id="btnJumpXinyi" onclick="jumpToDistrict('xinyi_101')">🏙️ 信義101大樓</button>
+    <button class="district-jump-btn" id="btnJumpCircle" onclick="jumpToDistrict('circle')">🏮 大同大稻埕/寧夏</button>
+    <button class="district-jump-btn" id="btnJumpTamsui" onclick="jumpToDistrict('tamsui')">🌊 淡水金色水岸</button>
+    <button class="district-jump-btn" id="btnJumpBitan" onclick="jumpToDistrict('xindian_bitan')">🚣 新店碧潭水岸</button>
+  </div>
+
+  <!-- 📡 品牌連鎖雷達特效橫幅 (Chain Radar Broadcast Banner) -->
+  <div class="chain-broadcast-banner" id="chainBroadcastBanner">
+    <span id="chainBroadcastIcon">🛒</span>
+    <span id="chainBroadcastText">家樂福跨區量販補給網絡啟動</span>
+  </div>
+
+  <!-- 操作提示橫幅 -->
+  <div class="fpv-hint" id="fpvHint">
+    <span>🗺️ 雙北全圖樣式總覽：[點擊上方『雙北全景總覽』俯瞰全區] ｜ [滾輪] 縮放全圖 ｜ [滑鼠拖曳/WASD] 自由巡航各大街區 ｜ [Shift] 極速穿梭</span>
+  </div>
+
+  <!-- 導航提示氣泡 (Navigation Toast) -->
+  <div class="nav-hint-toast" id="navHintToast">
+    <span>🧭</span>
+    <span id="navHintText">請點擊上方品牌按鈕或探索街區！</span>
+  </div>
+
+  <!-- 公車 / 捷運乘車與快轉過場動畫 HUD (Transit Cutscene HUD) -->
+  <div class="transit-hud" id="transitHud">
+    <div class="transit-card">
+      <div class="transit-badge" id="transitBadge">🚌 307 公車 (忠孝幹線 ➔ 中山商圈)</div>
+      <div class="transit-status" id="transitStatus">車輛行駛中，可悠閒隨車欣賞街景，或點擊按鈕快轉/下車...</div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button class="fast-forward-btn" id="btnFastForward" onclick="triggerFastForwardTransition()">
+        <span>⏩ 快轉過場動畫 (空拍鳥瞰)</span>
+      </button>
+      <button class="fast-forward-btn" id="btnDisembark" style="background: linear-gradient(135deg, #475569, #334155); border-color:#64748b;" onclick="disembarkTransit()">
+        <span>🚶 到站下車</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 頂部 HUD -->
+  <div class="hud-top">
+    <!-- 左上角角色狀態卡 (沉浸都會調查員) -->
+    <div class="player-profile-card">
+      <div class="profile-avatar-box">
+        <img src="assets/images/avatar_detective.png" alt="個人頭像">
       </div>
-      <div class="stat-pill">
-        <span>⭐ 聲望:</span>
-        <span id="statRep">0</span>
-      </div>
-      <div class="stat-pill">
-        <span>📜 考據:</span>
-        <span id="statCodex">0 / 4</span>
-      </div>
-      <button class="btn-hud" onclick="openMrtModal()">🚇 捷運路網</button>
-      <button class="btn-hud" onclick="openShopModal()">🛒 商店</button>
-      <button class="btn-hud" onclick="openNotebookModal()">📓 筆記</button>
-      <a href="proposal.html" target="_blank" style="text-decoration:none;">
-        <button class="btn-hud" style="background:#059669;">📋 企劃書全文</button>
-      </a>
-    </div>
-  </header>
-
-  <!-- 遊戲主舞台 Canvas -->
-  <main id="game-container">
-    <canvas id="gameCanvas" width="800" height="500"></canvas>
-
-    <div class="controls-hint">
-      🎮 控制：[W A S D] 或 [方向鍵] 移動 ｜ [空白鍵] 或 [Enter] 進行調查對話
-    </div>
-
-    <!-- 行動裝置虛擬按鍵 -->
-    <div class="mobile-controls">
-      <div style="grid-column: 2;" class="dpad-btn" id="btnUp">▲</div>
-      <div style="grid-column: 1; grid-row: 2;" class="dpad-btn" id="btnLeft">◀</div>
-      <div style="grid-column: 2; grid-row: 2;" class="dpad-btn" id="btnDown">▼</div>
-      <div style="grid-column: 3; grid-row: 2;" class="dpad-btn" id="btnRight">▶</div>
-    </div>
-
-    <!-- 對話視窗 -->
-    <div id="dialog-box">
-      <div class="dialog-avatar" id="dialogAvatar">👮‍♂️</div>
-      <div class="dialog-content">
-        <div class="dialog-name" id="dialogName">台北車站巡警</div>
-        <div class="dialog-text" id="dialogText">歡迎來到台北車站！聽說地下街長廊剛才傳來詭異的金屬巨響...</div>
-        <div class="dialog-footer">
-          <button class="btn-dialog" id="btnNextDialog">繼續 ▶</button>
+      <div class="profile-info">
+        <div class="profile-header">
+          <span class="level-tag">Lv. 5</span>
+          <span class="badge-tag">都會調查員</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">體力</span>
+          <div class="bar-track">
+            <div class="bar-fill stamina" id="barStamina" style="width: 78%;"></div>
+          </div>
+          <span class="bar-val" id="txtStamina">78/100</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">😊 心情</span>
+          <div class="bar-track">
+            <div class="bar-fill mood" id="barMood" style="width: 85%;"></div>
+          </div>
+          <span class="bar-val" id="txtMood">85/100</span>
         </div>
       </div>
     </div>
-  </main>
 
-  <!-- 捷運轉乘 Modal -->
-  <div class="modal-overlay" id="mrtModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <div class="modal-title"><span>🚇</span> 台北捷運路網轉乘系統</div>
-        <button class="modal-close" onclick="closeModal('mrtModal')">×</button>
+    <!-- 全服號外快報廣播欄 -->
+    <div class="breaking-news-banner" id="breakingNewsBanner">
+      <span>🚨 全服快訊：</span>
+      <span id="breakingNewsText">歡迎進入雙北 1:1 真實道路虛擬世界！</span>
+    </div>
+
+    <!-- 體力不支中央警報橫幅 (依使用者第53回合指示隱藏，專注地圖樣式) -->
+    <div class="stamina-warning-banner" id="staminaWarningBanner" style="display:none;" onclick="openRestModal()">
+      <div class="warning-icon-box">⚠️</div>
+      <div class="warning-text-box">
+        <div class="warning-title">體力不支</div>
+        <div class="warning-desc">體力耗盡步伐沉重！請找公車候車椅休息或至超商補給。</div>
       </div>
-      <p style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 12px;">
-        搭乘捷運刷悠遊卡扣款 $20。請選擇目的地：
-      </p>
+    </div>
+
+    <!-- 右上角 HUD -->
+    <div class="hud-top-right">
+      <div class="weather-time-pill" id="weatherTimePill" onclick="toggleWeather()" title="點擊切換時段與天氣">
+        <span id="weatherIcon">☀️</span>
+        <span id="weatherTimeText">晴天 10:24</span>
+      </div>
+
+      <div class="location-pill" id="locationPill">
+        <span>📍</span>
+        <span id="locationText">忠孝西路一段 ✕ 館前路口</span>
+      </div>
+
+      <!-- 圓形雷達小地圖 (點擊打開雙北真實地圖檢視) -->
+      <div class="radar-minimap" onclick="openMapModal()" title="點擊檢視雙北路網與公車路線圖 (無瞬移傳送)">
+        <img src="assets/images/radar_map.png" class="radar-bg-img" alt="Radar Minimap">
+        <div class="radar-sweep"></div>
+        <div class="radar-compass-n">N</div>
+        <div class="radar-player-dot" id="radarPlayerDot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 左側懸浮主線任務卡 (預設隱藏以呈現純淨雙北地圖) -->
+  <div class="quest-floating-card" id="mainQuestCard" style="display:none;">
+    <div class="quest-card-header">
+      <div class="quest-card-header-left">
+        <span>⚠️</span>
+        <span>主線委託</span>
+      </div>
+      <button class="quest-card-close" onclick="toggleMainQuestCard()">✕</button>
+    </div>
+    <div class="quest-card-body" id="mainQuestBody">
+      前往【台北車站(忠孝)】站牌搭乘 307 公車，或走進捷運出入口搭手扶梯進站。
+    </div>
+  </div>
+
+  <!-- 左下角懸浮任務提示卡 (預設隱藏以呈現純淨雙北地圖) -->
+  <div class="hint-floating-card" id="hintQuestCard" style="display:none;">
+    <div class="quest-card-header">
+      <div class="quest-card-header-left">
+        <span>⚠️</span>
+        <span>交通指引</span>
+      </div>
+      <button class="quest-card-close" onclick="toggleHintQuestCard()">✕</button>
+    </div>
+    <div class="quest-card-body" id="hintQuestBody">
+      雙北地圖全面擴大 2 倍，無法直接瞬移！請至路邊站牌等候公車。
+    </div>
+  </div>
+
+  <!-- 右側互動選項膠囊堆疊 -->
+  <div class="action-pills-stack" id="actionPillsStack"></div>
+
+  <!-- 第一人稱 3D 浮動互動提示 [E] -->
+  <div class="interact-prompt-floating" id="interactPrompt" onclick="triggerCurrentInteraction()">
+    <span class="key-badge">E</span>
+    <span class="interact-label" id="interactLabel">搭乘公車</span>
+  </div>
+
+  <!-- 行動裝置虛擬十字方向鍵與跑步衝刺鍵 -->
+  <div class="mobile-dpad">
+    <div style="grid-column: 2;" class="dpad-btn" id="dpadUp">▲</div>
+    <div style="grid-column: 1; grid-row: 2;" class="dpad-btn" id="dpadLeft">◀</div>
+    <div style="grid-column: 2; grid-row: 2;" class="dpad-btn" id="dpadDown">▼</div>
+    <div style="grid-column: 3; grid-row: 2;" class="dpad-btn" id="dpadRight">▶</div>
+  </div>
+
+  <!-- 走路 / 奔跑模式切換懸浮鍵 (Shift快捷鍵) -->
+  <div class="sprint-toggle-btn" id="btnToggleSprint" onclick="toggleSprintMode()" title="切換走路 / 奔跑模式 [Shift]">
+    <span class="sprint-icon" id="sprintIcon">🏃</span>
+    <span class="sprint-text" id="sprintText">奔跑模式 [Shift]</span>
+  </div>
+
+  <!-- 幽靈天眼巡航 / 地面角色切換鍵 -->
+  <div class="ghost-mode-toggle-btn spectator" id="btnGhostToggle" onclick="toggleGhostMode()" title="切換幽靈天眼 / 角色模式">
+    <span id="ghostToggleIcon">👻</span>
+    <span id="ghostToggleText">幽靈天眼 (無角色)</span>
+  </div>
+
+  <!-- 浮動縮放控制鍵 (Zoom In / Out / Reset) -->
+  <div class="zoom-controls-floating">
+    <div class="zoom-btn" onclick="zoomInCamera()" title="放大街區視角 [滾輪向上]">➕</div>
+    <div class="zoom-btn" onclick="zoomOutCamera()" title="縮小雙北全景 [滾輪向下]">➖</div>
+    <div class="zoom-btn" onclick="resetCameraCenter()" title="置中重置視野">🎯</div>
+  </div>
+
+  <!-- 劇情對話 / 內心獨白視窗 -->
+  <div class="detective-dialogue-box" id="detectiveDialogueBox">
+    <div class="diag-avatar-box">
+      <img src="assets/images/avatar_detective.png" alt="個人頭像">
+    </div>
+    <div class="diag-content-box">
+      <div class="diag-speaker" id="diagSpeaker">調查員</div>
+      <div class="diag-text" id="diagText">看來忠孝西路車水馬龍，到站牌等公車吧！</div>
+    </div>
+    <button class="diag-close" onclick="closeDialogueBox()">✕</button>
+  </div>
+
+  <!-- 多人同屏聊天室 -->
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg-row">
+        <span class="author">[系統]</span>
+        <span>歡迎連入真實雙北連線世界！第一人稱視角移動，搭公車或捷運往返各區。</span>
+      </div>
+    </div>
+    <div class="chat-input-bar">
+      <input type="text" class="chat-input" id="chatInput" placeholder="輸入文字在頭頂顯示氣泡..." maxlength="50" onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="chat-send-btn" onclick="sendChatMessage()">送出</button>
+    </div>
+  </div>
+
+  <!-- 右下角 Cyberpunk 操作按鈕 (去除背包，專注雙北地圖全景與導航) -->
+  <div class="hud-bottom-right-dock">
+    <div class="dock-btn" onclick="jumpToDistrict('overview')" title="雙北全域總覽">
+      <div class="dock-icon">🗺️</div>
+      <div class="dock-label">全景</div>
+    </div>
+    <div class="dock-btn" onclick="openMapModal()" title="雙北路網與公車路線檢視">
+      <div class="dock-icon">📍</div>
+      <div class="dock-label">路網</div>
+    </div>
+    <div class="dock-btn" onclick="toggleWeather()" title="時段與氣象切換">
+      <div class="dock-icon">☀️</div>
+      <div class="dock-label">天氣</div>
+    </div>
+    <div class="dock-btn" onclick="openSettingsModal()" title="環境與私服器設定">
+      <div class="dock-icon">⚙️</div>
+      <div class="dock-label">設定</div>
+    </div>
+  </div>
+
+  <!-- ==================== 各功能實機系統 MODALS ==================== -->
+
+  <!-- 1. 雙北路網與公車路線檢視地圖 (嚴格禁止直接傳送！僅供檢視與規劃) -->
+  <div class="modal-overlay" id="mapModal">
+    <div class="modal-card" style="width:820px;">
+      <div class="modal-header">
+        <div class="modal-title"><span>🗺️</span> 雙北真實路網 ✕ 幹線公車路線圖 (檢視模式)</div>
+        <button class="modal-close" onclick="closeModal('mapModal')">×</button>
+      </div>
+      <div style="background:#0f172a; padding:12px; border-radius:10px; border-left:4px solid #f59e0b; margin-bottom:12px;">
+        🚫 <strong>【真實交通法則】</strong>：地圖僅供路線導航與規劃，<strong>無法點擊直接瞬移！</strong> 請親自走到路邊站牌搭乘公車或進入捷運站！
+      </div>
+
       <div class="mrt-grid">
-        <div class="mrt-station-card" onclick="travelTo('tpe_station')">
-          <span class="mrt-line-pill mrt-line-red">紅線 R10 / 藍線 BL12</span>
-          <h3 style="font-size: 16px;">台北車站 (中心樞紐)</h3>
-          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：地下街長廊延遲計時機關</p>
+        <div class="mrt-card" onclick="alertPlanRoute('bus_307')">
+          <div class="mrt-line" style="color:#10b981;">🚌 台北市 307 幹線公車 (全台客運之王)</div>
+          <div class="mrt-station-name">板橋 ➔ 台北車站 ➔ 南京東路 ➔ 撫遠街</div>
+          <div class="mrt-features">班次密集 (每3分鐘一班) ｜ 車上提供 WiFi ｜ 停靠忠孝西路專用道</div>
         </div>
-        <div class="mrt-station-card" onclick="travelTo('tamsui')">
-          <span class="mrt-line-pill mrt-line-red">紅線 R28 終點站</span>
-          <h3 style="font-size: 16px;">淡水紅毛城</h3>
-          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：地牢跳舞小人密碼磚</p>
+        <div class="mrt-card" onclick="alertPlanRoute('bus_zs')">
+          <div class="mrt-line" style="color:#38bdf8;">🚌 中山幹線公車 (天母 ➔ 台北車站)</div>
+          <div class="mrt-station-name">中山北路一至七段 ✕ 台北車站</div>
+          <div class="mrt-features">林蔭大道直達 ｜ 停靠 CoCo手搖飲、中山市場、國賓飯店</div>
         </div>
-        <div class="mrt-station-card" onclick="travelTo('beitou')">
-          <span class="mrt-line-pill mrt-line-red">紅線 R22 新北投</span>
-          <h3 style="font-size: 16px;">北投地熱溫泉</h3>
-          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：硫磺蒸氣隱形墨水遺書</p>
+        <div class="mrt-card" onclick="alertPlanRoute('mrt_red')">
+          <div class="mrt-line" style="color:#ef4444;">🔴 捷運淡水信義線 (地下段)</div>
+          <div class="mrt-station-name">象山 ➔ 台北車站 ➔ 雙連 ➔ 士林 ➔ 淡水</div>
+          <div class="mrt-features">需由 M5/M6 出口搭乘手扶梯下樓 ｜ 進入地下月台等車</div>
         </div>
-        <div class="mrt-station-card" onclick="travelTo('banqiao')">
-          <span class="mrt-line-pill mrt-line-blue">藍線 BL07 板橋站</span>
-          <h3 style="font-size: 16px;">板橋林家花園</h3>
-          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">案件：八角漏窗日影投影幾何</p>
+        <div class="mrt-card" onclick="alertPlanRoute('bus_cd')">
+          <div class="mrt-line" style="color:#fbbf24;">🚌 承德幹線公車 (寧夏夜市 ➔ 雙連)</div>
+          <div class="mrt-station-name">台北車站 ➔ 建成圓環 ➔ 寧夏夜市</div>
+          <div class="mrt-features">夜市美食專線 ｜ 停靠重慶北路與南京西路口</div>
+        </div>
+      </div>
+      <div style="margin-top:14px; text-align:right; font-size:12px; color:#38bdf8;">
+        💳 悠遊卡餘額: $<span id="mapMoney">200</span> (市區公車一段票 $15)
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CoCo 都可手搖飲門市 (真實招牌與外觀樣式) -->
+  <div class="modal-overlay" id="cocoModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🧋</span> CoCo 都可 (中山北路門市)</div>
+        <button class="modal-close" onclick="closeModal('cocoModal')">×</button>
+      </div>
+      <div style="background:#f973161a; border:1px solid #f97316; padding:12px; border-radius:10px; margin-bottom:14px;">
+        <p style="color:#fb923c; font-weight:800; font-size:14px;">店員招呼：「一杯好茶，遇見更好的你！今天辦案走很多路吧？喝杯珍奶補充體力！」</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:12px 16px; border-radius:8px;">
+          <div>
+            <div style="font-weight:bold; color:white;">🧋 招牌珍珠奶茶 ($50)</div>
+            <div style="font-size:11.5px; color:#94a3b8;">Q彈黑糖珍珠 ✕ 濃純奶茶，體力 +35、心情 +30</div>
+          </div>
+          <button class="chat-send-btn" style="background:#f97316; padding:8px 16px;" onclick="buyBobaTea()">購買 $50</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:12px 16px; border-radius:8px;">
+          <div>
+            <div style="font-weight:bold; color:white;">🍋 四季春青茶 ($35)</div>
+            <div style="font-size:11.5px; color:#94a3b8;">現泡清香回甘，體力 +20</div>
+          </div>
+          <button class="chat-send-btn" style="background:#0284c7; padding:8px 16px;" onclick="buyGreenTea()">購買 $35</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 機關解謎 Modal -->
-  <div class="modal-overlay" id="puzzleModal">
+  <!-- 3. 全家 FamilyMart 24H 實體超商 -->
+  <div class="modal-overlay" id="storeModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title" id="puzzleTitle"><span>🧩</span> 機關破解</div>
-        <button class="modal-close" onclick="closeModal('puzzleModal')">×</button>
+        <div class="modal-title"><span>🏪</span> 全家便利商店 FamilyMart 門市 (24H)</div>
+        <button class="modal-close" onclick="closeModal('storeModal')">×</button>
       </div>
-      <div id="puzzleBody">
-        <!-- 動態渲染機關內容 -->
+      <div style="background:#0f172a; padding:12px; border-radius:10px; border-left:4px solid #10b981; margin-bottom:14px;">
+        🌱 <strong>【六年級減塑守則】</strong>：結帳時自備購物袋，不索取一次性塑膠袋與多餘紙巾！
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#6ee7b7; margin-bottom:4px;">🥚 熱騰騰茶葉蛋 ($13)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">剛起鍋茶香濃郁，補充體力！</p>
+          <button class="chat-send-btn" style="background:#10b981; width:100%; padding:8px;" onclick="buyTeaEgg()">購買 $13 (+25 體力)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#38bdf8; margin-bottom:4px;">🧃 運動機能飲料 ($25)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">快速解渴補充水分，提升好心情！</p>
+          <button class="chat-send-btn" style="background:#0284c7; width:100%; padding:8px;" onclick="buyDrink()">購買 $25 (+20 心情)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fbbf24; margin-bottom:4px;">🛹 柯南極速電動滑板 ($300)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">穿梭雙北各大路段，跑速 +60%！</p>
+          <button class="chat-send-btn" style="background:#f59e0b; width:100%; padding:8px;" id="btnSkateboard" onclick="buySkateboard()">購買 $300</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- 考據圖鑑 Modal (Codex) -->
-  <div class="modal-overlay" id="codexModal">
+  <!-- 3b. 7-Eleven 統一超商 24H 實體門市 -->
+  <div class="modal-overlay" id="sevenModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title"><span>📜</span> 名著名案考據圖鑑庫</div>
-        <button class="modal-close" onclick="closeModal('codexModal')">×</button>
+        <div class="modal-title"><span>🏪</span> 7-Eleven 統一超商 (24H 門市)</div>
+        <button class="modal-close" onclick="closeModal('sevenModal')">×</button>
       </div>
-      <div id="codexList"></div>
+      <div style="background:#ea580c1a; border:1px solid #ea580c; padding:12px; border-radius:10px; margin-bottom:14px;">
+        <p style="color:#fb923c; font-weight:800; font-size:14px;">店員親切問候：「Always Open, 7-Eleven！今天雙北調查辛苦囉，來份御飯糰或現煮拿鐵補充能量！」</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fdba74; margin-bottom:4px;">🍙 經典肉鬆御飯糰 ($30)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">嚴選台梗九號米與酥脆海苔，補充體力！</p>
+          <button class="chat-send-btn" style="background:#ea580c; width:100%; padding:8px;" onclick="buyRiceBall()">購買 $30 (+30 體力)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#6ee7b7; margin-bottom:4px;">☕ CITY CAFE 冰拿鐵 ($45)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">濃醇鮮乳與香醇咖啡豆，放鬆辦案心情！</p>
+          <button class="chat-send-btn" style="background:#059669; width:100%; padding:8px;" onclick="buyLatte()">購買 $45 (+25 心情)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#38bdf8; margin-bottom:4px;">🍵 茶裏王日式無糖綠 ($25)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">回甘就像現泡，解膩生津恢復體力！</p>
+          <button class="chat-send-btn" style="background:#0284c7; width:100%; padding:8px;" onclick="buyKingTea()">購買 $25 (+20 體力)</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 偵探道具商店 Modal -->
-  <div class="modal-overlay" id="shopModal">
+  <!-- 3c. 家樂福 Carrefour 量販 ✕ 超市便利購 -->
+  <div class="modal-overlay" id="carrefourModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title"><span>🛒</span> 偵探事務所專屬補給行</div>
-        <button class="modal-close" onclick="closeModal('shopModal')">×</button>
+        <div class="modal-title"><span>🛒</span> 家樂福 Carrefour (量販 ✕ 超市便利購)</div>
+        <button class="modal-close" onclick="closeModal('carrefourModal')">×</button>
       </div>
-      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 14px;">
-        破案獲得的酬金可以購買外觀造型與實用道具，加速遊戲進行！
+      <div style="background:#dc262618; border:1px solid #ef4444; padding:12px; border-radius:10px; margin-bottom:14px;">
+        <p style="color:#f87171; font-weight:800; font-size:14px;" id="carrefourBranchGreeting">店長親切招呼：「天天都便宜，就是家樂福！全雙北量販互聯，提供充足調查能量補給！」</p>
+      </div>
+      <div style="background:#0f172a; padding:10px 14px; border-radius:8px; border-left:4px solid #3b82f6; margin-bottom:12px; font-size:12px; color:#cbd5e1;">
+        🌐 <strong>【連鎖網絡雷達】</strong>：已對齊現實雙北門市（板橋學府便利購、重慶旗艦店、重慶南店、中山店），享有全城大容量物流互聯！
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fca5a5; margin-bottom:4px;">🥖 家庭號能量吐司 ($40)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">烘焙坊現做柔軟白吐司，快速填飽肚子！</p>
+          <button class="chat-send-btn" style="background:#dc2626; width:100%; padding:8px;" onclick="buyCarrefourToast()">購買 $40 (+45 體力)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#93c5fd; margin-bottom:4px;">💧 大瓶量販運動水 ($30)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">1500ml 量販大容量，漫遊全城不怕缺水！</p>
+          <button class="chat-send-btn" style="background:#2563eb; width:100%; padding:8px;" onclick="buyCarrefourWater()">購買 $30 (+35 心情)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fde047; margin-bottom:4px;">🧰 調查員手提補給箱 ($120)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">量販大補給：乾糧、能量棒與電解水！</p>
+          <button class="chat-send-btn" style="background:#ca8a04; width:100%; padding:8px;" onclick="buyCarrefourBox()">購買 $120 (+60 體力/+50 心情)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3d. 全聯福利中心 PX Mart 社區生鮮超市 -->
+  <div class="modal-overlay" id="pxmartModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🧺</span> 全聯福利中心 PX Mart (社區生鮮)</div>
+        <button class="modal-close" onclick="closeModal('pxmartModal')">×</button>
+      </div>
+      <div style="background:#1e3a8a22; border:1px solid #3b82f6; padding:12px; border-radius:10px; margin-bottom:14px;">
+        <p style="color:#60a5fa; font-weight:800; font-size:14px;" id="pxmartBranchGreeting">廣播響起：「請支援收銀！買進美好生活，全聯生鮮產地直送！」</p>
+      </div>
+      <div style="background:#0f172a; padding:10px 14px; border-radius:8px; border-left:4px solid #0284c7; margin-bottom:12px; font-size:12px; color:#cbd5e1;">
+        🌐 <strong>【連鎖網絡雷達】</strong>：全雙北門市（板橋學府店、延平店、重慶店、中正武昌店）緊密互聯，生鮮蔬果提供社區級活力支援！
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#86efac; margin-bottom:4px;">🍎 產地直送高纖蘋果 ($35)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">清脆爽口香甜多汁，迅速補充元氣！</p>
+          <button class="chat-send-btn" style="background:#059669; width:100%; padding:8px;" onclick="buyPxmartApple()">購買 $35 (+35 體力)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fdba74; margin-bottom:4px;">🥛 濃醇無糖高纖豆漿 ($25)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">非基改黃豆現磨濃醇，解渴恢復專注！</p>
+          <button class="chat-send-btn" style="background:#ea580c; width:100%; padding:8px;" onclick="buyPxmartSoymilk()">購買 $25 (+25 體力/+20 心情)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#38bdf8; margin-bottom:4px;">🧺 社區生鮮活力籃 ($80)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">時令水果與綜合堅果，調查續航必備！</p>
+          <button class="chat-send-btn" style="background:#0284c7; width:100%; padding:8px;" onclick="buyPxmartBasket()">購買 $80 (+50 體力/+40 心情)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3e. 傳統市場與觀光夜市 (Traditional Market & Night Market Modal) -->
+  <div class="modal-overlay" id="marketModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="marketModalTitle"><span>🏮</span> 傳統市場與觀光夜市</div>
+        <button class="modal-close" onclick="closeModal('marketModal')">×</button>
+      </div>
+      <div style="background:#d9770618; border:1px solid #f59e0b; padding:12px; border-radius:10px; margin-bottom:14px;">
+        <p style="color:#fbbf24; font-weight:800; font-size:14px;" id="marketGreeting">市場攤商熱情招呼：「歡迎來到在地市場！傳承數十載的正宗老店美味，生鮮現採、小吃現煮，吃了精神百倍！」</p>
+      </div>
+      <div style="background:#0f172a; padding:10px 14px; border-radius:8px; border-left:4px solid #f59e0b; margin-bottom:12px; font-size:12px; color:#cbd5e1;">
+        📍 <strong>【市場門牌】</strong>：<span id="marketAddress" style="color:#fde047; font-weight:700;">雙北在地特色市場</span> ｜ 在地人情味與生鮮聚集地，是打聽街頭線索的最佳情報站！
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fde047; margin-bottom:4px;">🍜 古早味切仔麵 ($45)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">大骨高湯現煮油麵佐紅燒肉豆芽！</p>
+          <button class="chat-send-btn" style="background:#d97706; width:100%; padding:8px;" onclick="buyMarketFood('noodle', 45)">購買 $45 (+40 體力/+25 心情)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fed7aa; margin-bottom:4px;">🌯 現包傳香潤餅捲 ($50)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">酥脆蛋酥搭配鮮甜高麗菜花生粉！</p>
+          <button class="chat-send-btn" style="background:#b45309; width:100%; padding:8px;" onclick="buyMarketFood('roll', 50)">購買 $50 (+35 體力/+30 心情)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
+          <h4 style="color:#fca5a5; margin-bottom:4px;">🍢 現炸旗魚黑輪 ($30)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">金黃現炸旗魚黑輪包裹水煮蛋！</p>
+          <button class="chat-send-btn" style="background:#ea580c; width:100%; padding:8px;" onclick="buyMarketFood('fishcake', 30)">購買 $30 (+20 體力/+35 心情)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 捷運站內月台與等車 Modal (搭手扶梯下樓) -->
+  <div class="modal-overlay" id="mrtStationModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🚇</span> 台北捷運站地下月台 (手扶梯已下達)</div>
+        <button class="modal-close" onclick="closeModal('mrtStationModal')">×</button>
+      </div>
+      <div style="background:#0f172a; padding:14px; border-radius:10px; margin-bottom:12px;">
+        <h4 style="color:#38bdf8; margin-bottom:6px;">🔔 列車進站廣播響起：</h4>
+        <p style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+          「往淡水方向列車即將進站，請旅客依序排隊先下後上。」
+        </p>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="chat-send-btn" style="background:#0284c7; flex:1; padding:12px;" onclick="boardMrtTrain('tamsui')">
+          🚆 嗶悠遊卡上車 (往淡水・解鎖快轉)
+        </button>
+        <button class="chat-send-btn" style="background:#0f766e; flex:1; padding:12px;" onclick="boardMrtTrain('xinyi')">
+          🚆 嗶悠遊卡上車 (往信義101・解鎖快轉)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 寧夏夜市美食小吃 -->
+  <div class="modal-overlay" id="nightMarketModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🏮</span> 寧夏夜市美食小吃街</div>
+        <button class="modal-close" onclick="closeModal('nightMarketModal')">×</button>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+        <div style="background:#1e293b; padding:14px; border-radius:10px;">
+          <h4 style="color:#fbbf24; margin-bottom:4px;">🍗 經典現炸鹽酥雞 ($50)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">九層塔香氣四溢，現炸金黃酥脆！</p>
+          <button class="chat-send-btn" style="background:#f59e0b; width:100%; padding:8px;" onclick="buySnack('chicken', 50)">品嚐一份 ($50)</button>
+        </div>
+        <div style="background:#1e293b; padding:14px; border-radius:10px;">
+          <h4 style="color:#fbbf24; margin-bottom:4px;">🐙 炭烤現做章魚燒 ($45)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">柴魚片與特調醬汁，吃完精神百倍！</p>
+          <button class="chat-send-btn" style="background:#f59e0b; width:100%; padding:8px;" onclick="buySnack('takoyaki', 45)">品嚐一份 ($45)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5-1. 長椅休息與補水 Modal -->
+  <div class="modal-overlay" id="restModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🛏️</span> 街區候車長椅 / 綠化休憩區</div>
+        <button class="modal-close" onclick="closeModal('restModal')">×</button>
+      </div>
+      <div style="background:#0f172a; padding:12px; border-radius:10px; margin-bottom:14px; border-left:4px solid #38bdf8;">
+        🍃 <strong>【調節步伐】</strong>：在雙北街頭走累了嗎？停下腳步在候車長椅上閉目休息，恢復體力與精神！
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:12px 16px; border-radius:8px;">
+          <div>
+            <div style="font-weight:bold; color:white;">🛏️ 長椅閉目深呼吸 (+50 體力)</div>
+            <div style="font-size:11.5px; color:#94a3b8;">放鬆身心，快速消除疲勞。</div>
+          </div>
+          <button class="chat-send-btn" style="background:#10b981; padding:8px 16px;" onclick="restAndRecover()">休息片刻</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:12px 16px; border-radius:8px;">
+          <div>
+            <div style="font-weight:bold; color:white;">☕ 飲用隨身保溫瓶溫水 (+25 體力)</div>
+            <div style="font-size:11.5px; color:#94a3b8;">自備保溫瓶飲水，環保減塑好習慣！</div>
+          </div>
+          <button class="chat-send-btn" style="background:#0284c7; padding:8px 16px;" onclick="drinkWater()">喝溫水</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5-2. 淡水河渡輪觀景棧道 Modal -->
+  <div class="modal-overlay" id="ferryModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>🚢</span> 淡水河渡輪觀景棧道 (八里航線)</div>
+        <button class="modal-close" onclick="closeModal('ferryModal')">×</button>
+      </div>
+      <div style="background:#0369a122; border:1px solid #0284c7; padding:12px; border-radius:10px; margin-bottom:14px;">
+        <p style="color:#38bdf8; font-weight:800; font-size:13.5px;">🌊 微風徐徐吹過淡水河面，遠眺觀音山稜線，夕陽餘暉灑落棧道。</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:12px 16px; border-radius:8px;">
+          <div>
+            <div style="font-weight:bold; color:white;">📸 拍攝河岸風景照</div>
+            <div style="font-size:11.5px; color:#94a3b8;">捕捉波光粼粼的水面，解鎖攝影成就！</div>
+          </div>
+          <button class="chat-send-btn" style="background:#0284c7; padding:8px 16px;" onclick="takeScenicPhoto()">拍照打卡</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:12px 16px; border-radius:8px;">
+          <div>
+            <div style="font-weight:bold; color:white;">💬 發佈限時動態 (+25 心情)</div>
+            <div style="font-size:11.5px; color:#94a3b8;">分享『八里的風，吹散辦案疲憊～』獲得熱烈點讚！</div>
+          </div>
+          <button class="chat-send-btn" style="background:#f59e0b; padding:8px 16px;" onclick="postStory()">發動態</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 情報站：北投分局偵查隊 -->
+  <div class="modal-overlay" id="cctvModal">
+    <div class="modal-card" style="width:780px;">
+      <div class="modal-header">
+        <div class="modal-title"><span>🎛️</span> 交通情報局 (TIB) ✕ 北投分局 CCTV 監控中樞</div>
+        <button class="modal-close" onclick="closeModal('cctvModal')">×</button>
+      </div>
+      <div class="cctv-quad-grid">
+        <div class="cctv-cam-box">
+          <div class="cctv-tag">CAM 01 忠孝西路站前 14:03</div>
+          <div class="cctv-screen-mock">🚶‍♂️ 黑帽男子背後背包走出出口</div>
+        </div>
+        <div class="cctv-cam-box">
+          <div class="cctv-tag">CAM 02 中山北路一段 14:05</div>
+          <div class="cctv-screen-mock">🚸 穿越斑馬線向公車站移動</div>
+        </div>
+        <div class="cctv-cam-box">
+          <div class="cctv-tag">CAM 03 307 公車候車站 14:12</div>
+          <div class="cctv-screen-mock">🚌 登上 307 公車往南京東路</div>
+        </div>
+        <div class="cctv-cam-box">
+          <div class="cctv-tag">CAM 04 八里渡船頭 14:16</div>
+          <div class="cctv-screen-mock">🔍 現身碼頭棧道，手持失竊公事包</div>
+        </div>
+      </div>
+      <div style="background:#0f172a; padding:12px; border-radius:8px; border:1px solid #1e3a8a; margin:12px 0;">
+        <h4 style="color:#38bdf8; margin-bottom:4px;">🎯 鎖定嫌疑人時空行蹤</h4>
+        <p style="font-size:12px; color:#cbd5e1;">利用 307 公車與捷運時序比對，確認嫌犯不在場證明作假！</p>
+      </div>
+      <button class="chat-send-btn" style="background:#ef4444; width:100%; padding:10px; font-size:13.5px;" onclick="openInterrogateModal()">🚨 線上警力就位！進行現場筆錄打臉逮捕！</button>
+    </div>
+  </div>
+
+  <!-- 7. 現場筆錄對質逮捕 -->
+  <div class="modal-overlay" id="interrogateModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>⚖️</span> 站前廣場 —— 現場對質逮捕</div>
+        <button class="modal-close" onclick="closeModal('interrogateModal')">×</button>
+      </div>
+      <div style="background:#1e293b; padding:12px; border-left:4px solid #ef4444; border-radius:6px; margin-bottom:12px;">
+        <strong>黑帽男子辯解：</strong>「警察先生！我下午一直都在板橋睡覺，沒搭過車，你們抓錯人了！」
+      </div>
+      <p style="font-weight:800; color:#38bdf8; margin-bottom:8px;">請出示正確的鐵證打臉：</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="chat-send-btn" style="background:#0284c7; text-align:left; padding:8px 12px;" onclick="confrontSuspect('easycard')">
+          💳 <strong>出示 TIB 悠遊卡紀錄</strong>：14:12 在忠孝西路刷卡搭乘 307 公車！
+        </button>
+        <button class="chat-send-btn" style="background:#1e293b; border:1px solid #334155; text-align:left; padding:8px 12px;" onclick="confrontSuspect('wrong')">
+          🥚 出示剛才在全家買的茶葉蛋發票
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. 破案頒獎 -->
+  <div class="modal-overlay" id="victoryModal">
+    <div class="modal-card" style="text-align:center;">
+      <h2 style="font-size:22px; color:#6ee7b7; margin-bottom:8px;">🎉 案件圓滿偵破！竊賊當場就擒！</h2>
+      <p style="font-size:14px; color:#d1fae5; margin-bottom:16px;">
+        你運用了公車乘車紀錄與 CCTV 軌跡分析，成功戳破嫌疑人的謊言，追回失竊公事包！
       </p>
-      <div id="shopItems">
-        <div class="shop-item-row">
-          <div>
-            <div style="font-weight: 800;">🧥 福爾摩斯經典獵鹿風衣</div>
-            <div style="font-size: 12px; color: var(--text-muted);">改變 2D 像素外觀，古蹟 NPC 好感度提升 20%</div>
-          </div>
-          <button class="btn-hud" onclick="buyItem('coat', 300)">$300 購買</button>
-        </div>
-        <div class="shop-item-row">
-          <div>
-            <div style="font-weight: 800;">🛹 柯南式極速電動滑板</div>
-            <div style="font-size: 12px; color: var(--text-muted);">步行速度提升 60%，穿梭雙北街區更迅速！</div>
-          </div>
-          <button class="btn-hud" onclick="buyItem('board', 450)">$450 購買</button>
-        </div>
-        <div class="shop-item-row">
-          <div>
-            <div style="font-weight: 800;">🔍 高倍率微距放大鏡</div>
-            <div style="font-size: 12px; color: var(--text-muted);">靠近隱藏線索時會自動發出高光粒子提示</div>
-          </div>
-          <button class="btn-hud" onclick="buyItem('glass', 250)">$250 購買</button>
-        </div>
+      <div style="display:flex; justify-content:center; gap:20px; font-size:15px; font-weight:900; margin-bottom:18px;">
+        <span style="color:#fbbf24;">🏅 榮譽勳章 +50</span>
+        <span style="color:#34d399;">💵 生活金 +$100</span>
+        <span style="color:#38bdf8;">⭐ 聲望晉升：雙北都會神探</span>
       </div>
+      <button class="chat-send-btn" style="background:#10b981; font-size:14px; padding:8px 24px;" onclick="closeModal('victoryModal')">領取榮譽並繼續漫遊 ▶</button>
     </div>
   </div>
 
-  <!-- 偵探筆記本 Modal -->
-  <div class="modal-overlay" id="notebookModal">
+  <!-- 背包模態框已依委託人第 53 回合指示移除，專注雙北地圖全景樣式呈現 -->
+
+  <!-- 10. 任務清單 (Dock [📋 任務]) -->
+  <div class="modal-overlay" id="questsModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title"><span>📓</span> 偵探調查日誌與案情進度</div>
-        <button class="modal-close" onclick="closeModal('notebookModal')">×</button>
+        <div class="modal-title"><span>📋</span> 當前委託調查進度</div>
+        <button class="modal-close" onclick="closeModal('questsModal')">×</button>
       </div>
-      <div style="line-height: 1.8; font-size: 14px;">
-        <h4 style="color:#38bdf8; margin-bottom:6px;">📍 當前調查委託清單：</h4>
-        <div id="notebookProgress">
-          • 淡水紅毛城：地牢跳舞小人磚（未破解）<br>
-          • 北投地熱谷：硫磺溫泉隱形信（未破解）<br>
-          • 台北車站：地下街延遲計時機關（未破解）<br>
-          • 板橋林家花園：八角漏窗日影投影（未破解）
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="background:#0f172a; padding:12px; border-radius:8px; border:1px solid #1e3a8a;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; color:#38bdf8;">
+            <span>1. 忠孝西路搭乘 307 公車</span>
+            <span id="stBus" style="color:#f59e0b;">進行中</span>
+          </div>
+          <p style="font-size:12px; color:#94a3b8; margin-top:4px;">走到路邊公車站牌等車上車，體驗鳥瞰快轉過場。</p>
         </div>
-        <hr style="border-color:var(--border); margin: 16px 0;">
-        <div style="background:#0f172a; padding:12px; border-radius:8px;">
-          <strong>👥 六年級專題團隊成員：</strong> 共 3 人小組<br>
-          <strong>💡 提示：</strong> 可以在全地圖自由搭乘捷運探索，沒有任何解謎順序限制！
+        <div style="background:#0f172a; padding:12px; border-radius:8px; border:1px solid #1e3a8a;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; color:#38bdf8;">
+            <span>2. CoCo 手搖飲與全家超商補給</span>
+            <span id="stStore" style="color:#f59e0b;">進行中</span>
+          </div>
+          <p style="font-size:12px; color:#94a3b8; margin-top:4px;">親自走訪門市購買珍奶或茶葉蛋，維持體力。</p>
+        </div>
+        <div style="background:#0f172a; padding:12px; border-radius:8px; border:1px solid #1e3a8a;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; color:#38bdf8;">
+            <span>3. 北投分局調閱 CCTV 追蹤</span>
+            <span id="stCctv" style="color:#f59e0b;">進行中</span>
+          </div>
+          <p style="font-size:12px; color:#94a3b8; margin-top:4px;">會面警政巡官，調閱 4 分割監視器時空軌跡。</p>
+        </div>
+        <div style="background:#0f172a; padding:12px; border-radius:8px; border:1px solid #1e3a8a;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; color:#38bdf8;">
+            <span>4. 現場筆錄打臉逮捕</span>
+            <span id="stArrest" style="color:#f59e0b;">未完成</span>
+          </div>
+          <p style="font-size:12px; color:#94a3b8; margin-top:4px;">出示 307 公車刷卡紀錄，戳破嫌犯不在場證明！</p>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    /* ─── 音效合成器 (Web Audio API) ─── */
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
-    }
-
-    function playMrtChime() {
-      // 模擬捷運動態進站四音階 (G4, B4, D5, G5)
-      const notes = [392, 493.88, 587.33, 783.99];
-      notes.forEach((freq, idx) => {
-        setTimeout(() => playBeep(freq, 'triangle', 0.25), idx * 160);
-      });
-    }
-
-    function playVictoryChime() {
-      const notes = [523.25, 659.25, 783.99, 1046.50];
-      notes.forEach((freq, idx) => {
-        setTimeout(() => playBeep(freq, 'sine', 0.2), idx * 120);
-      });
-    }
-
-    /* ─── 遊戲世界狀態 ─── */
-    const gameState = {
-      money: 200,
-      rep: 0,
-      speed: 3.5,
-      hasCoat: false,
-      hasBoard: false,
-      hasGlass: false,
-      currentLocation: 'tpe_station',
-      solved: {
-        tamsui: false,
-        beitou: false,
-        tpe_station: false,
-        banqiao: false
-      },
-      player: {
-        x: 400,
-        y: 280,
-        size: 24,
-        color: '#38bdf8',
-        dir: 'down'
-      }
-    };
-
-    /* ─── 地圖場景定義 ─── */
-    const scenes = {
-      tpe_station: {
-        name: "台北車站大廳",
-        bgColor: "#1e293b",
-        objects: [
-          { x: 350, y: 100, w: 100, h: 50, color: "#475569", label: "捷運出入口" },
-          { x: 120, y: 180, w: 70, h: 60, color: "#334155", label: "售票機" },
-          { x: 600, y: 150, w: 90, h: 70, color: "#64748b", label: "保潔地下街通道" }
-        ],
-        npc: { x: 260, y: 240, name: "巡邏警衛", icon: "👮‍♂️", dialog: "剛才 Y 區地下街傳來鐵桶傾倒撞擊的巨響，但巡視監視器卻找不到人！你能破解這個利用聲學回聲延遲的不在場證明機關嗎？" },
-        trigger: { x: 620, y: 190, r: 40, puzzleKey: "tpe_station", label: "調查地下街長廊延遲機關" }
-      },
-      tamsui: {
-        name: "淡水紅毛城古蹟",
-        bgColor: "#450a0a",
-        objects: [
-          { x: 280, y: 80, w: 240, h: 120, color: "#991b1b", label: "紅毛城主堡石壁" },
-          { x: 100, y: 220, w: 90, h: 70, color: "#78350f", label: "海關航海日誌桌" },
-          { x: 620, y: 280, w: 80, h: 80, color: "#1e3a8a", label: "淡水河岸渡船頭" }
-        ],
-        npc: { x: 180, y: 280, name: "淡水老船長", icon: "⚓", dialog: "這座城堡地牢石壁上刻滿了奇怪的火柴小人符號！聽說是十九世紀英國領事館留下的古老暗號！" },
-        trigger: { x: 380, y: 180, r: 45, puzzleKey: "tamsui", label: "調查跳舞小人密碼磚" }
-      },
-      beitou: {
-        name: "北投地熱谷溫泉",
-        bgColor: "#14532d",
-        objects: [
-          { x: 260, y: 120, w: 280, h: 140, color: "#065f46", label: "冒白煙的硫磺地熱池 (85°C)" },
-          { x: 80, y: 160, w: 100, h: 80, color: "#78350f", label: "木造溫泉湯屋" }
-        ],
-        npc: { x: 160, y: 290, name: "溫泉老闆娘", icon: "👘", dialog: "客人退房時留下了一張空白信紙，但空氣中隱約飄著化學藥劑味道，旁邊還放著一對防熱竹夾..." },
-        trigger: { x: 400, y: 240, r: 50, puzzleKey: "beitou", label: "調查溫泉地熱顯影機關" }
-      },
-      banqiao: {
-        name: "板橋林本源園邸 (林家花園)",
-        bgColor: "#422006",
-        objects: [
-          { x: 300, y: 90, w: 200, h: 100, color: "#713f12", label: "汲古書屋古亭" },
-          { x: 200, y: 260, w: 400, h: 110, color: "#0369a1", label: "方鑑齋倒影水池" },
-          { x: 640, y: 150, w: 90, h: 90, color: "#57534e", label: "八角漏窗磚牆" }
-        ],
-        npc: { x: 150, y: 220, name: "古蹟導覽員", icon: "🏮", dialog: "相傳百年前林家有一道暗號：『秋分午後三刻，八角漏窗見金光』，必須依靠太陽的特定日影反射才能找到鑰匙！" },
-        trigger: { x: 650, y: 220, r: 45, puzzleKey: "banqiao", label: "調查八角漏窗日晷幾何機關" }
-      }
-    };
-
-    /* ─── 畫布繪製系統 ─── */
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-
-    function drawScene() {
-      const cur = scenes[gameState.currentLocation];
-      ctx.fillStyle = cur.bgColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // 繪製地磚網格
-      ctx.strokeStyle = "rgba(255,255,255,0.06)";
-      ctx.lineWidth = 1;
-      for (let x = 0; x < canvas.width; x += 40) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += 40) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-      }
-
-      // 繪製建築物件
-      cur.objects.forEach(obj => {
-        ctx.fillStyle = obj.color;
-        ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
-        ctx.strokeStyle = "#fff";
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(obj.x, obj.y, obj.w, obj.h);
-
-        ctx.fillStyle = "#fff";
-        ctx.font = "bold 12px sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(obj.label, obj.x + obj.w / 2, obj.y + obj.h / 2);
-      });
-
-      // 繪製調查機關觸發光圈
-      if (cur.trigger) {
-        const isSolved = gameState.solved[cur.trigger.puzzleKey];
-        ctx.beginPath();
-        ctx.arc(cur.trigger.x, cur.trigger.y, cur.trigger.r, 0, Math.PI * 2);
-        ctx.fillStyle = isSolved ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.25)";
-        ctx.fill();
-        ctx.strokeStyle = isSolved ? "#10b981" : "#f59e0b";
-        ctx.lineWidth = 2;
-        ctx.setLineDash([4, 4]);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.fillStyle = isSolved ? "#10b981" : "#f59e0b";
-        ctx.font = "bold 11px sans-serif";
-        ctx.fillText(isSolved ? "✅ 已破案" : "🔍 按空白鍵調查", cur.trigger.x, cur.trigger.y + cur.trigger.r + 14);
-      }
-
-      // 繪製 NPC
-      if (cur.npc) {
-        ctx.font = "28px sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(cur.npc.icon, cur.npc.x, cur.npc.y);
-        ctx.fillStyle = "#38bdf8";
-        ctx.font = "bold 11px sans-serif";
-        ctx.fillText(cur.npc.name, cur.npc.x, cur.npc.y + 16);
-      }
-
-      // 繪製主角 (2D 復古小人)
-      const p = gameState.player;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-
-      // 主角陰影
-      ctx.beginPath();
-      ctx.ellipse(0, 10, 10, 5, 0, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(0,0,0,0.4)";
-      ctx.fill();
-
-      // 衣服與帽子
-      ctx.fillStyle = gameState.hasCoat ? "#d97706" : p.color;
-      ctx.fillRect(-8, -10, 16, 18); // 身體
-
-      // 頭部
-      ctx.fillStyle = "#fed7aa";
-      ctx.beginPath();
-      ctx.arc(0, -14, 8, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 偵探帽 (如果有風衣)
-      if (gameState.hasCoat) {
-        ctx.fillStyle = "#78350f";
-        ctx.fillRect(-10, -24, 20, 6);
-      } else {
-        ctx.fillStyle = "#1e3a8a";
-        ctx.fillRect(-8, -22, 16, 5);
-      }
-
-      // 滑板光暈 (如果有買滑板)
-      if (gameState.hasBoard) {
-        ctx.fillStyle = "#ef4444";
-        ctx.fillRect(-12, 10, 24, 4);
-      }
-
-      ctx.restore();
-    }
-
-    /* ─── 鍵盤與移動循環 ─── */
-    const keys = {};
-    window.addEventListener("keydown", e => {
-      keys[e.key.toLowerCase()] = true;
-      if (e.key === " " || e.key === "Enter") {
-        checkInteraction();
-      }
-    });
-    window.addEventListener("keyup", e => {
-      keys[e.key.toLowerCase()] = false;
-    });
-
-    function updatePlayer() {
-      const p = gameState.player;
-      let spd = gameState.speed;
-      let moved = false;
-
-      if (keys["w"] || keys["arrowup"]) { p.y -= spd; p.dir = "up"; moved = true; }
-      if (keys["s"] || keys["arrowdown"]) { p.y += spd; p.dir = "down"; moved = true; }
-      if (keys["a"] || keys["arrowleft"]) { p.x -= spd; p.dir = "left"; moved = true; }
-      if (keys["d"] || keys["arrowright"]) { p.x += spd; p.dir = "right"; moved = true; }
-
-      // 限制在畫布範圍
-      p.x = Math.max(20, Math.min(canvas.width - 20, p.x));
-      p.y = Math.max(30, Math.min(canvas.height - 20, p.y));
-
-      if (moved && Math.random() < 0.1) {
-        playBeep(220, 'square', 0.04);
-      }
-    }
-
-    function gameLoop() {
-      updatePlayer();
-      drawScene();
-      requestAnimationFrame(gameLoop);
-    }
-    requestAnimationFrame(gameLoop);
-
-    /* ─── 互動偵測 ─── */
-    function checkInteraction() {
-      const p = gameState.player;
-      const cur = scenes[gameState.currentLocation];
-
-      // 檢查是否靠近 NPC
-      if (cur.npc) {
-        const dist = Math.hypot(p.x - cur.npc.x, p.y - cur.npc.y);
-        if (dist < 55) {
-          playBeep(520, 'sine', 0.1);
-          showDialog(cur.npc.icon, cur.npc.name, cur.npc.dialog);
-          return;
-        }
-      }
-
-      // 檢查是否靠近調查光圈
-      if (cur.trigger) {
-        const dist = Math.hypot(p.x - cur.trigger.x, p.y - cur.trigger.y);
-        if (dist < cur.trigger.r + 20) {
-          playBeep(600, 'triangle', 0.12);
-          openPuzzle(cur.trigger.puzzleKey);
-          return;
-        }
-      }
-    }
-
-    /* ─── 對話框邏輯 ─── */
-    const dialogBox = document.getElementById("dialog-box");
-    function showDialog(avatar, name, text) {
-      document.getElementById("dialogAvatar").innerText = avatar;
-      document.getElementById("dialogName").innerText = name;
-      document.getElementById("dialogText").innerText = text;
-      dialogBox.style.display = "flex";
-    }
-    document.getElementById("btnNextDialog").onclick = () => {
-      dialogBox.style.display = "none";
-    };
-
-    /* ─── 四大機關 Mini-Game 與出處考據卡邏輯 ─── */
-    function openPuzzle(key) {
-      const modal = document.getElementById("puzzleModal");
-      const title = document.getElementById("puzzleTitle");
-      const body = document.getElementById("puzzleBody");
-
-      if (gameState.solved[key]) {
-        title.innerHTML = "<span>✅</span> 機關已破解";
-        body.innerHTML = `
-          <div style="padding:20px; text-align:center;">
-            <h3>此處機關已經被你完美解開！</h3>
-            <p style="color:var(--text-muted); margin: 10px 0;">隨時點擊頂部的【考據】按鈕即可重溫原著解密圖鑑。</p>
-            <button class="btn-hud" style="margin: 0 auto;" onclick="openCodexModal()">📖 打開名著圖鑑庫</button>
-          </div>
-        `;
-        modal.style.display = "flex";
-        return;
-      }
-
-      if (key === 'tamsui') {
-        title.innerHTML = "<span>🏰</span> 淡水紅毛城 —— 跳舞小人密碼磚";
-        body.innerHTML = `
-          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
-            石壁上刻滿了二十六個火柴小人，根據淡水海關航海日誌，英文中出現頻率最高的是字母 <strong>E</strong>。請點選拼出密碼單字 <strong>【 C O N A N 】</strong> 解開石室暗門：
-          </p>
-          <div class="puzzle-grid" id="tileGrid">
-            <div class="puzzle-tile" onclick="pickTile(this, 'C')">🕺<span style="font-size:11px;">C</span></div>
-            <div class="puzzle-tile" onclick="pickTile(this, 'O')">🤸<span style="font-size:11px;">O</span></div>
-            <div class="puzzle-tile" onclick="pickTile(this, 'N')">🏃<span style="font-size:11px;">N</span></div>
-            <div class="puzzle-tile" onclick="pickTile(this, 'A')">🚶<span style="font-size:11px;">A</span></div>
-            <div class="puzzle-tile" onclick="pickTile(this, 'N')">🧘<span style="font-size:11px;">N</span></div>
-            <div class="puzzle-tile" onclick="pickTile(this, 'X')">🤾<span style="font-size:11px;">X</span></div>
-          </div>
-          <div style="margin: 14px 0; font-size:16px; font-weight:800; color:#38bdf8;">
-            目前輸入：<span id="cipherInput">------</span>
-          </div>
-          <button class="btn-hud" style="margin: 0 auto;" onclick="submitTamsuiPuzzle()">確認解鎖暗門</button>
-        `;
-      } else if (key === 'beitou') {
-        title.innerHTML = "<span>♨️</span> 北投溫泉 —— 硫磺蒸氣隱形墨水顯影";
-        body.innerHTML = `
-          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
-            案發現場留下一張白紙。請使用防熱竹夾按住按鈕，將紙張置於 85°C 地熱蒸氣上方均勻加熱：
-          </p>
-          <div class="puzzle-ui">
-            <div style="font-size:40px; margin-bottom:8px;">♨️ 📄 ♨️</div>
-            <div style="font-size:15px; font-weight:800; color:#f59e0b;">當前蒸氣溫度：<span id="steamTemp">25</span> °C</div>
-            <div style="background:#334155; height:12px; border-radius:6px; margin: 12px 0; overflow:hidden;">
-              <div id="steamBar" style="background:#f59e0b; width:20%; height:100%;"></div>
-            </div>
-            <div id="secretText" style="opacity: 0.1; font-size:18px; font-weight:800; color:#38bdf8; margin: 10px 0;">
-              【暗道水閥密碼：8 5 0 2】
-            </div>
-            <button class="btn-hud" style="margin: 0 auto;" id="btnHeat" onmousedown="heatPaper()" ontouchstart="heatPaper()">🔥 長按使用竹夾加熱白紙</button>
-          </div>
-        `;
-      } else if (key === 'tpe_station') {
-        title.innerHTML = "<span>🚇</span> 台北車站 —— 長廊迴音與延遲計時機關";
-        body.innerHTML = `
-          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
-            嫌犯利用虹吸管定時蓄水製造金屬巨響。請調整走廊長度與聲速延遲比對表，揭穿兇手製造的偽不在場證明：
-          </p>
-          <div class="puzzle-ui">
-            <div style="font-size:14px; margin-bottom:10px;">地下街長廊長度：300 公尺 ｜ 聲波反射次數：4 次</div>
-            <label style="font-size:13px; color:#94a3b8;">水桶注滿蓄水延遲時間 (分鐘)：</label>
-            <input type="range" id="delaySlider" min="0" max="60" value="10" style="width:80%; margin: 10px 0;" oninput="document.getElementById('delayVal').innerText=this.value">
-            <div style="font-size:16px; font-weight:800; color:#38bdf8;">延遲設定：<span id="delayVal">10</span> 分鐘</div>
-            <p style="font-size:12px; color:#94a3b8; margin-top:8px;">提示：巡警是在嫌犯離開 30 分鐘後才聽到水桶傾倒的撞擊聲！</p>
-            <button class="btn-hud" style="margin: 12px auto 0;" onclick="submitTpePuzzle()">確認破解不在場證明</button>
-          </div>
-        `;
-      } else if (key === 'banqiao') {
-        title.innerHTML = "<span>🏮</span> 板橋林家花園 —— 八角漏窗日影投影";
-        body.innerHTML = `
-          <p style="color:#cbd5e1; font-size:14px; margin-bottom:10px;">
-            『秋分午後三刻，八角漏窗見金光』。請滑動調整太陽角度至午後三點（15:00），讓光斑折射至假山石縫：
-          </p>
-          <div class="puzzle-ui">
-            <div style="font-size:40px; margin-bottom:8px;">☀️ 🪟 🌊</div>
-            <input type="range" id="sunSlider" min="9" max="18" value="11" style="width:80%; margin: 10px 0;" oninput="document.getElementById('sunVal').innerText=this.value + ':00'">
-            <div style="font-size:16px; font-weight:800; color:#fbbf24;">目前時辰：<span id="sunVal">11:00</span></div>
-            <div id="sunRayResult" style="font-size:13px; color:#94a3b8; margin-top:6px;">光線尚未射入水池...</div>
-            <button class="btn-hud" style="margin: 12px auto 0;" onclick="submitBanqiaoPuzzle()">確認比對日影方位</button>
-          </div>
-        `;
-      }
-
-      modal.style.display = "flex";
-    }
-
-    /* ─── 機關互動操作 ─── */
-    let tamsuiInput = "";
-    function pickTile(el, char) {
-      playBeep(400, 'sine', 0.05);
-      tamsuiInput += char;
-      if (tamsuiInput.length > 5) tamsuiInput = char;
-      document.getElementById("cipherInput").innerText = tamsuiInput;
-    }
-    function submitTamsuiPuzzle() {
-      if (tamsuiInput === "CONAN") {
-        solveCase('tamsui');
-      } else {
-        alert("密碼不正確，提示：航海日誌暗示密碼包含 C, O, N, A, N！");
-        tamsuiInput = "";
-        document.getElementById("cipherInput").innerText = "------";
-      }
-    }
-
-    let currentTemp = 25;
-    function heatPaper() {
-      currentTemp += 15;
-      playBeep(600, 'triangle', 0.06);
-      if (currentTemp > 90) currentTemp = 90;
-      document.getElementById("steamTemp").innerText = currentTemp;
-      document.getElementById("steamBar").style.width = (currentTemp / 90 * 100) + "%";
-      document.getElementById("secretText").style.opacity = (currentTemp / 90);
-
-      if (currentTemp >= 85) {
-        setTimeout(() => {
-          solveCase('beitou');
-        }, 500);
-      }
-    }
-
-    function submitTpePuzzle() {
-      const val = parseInt(document.getElementById("delaySlider").value);
-      if (val === 30) {
-        solveCase('tpe_station');
-      } else {
-        alert("延遲計算有誤！警衛聽到聲音時，嫌犯早已坐捷運離開 30 分鐘！");
-      }
-    }
-
-    function submitBanqiaoPuzzle() {
-      const val = parseInt(document.getElementById("sunSlider").value);
-      if (val === 15) {
-        solveCase('banqiao');
-      } else {
-        alert("光影角度不對！古訓提到『午後三刻』指的是下午 15:00！");
-      }
-    }
-
-    /* ─── 破案結案與彈出考據圖鑑 ─── */
-    const codexData = {
-      tamsui: {
-        title: "📜 【考據卡】福爾摩斯〈跳舞的人〉密碼磚",
-        source: "柯南·道爾 1903 年《福爾摩斯探案集：歸來記》之〈跳舞的人〉",
-        science: "單表替換式密碼（Substitution Cipher）與英文字母頻率分析法（E 最常出現）。",
-        taiwan: "淡水紅毛城曾是英國領事館，將英國維多利亞時代的古典密碼藏於紅磚石壁中，完美契合淡水港埠史實！"
-      },
-      beitou: {
-        title: "📜 【考據卡】名偵探柯南化學熱敏顯影密室",
-        source: "青山剛昌《名偵探柯南》漫畫第 74 卷「毒與幻的設計」及經典熱敏反應篇章",
-        science: "熱敏顯影原理：弱酸高溫脫水炭化或氯化鈷水合物受熱轉變為無水藍色物態。",
-        taiwan: "北投地熱谷青磺泉天然水溫高達 80°C~100°C，高溫天然蒸氣正是最真實的顯影環境！"
-      },
-      tpe_station: {
-        title: "📜 【考據卡】柯南〈霧天狗傳說〉水力延遲與建築聲學",
-        source: "《名偵探柯南》動畫第 52 集〈霧天狗傳說殺人事件〉與古典本格推理",
-        science: "流體虹吸原理與長廊多重反射聲波延遲（Echolocation Delay）。",
-        taiwan: "台北車站地下街四通八達且長達數百公尺，光滑水泥壁面極易造成回聲定位誤差。"
-      },
-      banqiao: {
-        title: "📜 【考據卡】福爾摩斯〈馬斯格雷夫禮儀〉日影幾何投影",
-        source: "柯南·道爾《福爾摩斯探案集：回憶錄》之〈馬斯格雷夫禮儀〉",
-        science: "太陽高度角、日晷幾何學與相似三角形測量定理。",
-        taiwan: "國定古蹟板橋林家花園汲古書屋與八角漏窗水池造景，極富古典建築工藝之美！"
-      }
-    };
-
-    function solveCase(key) {
-      gameState.solved[key] = true;
-      gameState.money += 500;
-      gameState.rep += 100;
-      updateHUD();
-      closeModal('puzzleModal');
-      playVictoryChime();
-
-      // 彈出考據圖鑑
-      const c = codexData[key];
-      const modal = document.getElementById("puzzleModal");
-      const title = document.getElementById("puzzleTitle");
-      const body = document.getElementById("puzzleBody");
-
-      title.innerHTML = `<span>🎉</span> 破案成功！獲得 $500 酬金與 100 聲望！`;
-      body.innerHTML = `
-        <div class="codex-banner">
-          <h4>${c.title}</h4>
-          <p style="margin-bottom:6px;"><strong>📖 名著出處：</strong> ${c.source}</p>
-          <p style="margin-bottom:6px;"><strong>⚗️ 科學原理：</strong> ${c.science}</p>
-          <p><strong>🇹🇼 雙北在地結合：</strong> ${c.taiwan}</p>
+  <!-- 11. 設定與私服器 (Dock [⚙️ 設定]) -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><span>⚙️</span> 環境與私服器連線設定</div>
+        <button class="modal-close" onclick="closeModal('settingsModal')">×</button>
+      </div>
+      <div style="font-size:13px; line-height:1.7; color:#cbd5e1;">
+        <div style="background:#0f172a; padding:12px; border-radius:8px; margin-bottom:12px;">
+          <strong>👀 當前視角模式：</strong> <span style="color:#38bdf8; font-weight:bold;">第一人稱視角 (FPV 主角之眼)</span><br>
+          <strong>⚡ 渲染核心模式：</strong> <span id="renderEngineLabel" style="color:#10b981; font-weight:bold;">偵測中...</span>
         </div>
-        <button class="btn-hud" style="margin: 10px auto 0;" onclick="closeModal('puzzleModal')">收入偵探圖鑑庫 ▶</button>
-      `;
-      modal.style.display = "flex";
-      updateNotebookProgress();
-    }
+        <div style="background:#0f172a; padding:14px; border-radius:10px; margin-bottom:12px; border:1px solid #1e3a8a;">
+          <h4 style="color:#38bdf8; margin-bottom:8px;">🌐 專屬私服器 (WebSocket) 連線位址</h4>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="wsServerInput" class="chat-input" style="padding:6px 10px;" value="ws://localhost:3000">
+            <button class="chat-send-btn" onclick="reconnectCustomServer()">重新連線</button>
+          </div>
+          <p style="font-size:11.5px; color:#94a3b8; margin-top:6px;">
+            本機啟動請在終端機輸入 <code>npm start</code>！上傳雲端後可填入 Render 提供的 <code>wss://...</code> 網址。
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="chat-send-btn" style="background:#0284c7; padding:8px 16px;" onclick="toggleWeather()">☀️ 切換時段 (晴天/黃昏/夜晚)</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function updateHUD() {
-      document.getElementById("statMoney").innerText = "$" + gameState.money;
-      document.getElementById("statRep").innerText = gameState.rep;
-      const count = Object.values(gameState.solved).filter(Boolean).length;
-      document.getElementById("statCodex").innerText = count + " / 4";
-      document.getElementById("hudLocation").innerText = "📍 " + scenes[gameState.currentLocation].name;
-    }
-
-    function updateNotebookProgress() {
-      const s = gameState.solved;
-      document.getElementById("notebookProgress").innerHTML = `
-        • 淡水紅毛城：${s.tamsui ? '<span style="color:#10b981;">[已破案] 跳舞小人密碼磚</span>' : '地牢跳舞小人磚（未破解）'}<br>
-        • 北投地熱谷：${s.beitou ? '<span style="color:#10b981;">[已破案] 硫磺溫泉隱形信</span>' : '硫磺溫泉隱形信（未破解）'}<br>
-        • 台北車站：${s.tpe_station ? '<span style="color:#10b981;">[已破案] 地下街長廊聲學機關</span>' : '地下街延遲計時機關（未破解）'}<br>
-        • 板橋林家花園：${s.banqiao ? '<span style="color:#10b981;">[已破案] 八角漏窗日影投影</span>' : '八角漏窗日影投影（未破解）'}
-      `;
-    }
-
-    /* ─── 捷運搭乘邏輯 ─── */
-    function openMrtModal() {
-      document.getElementById("mrtModal").style.display = "flex";
-    }
-    function travelTo(loc) {
-      if (gameState.currentLocation === loc) {
-        alert("你已經在該車站囉！");
-        return;
-      }
-      if (gameState.money < 20) {
-        alert("悠遊卡餘額不足 $20！請先破案賺取委託金！");
-        return;
-      }
-      gameState.money -= 20;
-      gameState.currentLocation = loc;
-      gameState.player.x = 400;
-      gameState.player.y = 300;
-      playMrtChime();
-      updateHUD();
-      closeModal('mrtModal');
-    }
-
-    /* ─── 商店購買邏輯 ─── */
-    function openShopModal() {
-      document.getElementById("shopModal").style.display = "flex";
-    }
-    function buyItem(type, cost) {
-      if (gameState.money < cost) {
-        alert("金幣不足！快去調查破解機關賺取委託金吧！");
-        return;
-      }
-      gameState.money -= cost;
-      playBeep(750, 'sine', 0.15);
-      if (type === 'coat') {
-        gameState.hasCoat = true;
-        alert("成功購買【福爾摩斯經典獵鹿風衣】！主角外觀已換上經典偵探套裝！");
-      } else if (type === 'board') {
-        gameState.hasBoard = true;
-        gameState.speed = 5.5;
-        alert("成功購買【柯南式極速電動滑板】！移動速度提升 60%！");
-      } else if (type === 'glass') {
-        gameState.hasGlass = true;
-        alert("成功購買【高倍率微距放大鏡】！");
-      }
-      updateHUD();
-    }
-
-    /* ─── 考據圖鑑 Modal ─── */
-    function openCodexModal() {
-      const list = document.getElementById("codexList");
-      list.innerHTML = "";
-      let found = 0;
-      for (const key in gameState.solved) {
-        if (gameState.solved[key]) {
-          found++;
-          const c = codexData[key];
-          list.innerHTML += `
-            <div class="codex-banner">
-              <h4>${c.title}</h4>
-              <p style="margin-bottom:4px;"><strong>📖 名著出處：</strong> ${c.source}</p>
-              <p style="margin-bottom:4px;"><strong>⚗️ 科學原理：</strong> ${c.science}</p>
-              <p><strong>🇹🇼 雙北在地結合：</strong> ${c.taiwan}</p>
-            </div>
-          `;
-        }
-      }
-      if (found === 0) {
-        list.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-muted);">尚未解開任何機關！快搭捷運去雙北景點展開調查吧！</div>`;
-      }
-      document.getElementById("codexModal").style.display = "flex";
-    }
-
-    function openNotebookModal() {
-      document.getElementById("notebookModal").style.display = "flex";
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
-
-    /* ─── 行動裝置 D-Pad 支援 ─── */
-    const bindBtn = (id, key) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.addEventListener("touchstart", (e) => { e.preventDefault(); keys[key] = true; });
-      el.addEventListener("touchend", (e) => { e.preventDefault(); keys[key] = false; });
-      el.addEventListener("mousedown", () => { keys[key] = true; });
-      el.addEventListener("mouseup", () => { keys[key] = false; });
-    };
-    bindBtn("btnUp", "arrowup");
-    bindBtn("btnDown", "arrowdown");
-    bindBtn("btnLeft", "arrowleft");
-    bindBtn("btnRight", "arrowright");
-  </script>
+  <script src="game.js"></script>
 </body>
 </html>
