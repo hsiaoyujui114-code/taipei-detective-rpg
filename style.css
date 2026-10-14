@@ -1,0 +1,1448 @@
+/* ==========================================================================
+   《雙北漫遊偵探：都會行蹤》✕《城市脈動：通勤偵探》
+   完整視覺風格：動漫偵探 ✕ 台北捷運 ✕ 交通大數據
+   ========================================================================== */
+
+:root {
+  --cyan-primary: #00d2ff;
+  --cyan-glow: rgba(0, 210, 255, 0.55);
+  --blue-dark: #07152d;
+  --blue-panel: rgba(8, 24, 52, 0.94);
+  --blue-panel-border: rgba(0, 210, 255, 0.7);
+  --amber: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #020617; /* 預設極致黑曜石賽博空間底色，絕不白屏與無斷層邊界 */
+  color: var(--text-main);
+  font-family: var(--font-base);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* 3D / 2.5D 畫布容器 */
+#webgl-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #020617;
+}
+
+#webgl-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#webgl-container.mosaic-mode {
+  filter: blur(4px) contrast(1.15);
+}
+
+/* 頂部主狀態列 (Top HUD) */
+.hud-top {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hud-top > * {
+  pointer-events: auto;
+}
+
+/* 左上角賽博全息拓撲系統狀態徽章 */
+.cyber-system-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(3, 7, 18, 0.88);
+  border: 1.5px solid #00f0ff;
+  border-radius: 12px;
+  padding: 8px 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 240, 255, 0.4);
+  backdrop-filter: blur(12px);
+}
+
+.cyber-pulse-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+  animation: cyberPulse 1.8s infinite;
+}
+
+@keyframes cyberPulse {
+  0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 6px #00f0ff; }
+  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 16px #00f0ff; }
+  100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 6px #00f0ff; }
+}
+
+.cyber-badge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cyber-badge-title {
+  font-size: 13px;
+  font-weight: 900;
+  color: #00f0ff;
+  letter-spacing: 1px;
+}
+
+.cyber-badge-sub {
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+/* 歷史留存兼容 */
+.player-profile-card {
+  display: none !important;
+}
+
+.profile-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.profile-header .level-tag {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  text-shadow: 0 0 8px rgba(0, 210, 255, 0.8);
+}
+
+.profile-header .badge-tag {
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.bar-label {
+  width: 32px;
+  color: #e2e8f0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 9px;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s;
+}
+
+.bar-fill.stamina {
+  background: linear-gradient(90deg, #00d2ff, #38bdf8);
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+.bar-fill.stamina.low {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+  box-shadow: 0 0 10px #ef4444;
+}
+
+.bar-fill.mood {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  box-shadow: 0 0 10px #fbbf24;
+}
+
+.bar-val {
+  width: 44px;
+  text-align: right;
+  font-size: 10.5px;
+  color: #bae6fd;
+}
+
+/* 左側懸浮任務卡 (主線任務 & 任務提示) */
+.quest-floating-card {
+  position: absolute;
+  top: 92px;
+  left: 16px;
+  background: var(--blue-panel);
+  border: 1.5px solid var(--blue-panel-border);
+  border-radius: 14px;
+  width: 250px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 12px rgba(0, 210, 255, 0.3);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+.hint-floating-card {
+  position: absolute;
+  bottom: 86px;
+  left: 16px;
+  background: var(--blue-panel);
+  border: 1.5px solid var(--blue-panel-border);
+  border-radius: 14px;
+  width: 250px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 12px rgba(0, 210, 255, 0.3);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+.quest-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 900;
+  color: #fde047;
+}
+
+.quest-card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quest-card-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.quest-card-close:hover {
+  color: white;
+}
+
+.quest-card-body {
+  font-size: 12px;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+/* 體力不支中央警報橫幅 */
+.stamina-warning-banner {
+  position: absolute;
+  top: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(185, 28, 28, 0.95);
+  border: 2px solid #ef4444;
+  border-radius: 16px;
+  padding: 8px 24px;
+  color: white;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.8), 0 8px 24px rgba(0, 0, 0, 0.8);
+  z-index: 40;
+  animation: pulseWarning 1.2s infinite ease-in-out;
+  cursor: pointer;
+}
+
+@keyframes pulseWarning {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.04); }
+}
+
+.warning-icon-box {
+  font-size: 24px;
+}
+
+.warning-title {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.warning-desc {
+  font-size: 11.5px;
+  color: #fecaca;
+  margin-top: 2px;
+}
+
+/* 導航提示氣泡 */
+.nav-hint-toast {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.96);
+  border: 2px solid #f59e0b;
+  border-radius: 24px;
+  padding: 8px 22px;
+  color: #fef08a;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(245, 158, 11, 0.5);
+  z-index: 35;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* 全服號外快報欄 */
+.breaking-news-banner {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.95), rgba(185, 28, 28, 0.95));
+  border: 1px solid #f87171;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: white;
+  z-index: 30;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.6);
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 右上角 HUD */
+.hud-top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-time-pill {
+  background: var(--blue-panel);
+  border: 1.5px solid var(--blue-panel-border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e0f2fe;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 210, 255, 0.25);
+}
+
+.location-pill {
+  background: var(--blue-panel);
+  border: 1.5px solid var(--blue-panel-border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 210, 255, 0.25);
+}
+
+/* 圓形雷達小地圖 */
+.radar-minimap {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 2.5px solid #00d2ff;
+  background: #030d1a;
+  position: relative;
+  box-shadow: 0 0 18px var(--cyan-glow), 0 6px 18px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radar-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.radar-sweep {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(0, 210, 255, 0.45) 0deg, transparent 55deg);
+  animation: radarRotate 3.2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes radarRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.radar-compass-n {
+  position: absolute;
+  top: 1px;
+  font-size: 10px;
+  font-weight: 900;
+  color: white;
+  background: #0284c7;
+  padding: 0 4px;
+  border-radius: 4px;
+  z-index: 3;
+}
+
+.radar-player-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ef4444;
+  position: absolute;
+  z-index: 3;
+}
+
+/* 右側互動功能選項膠囊堆疊 */
+.action-pills-stack {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 25;
+}
+
+.action-pill-btn {
+  background: var(--blue-panel);
+  border: 1.5px solid var(--blue-panel-border);
+  border-radius: 22px;
+  padding: 10px 20px;
+  color: white;
+  font-size: 13.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7), 0 0 12px var(--cyan-glow);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.action-pill-btn:hover {
+  background: #0284c7;
+  transform: translateX(-4px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 210, 255, 0.6);
+}
+
+.action-pill-btn .key-badge {
+  background: #0284c7;
+  color: white;
+  font-weight: 900;
+  font-size: 13px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+/* 浮動互動提示 [E] (中央底部) */
+.interact-prompt-floating {
+  position: absolute;
+  bottom: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue-panel);
+  border: 2px solid #00d2ff;
+  border-radius: 24px;
+  padding: 10px 24px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 0 25px var(--cyan-glow), 0 8px 20px rgba(0, 0, 0, 0.8);
+  z-index: 25;
+  cursor: pointer;
+}
+
+.key-badge {
+  background: #0284c7;
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+
+/* 偵探對話視窗 */
+.detective-dialogue-box {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  width: 420px;
+  max-width: calc(100vw - 120px);
+  background: var(--blue-panel);
+  border: 2px solid var(--blue-panel-border);
+  border-radius: 18px;
+  padding: 12px 16px;
+  display: none;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px var(--cyan-glow);
+  backdrop-filter: blur(10px);
+  z-index: 30;
+}
+
+.diag-avatar-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #00d2ff;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.diag-avatar-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.diag-content-box {
+  flex: 1;
+}
+
+.diag-speaker {
+  font-size: 13px;
+  font-weight: 900;
+  color: #38bdf8;
+  margin-bottom: 4px;
+}
+
+.diag-text {
+  font-size: 13px;
+  color: #f1f5f9;
+  line-height: 1.5;
+}
+
+.diag-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* 右下角 4 顆 Cyberpunk 經典 Dock 按鈕 */
+.hud-bottom-right-dock {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 12px;
+  z-index: 20;
+}
+
+.dock-btn {
+  width: 60px;
+  height: 60px;
+  background: var(--blue-panel);
+  border: 2px solid #00d2ff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 12px var(--cyan-glow);
+  backdrop-filter: blur(10px);
+}
+
+.dock-btn:hover {
+  background: #0284c7;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0, 210, 255, 0.65);
+}
+
+.dock-icon {
+  font-size: 22px;
+}
+
+.dock-label {
+  font-size: 11px;
+  font-weight: 800;
+  margin-top: 2px;
+  color: #bae6fd;
+}
+
+/* 手機虛擬十字鍵 */
+.mobile-dpad {
+  position: absolute;
+  bottom: 96px;
+  right: 20px;
+  display: none;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(2, 48px);
+  gap: 6px;
+  z-index: 22;
+}
+
+.dpad-btn {
+  width: 48px;
+  height: 48px;
+  background: rgba(10, 25, 50, 0.9);
+  border: 1px solid #00d2ff;
+  color: white;
+  border-radius: 12px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.dpad-btn:active {
+  background: #0284c7;
+}
+
+/* 聊天室 */
+.chat-window {
+  position: absolute;
+  top: 92px;
+  left: 280px;
+  width: 270px;
+  height: 140px;
+  background: rgba(7, 21, 45, 0.88);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  z-index: 20;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 6px 10px;
+  overflow-y: auto;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.chat-msg-row {
+  line-height: 1.35;
+}
+
+.chat-msg-row .author {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+.chat-input-bar {
+  display: flex;
+  padding: 4px 6px;
+  background: rgba(10, 25, 50, 0.95);
+  border-top: 1px solid #1e3a8a;
+}
+
+.chat-input {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  outline: none;
+}
+
+.chat-send-btn {
+  background: #0284c7;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+/* ==================== 彈窗 MODALS ==================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(10px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-card {
+  background: #0a1832;
+  border: 2px solid #00d2ff;
+  border-radius: 20px;
+  width: 720px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px var(--cyan-glow);
+  position: relative;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid rgba(56, 189, 248, 0.4);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* 捷運路網網格 */
+.mrt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.mrt-card {
+  background: #0f172a;
+  border: 1.5px solid #1e3a8a;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mrt-card:hover {
+  border-color: #00d2ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 210, 255, 0.4);
+}
+
+.mrt-card.active {
+  border-color: #10b981;
+  background: #064e3b22;
+}
+
+.mrt-line {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f87171;
+  margin-bottom: 4px;
+}
+
+.mrt-station-name {
+  font-size: 15px;
+  font-weight: 900;
+  color: #f8fafc;
+}
+
+.mrt-features {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* 4分割 CCTV 監視器模擬 */
+.cctv-quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.cctv-cam-box {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 8px;
+  height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cctv-tag {
+  font-size: 10.5px;
+  font-weight: 900;
+  color: #22c55e;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.cctv-screen-mock {
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+/* 背包格子 */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.inventory-slot {
+  background: #0f172a;
+  border: 1px solid #1e3a8a;
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.inventory-slot.active {
+  border-color: #00d2ff;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+}
+
+.inventory-icon {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.inventory-name {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #f1f5f9;
+}
+
+.inventory-desc {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* 響應式優化 */
+@media (max-width: 768px) {
+  .chat-window {
+    display: none;
+  }
+  .mobile-dpad {
+    display: grid;
+  }
+  .player-profile-card {
+    padding: 4px 10px 4px 6px;
+  }
+  .profile-avatar-box {
+    width: 46px;
+    height: 46px;
+  }
+  .profile-info {
+    min-width: 120px;
+  }
+  .quest-floating-card {
+    width: 200px;
+    top: 76px;
+  }
+  .hint-floating-card {
+    display: none;
+  }
+  .action-pills-stack {
+    right: 12px;
+  }
+  .hud-bottom-right-dock {
+    right: 10px;
+    bottom: 12px;
+    gap: 8px;
+  }
+  .dock-btn {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* ==========================================================================
+   第一人稱視角 (FPV) 與公車/捷運鳥瞰快轉過場動畫 HUD
+   ========================================================================== */
+
+/* 第一人稱準星 (Center Reticle) */
+.fpv-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 15;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 210, 255, 0.7);
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+  display: block;
+}
+
+.fpv-crosshair::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  background: #38bdf8;
+  border-radius: 50%;
+}
+
+/* 第一人稱視角操作提示 */
+.fpv-hint {
+  position: absolute;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(8, 24, 52, 0.88);
+  border: 1px solid rgba(0, 210, 255, 0.5);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 12.5px;
+  color: #e2e8f0;
+  z-index: 18;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: pulseHint 3s infinite ease-in-out;
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.9; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.65; transform: translateX(-50%) translateY(-2px); }
+}
+
+/* 導航提示氣泡 (Navigation Toast) */
+.nav-hint-toast {
+  position: absolute;
+  top: 86px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.94);
+  border: 1.5px solid #38bdf8;
+  border-radius: 25px;
+  padding: 8px 22px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #38bdf8;
+  z-index: 25;
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+/* 公車 / 捷運乘車與鳥瞰快轉過場 HUD */
+.transit-hud {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 18px;
+  background: rgba(10, 25, 50, 0.95);
+  border: 2px solid #10b981;
+  border-radius: 18px;
+  padding: 12px 26px;
+  z-index: 35;
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.45), 0 0 20px rgba(0, 210, 255, 0.3);
+  backdrop-filter: blur(14px);
+}
+
+.transit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.transit-badge {
+  font-size: 15px;
+  font-weight: 900;
+  color: #6ee7b7;
+  letter-spacing: 0.5px;
+}
+
+.transit-status {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.fast-forward-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  border: 1.5px solid #34d399;
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.5);
+  transition: all 0.2s ease;
+  animation: pulseButton 1.6s infinite alternate;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fast-forward-btn:hover {
+  transform: scale(1.06);
+  background: linear-gradient(135deg, #34d399, #10b981);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.85);
+}
+
+@keyframes pulseButton {
+  from { box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); transform: scale(1); }
+  to { box-shadow: 0 0 24px rgba(16, 185, 129, 0.85); transform: scale(1.03); }
+}
+
+/* 跑步 / 走路雙速衝刺切換按鈕 */
+.sprint-toggle-btn {
+  position: absolute;
+  bottom: 24px;
+  left: 175px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1.5px solid #38bdf8;
+  border-radius: 22px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f8fafc;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 4px 16px rgba(0, 210, 255, 0.35);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.sprint-toggle-btn:hover {
+  transform: scale(1.06);
+  border-color: #f59e0b;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+.sprint-toggle-btn.running {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #fbbf24;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.7);
+}
+
+@media (max-width: 768px) {
+  .sprint-toggle-btn {
+    bottom: 155px;
+    left: 16px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+}
+
+/* ==========================================================================
+   連鎖品牌雷達連動面板 (Brand Radar Filter Bar)
+   ========================================================================== */
+.brand-radar-bar {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(8, 20, 42, 0.94);
+  border: 1.5px solid rgba(0, 210, 255, 0.65);
+  border-radius: 30px;
+  padding: 6px 14px;
+  z-index: 22;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 210, 255, 0.35);
+  backdrop-filter: blur(12px);
+  max-width: 96vw;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.radar-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #cbd5e1;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.radar-filter-btn:hover {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.radar-filter-btn.active {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.radar-filter-btn.active.brand-fmart {
+  background: linear-gradient(135deg, #059669, #0284c7);
+  border-color: #34d399;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.7);
+}
+
+.radar-filter-btn.active.brand-seven {
+  background: linear-gradient(135deg, #ea580c, #dc2626);
+  border-color: #fb923c;
+  box-shadow: 0 0 14px rgba(234, 88, 12, 0.7);
+}
+
+.radar-filter-btn.active.brand-carrefour {
+  background: linear-gradient(135deg, #dc2626, #2563eb);
+  border-color: #60a5fa;
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.7);
+}
+
+.radar-filter-btn.active.brand-pxmart {
+  background: linear-gradient(135deg, #1e3a8a, #0369a1);
+  border-color: #38bdf8;
+  box-shadow: 0 0 14px rgba(14, 165, 233, 0.7);
+}
+
+.radar-filter-btn.active.brand-coco {
+  background: linear-gradient(135deg, #ea580c, #f59e0b);
+  border-color: #fbbf24;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.7);
+}
+
+.radar-filter-btn.active.brand-market {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  border-color: #fde047;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.7);
+}
+
+/* ==========================================================================
+   雙北行政區快速導航條 (District Quick Jump Bar)
+   ========================================================================== */
+.district-jump-bar {
+  position: absolute;
+  top: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(3, 7, 18, 0.92);
+  border: 1.5px solid rgba(0, 240, 255, 0.5);
+  border-radius: 20px;
+  padding: 5px 14px;
+  z-index: 21;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 240, 255, 0.3);
+  backdrop-filter: blur(12px);
+  max-width: 96vw;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.district-jump-btn {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: #94a3b8;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.district-jump-btn:hover {
+  background: rgba(2, 132, 199, 0.4);
+  color: #00f0ff;
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.district-jump-btn.highlight {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #ffffff;
+  border-color: #00f0ff;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+}
+
+/* ==========================================================================
+   幽靈天眼巡航 HUD (Ghost Spectator Drone HUD)
+   ========================================================================== */
+.ghost-drone-hud {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(8, 20, 45, 0.95);
+  border: 1.5px solid #00d2ff;
+  border-radius: 30px;
+  padding: 6px 20px;
+  z-index: 23;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 210, 255, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.ghost-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.ghost-stat-item strong {
+  color: #38bdf8;
+}
+
+.ghost-stat-tag {
+  background: rgba(0, 210, 255, 0.15);
+  border: 1px solid #00d2ff;
+  color: #00d2ff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* 浮動縮放與視角控制鍵 (Zoom Controls) */
+.zoom-controls-floating {
+  position: absolute;
+  right: 20px;
+  bottom: 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 24;
+}
+
+.zoom-btn {
+  width: 44px;
+  height: 44px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1.5px solid rgba(0, 210, 255, 0.7);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 210, 255, 0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.zoom-btn:hover {
+  background: rgba(2, 132, 199, 0.85);
+  border-color: #38bdf8;
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.6);
+}
+
+/* 幽靈巡航 / 地面角色切換鍵 */
+.ghost-mode-toggle-btn {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1.5px solid #00d2ff;
+  border-radius: 22px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f8fafc;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 4px 16px rgba(0, 210, 255, 0.35);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.ghost-mode-toggle-btn:hover {
+  transform: scale(1.06);
+  border-color: #38bdf8;
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.6);
+}
+
+.ghost-mode-toggle-btn.spectator {
+  background: linear-gradient(135deg, #0284c7, #4f46e5);
+  border-color: #818cf8;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.7);
+}
+
+/* 品牌連鎖雷達特效橫幅 (Radar Broadcast Banner) */
+.chain-broadcast-banner {
+  position: absolute;
+  top: 162px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 24, 52, 0.96);
+  border: 1.5px solid #38bdf8;
+  border-radius: 24px;
+  padding: 8px 22px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #e0f2fe;
+  z-index: 22;
+  box-shadow: 0 6px 24px rgba(0, 210, 255, 0.5);
+  backdrop-filter: blur(12px);
+  animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (max-width: 768px) {
+  .brand-radar-bar {
+    top: 68px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+  .radar-filter-btn {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+  .district-jump-bar {
+    top: 108px;
+    padding: 3px 8px;
+  }
+  .district-jump-btn {
+    font-size: 10.5px;
+    padding: 3px 8px;
+  }
+  .ghost-drone-hud {
+    display: none;
+  }
+  .zoom-controls-floating {
+    right: 12px;
+    bottom: 140px;
+  }
+  .ghost-mode-toggle-btn {
+    bottom: 110px;
+    left: 16px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+}
+
+
+
