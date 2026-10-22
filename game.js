@@ -133,29 +133,49 @@ const playerPos = {
 };
 
 const camera = {
-  x: 70,
-  z: -20,
-  targetScale: 0.95, // 預設即為雙北全景樣式總覽！完整呈現臺北 12 區 ✕ 新北 29 特區
-  currentScale: 0.95,
-  minScale: 0.35,    // 支援宏觀超廣角衛星全景
-  maxScale: 28.0     // 放大為街廓與門市立面
+  x: 0,
+  z: 14,
+  targetScale: 5.2, // 預設舒適街區視角：開局即見清晰街道、萬家福/樂家康、307公車與角色，徹底告別黑屏！
+  currentScale: 5.2,
+  minScale: 0.85,   // 支援宏觀雙北全景總覽
+  maxScale: 160.0   // 核心突破：大幅提升至 160.0，支援超大微觀角色特寫！
+};
+let cameraLockToPlayer = true; // 視角嚴密鎖定於主角正上方，移動時無縫同步推進
+
+// 🛣️ 道路路牌簡潔化控制 (預設隱藏「民權東路」等看板，按鈕按需啟用，符合企劃書視野規範)
+window.showGameRoadSigns = false;
+window.toggleGameRoadSigns = function() {
+  window.showGameRoadSigns = !window.showGameRoadSigns;
+  const btn = document.getElementById('btnToggleGameRoadSigns');
+  if (btn) {
+    btn.style.borderColor = window.showGameRoadSigns ? '#22c55e' : 'rgba(255,255,255,0.2)';
+    btn.style.boxShadow = window.showGameRoadSigns ? '0 0 10px rgba(34, 197, 94, 0.6)' : 'none';
+  }
+  if (typeof addSystemChat === 'function') {
+    addSystemChat(`🛣️ 2.5D沙盤道路名稱看板已【${window.showGameRoadSigns ? '開啟顯示' : '設為簡潔隱藏'}】`);
+  }
 };
 
 // 奔跑腳底塵土/氣流粒子系統
 const sprintParticles = [];
 
-/* ─── 3. 2D/2.5D Canvas 現代動漫引擎容器初始化 ─── */
+/* ─── 3. 2D/2.5D Canvas 現代動漫引擎容器初始化 (Retina HiDPI 超高畫質支援) ─── */
 const container = document.getElementById("webgl-container");
 container.innerHTML = '';
 const canvas = document.createElement('canvas');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+canvas.width = Math.round(window.innerWidth * dpr);
+canvas.height = Math.round(window.innerHeight * dpr);
+canvas.style.width = window.innerWidth + 'px';
+canvas.style.height = window.innerHeight + 'px';
 container.appendChild(canvas);
 const ctx = canvas.getContext('2d');
+ctx.imageSmoothingEnabled = true;
+ctx.imageSmoothingQuality = 'high';
 
 const engineLbl = document.getElementById("renderEngineLabel");
 if (engineLbl) {
-  engineLbl.innerText = '現代 2D ✕ 2.5D 高空俯瞰創新科技冒險引擎 (高幀率・零白屏)';
+  engineLbl.innerText = '現代 2D ✕ 2.5D 高空俯瞰創新科技冒險引擎 (Retina HiDPI 高解析度・零模糊)';
 }
 
 // ──────────────────────────────────────────
@@ -230,7 +250,7 @@ const interactables = [
   {"id": "seven_gq", "x": -20, "z": 65, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (站前館前店)", "address": "中正區館前路 59 號", "label": "進入 7-Eleven (站前館前店)"},
   {"id": "coco_ny", "x": 20, "z": 65, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (台北站前店)", "address": "中正區南陽街 13 號", "label": "購買 CoCo 手搖飲 (站前店)"},
   {"id": "seven_gy", "x": 60, "z": 35, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (站前公園店)", "address": "中正區公園路 20 號", "label": "進入 7-Eleven (站前公園店)"},
-  {"id": "wanjiafu_kf", "x": 20, "z": 110, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (站前開封店)", "address": "中正區開封街一段 38 號", "label": "進入樂家康超市 (站前開封店)"},
+  {"id": "wanjiafu_kf", "x": 20, "z": 110, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (站前開封店)", "address": "中正區開封街一段 38 號", "label": "進入樂家康 (站前開封店)"},
   {"id": "coco_cq", "x": -95, "z": 15, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (重慶書店街店)", "address": "中正區重慶南路一段 55 號", "label": "購買 CoCo 手搖飲 (重慶店)"},
   {"id": "market_cz", "x": -95, "z": 55, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "城中市場老市集", "address": "中正區武昌街一段 22 巷 (省城隍廟口)", "label": "進入 城中市場老市集 (老台北在地情報與小吃)"},
   {"id": "seven_hy", "x": -95, "z": 95, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (中正衡陽店)", "address": "中正區衡陽路 51 號", "label": "進入 7-Eleven (中正衡陽店)"},
@@ -239,37 +259,37 @@ const interactables = [
   {"id": "fmart_wc", "x": -205, "z": 15, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (西門武昌店)", "address": "萬華區武昌街二段 37 號", "label": "進入全家 (西門武昌店)"},
   {"id": "coco_xm", "x": -175, "z": 40, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (西門町店)", "address": "萬華區武昌街二段 4 號", "label": "購買 CoCo 手搖飲 (西門町店)"},
   {"id": "market_xm", "x": -135, "z": 52, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "西門市場 ✕ 紅樓文創市集", "address": "萬華區成都路 10 號", "label": "進入 西門市場/紅樓文創市集 (潮流古著與點心)"},
-  {"id": "wanjiafu_cs", "x": -185, "z": 80, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (萬華長沙店)", "address": "萬華區長沙街二段 110 號", "label": "進入樂家康超市 (萬華長沙店)"},
+  {"id": "wanjiafu_cs", "x": -185, "z": 80, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (萬華長沙店)", "address": "萬華區長沙街二段 110 號", "label": "進入樂家康 (萬華長沙店)"},
   {"id": "wanjiafu_gl_flagship", "x": -140, "z": 95, "w": 32, "d": 24, "r": 11.0, "type": "wanjiafu", "name": "萬家福 桂林旗艦店 (24H量販店)", "address": "萬華區桂林路 1 號", "isFlagship": true, "label": "進入萬家福桂林旗艦店 (24H量販店)"},
   {"id": "fmart_circle", "x": -95, "z": -45, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (建成圓環店)", "address": "大同區重慶北路二段 12 號", "label": "進入全家 (建成圓環店)"},
   {"id": "market_nx", "x": -55, "z": -95, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "建成圓環 ✕ 寧夏觀光夜市", "address": "大同區寧夏路民生西路口", "label": "進入 寧夏觀光夜市 (鹽酥雞 / 潤餅 / 章魚燒)"},
   {"id": "seven_circle", "x": -55, "z": -145, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (寧夏夜市店)", "address": "大同區民生西路 188 號", "label": "進入 7-Eleven (寧夏夜市店)"},
   {"id": "wanjiafu_cq_flagship", "x": -100, "z": -115, "w": 32, "d": 24, "r": 11.0, "type": "wanjiafu", "name": "萬家福 重慶旗艦店 (雙層大賣場)", "address": "大同區重慶北路二段 171 號", "isFlagship": true, "label": "進入萬家福重慶旗艦店 (大賣場)"},
-  {"id": "wanjiafu_cq_store", "x": -95, "z": -175, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康便利購 (重慶北店)", "address": "大同區重慶北路三段 154 號", "label": "進入樂家康便利購 (重慶北店)"},
+  {"id": "wanjiafu_cq_store", "x": -95, "z": -175, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (重慶北店)", "address": "大同區重慶北路三段 154 號", "label": "進入樂家康 (重慶北店)"},
   {"id": "coco_yp", "x": -145, "z": -45, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (延平北路店)", "address": "大同區延平北路二段 80 號", "label": "購買 CoCo 手搖飲 (延平店)"},
-  {"id": "wanjiafu_dh", "x": -145, "z": -115, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康便利購 (大稻埕民生店)", "address": "大同區民生西路 230 號", "label": "進入樂家康便利購 (大稻埕民生店)"},
+  {"id": "wanjiafu_dh", "x": -145, "z": -115, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (大稻埕民生店)", "address": "大同區民生西路 230 號", "label": "進入樂家康 (大稻埕民生店)"},
   {"id": "market_yl", "x": -185, "z": -60, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "大稻埕永樂市場", "address": "大同區迪化街一段 21 號", "label": "進入 大稻埕永樂市場 (百年布行與油飯旗魚羹)"},
   {"id": "seven_dh", "x": -185, "z": -125, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (大稻埕迪化店)", "address": "大同區迪化街一段 54 號", "label": "進入 7-Eleven (大稻埕迪化店)"},
   {"id": "market_lz", "x": -145, "z": -185, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "大同蘭州傳統市場", "address": "大同區昌吉街 55 號", "label": "進入 大同蘭州傳統市場 (黑點雞肉 / 生鮮果菜市集)"},
   {"id": "market_zs", "x": 35, "z": -45, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "中山傳統市場", "address": "中山區長安西路 3 號 (中山北路口)", "label": "進入 中山傳統市場 (品嚐古早味切仔麵 / 潤餅)"},
   {"id": "fmart_zs", "x": 125, "z": -20, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (中山北路店)", "address": "中山區中山北路一段 105 號", "label": "進入全家 (中山北路店)"},
   {"id": "seven_ls", "x": 125, "z": -60, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (林森條通店)", "address": "中山區林森北路 119 號", "label": "進入 7-Eleven (林森條通店)"},
-  {"id": "wanjiafu_nj", "x": 35, "z": -95, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (中山南京店)", "address": "中山區南京西路 36 號", "label": "進入樂家康超市 (中山南京店)"},
+  {"id": "wanjiafu_nj", "x": 35, "z": -95, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (中山南京店)", "address": "中山區南京西路 36 號", "label": "進入樂家康 (中山南京店)"},
   {"id": "coco_zs", "x": 115, "z": -105, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (中山北路門市)", "address": "中山區中山北路一段 92 號", "label": "購買 CoCo 手搖飲 (中山門市)"},
   {"id": "market_sl", "x": 45, "z": -145, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "雙連傳統市場", "address": "大同區民生西路 198 號 (文昌宮旁)", "label": "進入 雙連傳統市場 (品嚐文昌宮古早味美食)"},
   {"id": "fmart_sl", "x": 105, "z": -150, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (中山雙連店)", "address": "中山區民生西路 66 號", "label": "進入全家 (中山雙連店)"},
   {"id": "market_qg", "x": 85, "z": -195, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "晴光傳統商圈市場", "address": "中山區雙城街 12 巷 (晴光商圈)", "label": "進入 晴光商圈市場 (晴光紅豆餅 / 脆皮鮮奶甜甜圈)"},
   {"id": "seven_mq", "x": 35, "z": -195, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (中山民權店)", "address": "中山區中山北路二段 92 號", "label": "進入 7-Eleven (中山民權店)"},
-  {"id": "wanjiafu_jl", "x": 165, "z": -55, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (中山吉林店)", "address": "中山區吉林路 108 號", "label": "進入樂家康超市 (中山吉林店)"},
+  {"id": "wanjiafu_jl", "x": 165, "z": -55, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (中山吉林店)", "address": "中山區吉林路 108 號", "label": "進入樂家康 (中山吉林店)"},
   {"id": "fmart_sj", "x": 165, "z": -105, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (松江南京店)", "address": "中山區松江路 102 號", "label": "進入全家 (松江南京店)"},
   {"id": "coco_sj", "x": 165, "z": -155, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (松江南京店)", "address": "中山區松江路 120 號", "label": "購買 CoCo 手搖飲 (松江店)"},
   {"id": "seven_fx", "x": 205, "z": -55, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (復興長安店)", "address": "中山區復興北路 88 號", "label": "進入 7-Eleven (復興長安店)"},
-  {"id": "wanjiafu_sj", "x": 205, "z": -115, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (中山松江店)", "address": "中山區松江路 168 號", "label": "進入樂家康超市 (中山松江店)"},
+  {"id": "wanjiafu_sj", "x": 205, "z": -115, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (中山松江店)", "address": "中山區松江路 168 號", "label": "進入樂家康 (中山松江店)"},
   {"id": "fmart_fx", "x": 205, "z": -175, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (復興南京店)", "address": "中山區復興北路 45 號", "label": "進入全家 (復興南京店)"},
   {"id": "seven_ms", "x": 80, "z": 75, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (中正紀念堂店)", "address": "中正區中山南路 21 號", "label": "進入 7-Eleven (中正紀念堂店)"},
-  {"id": "wanjiafu_gt", "x": 55, "z": 135, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康便利購 (古亭和平店)", "address": "中正區和平西路一段 28 號", "label": "進入樂家康便利購 (古亭和平店)"},
+  {"id": "wanjiafu_gt", "x": 55, "z": 135, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (古亭和平店)", "address": "中正區和平西路一段 28 號", "label": "進入樂家康 (古亭和平店)"},
   {"id": "seven_rf", "x": 55, "z": 185, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (羅斯福師大店)", "address": "中正區羅斯福路二段 88 號", "label": "進入 7-Eleven (羅斯福師大店)"},
-  {"id": "wanjiafu_sd", "x": 105, "z": 135, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康便利購 (師大龍泉店)", "address": "大安區師大路 39 號", "label": "進入樂家康便利購 (師大店)"},
+  {"id": "wanjiafu_sd", "x": 105, "z": 135, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (師大龍泉店)", "address": "大安區師大路 39 號", "label": "進入樂家康 (師大店)"},
   {"id": "market_sd", "x": 105, "z": 185, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "師大夜市 ✕ 龍泉傳統市場", "address": "大安區師大路 49 巷", "label": "進入 師大夜市/龍泉市場 (生煎包 / 鹽水雞 / 滷味)"},
   {"id": "fmart_da", "x": 155, "z": 65, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (大安信義店)", "address": "大安區信義路三段 102 號", "label": "進入全家 (大安信義店)"},
   {"id": "coco_da", "x": 155, "z": 125, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (大安復興店)", "address": "大安區復興南路一段 150 號", "label": "購買 CoCo 手搖飲 (大安店)"},
@@ -279,22 +299,71 @@ const interactables = [
   {"id": "market_ny", "x": -205, "z": 168, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "板橋湳雅觀光夜市", "address": "板橋區南雅東路 87 號", "label": "進入 板橋湳雅觀光夜市 (麻油雞 / 旗魚黑輪 / 烤肉串)"},
   {"id": "seven_xf", "x": -95, "z": 168, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (學城門市)", "address": "新北海山生活圈 學府路一段 118 號", "label": "進入 7-Eleven (學城門市)"},
   {"id": "coco_xf", "x": -40, "z": 168, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (板橋重慶店)", "address": "板橋生活圈 重慶路 179 號", "label": "購買 CoCo 手搖飲 (重慶店)"},
-  {"id": "wanjiafu_xf", "x": 15, "z": 168, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康便利購 (土城廣明店)", "address": "新北海山生活圈 廣明街 63 號", "label": "進入樂家康便利購 (廣明店)"},
+  {"id": "wanjiafu_xf", "x": 15, "z": 168, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (土城廣明店)", "address": "新北海山生活圈 廣明街 63 號", "label": "進入樂家康 (廣明店)"},
   {"id": "market_hs", "x": -185, "z": 210, "w": 28, "d": 24, "r": 9.5, "type": "market", "name": "板橋黃石傳統市場", "address": "板橋區宮口街 37 號 (府中商圈)", "label": "進入 板橋黃石市場 (傳承老店高記生炒魷魚 / 蘿蔔糕)"},
   {"id": "fmart_fz", "x": -100, "z": 210, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (板橋府中店)", "address": "板橋區府中路 35 號", "label": "進入全家 (板橋府中店)"},
-  {"id": "wanjiafu_wh", "x": -50, "z": 210, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (板橋文化店)", "address": "板橋區文化路一段 145 號", "label": "進入樂家康超市 (板橋文化店)"},
+  {"id": "wanjiafu_wh", "x": -50, "z": 210, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (板橋文化店)", "address": "板橋區文化路一段 145 號", "label": "進入樂家康 (板橋文化店)"},
   {"id": "seven_wh", "x": -5, "z": 210, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (板橋文化店)", "address": "板橋區文化路一段 136 號", "label": "進入 7-Eleven (板橋文化店)"},
   {"id": "seven_ag", "x": 55, "z": 110, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (中正愛國店)", "address": "中正區愛國西路 9 號", "label": "進入 7-Eleven (中正愛國店)"},
   {"id": "fmart_cd", "x": -185, "z": 45, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (西門成都店)", "address": "萬華區成都路 23 號", "label": "進入全家 (西門成都店)"},
   {"id": "coco_fz", "x": -140, "z": 210, "w": 24, "d": 20, "r": 8.0, "type": "coco", "name": "CoCo 都可 (板橋府中店)", "address": "板橋區中山路一段 50 號", "label": "購買 CoCo 手搖飲 (府中店)"},
-  {"id": "wanjiafu_xp", "x": -185, "z": 168, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康便利購 (板橋新埔店)", "address": "板橋區文化路一段 360 號", "label": "進入樂家康便利購 (板橋新埔店)"},
+  {"id": "wanjiafu_xp", "x": -185, "z": 168, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (板橋新埔店)", "address": "板橋區文化路一段 360 號", "label": "進入樂家康 (板橋新埔店)"},
   {"id": "seven_dh_2", "x": -185, "z": -80, "w": 24, "d": 20, "r": 8.0, "type": "seven", "name": "7-Eleven 統一超商 (大稻埕迪化二店)", "address": "大同區迪化街一段 82 號", "label": "進入 7-Eleven (迪化二店)"},
   {"id": "fmart_sd_lq", "x": 105, "z": 155, "w": 24, "d": 20, "r": 8.0, "type": "familymart", "name": "全家便利商店 (師大龍泉店)", "address": "大安區師大路 59 號", "label": "進入全家 (師大龍泉店)"},
-  {"id": "wanjiafu_cq_north", "x": -85, "z": -145, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康超市 (大同重慶北店)", "address": "大同區重慶北路三段 88 號", "label": "進入樂家康超市 (重慶北店)"},
+  {"id": "wanjiafu_cq_north", "x": -85, "z": -145, "w": 24, "d": 20, "r": 9.5, "type": "wanjiafu", "name": "樂家康 (大同重慶北店)", "address": "大同區重慶北路三段 88 號", "label": "進入樂家康 (重慶北店)"},
   {"id": "landmark_jf_gate", "x": 60, "z": 108, "w": 18, "d": 18, "r": 9.0, "type": "landmark", "name": "國定古蹟 景福門 (東門圓環)", "address": "中正區中山南路 ✕ 凱達格蘭大道口", "label": "瞻仰 景福門古蹟 (台北府城東門)"},
   {"id": "landmark_museum", "x": -67.5, "z": 66, "w": 24, "d": 16, "r": 9.0, "type": "landmark", "name": "國立臺灣博物館", "address": "中正區襄陽路 2 號 (二二八公園北側)", "label": "參觀 國立臺灣博物館 (希臘多立克式宮殿與百年銅頂)"},
   {"id": "landmark_lin_garden", "x": -195, "z": 210, "w": 24, "d": 20, "r": 9.0, "type": "landmark", "name": "國定古蹟 林本源園邸 (林家花園)", "address": "板橋區西門街 9 號 (府中生活圈)", "label": "漫遊 林家花園 (百年江南庭園與來青閣)"}
 ];
+
+// ──────────────────────────────────────────
+// 4.1 全雙北 41 行政特區 1:1 真實門市與公園綠地同步注入 (SSOT Integration)
+// 【落實委託人指示：整個雙北都要一樣，這個地方有什麼就要有什麼，有公園也要有公園】
+// ──────────────────────────────────────────
+if (typeof REAL_WORLD_STORES !== 'undefined') {
+  REAL_WORLD_STORES.forEach(s => {
+    // 檢查是否已存在，並嚴守間距避免重疊
+    const exists = interactables.some(it => it.id === s.id || (Math.hypot(it.x - s.x, it.z - s.z) < 8));
+    if (!exists && s.x !== undefined && s.z !== undefined) {
+      const isFlagship = s.brand === 'wanjiafu' && (s.name.includes('旗艦') || s.name.includes('量販'));
+      interactables.push({
+        id: s.id,
+        x: s.x,
+        z: s.z,
+        w: isFlagship ? 34 : 24,
+        d: isFlagship ? 24 : 20,
+        r: isFlagship ? 11.0 : 8.5,
+        type: s.brand,
+        name: s.name,
+        address: s.addr || '',
+        isFlagship: isFlagship,
+        label: `進入 ${s.name} (${s.category || '補給站'})`
+      });
+    }
+  });
+}
+
+if (typeof SHUANGBEI_REAL_PARKS !== 'undefined') {
+  SHUANGBEI_REAL_PARKS.forEach(pk => {
+    const exists = interactables.some(it => it.id === pk.id || (Math.hypot(it.x - pk.x, it.z - pk.z) < 12));
+    if (!exists && pk.x !== undefined && pk.z !== undefined) {
+      interactables.push({
+        id: pk.id,
+        x: pk.x,
+        z: pk.z,
+        w: pk.w || 35,
+        d: pk.d || 35,
+        r: 10.0,
+        type: 'park',
+        name: pk.name,
+        category: pk.category,
+        features: pk.features,
+        sectorId: pk.sectorId,
+        label: `漫步 ${pk.name} (${pk.category})`
+      });
+    }
+  });
+}
 
 // ─── 雙北真實路網幹線公車系統 (Real Route Bus Waypoint Network) ───
 // 307 幹線公車真實路線 (板橋府中 ✕ 學府生活圈 ✕ 萬華西門町 ✕ 台北車站專用道 ✕ 中山市場 ✕ 松江南京 ✕ 南京復興)
@@ -377,8 +446,192 @@ const busZhongshanRoute = [
   { x: 84, z: -195, stopName: '晴光商圈站 (北行終點)', street: '中山・雙城街口' }
 ];
 
-// 雙北真實路網巡航車隊
+// 99 幹線公車真實路線 (新莊 ⇄ 新埔 ⇄ 新板特區 ⇄ 板橋學府路一段 1:1 商圈 ⇄ 海山)
+const bus99Route = [
+  { x: -142, z: 195, stopName: '板橋・文化路一段站', street: '板橋・文化路一段' },
+  { x: -148, z: 168, stopName: '板橋・學府路一段 (樂家康超市門前)', street: '板橋・學府路一段 (1:1真實商圈)' },
+  { x: -142, z: 130, stopName: '新板特區站 (板橋公車站)', street: '板橋・縣民大道一段' },
+  { x: -142, z: 108, stopName: '捷運新埔站 (民生路口)', street: '板橋・民生路三段' },
+  { x: -160, z: 25,  stopName: '西門町中華路站 (轉乘樞紐)', street: '萬華・中華路一段' },
+  // 返程 (南行)
+  { x: -136, z: 25,  street: '萬華・中華路 (南行)' },
+  { x: -136, z: 108, stopName: '捷運新埔站 (返程)', street: '板橋・民生路三段' },
+  { x: -136, z: 130, stopName: '新板特區站 (返程)', street: '板橋・縣民大道一段' },
+  { x: -144, z: 168, stopName: '學府路一段 (海山商圈返程)', street: '板橋・學府路一段' },
+  { x: -136, z: 195, stopName: '板橋文化路 (終點站)', street: '板橋・文化路一段' }
+];
+
+// 299 幹線公車真實路線 (新莊輔大 ⇄ 三重重新路 ⇄ 忠孝西路 ⇄ 台北車站 ⇄ 忠孝復興)
+const bus299Route = [
+  { x: -142, z: 0,   street: '新莊・重新路走廊' },
+  { x: -92,  z: 0,   street: '中正・忠孝西路二段' },
+  { x: -20,  z: -4,  stopName: '台北車站(忠孝)299月台', street: '中正・忠孝西路公車專用道' },
+  { x: 35,   z: -4,  street: '中正・忠孝西路一段' },
+  { x: 120,  z: 0,   stopName: '捷運忠孝新生站', street: '大安・忠孝東路三段' },
+  { x: 180,  z: 0,   stopName: '捷運忠孝復興站 (折返)', street: '大安・忠孝東路四段' },
+  // 返程 (西行)
+  { x: 180,  z: 4,   street: '大安・忠孝東路四段 (西行)' },
+  { x: 120,  z: 4,   stopName: '捷運忠孝新生站 (西行)', street: '大安・忠孝東路三段' },
+  { x: 35,   z: 4,   street: '中正・忠孝西路' },
+  { x: -20,  z: 4,   stopName: '台北車站(忠孝西行月台)', street: '中正・忠孝西路專用道' },
+  { x: -92,  z: 4,   street: '中正・忠孝西路 (往新莊)' },
+  { x: -142, z: 4,   stopName: '西門町重慶路口 (西行)', street: '萬華・忠孝西路二段' }
+];
+
+// 656 幹線公車真實路線 (德霖科大 ⇄ 海山商圈 ⇄ 板橋學府路一段 1:1 商圈 ⇄ 府中 ⇄ 萬華西門 ⇄ 台北車站 ⇄ 臺大醫院)
+const bus656Route = [
+  // 1. 土城德霖科大端點總站
+  { x: -160, z: 235, stopName: '德霖科技大學總站', street: '土城・青雲路 ✕ 德霖科大' },
+  { x: -155, z: 215, stopName: '清水國小站', street: '土城・清水路' },
+  // 2. 土城海山商圈
+  { x: -150, z: 195, stopName: '捷運海山站 (裕民路)', street: '土城・裕民路 ✕ 學府路口' },
+  // 3. 板橋學府路一段 (海山生活圈 1:1 核心商圈，樂家康超市門前)
+  { x: -150, z: 168, stopName: '板橋學府路一段 (樂家康超市門前)', street: '板橋・學府路一段 (1:1商圈核心)' },
+  // 4. 新板特區縣民大道
+  { x: -150, z: 130, stopName: '新板特區站 (板橋公車站)', street: '板橋・縣民大道一段' },
+  // 5. 跨新店溪華翠大橋
+  { x: -152, z: 108, street: '新店溪・華翠大橋 (跨市高架段)' },
+  // 6. 萬華西門町
+  { x: -152, z: 75,  street: '萬華・中華路一段林蔭道' },
+  { x: -152, z: 25,  stopName: '捷運西門站 (中華路)', street: '萬華・西門町中華路' },
+  // 7. 忠孝西路中央公車專用道
+  { x: -20,  z: -2,  stopName: '台北車站(忠孝專用道)', street: '中正・忠孝西路中央專用道' },
+  { x: 35,   z: -2,  street: '中正・忠孝西路 (公園路口)' },
+  // 8. 臺大醫院端點站
+  { x: 48,   z: 35,  stopName: '捷運臺大醫院站 (常德街口)', street: '中正・公園路 ✕ 常德街' },
+
+  // ─── 656 返程 (南向與西向車道，靠右行駛接續巡航) ───
+  { x: 54,   z: 35,  stopName: '捷運臺大醫院站 (返程發車)', street: '中正・公園路' },
+  { x: 35,   z: 2,   street: '中正・忠孝西路 (返程)' },
+  { x: -20,  z: 2,   stopName: '台北車站(忠孝專用道西行)', street: '中正・忠孝西路' },
+  { x: -142, z: 25,  stopName: '捷運西門站 (南行)', street: '萬華・中華路一段' },
+  { x: -142, z: 108, street: '新店溪・華翠大橋 (南行往板橋)' },
+  { x: -142, z: 130, stopName: '新板特區站 (返程)', street: '板橋・縣民大道' },
+  { x: -142, z: 168, stopName: '板橋學府路一段 (海山商圈返程)', street: '板橋・學府路一段' },
+  { x: -145, z: 195, stopName: '捷運海山站 (返程)', street: '土城・裕民路' },
+  { x: -152, z: 215, street: '土城・清水路' },
+  { x: -158, z: 235, stopName: '德霖科技大學 (終點調度整備)', street: '土城・德霖科大' }
+];
+
+// 基隆客運 9006 國道客運 (基隆火車站 ⇄ 國道一號 ⇄ 捷運圓山站 ⇄ 台北車站 ⇄ 西門町)
+const bus9006Route = [
+  { x: 185, z: -220, stopName: '基隆火車站 (港西街國道總站)', street: '基隆・港西街總站' },
+  { x: 155, z: -175, street: '國道一號・大業隧道走廊' },
+  { x: 110, z: -140, street: '國道一號・圓山交流道' },
+  { x: 72,  z: -140, stopName: '圓山轉運站 (捷運圓山站)', street: '大同・庫倫街 ✕ 捷運圓山' },
+  { x: 72,  z: -95,  stopName: '捷運民權西路站', street: '大同・承德路 ✕ 民權西路' },
+  { x: 72,  z: -45,  stopName: '中山市場 (長安西路)', street: '中山・中山北路一段' },
+  { x: 0,   z: -25,  stopName: '台北車站 (承德/鄭州路口)', street: '中正・鄭州路 ✕ 台北車站' },
+  { x: -152, z: 25,  stopName: '捷運西門站 (西門端點)', street: '萬華・中華路一段' },
+
+  // 返程 (往基隆)
+  { x: -142, z: 25,  street: '萬華・中華路一段 (北行)' },
+  { x: 15,   z: -25, stopName: '台北車站 (鄭州路北側)', street: '中正・鄭州路' },
+  { x: 84,   z: -45, street: '中山・中山北路一段' },
+  { x: 84,   z: -95, stopName: '捷運民權西路 (返程)', street: '大同・承德路' },
+  { x: 84,   z: -140, stopName: '圓山轉運站 (往基隆發車)', street: '大同・捷運圓山站' },
+  { x: 120,  z: -140, street: '國道一號・圓山交流道東行' },
+  { x: 165,  z: -175, street: '國道一號・基隆路段' },
+  { x: 185,  z: -220, stopName: '基隆火車站 (回場整備)', street: '基隆・港西街' }
+];
+
+// 雙北真實路網巡航車隊 (多車次連續循環發車，次班接續推進)
 const cityBuses = [
+  // 656 車隊 (大都會客運・海山學府路首選)
+  {
+    id: 'bus_656_a',
+    lineName: '656 幹線 (大都會)',
+    ledText: '656 ➔ 臺大醫院',
+    themeColor: '#ea580c', // 大都會活力亮橘
+    w: 18,
+    d: 5.2,
+    speed: 0.28,
+    waypoints: bus656Route,
+    currentWaypointIndex: 0,
+    x: bus656Route[0].x,
+    z: bus656Route[0].z,
+    angle: 0,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus656Route[0].street,
+    nextStopName: bus656Route[3].stopName
+  },
+  {
+    id: 'bus_656_b',
+    lineName: '656 幹線 (大都會次班)',
+    ledText: '656 ➔ 板橋學府路 ➔ 臺大醫院',
+    themeColor: '#f97316',
+    w: 18,
+    d: 5.2,
+    speed: 0.28,
+    waypoints: bus656Route,
+    currentWaypointIndex: 3, // 錯開班距，已在板橋學府路一段前進
+    x: bus656Route[3].x,
+    z: bus656Route[3].z,
+    angle: 0,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus656Route[3].street,
+    nextStopName: bus656Route[6].stopName
+  },
+  {
+    id: 'bus_656_c',
+    lineName: '656 幹線 (返程班次)',
+    ledText: '656 ➔ 捷運海山站 ➔ 德霖科大',
+    themeColor: '#ea580c',
+    w: 18,
+    d: 5.2,
+    speed: 0.28,
+    waypoints: bus656Route,
+    currentWaypointIndex: 11, // 返程段
+    x: bus656Route[11].x,
+    z: bus656Route[11].z,
+    angle: Math.PI,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus656Route[11].street,
+    nextStopName: bus656Route[13].stopName
+  },
+
+  // 基隆客運 9006 跨市國道客運車隊 (基隆開進雙北核心)
+  {
+    id: 'bus_9006_a',
+    lineName: '9006 基隆客運',
+    ledText: '9006 ➔ 基隆直達 ➔ 圓山 ➔ 台北車站',
+    themeColor: '#2563eb', // 基隆客運經典深藍
+    w: 18.5,
+    d: 5.4,
+    speed: 0.32,
+    waypoints: bus9006Route,
+    currentWaypointIndex: 0,
+    x: bus9006Route[0].x,
+    z: bus9006Route[0].z,
+    angle: Math.PI / 2,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus9006Route[0].street,
+    nextStopName: bus9006Route[3].stopName
+  },
+  {
+    id: 'bus_9006_b',
+    lineName: '9006 基隆客運 (返程)',
+    ledText: '9006 ➔ 國道一號 ➔ 基隆火車站',
+    themeColor: '#1d4ed8',
+    w: 18.5,
+    d: 5.4,
+    speed: 0.32,
+    waypoints: bus9006Route,
+    currentWaypointIndex: 8, // 返程段
+    x: bus9006Route[8].x,
+    z: bus9006Route[8].z,
+    angle: -Math.PI / 2,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus9006Route[8].street,
+    nextStopName: bus9006Route[11].stopName
+  },
+
+  // 307 車隊 (雙北公車之王)
   {
     id: 'bus_307_a',
     lineName: '307 幹線',
@@ -416,6 +669,26 @@ const cityBuses = [
     nextStopName: bus307Route[18].stopName
   },
   {
+    id: 'bus_307_c',
+    lineName: '307 幹線 (次班接續)',
+    ledText: '307 ➔ 台北車站 ➔ 南京復興',
+    themeColor: '#10b981',
+    w: 18,
+    d: 5.2,
+    speed: 0.28,
+    waypoints: bus307Route,
+    currentWaypointIndex: 6,
+    x: bus307Route[6].x,
+    z: bus307Route[6].z,
+    angle: 0,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus307Route[6].street,
+    nextStopName: bus307Route[8].stopName
+  },
+
+  // 中山幹線
+  {
     id: 'bus_zhongshan',
     lineName: '中山幹線',
     ledText: '中山幹線 ➔ 師大',
@@ -432,6 +705,46 @@ const cityBuses = [
     stopTimer: 0,
     currentStreet: busZhongshanRoute[0].street,
     nextStopName: busZhongshanRoute[1].stopName
+  },
+
+  // 99 幹線 (學府路專線)
+  {
+    id: 'bus_99',
+    lineName: '99 幹線 (學府路專線)',
+    ledText: '99 ➔ 板橋學府路一段 ➔ 海山',
+    themeColor: '#10b981', // 翡翠翠綠
+    w: 18,
+    d: 5.2,
+    speed: 0.27,
+    waypoints: bus99Route,
+    currentWaypointIndex: 0,
+    x: bus99Route[0].x,
+    z: bus99Route[0].z,
+    angle: Math.PI / 2,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus99Route[0].street,
+    nextStopName: bus99Route[1].stopName
+  },
+
+  // 299 幹線
+  {
+    id: 'bus_299',
+    lineName: '299 幹線',
+    ledText: '299 ➔ 台北車站 ➔ 永春',
+    themeColor: '#0369a1', // 大都會天藍
+    w: 18,
+    d: 5.2,
+    speed: 0.28,
+    waypoints: bus299Route,
+    currentWaypointIndex: 0,
+    x: bus299Route[0].x,
+    z: bus299Route[0].z,
+    angle: 0,
+    isStopped: false,
+    stopTimer: 0,
+    currentStreet: bus299Route[0].street,
+    nextStopName: bus299Route[2].stopName
   }
 ];
 
@@ -439,7 +752,29 @@ const cityBuses = [
 const bus307 = cityBuses[0];
 
 // 幹線公車真實路網動態動力學與自動站點導航
+// 2.5D 沙盤真實號誌節點 (忠孝館前、中山南京、西門中華、新板特區、土城學府)
+const sandpitTrafficLights = [
+  { id: 'stl_01', name: '忠孝館前路口', x: -5, z: 10, green: 700, yellow: 120, red: 500, offset: 0 },
+  { id: 'stl_02', name: '中山南京路口', x: 80, z: -80, green: 650, yellow: 120, red: 520, offset: 150 },
+  { id: 'stl_03', name: '西門中華路口', x: -140, z: 20, green: 700, yellow: 120, red: 500, offset: 350 },
+  { id: 'stl_04', name: '新板縣民大道', x: -120, z: 140, green: 750, yellow: 120, red: 550, offset: 200 },
+  { id: 'stl_05', name: '土城學府明德', x: -148, z: 165, green: 650, yellow: 120, red: 500, offset: 100 }
+];
+
+let sandpitLightFrame = 0;
+
+function getSandpitLightState(tl) {
+  const cycle = tl.green + tl.yellow + tl.red;
+  const t = (sandpitLightFrame + tl.offset) % cycle;
+  if (t < tl.green) return { state: 'GREEN', color: '#22c55e', remaining: Math.ceil((tl.green - t) / 60) };
+  if (t < tl.green + tl.yellow) return { state: 'YELLOW', color: '#eab308', remaining: Math.ceil((tl.green + tl.yellow - t) / 60) };
+  return { state: 'RED', color: '#ef4444', remaining: Math.ceil((cycle - t) / 60) };
+}
+
+// 幹線公車真實路網動態動力學與自動站點導航 (遵守規律交通號誌，紅燈強制停等)
 function updateBusPhysics(bus) {
+  sandpitLightFrame++;
+
   if (bus.isStopped) {
     bus.stopTimer--;
     if (bus.stopTimer <= 0) {
@@ -447,6 +782,30 @@ function updateBusPhysics(bus) {
     }
     return;
   }
+
+  // 號誌偵測：公車周圍 20 單位內是否有紅燈停等線
+  let waitingAtRed = false;
+  let activeLight = null;
+  for (let i = 0; i < sandpitTrafficLights.length; i++) {
+    const tl = sandpitTrafficLights[i];
+    const distToLight = Math.hypot(tl.x - bus.x, tl.z - bus.z);
+    if (distToLight < 22) {
+      const s = getSandpitLightState(tl);
+      if (s.state === 'RED' || (s.state === 'YELLOW' && s.remaining <= 1)) {
+        waitingAtRed = true;
+        activeLight = { tl, s };
+        break;
+      }
+    }
+  }
+
+  if (waitingAtRed && activeLight) {
+    // ★ 紅燈強制停等：車速歸零，LED 提示
+    bus.isWaitingLight = true;
+    bus.ledText = `🚦 ${activeLight.tl.name} 紅燈停等中 (${activeLight.s.remaining}s)`;
+    return;
+  }
+  bus.isWaitingLight = false;
 
   const target = bus.waypoints[bus.currentWaypointIndex];
   const dx = target.x - bus.x;
@@ -476,18 +835,479 @@ function updateBusPhysics(bus) {
     const nextPt = bus.waypoints[bus.currentWaypointIndex];
     if (nextPt.stopName) {
       bus.nextStopName = nextPt.stopName;
-      if (bus.id === 'bus_307_a') {
-        bus.ledText = bus.currentWaypointIndex < 16 ? '307 ➔ 南京東路' : '307 ➔ 板橋府中';
-      } else if (bus.id === 'bus_307_b') {
+      if (bus.id === 'bus_656_a' || bus.id === 'bus_656_b' || bus.id === 'bus_656_c') {
+        bus.ledText = bus.currentWaypointIndex < 11 ? '656 ➔ 臺大醫院' : '656 ➔ 海山 ➔ 德霖科大';
+      } else if (bus.id === 'bus_9006_a' || bus.id === 'bus_9006_b') {
+        bus.ledText = bus.currentWaypointIndex < 8 ? '9006 ➔ 基隆客運 往台北/圓山' : '9006 ➔ 國道一號 往基隆火車站';
+      } else if (bus.id === 'bus_307_a' || bus.id === 'bus_307_b' || bus.id === 'bus_307_c') {
         bus.ledText = bus.currentWaypointIndex < 16 ? '307 ➔ 南京東路' : '307 ➔ 板橋府中';
       } else if (bus.id === 'bus_zhongshan') {
         bus.ledText = bus.currentWaypointIndex < 9 ? '中山幹線 ➔ 師大' : '中山幹線 ➔ 晴光商圈';
+      } else if (bus.id === 'bus_99') {
+        bus.ledText = bus.currentWaypointIndex < 5 ? '99 ➔ 土城學府路一段' : '99 ➔ 新北新埔 ➔ 新莊';
+      } else if (bus.id === 'bus_299') {
+        bus.ledText = bus.currentWaypointIndex < 6 ? '299 ➔ 台北車站 ➔ 忠孝復興' : '299 ➔ 三重 ➔ 輔大';
       }
     }
   } else {
     bus.x += Math.cos(bus.angle) * bus.speed;
     bus.z += Math.sin(bus.angle) * bus.speed;
   }
+}
+
+// ──────────────────────────────────────────
+// 4.6 🚇 台北捷運固定班距動態列車系統 (MRT Scheduled Dynamic Rapid Transit)
+// 包含板南線 (BL) 與淡水信義線 (R) 雙向固定時刻發車、進站停靠與流線型列車渲染
+// ──────────────────────────────────────────
+const mrtBannanTrack = [
+  // 板南線 (東行：頂埔/府中 ➔ 台北車站 ➔ 忠孝復興)
+  { x: -180, z: 12, stopName: '捷運府中站 (BL05)', line: '板南線' },
+  { x: -150, z: 12, stopName: '捷運板橋站 (BL07)', line: '板南線' },
+  { x: -100, z: 12, stopName: '捷運新埔站 (BL08)', line: '板南線' },
+  { x: -50,  z: 12, stopName: '捷運西門站 (BL11)', line: '板南線' },
+  { x: 0,    z: 12, stopName: '捷運台北車站 (BL12)', line: '板南線' },
+  { x: 70,   z: 12, stopName: '捷運善導寺站 (BL13)', line: '板南線' },
+  { x: 120,  z: 12, stopName: '捷運忠孝新生站 (BL14)', line: '板南線' },
+  { x: 185,  z: 12, stopName: '捷運忠孝復興站 (BL15)', line: '板南線' },
+
+  // 板南線 (西行：忠孝復興 ➔ 台北車站 ➔ 府中/頂埔)
+  { x: 185,  z: 18, stopName: '捷運忠孝復興站 (返程)', line: '板南線' },
+  { x: 120,  z: 18, stopName: '捷運忠孝新生站 (西行)', line: '板南線' },
+  { x: 70,   z: 18, stopName: '捷運善導寺站 (西行)', line: '板南線' },
+  { x: 0,    z: 18, stopName: '捷運台北車站 (西行月台)', line: '板南線' },
+  { x: -50,  z: 18, stopName: '捷運西門站 (西行月台)', line: '板南線' },
+  { x: -100, z: 18, stopName: '捷運新埔站 (西行)', line: '板南線' },
+  { x: -150, z: 18, stopName: '捷運板橋站 (西行)', line: '板南線' },
+  { x: -180, z: 18, stopName: '捷運府中站 (終點整備)', line: '板南線' }
+];
+
+const mrtTamsuiTrack = [
+  // 淡水信義線 (南行：圓山 ➔ 台北車站 ➔ 中正紀念堂)
+  { x: 62, z: -180, stopName: '捷運圓山站 (R14)', line: '淡水信義線' },
+  { x: 62, z: -140, stopName: '捷運民權西路站 (R13)', line: '淡水信義線' },
+  { x: 62, z: -95,  stopName: '捷運中山站 (R11)', line: '淡水信義線' },
+  { x: 62, z: -45,  stopName: '台北車站北段走廊', line: '淡水信義線' },
+  { x: 62, z: 15,   stopName: '捷運台北車站 (R10地下月台)', line: '淡水信義線' },
+  { x: 62, z: 45,   stopName: '捷運臺大醫院站 (R09)', line: '淡水信義線' },
+  { x: 62, z: 95,   stopName: '捷運中正紀念堂站 (R08)', line: '淡水信義線' },
+
+  // 淡水信義線 (北行：中正紀念堂 ➔ 台北車站 ➔ 圓山/淡水)
+  { x: 68, z: 95,   stopName: '捷運中正紀念堂 (北行發車)', line: '淡水信義線' },
+  { x: 68, z: 45,   stopName: '捷運臺大醫院站 (北行)', line: '淡水信義線' },
+  { x: 68, z: 15,   stopName: '捷運台北車站 (北行月台)', line: '淡水信義線' },
+  { x: 68, z: -45,  stopName: '中山地下段 (北行)', line: '淡水信義線' },
+  { x: 68, z: -95,  stopName: '捷運中山站 (北行)', line: '淡水信義線' },
+  { x: 68, z: -140, stopName: '捷運民權西路 (北行)', line: '淡水信義線' },
+  { x: 68, z: -180, stopName: '捷運圓山站 (回場整備)', line: '淡水信義線' }
+];
+
+// 雙北捷運固定班距動態列車車隊 (Fixed Headway Fleet)
+const mrtTrains = [
+  // 板南線 (BL)
+  {
+    id: 'mrt_BL_01',
+    lineCode: 'BL',
+    lineName: '板南線 BL-101',
+    ledText: '🚇 板南線 ➔ 南港展覽館',
+    themeColor: '#0070bd',
+    track: mrtBannanTrack,
+    currentWaypointIndex: 0,
+    x: mrtBannanTrack[0].x,
+    z: mrtBannanTrack[0].z,
+    angle: 0,
+    speed: 0.58,
+    isStopped: false,
+    stopTimer: 0,
+    w: 32,
+    d: 6.2,
+    currentStation: mrtBannanTrack[0].stopName
+  },
+  {
+    id: 'mrt_BL_02',
+    lineCode: 'BL',
+    lineName: '板南線 BL-103 (次班接續)',
+    ledText: '🚇 板南線 ➔ 南港展覽館',
+    themeColor: '#0284c7',
+    track: mrtBannanTrack,
+    currentWaypointIndex: 3, // 錯開班距
+    x: mrtBannanTrack[3].x,
+    z: mrtBannanTrack[3].z,
+    angle: 0,
+    speed: 0.58,
+    isStopped: false,
+    stopTimer: 0,
+    w: 32,
+    d: 6.2,
+    currentStation: mrtBannanTrack[3].stopName
+  },
+  {
+    id: 'mrt_BL_03',
+    lineCode: 'BL',
+    lineName: '板南線 BL-102 (返程)',
+    ledText: '🚇 板南線 ➔ 板橋府中 ➔ 頂埔',
+    themeColor: '#0070bd',
+    track: mrtBannanTrack,
+    currentWaypointIndex: 8, // 西行返程
+    x: mrtBannanTrack[8].x,
+    z: mrtBannanTrack[8].z,
+    angle: Math.PI,
+    speed: 0.58,
+    isStopped: false,
+    stopTimer: 0,
+    w: 32,
+    d: 6.2,
+    currentStation: mrtBannanTrack[8].stopName
+  },
+
+  // 淡水信義線 (R)
+  {
+    id: 'mrt_R_01',
+    lineCode: 'R',
+    lineName: '淡水信義線 R-201',
+    ledText: '🚇 淡水信義線 ➔ 象山',
+    themeColor: '#e3002c',
+    track: mrtTamsuiTrack,
+    currentWaypointIndex: 0,
+    x: mrtTamsuiTrack[0].x,
+    z: mrtTamsuiTrack[0].z,
+    angle: Math.PI / 2,
+    speed: 0.60,
+    isStopped: false,
+    stopTimer: 0,
+    w: 32,
+    d: 6.2,
+    currentStation: mrtTamsuiTrack[0].stopName
+  },
+  {
+    id: 'mrt_R_02',
+    lineCode: 'R',
+    lineName: '淡水信義線 R-202 (返程)',
+    ledText: '🚇 淡水信義線 ➔ 圓山 ➔ 淡水',
+    themeColor: '#ef4444',
+    track: mrtTamsuiTrack,
+    currentWaypointIndex: 7, // 北行返程
+    x: mrtTamsuiTrack[7].x,
+    z: mrtTamsuiTrack[7].z,
+    angle: -Math.PI / 2,
+    speed: 0.60,
+    isStopped: false,
+    stopTimer: 0,
+    w: 32,
+    d: 6.2,
+    currentStation: mrtTamsuiTrack[7].stopName
+  }
+];
+
+// 捷運列車真實速度與物理學 (起步平滑加速、依站距巡航極速、進站前平滑減速煞車)
+function updateMrtPhysics(train) {
+  if (train.isStopped) {
+    train.stopTimer--;
+    train.currentSpeed = 0;
+    if (train.stopTimer <= 0) train.isStopped = false;
+    return;
+  }
+
+  const prevIdx = (train.currentWaypointIndex - 1 + train.track.length) % train.track.length;
+  const prevPt = train.track[prevIdx];
+  const target = train.track[train.currentWaypointIndex];
+
+  const segDist = Math.hypot(target.x - prevPt.x, target.z - prevPt.z) || 50;
+  const dx = target.x - train.x;
+  const dz = target.z - train.z;
+  const distRemaining = Math.hypot(dx, dz);
+  const traveled = Math.max(0, segDist - distRemaining);
+
+  // 依站距決定極速：長站距 (如圓山到台北車站) 速度大幅提高
+  let topSpeed = train.speed || 0.60;
+  if (segDist > 70) topSpeed = 0.88;
+  else if (segDist > 45) topSpeed = 0.65;
+  else topSpeed = 0.48;
+
+  // 3 階段平滑速度曲線
+  let curSpeed = topSpeed;
+  const accelZone = segDist * 0.28;
+  const decelZone = segDist * 0.30;
+
+  if (traveled < accelZone) {
+    // 階段 1：起步平滑加速
+    curSpeed = Math.max(0.12, topSpeed * (traveled / accelZone));
+  } else if (distRemaining < decelZone) {
+    // 階段 2：進站前平滑煞車減速
+    curSpeed = Math.max(0.10, topSpeed * (distRemaining / decelZone));
+  } else {
+    // 階段 3：區間最高速巡航
+    curSpeed = topSpeed;
+  }
+  train.currentSpeed = curSpeed;
+
+  const targetAngle = Math.atan2(dz, dx);
+  let diff = targetAngle - train.angle;
+  while (diff < -Math.PI) diff += Math.PI * 2;
+  while (diff > Math.PI) diff -= Math.PI * 2;
+  train.angle += diff * 0.20;
+
+  if (distRemaining <= curSpeed * 1.5) {
+    train.x = target.x;
+    train.z = target.z;
+    if (target.stopName && !target.justStopped) {
+      train.isStopped = true;
+      train.stopTimer = 90; // 停站約 1.5 秒模擬月台上下客
+      train.currentStation = target.stopName;
+      target.justStopped = true;
+      setTimeout(() => { target.justStopped = false; }, 8000);
+    }
+    train.currentWaypointIndex = (train.currentWaypointIndex + 1) % train.track.length;
+    const nextPt = train.track[train.currentWaypointIndex];
+    if (nextPt.stopName) {
+      const speedDisplay = Math.round(curSpeed * 100);
+      if (train.lineCode === 'BL') {
+        train.ledText = train.currentWaypointIndex < 8 ? `🚇 板南線 ➔ 南港 (${speedDisplay}km/h)` : `🚇 板南線 ➔ 頂埔 (${speedDisplay}km/h)`;
+      } else if (train.lineCode === 'R') {
+        train.ledText = train.currentWaypointIndex < 7 ? `🚇 淡水信義線 ➔ 象山 (${speedDisplay}km/h)` : `🚇 淡水信義線 ➔ 淡水 (${speedDisplay}km/h)`;
+      }
+    }
+  } else {
+    train.x += Math.cos(train.angle) * curSpeed;
+    train.z += Math.sin(train.angle) * curSpeed;
+  }
+}
+
+// 繪製 2.5D 高科技捷運列車 (Rotated MRT Train)
+function drawRotatedMrtTrain(train) {
+  const scale = camera.currentScale;
+  const screenX = (val) => (val - camera.x) * scale;
+  const screenZ = (val) => (val - camera.z) * scale;
+  const cx = screenX(train.x);
+  const cz = screenZ(train.z);
+  const trainW = train.w * scale;
+  const trainD = train.d * scale;
+
+  ctx.save();
+  ctx.translate(cx, cz);
+  ctx.rotate(train.angle);
+
+  // 1. 地面投影陰影與發光軌道輪廓
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+  drawSafeRoundRect(ctx, -trainW / 2 + 1.5 * scale, -trainD / 2 + 2.0 * scale, trainW, trainD, 2.5 * scale);
+  ctx.fill();
+
+  // 軌道感應高光底色
+  ctx.fillStyle = train.lineCode === 'BL' ? 'rgba(0,112,189,0.3)' : 'rgba(227,0,44,0.3)';
+  ctx.fillRect(-trainW / 2 - 2 * scale, -trainD / 2 - 1 * scale, trainW + 4 * scale, trainD + 2 * scale);
+
+  // 2. 流線型銀白車身主體
+  ctx.fillStyle = '#f1f5f9';
+  drawSafeRoundRect(ctx, -trainW / 2, -trainD / 2, trainW, trainD, 3.0 * scale);
+  ctx.fill();
+
+  // 3. 經典捷運路線彩色腰線 (板南湛藍 / 淡水信義朱紅)
+  ctx.fillStyle = train.themeColor || '#0070bd';
+  ctx.fillRect(-trainW / 2 + 2 * scale, -trainD / 2 + 1.2 * scale, trainW - 4 * scale, 1.8 * scale);
+  ctx.fillRect(-trainW / 2 + 2 * scale, trainD / 2 - 3.0 * scale, trainW - 4 * scale, 1.8 * scale);
+
+  // 4. 車窗與車門條紋 (模擬 6 節編組捷運車門)
+  ctx.fillStyle = '#0f172a';
+  for (let i = -trainW / 2 + 6 * scale; i < trainW / 2 - 6 * scale; i += 7 * scale) {
+    // 側窗
+    ctx.fillRect(i, -trainD / 2 + 0.6 * scale, 4.5 * scale, 1.2 * scale);
+    ctx.fillRect(i, trainD / 2 - 1.8 * scale, 4.5 * scale, 1.2 * scale);
+  }
+
+  // 5. 車頭前擋風玻璃
+  ctx.fillStyle = '#0284c7';
+  drawSafeRoundRect(ctx, trainW / 2 - 4.2 * scale, -trainD / 2 + 1.0 * scale, 3.8 * scale, trainD - 2.0 * scale, 1.5 * scale);
+  ctx.fill();
+
+  // 6. 車頂中央微波通訊機殼
+  ctx.fillStyle = '#cbd5e1';
+  ctx.fillRect(-trainW / 4, -trainD / 4, trainW / 2, trainD / 2);
+
+  // 7. 車頭 LED 路線發光看板
+  ctx.fillStyle = '#0f172a';
+  drawSafeRoundRect(ctx, -trainW / 3, -trainD / 2 - 6 * scale, trainW * 0.66, 5 * scale, 2 * scale);
+  ctx.fill();
+  ctx.strokeStyle = train.themeColor;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.fillStyle = train.isStopped ? '#fbbf24' : '#38bdf8';
+  ctx.font = `bold ${Math.max(8, Math.round(7.5 * scale))}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const displayLabel = train.isStopped ? `🚊 停靠[${train.currentStation}]` : train.ledText;
+  ctx.fillText(displayLabel, 0, -trainD / 2 - 3.5 * scale);
+
+  ctx.restore();
+}
+
+// ──────────────────────────────────────────
+// 4.7 🚆 臺灣鐵路縱貫線動態列車系統 (TRA Main Line Dynamic Express Trains)
+// 包含 EMU900 區間快車與新自強號 EMU3000，穿梭雙北 8 大樞紐車站
+// ──────────────────────────────────────────
+const traTrack = [
+  // 縱貫線西向 (汐止 ➔ 南港 ➔ 松山 ➔ 臺北車站 ➔ 萬華 ➔ 板橋 ➔ 樹林 ➔ 鶯歌)
+  { x: 380,  z: -40, stopName: '汐止車站 (TRA)', line: '台鐵縱貫線' },
+  { x: 360,  z: -20, stopName: '南港車站 (TRA)', line: '台鐵縱貫線' },
+  { x: 290,  z: -95, stopName: '松山車站 (TRA)', line: '台鐵縱貫線' },
+  { x: 0,    z: 0,   stopName: '臺北車站 (TRA特等站)', line: '台鐵縱貫線' },
+  { x: -160, z: 80,  stopName: '萬華車站 (TRA)', line: '台鐵縱貫線' },
+  { x: -130, z: 130, stopName: '板橋車站 (TRA特等站)', line: '台鐵縱貫線' },
+  { x: -200, z: 210, stopName: '樹林車站 (TRA)', line: '台鐵縱貫線' },
+  { x: -310, z: 290, stopName: '鶯歌車站 (TRA)', line: '台鐵縱貫線' },
+
+  // 縱貫線東向返程 (鶯歌 ➔ 樹林 ➔ 板橋 ➔ 萬華 ➔ 臺北車站 ➔ 松山 ➔ 南港 ➔ 汐止)
+  { x: -310, z: 295, stopName: '鶯歌車站 (返程發車)', line: '台鐵縱貫線' },
+  { x: -200, z: 215, stopName: '樹林車站 (東行)', line: '台鐵縱貫線' },
+  { x: -130, z: 135, stopName: '板橋車站 (東行特等月台)', line: '台鐵縱貫線' },
+  { x: -160, z: 85,  stopName: '萬華車站 (東行)', line: '台鐵縱貫線' },
+  { x: 0,    z: 5,   stopName: '臺北車站 (東行特等月台)', line: '台鐵縱貫線' },
+  { x: 290,  z: -90, stopName: '松山車站 (東行)', line: '台鐵縱貫線' },
+  { x: 360,  z: -15, stopName: '南港車站 (東行)', line: '台鐵縱貫線' },
+  { x: 380,  z: -35, stopName: '汐止車站 (終點調度)', line: '台鐵縱貫線' }
+];
+
+const traTrains = [
+  {
+    id: 'tra_emu900_01',
+    lineCode: 'TRA',
+    lineName: '臺鐵 EMU900 區間快車',
+    ledText: '🚆 臺鐵 ➔ 台北特等站 ➔ 板橋 ➔ 樹林 ➔ 鶯歌',
+    themeColor: '#0284c7', // 台鐵深邃湛藍
+    accentColor: '#38bdf8',
+    track: traTrack,
+    currentWaypointIndex: 0,
+    x: traTrack[0].x,
+    z: traTrack[0].z,
+    angle: 0,
+    speed: 0.65,
+    isStopped: false,
+    stopTimer: 0,
+    w: 42,
+    d: 6.8,
+    currentStation: traTrack[0].stopName
+  },
+  {
+    id: 'tra_emu3000_02',
+    lineCode: 'TRA',
+    lineName: '臺鐵 新自強號 EMU3000',
+    ledText: '🚆 新自強號 ➔ 台北特等站 ➔ 松山 ➔ 南港 ➔ 汐止',
+    themeColor: '#1e293b', // 黑白極簡沉穩
+    accentColor: '#fbbf24',
+    track: traTrack,
+    currentWaypointIndex: 8, // 返程段
+    x: traTrack[8].x,
+    z: traTrack[8].z,
+    angle: Math.PI,
+    speed: 0.72,
+    isStopped: false,
+    stopTimer: 0,
+    w: 44,
+    d: 7.0,
+    currentStation: traTrack[8].stopName
+  }
+];
+
+function updateTraPhysics(train) {
+  if (train.isStopped) {
+    train.stopTimer--;
+    if (train.stopTimer <= 0) train.isStopped = false;
+    return;
+  }
+
+  const target = train.track[train.currentWaypointIndex];
+  const dx = target.x - train.x;
+  const dz = target.z - train.z;
+  const dist = Math.hypot(dx, dz);
+
+  const targetAngle = Math.atan2(dz, dx);
+  let diff = targetAngle - train.angle;
+  while (diff < -Math.PI) diff += Math.PI * 2;
+  while (diff > Math.PI) diff -= Math.PI * 2;
+  train.angle += diff * 0.20;
+
+  if (dist <= train.speed * 1.5) {
+    train.x = target.x;
+    train.z = target.z;
+    if (target.stopName && !target.justStopped) {
+      train.isStopped = true;
+      train.stopTimer = 90; // 停站 1.5 秒上下客
+      train.currentStation = target.stopName;
+      target.justStopped = true;
+      setTimeout(() => { target.justStopped = false; }, 9000);
+    }
+    train.currentWaypointIndex = (train.currentWaypointIndex + 1) % train.track.length;
+    const nextPt = train.track[train.currentWaypointIndex];
+    if (nextPt.stopName) {
+      train.ledText = train.currentWaypointIndex < 8
+        ? '🚆 臺鐵 ➔ 台北特等站 ➔ 板橋 ➔ 樹林 ➔ 鶯歌'
+        : '🚆 臺鐵 ➔ 台北特等站 ➔ 松山 ➔ 南港 ➔ 汐止';
+    }
+  } else {
+    train.x += Math.cos(train.angle) * train.speed;
+    train.z += Math.sin(train.angle) * train.speed;
+  }
+}
+
+function drawRotatedTraTrain(train) {
+  const scale = camera.currentScale;
+  const screenX = (val) => (val - camera.x) * scale;
+  const screenZ = (val) => (val - camera.z) * scale;
+  const cx = screenX(train.x);
+  const cz = screenZ(train.z);
+  const trainW = train.w * scale;
+  const trainD = train.d * scale;
+
+  ctx.save();
+  ctx.translate(cx, cz);
+  ctx.rotate(train.angle);
+
+  // 1. 地面陰影與鐵道反光
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+  drawSafeRoundRect(ctx, -trainW / 2 + 1.5 * scale, -trainD / 2 + 2.0 * scale, trainW, trainD, 2.5 * scale);
+  ctx.fill();
+
+  // 鐵道發光
+  ctx.fillStyle = 'rgba(56, 189, 248, 0.25)';
+  ctx.fillRect(-trainW / 2 - 2 * scale, -trainD / 2 - 1 * scale, trainW + 4 * scale, trainD + 2 * scale);
+
+  // 2. 流線型台鐵車身 (EMU900 或 EMU3000)
+  ctx.fillStyle = '#e2e8f0';
+  drawSafeRoundRect(ctx, -trainW / 2, -trainD / 2, trainW, trainD, 3.2 * scale);
+  ctx.fill();
+
+  // 3. 台鐵經典塗裝色帶
+  ctx.fillStyle = train.themeColor || '#0284c7';
+  ctx.fillRect(-trainW / 2 + 3 * scale, -trainD / 2 + 1.0 * scale, trainW - 6 * scale, 1.8 * scale);
+  ctx.fillRect(-trainW / 2 + 3 * scale, trainD / 2 - 2.8 * scale, trainW - 6 * scale, 1.8 * scale);
+
+  // 4. 車窗排列 (模擬 8 節編組台鐵列車)
+  ctx.fillStyle = '#0f172a';
+  for (let i = -trainW / 2 + 7 * scale; i < trainW / 2 - 7 * scale; i += 7.5 * scale) {
+    ctx.fillRect(i, -trainD / 2 + 0.6 * scale, 5 * scale, 1.2 * scale);
+    ctx.fillRect(i, trainD / 2 - 1.8 * scale, 5 * scale, 1.2 * scale);
+  }
+
+  // 5. 車頭擋風玻璃與前大燈
+  ctx.fillStyle = '#0284c7';
+  drawSafeRoundRect(ctx, trainW / 2 - 4.5 * scale, -trainD / 2 + 1.0 * scale, 4.0 * scale, trainD - 2.0 * scale, 1.5 * scale);
+  ctx.fill();
+
+  // 6. 頂部 LED 標牌
+  ctx.fillStyle = '#0f172a';
+  drawSafeRoundRect(ctx, -trainW / 3, -trainD / 2 - 6 * scale, trainW * 0.66, 5 * scale, 2 * scale);
+  ctx.fill();
+  ctx.strokeStyle = train.accentColor || '#38bdf8';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.fillStyle = train.isStopped ? '#fbbf24' : '#38bdf8';
+  ctx.font = `bold ${Math.max(8, Math.round(7.5 * scale))}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const displayLabel = train.isStopped ? `🚆 停靠[${train.currentStation}]` : train.ledText;
+  ctx.fillText(displayLabel, 0, -trainD / 2 - 3.5 * scale);
+
+  ctx.restore();
 }
 
 // 雙北街頭行人 NPC (Pedestrians)
@@ -540,8 +1360,12 @@ window.addEventListener("keyup", e => {
 /* ─── 6. 控制器輸入與平滑移動運算 (支援幽靈天眼滑鼠拖曳、滾輪縮放與鍵盤漫遊) ─── */
 const keys = {};
 window.addEventListener("keydown", e => {
-  keys[e.key.toLowerCase()] = true;
-  if (e.key === "e" || e.key === "E") triggerCurrentInteraction();
+  const k = e.key.toLowerCase();
+  keys[k] = true;
+  if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(k)) {
+    cameraLockToPlayer = true;
+  }
+  if (k === "e") triggerCurrentInteraction();
 });
 window.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
 
@@ -583,19 +1407,25 @@ window.addEventListener("mouseup", () => {
   isDragging = false;
 });
 
-// 滑鼠滾輪縮放 (Zoom in / out)
+// 滑鼠滾輪縮放 (Zoom in / out - 支援超大微觀人物特寫 160.0x)
 canvas.addEventListener("wheel", e => {
   e.preventDefault();
-  const zoomFactor = e.deltaY < 0 ? 1.15 : 0.87;
+  const zoomFactor = e.deltaY < 0 ? 1.20 : 0.82;
   camera.targetScale = Math.max(camera.minScale, Math.min(camera.maxScale, camera.targetScale * zoomFactor));
+  // 當放大為人物微觀特寫時，自動鎖定置中於人物正上方
+  if (!gameState.isGhostMode && camera.targetScale >= 12.0) {
+    cameraLockToPlayer = true;
+    camera.x = playerPos.x;
+    camera.z = playerPos.z;
+  }
 }, { passive: false });
 
 // 點擊地圖任意門市/地標直接互動
 canvas.addEventListener("click", e => {
   if (Math.hypot(e.clientX - dragStartX, e.clientY - dragStartY) > 6) return; // 拖曳中忽略點擊
   const rect = canvas.getBoundingClientRect();
-  const clickX = e.clientX - rect.left - canvas.width / 2;
-  const clickY = e.clientY - rect.top - canvas.height / 2;
+  const clickX = e.clientX - rect.left - rect.width / 2;
+  const clickY = e.clientY - rect.top - rect.height / 2;
   const worldX = camera.x + clickX / camera.currentScale;
   const worldZ = camera.z + clickY / camera.currentScale;
 
@@ -623,24 +1453,28 @@ bindMobileDpad("dpadDown", "s");
 bindMobileDpad("dpadLeft", "a");
 bindMobileDpad("dpadRight", "d");
 
+let lastHudAlt = '', lastHudZoom = '', lastHudCoords = '', lastHudDistrict = '';
 function updateGhostDroneHUD() {
   const altEl = document.getElementById("hudAltitude");
   const zoomEl = document.getElementById("hudZoom");
   const coordsEl = document.getElementById("hudCoords");
   const distEl = document.getElementById("hudDistrict");
   if (altEl) {
-    const alt = Math.round(450 * (15 / camera.currentScale));
-    altEl.innerText = `${alt}m`;
+    const altStr = `${Math.round(450 * (15 / camera.currentScale))}m`;
+    if (altStr !== lastHudAlt) { altEl.innerText = altStr; lastHudAlt = altStr; }
   }
   if (zoomEl) {
-    zoomEl.innerText = `${(camera.currentScale / 15).toFixed(1)}x`;
+    const zoomStr = `${(camera.currentScale / 15).toFixed(1)}x`;
+    if (zoomStr !== lastHudZoom) { zoomEl.innerText = zoomStr; lastHudZoom = zoomStr; }
   }
   if (coordsEl) {
-    coordsEl.innerText = `X: ${Math.round(camera.x)}, Z: ${Math.round(camera.z)}`;
+    const coordsStr = `X: ${Math.round(camera.x)}, Z: ${Math.round(camera.z)}`;
+    if (coordsStr !== lastHudCoords) { coordsEl.innerText = coordsStr; lastHudCoords = coordsStr; }
   }
   if (distEl) {
     let name = "🛰️ 雙北全息戰術拓撲空間";
-    for (const sec of shuangbeiSectors) {
+    for (let i = 0; i < shuangbeiSectors.length; i++) {
+      const sec = shuangbeiSectors[i];
       if (Math.abs(camera.x - sec.x) <= sec.w / 2 && Math.abs(camera.z - sec.z) <= sec.h / 2) {
         name = `${sec.name} ｜ ${sec.desc}`;
         break;
@@ -651,7 +1485,7 @@ function updateGhostDroneHUD() {
     else if (camera.x <= -30 && camera.z >= 155 && camera.z <= 190) name = "🏫 板橋區・學府路一段 (1:1 真實商圈) ✕ 樂家康便利購";
     else if (camera.x <= -125 && camera.z >= 0 && camera.z < 95) name = "🎮 萬華區・西門町徒步區 ✕ 萬家福桂林旗艦店";
     else if (camera.x >= -35 && camera.x <= 35 && camera.z >= -10 && camera.z <= 30) name = "🏛️ 中正區・台北車站站前核心 ✕ 忠孝西路一段";
-    distEl.innerText = name;
+    if (name !== lastHudDistrict) { distEl.innerText = name; lastHudDistrict = name; }
   }
 }
 
@@ -775,16 +1609,33 @@ function updateMovement() {
   playerPos.x = Math.max(-460, Math.min(650, playerPos.x));
   playerPos.z = Math.max(-520, Math.min(460, playerPos.z));
 
-  // 動態攝影機平滑跟隨 (Smooth Lerp Camera)
-  camera.x += (playerPos.x - camera.x) * 0.12;
-  camera.z += (playerPos.z - camera.z) * 0.12;
-  camera.currentScale += (camera.targetScale - camera.currentScale) * 0.1;
+  // 動態攝影機平滑跟隨 (Smooth Lerp Camera) - 嚴密鎖定人物正上方 (以人物為中心)
+  if (!isDragging) {
+    if (cameraLockToPlayer || playerPos.isMoving || camera.currentScale >= 12.0) {
+      // 緊貼角色：特寫或移動中直接精準同步，保證人物始終置於視窗正中央 (視角剛好在人物正上方，移動跟隨推進)
+      const lerpSpd = (camera.currentScale >= 15.0 || playerPos.isMoving) ? 0.48 : 0.28;
+      camera.x += (playerPos.x - camera.x) * lerpSpd;
+      camera.z += (playerPos.z - camera.z) * lerpSpd;
+      if (Math.hypot(playerPos.x - camera.x, playerPos.z - camera.z) < 0.05) {
+        camera.x = playerPos.x;
+        camera.z = playerPos.z;
+      }
+    } else {
+      camera.x += (playerPos.x - camera.x) * 0.18;
+      camera.z += (playerPos.z - camera.z) * 0.18;
+    }
+  }
+  camera.currentScale += (camera.targetScale - camera.currentScale) * 0.18;
 
-  // 更新圓形雷達小地圖指針
-  updateMinimapRadar();
-  updateGhostDroneHUD();
-
-  checkProximityAndLocation();
+  // 節流 HUD 與小地圖 (每 3 幀刷新一次，消除高頻 DOM reflow 卡頓)
+  hudUpdateFrameCount = (hudUpdateFrameCount || 0) + 1;
+  if (hudUpdateFrameCount % 3 === 0) {
+    updateMinimapRadar();
+    updateGhostDroneHUD();
+  }
+  if (hudUpdateFrameCount % 6 === 0) {
+    checkProximityAndLocation();
+  }
 }
 
 function updateMinimapRadar() {
@@ -797,9 +1648,11 @@ function updateMinimapRadar() {
   dot.style.top = `${normZ}px`;
 }
 
-/* ─── 7. 公車移動與空拍鳥瞰過場系統 ─── */
+/* ─── 7. 公車、捷運與臺鐵動態路網連續運行系統 ─── */
 function updateBusWorld() {
   cityBuses.forEach(b => updateBusPhysics(b));
+  mrtTrains.forEach(t => updateMrtPhysics(t));
+  traTrains.forEach(t => updateTraPhysics(t));
 }
 
 const transitHud = document.getElementById("transitHud");
@@ -917,16 +1770,38 @@ function disembarkTransit() {
   }
 }
 
-/* ─── 8. 現代 2D/2.5D 動漫都會冒險渲染核心 (Y-Sorting 深度分層) ─── */
+/* ─── 8. 現代 2D/2.5D 動漫都會冒險渲染核心 (Retina HiDPI ✕ Y-Sorting 深度分層) ─── */
 function renderScene() {
-  const w = canvas.width;
-  const h = canvas.height;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  const cssW = window.innerWidth;
+  const cssH = window.innerHeight;
+  const targetW = Math.round(cssW * dpr);
+  const targetH = Math.round(cssH * dpr);
+
+  // 動態檢測畫布物理像素，確保 100% 吻合螢幕像素密度 (Retina 4K/5K 零模糊)
+  if (canvas.width !== targetW || canvas.height !== targetH) {
+    canvas.width = targetW;
+    canvas.height = targetH;
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+  }
+
+  // 啟用 Retina DPR 座標縮放
+  ctx.save();
+  ctx.scale(dpr, dpr);
+
+  const w = cssW;
+  const h = cssH;
   const cx = w / 2;
   const cy = h / 2;
   const scale = camera.currentScale;
 
-  // 1. 極致黑曜石賽博空間底色 (Deep Obsidian Void - 零邊界切斷・永無斷層藍色空白)
-  ctx.fillStyle = '#020617';
+  // 1. 深邃星空全息科技漸層底色 (Deep Cyber Space Gradient - 告別純黑，鮮明高科技對比)
+  const bgGrad = ctx.createRadialGradient(cx, cy, 30, cx, cy, Math.max(w, h));
+  bgGrad.addColorStop(0, '#0c1a3b');
+  bgGrad.addColorStop(0.65, '#070e24');
+  bgGrad.addColorStop(1, '#020512');
+  ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, w, h);
 
   ctx.save();
@@ -948,6 +1823,12 @@ function renderScene() {
   const minWorldZ = camera.z - (cy / scale) - viewMargin;
   const maxWorldZ = camera.z + (cy / scale) + viewMargin;
 
+  // 0.0 視錐可視範圍剔除 (Frustum Viewport Culling - 解決地圖移動嚴重卡頓的核心技術)
+  const isInViewport = (wx, wz, margin = 35) => {
+    return wx >= minWorldX - margin && wx <= maxWorldX + margin &&
+           wz >= minWorldZ - margin && wz <= maxWorldZ + margin;
+  };
+
   // 0.1 動態全像經緯拓撲主網格與次網格 (Dynamic Cyber Grid)
   const gridStep = scale < 2.0 ? 120 : (scale < 6.0 ? 60 : 30);
   const subStep = gridStep / 4;
@@ -957,53 +1838,61 @@ function renderScene() {
   const startZ = Math.floor(minWorldZ / subStep) * subStep;
   const endZ = Math.ceil(maxWorldZ / subStep) * subStep;
 
-  // 次級賽博格線 (Sub-Grid Lines)
-  ctx.strokeStyle = 'rgba(30, 58, 138, 0.22)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  for (let x = startX; x <= endX; x += subStep) {
-    if (x % gridStep !== 0) {
+  // 次級賽博格線 (Sub-Grid Lines - 僅在宏觀至中觀適度放大時繪製；超特寫 scale > 12.0 時隱藏以消除區塊感)
+  if (scale >= 2.5 && scale <= 12.0) {
+    ctx.strokeStyle = 'rgba(30, 68, 160, 0.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = startX; x <= endX; x += subStep) {
+      if (x % gridStep !== 0) {
+        ctx.moveTo(screenX(x), screenZ(minWorldZ));
+        ctx.lineTo(screenX(x), screenZ(maxWorldZ));
+      }
+    }
+    for (let z = startZ; z <= endZ; z += subStep) {
+      if (z % gridStep !== 0) {
+        ctx.moveTo(screenX(minWorldX), screenZ(z));
+        ctx.lineTo(screenX(maxWorldX), screenZ(z));
+      }
+    }
+    ctx.stroke();
+  }
+
+  // 主要賽博全息格線 (Major Cyber Grid Lines - scale <= 12.0 時繪製，特寫時隱藏讓真實街景完全呈現)
+  if (scale <= 12.0) {
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.28)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    for (let x = startX; x <= endX; x += gridStep) {
       ctx.moveTo(screenX(x), screenZ(minWorldZ));
       ctx.lineTo(screenX(x), screenZ(maxWorldZ));
     }
-  }
-  for (let z = startZ; z <= endZ; z += subStep) {
-    if (z % gridStep !== 0) {
+    for (let z = startZ; z <= endZ; z += gridStep) {
       ctx.moveTo(screenX(minWorldX), screenZ(z));
       ctx.lineTo(screenX(maxWorldX), screenZ(z));
     }
+    ctx.stroke();
   }
-  ctx.stroke();
 
-  // 主要賽博全息格線 (Major Cyber Grid Lines)
-  ctx.strokeStyle = 'rgba(0, 240, 255, 0.12)';
-  ctx.lineWidth = 1.2;
-  ctx.beginPath();
-  for (let x = startX; x <= endX; x += gridStep) {
-    ctx.moveTo(screenX(x), screenZ(minWorldZ));
-    ctx.lineTo(screenX(x), screenZ(maxWorldZ));
-  }
-  for (let z = startZ; z <= endZ; z += gridStep) {
-    ctx.moveTo(screenX(minWorldX), screenZ(z));
-    ctx.lineTo(screenX(maxWorldX), screenZ(z));
-  }
-  ctx.stroke();
-
-  // 賽博經緯十字準星與科技座標銘印 (Crosshairs & Sci-Fi Coordinate Marks)
-  ctx.fillStyle = 'rgba(0, 240, 255, 0.35)';
-  ctx.font = '9px monospace';
-  for (let x = startX; x <= endX; x += gridStep) {
-    for (let z = startZ; z <= endZ; z += gridStep) {
-      const sx = screenX(x);
-      const sz = screenZ(z);
-      // 十字標
-      ctx.fillRect(sx - 3, sz - 0.5, 6, 1);
-      ctx.fillRect(sx - 0.5, sz - 3, 1, 6);
-      // 科技經緯刻度 (N 25.04° / E 121.51°)
-      if (scale >= 1.0 && (x % (gridStep * 2) === 0) && (z % (gridStep * 2) === 0)) {
-        const latVal = (25.0478 - z * 0.0009).toFixed(3);
-        const lonVal = (121.5170 + x * 0.0009).toFixed(3);
-        ctx.fillText(`+${lonVal}E, ${latVal}N`, sx + 4, sz - 3);
+  // 賽博經緯十字準星與科技座標銘印 (限制軸線步數在 25 以內，防止千次運算)
+  const numStepsX = Math.ceil((endX - startX) / gridStep);
+  const numStepsZ = Math.ceil((endZ - startZ) / gridStep);
+  if (numStepsX <= 30 && numStepsZ <= 30 && scale >= 1.2) {
+    ctx.fillStyle = 'rgba(0, 240, 255, 0.35)';
+    ctx.font = '9px monospace';
+    for (let x = startX; x <= endX; x += gridStep) {
+      for (let z = startZ; z <= endZ; z += gridStep) {
+        const sx = screenX(x);
+        const sz = screenZ(z);
+        // 十字標
+        ctx.fillRect(sx - 3, sz - 0.5, 6, 1);
+        ctx.fillRect(sx - 0.5, sz - 3, 1, 6);
+        // 科技經緯刻度 (N 25.04° / E 121.51°)
+        if (scale >= 2.0 && (x % (gridStep * 2) === 0) && (z % (gridStep * 2) === 0)) {
+          const latVal = (25.0478 - z * 0.0009).toFixed(3);
+          const lonVal = (121.5170 + x * 0.0009).toFixed(3);
+          ctx.fillText(`+${lonVal}E, ${latVal}N`, sx + 4, sz - 3);
+        }
       }
     }
   }
@@ -1042,58 +1931,59 @@ function renderScene() {
   // 【完整涵蓋：臺北市 12 區 ✕ 新北市全境 29 行政區，絕無遺漏！】
   // ──────────────────────────────────────────
 
-  // 繪製 41 大特區之賽博全像板塊與邊界微流光 (Circuit Cyber Slabs)
-  shuangbeiSectors.forEach(sec => {
-    const sx = screenX(sec.x - sec.w / 2);
-    const sz = screenZ(sec.z - sec.h / 2);
-    const sw = sec.w * scale;
-    const sh = sec.h * scale;
+  // 繪製 41 大特區之賽博全像板塊與邊界微流光 (僅在宏觀/中觀視角 scale <= 7.5 時繪製，特寫時全面隱藏以徹底消除「看到很多區塊」！)
+  if (scale <= 7.5) {
+    shuangbeiSectors.forEach(sec => {
+      if (!isInViewport(sec.x, sec.z, Math.max(sec.w, sec.h) / 2 + 10)) return;
 
-    // 板塊底色 (科技半透明全息電路芯片)
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.45)';
-    drawSafeRoundRect(ctx, sx, sz, sw, sh, 6);
-    ctx.fill();
+      const sx = screenX(sec.x - sec.w / 2);
+      const sz = screenZ(sec.z - sec.h / 2);
+      const sw = sec.w * scale;
+      const sh = sec.h * scale;
 
-    // 板塊霓虹外框 (Neon Border)
-    ctx.strokeStyle = sec.col;
-    ctx.lineWidth = scale < 2.0 ? 1.0 : 1.5;
-    ctx.shadowColor = sec.col;
-    ctx.shadowBlur = scale < 2.0 ? 4 : 8;
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-
-    // 科技四角折角瞄準器 (Cyber Tactical Corner Brackets)
-    const cornerSize = Math.max(3, scale * 0.4);
-    ctx.fillStyle = sec.col;
-    ctx.fillRect(sx, sz, cornerSize, 1.5);
-    ctx.fillRect(sx, sz, 1.5, cornerSize);
-    ctx.fillRect(sx + sw - cornerSize, sz, cornerSize, 1.5);
-    ctx.fillRect(sx + sw - 1.5, sz, 1.5, cornerSize);
-    ctx.fillRect(sx, sz + sh - 1.5, cornerSize, 1.5);
-    ctx.fillRect(sx, sz + sh - cornerSize, 1.5, cornerSize);
-    ctx.fillRect(sx + sw - cornerSize, sz + sh - 1.5, cornerSize, 1.5);
-    ctx.fillRect(sx + sw - 1.5, sz + sh - cornerSize, 1.5, cornerSize);
-
-    // 特區全像標籤與編號 (Sleek Sci-Fi Badge)
-    if (scale <= 4.0) {
-      const tagW = Math.min(sw * 0.9, 130 * scale * 0.35);
-      const tagH = 18 * scale * 0.35;
-      const tcx = sx + sw / 2;
-      const tcy = sz + sh / 2;
-
-      ctx.fillStyle = 'rgba(3, 7, 18, 0.85)';
-      drawSafeRoundRect(ctx, tcx - tagW / 2, tcy - tagH / 2, tagW, tagH, 3);
+      // 板塊底色 (科技半透明全息電路芯片)
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.45)';
+      drawSafeRoundRect(ctx, sx, sz, sw, sh, 6);
       ctx.fill();
+
+      // 板塊霓虹外框 (以高效向量線條取代耗效能之高斯模糊 shadowBlur，流暢 60FPS)
       ctx.strokeStyle = sec.col;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = scale < 2.0 ? 1.0 : 1.5;
       ctx.stroke();
 
+      // 科技四角折角瞄準器 (Cyber Tactical Corner Brackets)
+      const cornerSize = Math.max(3, scale * 0.4);
       ctx.fillStyle = sec.col;
-      ctx.font = `bold ${Math.max(8, scale * 0.45)}px sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.fillText(sec.name, tcx, tcy + 3.5 * scale * 0.35);
-    }
-  });
+      ctx.fillRect(sx, sz, cornerSize, 1.5);
+      ctx.fillRect(sx, sz, 1.5, cornerSize);
+      ctx.fillRect(sx + sw - cornerSize, sz, cornerSize, 1.5);
+      ctx.fillRect(sx + sw - 1.5, sz, 1.5, cornerSize);
+      ctx.fillRect(sx, sz + sh - 1.5, cornerSize, 1.5);
+      ctx.fillRect(sx, sz + sh - cornerSize, 1.5, cornerSize);
+      ctx.fillRect(sx + sw - cornerSize, sz + sh - 1.5, cornerSize, 1.5);
+      ctx.fillRect(sx + sw - 1.5, sz + sh - cornerSize, 1.5, cornerSize);
+
+      // 特區全像標籤與編號 (Sleek Sci-Fi Badge - 確保縮放時絕不扁平重疊)
+      if (scale <= 4.0) {
+        const tagW = Math.max(90, Math.min(sw * 0.95, 135));
+        const tagH = 22;
+        const tcx = sx + sw / 2;
+        const tcy = sz + sh / 2;
+
+        ctx.fillStyle = 'rgba(7, 13, 36, 0.92)';
+        drawSafeRoundRect(ctx, tcx - tagW / 2, tcy - tagH / 2, tagW, tagH, 4);
+        ctx.fill();
+        ctx.strokeStyle = sec.col;
+        ctx.lineWidth = 1.3;
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(sec.name.split('・')[0], tcx, tcy + 4);
+      }
+    });
+  }
 
   // 0.4 雙北周邊盆地山系自然山稜線 (Holographic Basin Mountain Ridgelines)
   ctx.strokeStyle = 'rgba(16, 185, 129, 0.35)';
@@ -1162,31 +2052,41 @@ function renderScene() {
   ctx.closePath();
   ctx.fill();
 
-  // 0.4 六大捷運發光路網 (6 Glowing Metro Corridors)
+  // 0.4 六大捷運發光路網 (6 Glowing Metro Corridors - 視錐剔除與雙筆刷光暈優化)
   function drawMetroCorridor(points, color, name) {
     if (points.length < 2) return;
+    let anyInView = false;
+    for (let i = 0; i < points.length; i++) {
+      if (isInViewport(points[i][0], points[i][1], 80)) { anyInView = true; break; }
+    }
+    if (!anyInView) return;
+
+    // 外層光暈 (使用輕量透明雙筆刷，取代卡頓元兇 shadowBlur)
     ctx.strokeStyle = color;
-    ctx.lineWidth = Math.max(3.2, scale * 0.22);
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 8;
+    ctx.lineWidth = Math.max(5.5, scale * 0.35);
+    ctx.globalAlpha = 0.32;
     ctx.beginPath();
     ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
-    for (let i = 1; i < points.length; i++) {
-      ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
-    }
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
     ctx.stroke();
-    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1.0;
+
+    // 核心亮線
+    ctx.lineWidth = Math.max(3.2, scale * 0.22);
+    ctx.beginPath();
+    ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
+    ctx.stroke();
 
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = Math.max(1.2, scale * 0.08);
     ctx.beginPath();
     ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
-    for (let i = 1; i < points.length; i++) {
-      ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
-    }
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
     ctx.stroke();
 
     points.forEach((pt) => {
+      if (!isInViewport(pt[0], pt[1], 15)) return;
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
       ctx.arc(screenX(pt[0]), screenZ(pt[1]), Math.max(2.5, scale * 0.16), 0, Math.PI * 2);
@@ -1243,8 +2143,129 @@ function renderScene() {
     [-240, 60, "新北產業園區"]
   ], '#eab308', "環狀線");
 
+  // 🟣 桃園機場捷運雙北段 (Airport MRT)
+  drawMetroCorridor([
+    [0, 0, "A1台北車站"], [-220, -170, "A2三重"], [-240, 60, "A3新北產業園區"], [-280, 80, "A4新莊副都心"]
+  ], '#8246af', "機場捷運");
+
+  // 🩵 淡海輕軌 (Danhai LRT)
+  drawMetroCorridor([
+    [-240, -340, "紅樹林"], [-250, -380, "崁頂/漁人碼頭"]
+  ], '#0099cc', "淡海輕軌");
+
+  // 🩷 安坑輕軌 (Ankeng LRT)
+  drawMetroCorridor([
+    [70, 260, "十四張"], [60, 340, "雙城"]
+  ], '#e67799', "安坑輕軌");
+
+  // 🚅 台灣高鐵走廊 (THSR High Speed Rail Dedicated Corridor)
+  function drawHighSpeedRailCorridor(points) {
+    if (points.length < 2) return;
+    let anyInView = false;
+    for (let i = 0; i < points.length; i++) {
+      if (isInViewport(points[i][0], points[i][1], 80)) { anyInView = true; break; }
+    }
+    if (!anyInView) return;
+
+    // 橘色外光暈 (取代 shadowBlur)
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = Math.max(8, scale * 0.5);
+    ctx.globalAlpha = 0.35;
+    ctx.beginPath();
+    ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
+    ctx.stroke();
+    ctx.globalAlpha = 1.0;
+
+    ctx.lineWidth = Math.max(5, scale * 0.35);
+    ctx.beginPath();
+    ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
+    ctx.stroke();
+
+    // 橘白虛線代表高鐵電氣化極速軌道
+    ctx.strokeStyle = '#fdba74';
+    ctx.lineWidth = Math.max(2.2, scale * 0.15);
+    ctx.setLineDash([8, 8]);
+    ctx.beginPath();
+    ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    points.forEach(pt => {
+      if (!isInViewport(pt[0], pt[1], 15)) return;
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.arc(screenX(pt[0]), screenZ(pt[1]), Math.max(4, scale * 0.25), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      if (pt[2] && scale >= 2.5) {
+        ctx.fillStyle = '#fdba74';
+        ctx.font = `bold ${Math.max(9, scale * 0.4)}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(`🚅 ${pt[2]}`, screenX(pt[0]), screenZ(pt[1] - 6));
+      }
+    });
+  }
+
+  drawHighSpeedRailCorridor([
+    [360, -20, "高鐵南港"], [0, 0, "高鐵台北"], [-130, 130, "高鐵板橋"], [-260, 240, "往桃園青埔"]
+  ]);
+
+  // 🚆 臺灣鐵路縱貫線 (TRA Western Main Line & Yilan Line)
+  function drawRailroadTrackCorridor(points) {
+    if (points.length < 2) return;
+    let anyInView = false;
+    for (let i = 0; i < points.length; i++) {
+      if (isInViewport(points[i][0], points[i][1], 80)) { anyInView = true; break; }
+    }
+    if (!anyInView) return;
+
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = Math.max(6, scale * 0.38);
+    ctx.beginPath();
+    ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
+    ctx.stroke();
+
+    // 鐵道枕木交錯線
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = Math.max(2.5, scale * 0.16);
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(screenX(points[0][0]), screenZ(points[0][1]));
+    for (let i = 1; i < points.length; i++) ctx.lineTo(screenX(points[i][0]), screenZ(points[i][1]));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    points.forEach(pt => {
+      if (!isInViewport(pt[0], pt[1], 15)) return;
+      ctx.fillStyle = '#0284c7';
+      ctx.beginPath();
+      ctx.arc(screenX(pt[0]), screenZ(pt[1]), Math.max(3.5, scale * 0.22), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#7dd3fc';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      if (pt[2] && scale >= 2.5) {
+        ctx.fillStyle = '#7dd3fc';
+        ctx.font = `bold ${Math.max(9, scale * 0.38)}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(`🚆 ${pt[2]}`, screenX(pt[0]), screenZ(pt[1] - 5));
+      }
+    });
+  }
+
+  drawRailroadTrackCorridor([
+    [380, -40, "汐止"], [360, -20, "南港"], [290, -95, "松山"], [0, 0, "臺北車站"],
+    [-160, 80, "萬華"], [-130, 130, "板橋車站"], [-200, 210, "樹林"], [-310, 290, "鶯歌"]
+  ]);
+
   // 0.5 雙北全境東西向延伸大動脈 (Macro Arterials Extents)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   // 忠孝東路三段至七段 (往信義、南港延伸, z: 0)
   ctx.fillRect(screenX(220), screenZ(-16), 200 * scale, 32 * scale);
   // 信義路 (信義計畫區軸線, z: 50)
@@ -1260,106 +2281,113 @@ function renderScene() {
   // 新莊中正路 (x: -420 ~ -200, z: 90 ~ 110)
   ctx.fillRect(screenX(-420), screenZ(88), 220 * scale, 24 * scale);
 
-  // 0.6 著名地標立體科技剪影 (台北101、圓山大飯店、大直美麗華、淡水情人橋、大安森林公園)
+  // 0.6 著名地標立體科技剪影 (台北101、圓山大飯店、大直美麗華、淡水情人橋、大安森林公園 - 視錐剔除)
   // (1) 台北 101 大樓 (Taipei 101, x: 230, z: 50)
-  const sx101 = screenX(230);
-  const sz101 = screenZ(50);
-  ctx.fillStyle = '#0f766e'; // 科技竹節綠
-  for (let s = 0; s < 8; s++) {
-    const sw = (20 - s * 1.5) * scale * 0.4;
-    const sh = 10 * scale * 0.4;
-    ctx.fillRect(sx101 - sw / 2, sz101 - s * sh, sw, sh);
-    ctx.strokeStyle = '#2dd4bf';
-    ctx.strokeRect(sx101 - sw / 2, sz101 - s * sh, sw, sh);
-  }
-  // 101 避雷天線與頂部激光
-  ctx.fillStyle = '#38bdf8';
-  ctx.fillRect(sx101 - 1, sz101 - 8 * 10 * scale * 0.4 - 15, 2, 15);
-  ctx.shadowColor = '#38bdf8';
-  ctx.shadowBlur = 10;
-  ctx.beginPath();
-  ctx.arc(sx101, sz101 - 8 * 10 * scale * 0.4 - 15, 3, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.shadowBlur = 0;
-  if (scale >= 1.5) {
-    ctx.fillStyle = '#6ee7b7';
-    ctx.font = `bold ${Math.max(9, scale * 0.45)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('🏙️ 台北 101 (Taipei 101)', sx101, sz101 + 14);
+  if (isInViewport(230, 50, 40)) {
+    const sx101 = screenX(230);
+    const sz101 = screenZ(50);
+    ctx.fillStyle = '#0f766e'; // 科技竹節綠
+    for (let s = 0; s < 8; s++) {
+      const sw = (20 - s * 1.5) * scale * 0.4;
+      const sh = 10 * scale * 0.4;
+      ctx.fillRect(sx101 - sw / 2, sz101 - s * sh, sw, sh);
+      ctx.strokeStyle = '#2dd4bf';
+      ctx.strokeRect(sx101 - sw / 2, sz101 - s * sh, sw, sh);
+    }
+    // 101 避雷天線與頂部激光
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(sx101 - 1, sz101 - 8 * 10 * scale * 0.4 - 15, 2, 15);
+    ctx.beginPath();
+    ctx.arc(sx101, sz101 - 8 * 10 * scale * 0.4 - 15, 3, 0, Math.PI * 2);
+    ctx.fill();
+    if (scale >= 1.5) {
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = `bold ${Math.max(9, scale * 0.45)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('🏙️ 台北 101 (Taipei 101)', sx101, sz101 + 14);
+    }
   }
 
   // (2) 圓山大飯店 (The Grand Hotel, x: 50, z: -180)
-  const sxGrand = screenX(50);
-  const szGrand = screenZ(-180);
-  ctx.fillStyle = '#991b1b'; // 宮殿紅
-  ctx.fillRect(sxGrand - 18 * scale * 0.35, szGrand - 10 * scale * 0.35, 36 * scale * 0.35, 20 * scale * 0.35);
-  ctx.fillStyle = '#f59e0b'; // 金色琉璃屋頂
-  ctx.beginPath();
-  ctx.moveTo(sxGrand - 22 * scale * 0.35, szGrand - 10 * scale * 0.35);
-  ctx.lineTo(sxGrand + 22 * scale * 0.35, szGrand - 10 * scale * 0.35);
-  ctx.lineTo(sxGrand, szGrand - 20 * scale * 0.35);
-  ctx.closePath();
-  ctx.fill();
-  if (scale >= 1.8) {
-    ctx.fillStyle = '#fde68a';
-    ctx.font = `bold ${Math.max(8.5, scale * 0.4)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('🏛️ 圓山大飯店', sxGrand, szGrand + 12);
+  if (isInViewport(50, -180, 40)) {
+    const sxGrand = screenX(50);
+    const szGrand = screenZ(-180);
+    ctx.fillStyle = '#991b1b'; // 宮殿紅
+    ctx.fillRect(sxGrand - 18 * scale * 0.35, szGrand - 10 * scale * 0.35, 36 * scale * 0.35, 20 * scale * 0.35);
+    ctx.fillStyle = '#f59e0b'; // 金色琉璃屋頂
+    ctx.beginPath();
+    ctx.moveTo(sxGrand - 22 * scale * 0.35, szGrand - 10 * scale * 0.35);
+    ctx.lineTo(sxGrand + 22 * scale * 0.35, szGrand - 10 * scale * 0.35);
+    ctx.lineTo(sxGrand, szGrand - 20 * scale * 0.35);
+    ctx.closePath();
+    ctx.fill();
+    if (scale >= 1.8) {
+      ctx.fillStyle = '#fde68a';
+      ctx.font = `bold ${Math.max(8.5, scale * 0.4)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('🏛️ 圓山大飯店', sxGrand, szGrand + 12);
+    }
   }
 
   // (3) 大直美麗華摩天輪 (Miramar Ferris Wheel, x: 130, z: -160)
-  const sxFerris = screenX(130);
-  const szFerris = screenZ(-160);
-  const wheelAng = (Date.now() / 2500) % (Math.PI * 2);
-  ctx.strokeStyle = '#10b981';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(sxFerris, szFerris, 14 * scale * 0.35, 0, Math.PI * 2);
-  ctx.stroke();
-  for (let sp = 0; sp < 6; sp++) {
-    const a = wheelAng + (sp * Math.PI) / 3;
+  if (isInViewport(130, -160, 40)) {
+    const sxFerris = screenX(130);
+    const szFerris = screenZ(-160);
+    const wheelAng = (Date.now() / 2500) % (Math.PI * 2);
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(sxFerris, szFerris);
-    ctx.lineTo(sxFerris + Math.cos(a) * 14 * scale * 0.35, szFerris + Math.sin(a) * 14 * scale * 0.35);
+    ctx.arc(sxFerris, szFerris, 14 * scale * 0.35, 0, Math.PI * 2);
     ctx.stroke();
-  }
-  if (scale >= 1.8) {
-    ctx.fillStyle = '#6ee7b7';
-    ctx.font = `bold ${Math.max(8, scale * 0.4)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('🎡 大直美麗華', sxFerris, szFerris + 12);
+    for (let sp = 0; sp < 6; sp++) {
+      const a = wheelAng + (sp * Math.PI) / 3;
+      ctx.beginPath();
+      ctx.moveTo(sxFerris, szFerris);
+      ctx.lineTo(sxFerris + Math.cos(a) * 14 * scale * 0.35, szFerris + Math.sin(a) * 14 * scale * 0.35);
+      ctx.stroke();
+    }
+    if (scale >= 1.8) {
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = `bold ${Math.max(8, scale * 0.4)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('🎡 大直美麗華', sxFerris, szFerris + 12);
+    }
   }
 
   // (4) 大安森林公園 (Daan Forest Park, x: 120, z: 80)
-  ctx.fillStyle = '#14532d';
-  drawSafeRoundRect(ctx, screenX(100), screenZ(65), 45 * scale, 35 * scale, 8);
-  ctx.fill();
-  ctx.strokeStyle = '#22c55e';
-  ctx.stroke();
-  if (scale >= 1.8) {
-    ctx.fillStyle = '#86efac';
-    ctx.font = `bold ${Math.max(8.5, scale * 0.42)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('🌲 大安森林公園', screenX(122), screenZ(82));
+  if (isInViewport(120, 80, 50)) {
+    ctx.fillStyle = '#14532d';
+    drawSafeRoundRect(ctx, screenX(100), screenZ(65), 45 * scale, 35 * scale, 8);
+    ctx.fill();
+    ctx.strokeStyle = '#22c55e';
+    ctx.stroke();
+    if (scale >= 1.8) {
+      ctx.fillStyle = '#86efac';
+      ctx.font = `bold ${Math.max(8.5, scale * 0.42)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('🌲 大安森林公園', screenX(122), screenZ(82));
+    }
   }
 
   // (5) 關渡大橋 (Guandu Bridge, x: -220, z: -270)
-  const sxgd = screenX(-220);
-  const szgd = screenZ(-270);
-  ctx.strokeStyle = '#ef4444'; // 經典鮮紅鋼拱
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(sxgd, szgd, 16 * scale * 0.3, Math.PI, 0);
-  ctx.stroke();
-  if (scale >= 1.8) {
-    ctx.fillStyle = '#fca5a5';
-    ctx.font = `bold ${Math.max(8, scale * 0.4)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('🌉 關渡大橋 (紅拱)', sxgd, szgd + 10);
+  if (isInViewport(-220, -270, 50)) {
+    const sxgd = screenX(-220);
+    const szgd = screenZ(-270);
+    ctx.strokeStyle = '#ef4444'; // 經典鮮紅鋼拱
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(sxgd, szgd, 16 * scale * 0.3, Math.PI, 0);
+    ctx.stroke();
+    if (scale >= 1.8) {
+      ctx.fillStyle = '#fca5a5';
+      ctx.font = `bold ${Math.max(8, scale * 0.4)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('🌉 關渡大橋 (紅拱)', sxgd, szgd + 10);
+    }
   }
 
   // (6) 淡水老街與金色水岸 (Tamsui Promenade, x: -225, z: -320)
-  if (scale >= 1.8) {
+  if (isInViewport(-225, -320, 50) && scale >= 1.8) {
     ctx.fillStyle = '#38bdf8';
     ctx.font = `bold ${Math.max(9, scale * 0.45)}px sans-serif`;
     ctx.textAlign = 'center';
@@ -1368,38 +2396,147 @@ function renderScene() {
 
   // ──────────────────────────────────────────
   // 第一層：地表鋪面與 1:1 真實雙北街廓拓撲 (Ground Roads & Contiguous Metropolis Topology)
-  // 全區涵蓋 -220m ~ +220m，忠實呈現雙北各大行政區真實道路經緯
+  // 【超高畫質向量渲染重構：徹底解決「整張地圖放大之後背景變模糊」！】
+  // 1. 全域 Retina HiDPI Canvas：高達 2.0x~2.5x 物理像素密度，消除畫布雙線性模糊！
+  // 2. 街廓微觀石材地坪網格：scale >= 4.0 時鋪滿真實都會石材鋪面，消除空洞模糊漸層！
+  // 3. 高解析度道路鋪面與標線：車道白實線、車道分道虛線、路緣石立體高光、人行道透水地磚、水溝蓋格柵、黃色導盲磚！
   // ──────────────────────────────────────────
+
+  // 0.8 雙北核心城區微觀地坪石材網格 (Urban Plaza & Block Base Paving - scale >= 4.0 時自動呈現，微觀特寫清晰無比)
+  if (scale >= 4.0) {
+    const tilePitch = scale >= 25.0 ? 1.0 : (scale >= 10.0 ? 2.5 : 5.0); // 隨縮放精細遞進之 1m~5m 模組化石板
+    const baseMinX = Math.max(-240, minWorldX - 10);
+    const baseMaxX = Math.min(240, maxWorldX + 10);
+    const baseMinZ = Math.max(-240, minWorldZ - 10);
+    const baseMaxZ = Math.min(240, maxWorldZ + 10);
+
+    if (baseMinX < baseMaxX && baseMinZ < baseMaxZ) {
+      // 核心基底深灰藍石材地坪 (告別模糊純黑或空洞漸層)
+      ctx.fillStyle = '#0b1324';
+      ctx.fillRect(screenX(baseMinX), screenZ(baseMinZ), (baseMaxX - baseMinX) * scale, (baseMaxZ - baseMinZ) * scale);
+
+      // 石板接縫向量線 (純向量繪製，永遠保持 1px 極致銳利，絕不模糊！)
+      ctx.strokeStyle = 'rgba(30, 41, 59, 0.75)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      const sBaseX = Math.floor(baseMinX / tilePitch) * tilePitch;
+      for (let bx = sBaseX; bx <= baseMaxX; bx += tilePitch) {
+        ctx.moveTo(screenX(bx), screenZ(baseMinZ));
+        ctx.lineTo(screenX(bx), screenZ(baseMaxZ));
+      }
+      const sBaseZ = Math.floor(baseMinZ / tilePitch) * tilePitch;
+      for (let bz = sBaseZ; bz <= baseMaxZ; bz += tilePitch) {
+        ctx.moveTo(screenX(baseMinX), screenZ(bz));
+        ctx.lineTo(screenX(baseMaxX), screenZ(bz));
+      }
+      ctx.stroke();
+
+      // 在超特寫 scale >= 16.0 時繪製石材交錯十字接縫高光點，營造精緻人行徒步區地磚質感
+      if (scale >= 16.0 && (baseMaxX - baseMinX) <= 100 && (baseMaxZ - baseMinZ) <= 100) {
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.22)';
+        for (let bx = sBaseX; bx <= baseMaxX; bx += tilePitch * 2) {
+          for (let bz = sBaseZ; bz <= baseMaxZ; bz += tilePitch * 2) {
+            ctx.fillRect(screenX(bx) - 1, screenZ(bz) - 1, 2, 2);
+          }
+        }
+      }
+    }
+  }
+
+  // 高解析度人孔蓋繪製輔助函式 (Manhole Cover Vector)
+  function drawManholeCover(mx, mz) {
+    if (!isInViewport(mx, mz, 5)) return;
+    const sx = screenX(mx);
+    const sz = screenZ(mz);
+    const mr = Math.max(2.5, scale * 0.45);
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath();
+    ctx.arc(sx, sz, mr, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = Math.max(1, scale * 0.05);
+    ctx.stroke();
+    // 鑄鐵防滑十字花紋
+    ctx.beginPath();
+    ctx.moveTo(sx - mr * 0.6, sz);
+    ctx.lineTo(sx + mr * 0.6, sz);
+    ctx.moveTo(sx, sz - mr * 0.6);
+    ctx.lineTo(sx, sz + mr * 0.6);
+    ctx.stroke();
+  }
+
+  // 高解析度車道導向箭頭繪製輔助函式 (Lane Arrow Vector)
+  function drawRoadLaneArrow(ax, az, dir = 'straight') {
+    if (scale < 12.0) return;
+    if (!isInViewport(ax, az, 6)) return;
+    const sx = screenX(ax);
+    const sz = screenZ(az);
+    const aLen = Math.max(3, scale * 0.5);
+    const aW = Math.max(1.8, scale * 0.22);
+    ctx.fillStyle = '#f8fafc';
+    ctx.beginPath();
+    if (dir === 'straight') {
+      ctx.moveTo(sx, sz - aLen);
+      ctx.lineTo(sx + aW, sz - aLen * 0.35);
+      ctx.lineTo(sx + aW * 0.35, sz - aLen * 0.35);
+      ctx.lineTo(sx + aW * 0.35, sz + aLen);
+      ctx.lineTo(sx - aW * 0.35, sz + aLen);
+      ctx.lineTo(sx - aW * 0.35, sz - aLen * 0.35);
+      ctx.lineTo(sx - aW, sz - aLen * 0.35);
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
 
   // 1. 東西向 9 大主要幹道與街廓 (East-West Major Arterials)
   // (1) 民權西路 / 民權東路 (z: -195, 寬 24m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#1e2530';
   ctx.fillRect(screenX(-220), screenZ(-207), 440 * scale, 24 * scale);
+  // 車道外側白實線
+  if (scale >= 5.0) {
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(screenX(-220), screenZ(-207), 440 * scale, Math.max(1, scale * 0.1));
+    ctx.fillRect(screenX(-220), screenZ(-183 - Math.max(0.1, 1 / scale)), 440 * scale, Math.max(1, scale * 0.1));
+  }
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(screenX(-220), screenZ(-195.4), 440 * scale, 0.8 * scale);
 
   // (2) 民生西路 / 民生東路 (z: -140, 寬 22m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#1e2530';
   ctx.fillRect(screenX(-220), screenZ(-151), 440 * scale, 22 * scale);
+  if (scale >= 5.0) {
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(screenX(-220), screenZ(-151), 440 * scale, Math.max(1, scale * 0.1));
+    ctx.fillRect(screenX(-220), screenZ(-129 - Math.max(0.1, 1 / scale)), 440 * scale, Math.max(1, scale * 0.1));
+  }
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(screenX(-220), screenZ(-140.4), 440 * scale, 0.8 * scale);
 
   // (3) 南京西路 / 南京東路 (z: -95, 寬 26m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#1e2530';
   ctx.fillRect(screenX(-220), screenZ(-108), 440 * scale, 26 * scale);
+  if (scale >= 5.0) {
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(screenX(-220), screenZ(-108), 440 * scale, Math.max(1, scale * 0.1));
+    ctx.fillRect(screenX(-220), screenZ(-82 - Math.max(0.1, 1 / scale)), 440 * scale, Math.max(1, scale * 0.1));
+  }
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(screenX(-220), screenZ(-95.4), 440 * scale, 0.8 * scale);
 
   // (4) 長安西路 / 長安東路 (z: -48, 寬 20m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#1e2530';
   ctx.fillRect(screenX(-220), screenZ(-58), 440 * scale, 20 * scale);
+  if (scale >= 5.0) {
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(screenX(-220), screenZ(-58), 440 * scale, Math.max(1, scale * 0.1));
+    ctx.fillRect(screenX(-220), screenZ(-38 - Math.max(0.1, 1 / scale)), 440 * scale, Math.max(1, scale * 0.1));
+  }
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(screenX(-220), screenZ(-48.4), 440 * scale, 0.8 * scale);
 
   // (4.5) 市民大道一段 (市民高架橋 ✕ 台北車站北側大道, z: -26, 寬 22m)
-  ctx.fillStyle = '#151921';
+  ctx.fillStyle = '#111827';
   ctx.fillRect(screenX(-220), screenZ(-37), 440 * scale, 22 * scale);
-  // 市民大道中央雙黃線
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(screenX(-220), screenZ(-26.4), 440 * scale, 0.8 * scale);
   // 市民高架水泥高架橋墩 (Elevated Expressway Piers)
@@ -1411,15 +2548,16 @@ function renderScene() {
   }
 
   // (5) 忠孝西路一段 / 忠孝東路一段 (z: 0, 寬 36m，台北都會樞紐大動脈)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#1e2530';
   ctx.fillRect(screenX(-220), screenZ(-18), 440 * scale, 36 * scale);
+
   // 忠孝西路 中央公車專用道 (深藍柏油，z: -5 ~ 5)
-  ctx.fillStyle = '#1e385c';
+  ctx.fillStyle = '#1e3a5f';
   ctx.fillRect(screenX(-220), screenZ(-5), 440 * scale, 10 * scale);
   // 公車專用道白色虛線分道線
   ctx.strokeStyle = '#f8fafc';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([8, 8]);
+  ctx.lineWidth = Math.max(1.2, scale * 0.1);
+  ctx.setLineDash([Math.max(4, scale * 1.2), Math.max(4, scale * 1.2)]);
   ctx.beginPath();
   ctx.moveTo(screenX(-220), screenZ(-5));
   ctx.lineTo(screenX(220), screenZ(-5));
@@ -1427,24 +2565,87 @@ function renderScene() {
   ctx.lineTo(screenX(220), screenZ(5));
   ctx.stroke();
   ctx.setLineDash([]);
+
+  // 車道外側白實線
+  if (scale >= 4.5) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(screenX(-220), screenZ(-18), 440 * scale, Math.max(1, scale * 0.12));
+    ctx.fillRect(screenX(-220), screenZ(18 - Math.max(0.12, 1.2 / scale)), 440 * scale, Math.max(1, scale * 0.12));
+
+    // 一般車道分道虛線 (z = -11.5 與 z = 11.5)
+    ctx.strokeStyle = 'rgba(241, 245, 249, 0.7)';
+    ctx.lineWidth = Math.max(1, scale * 0.08);
+    ctx.setLineDash([Math.max(3, scale * 0.8), Math.max(4, scale * 1.0)]);
+    ctx.beginPath();
+    ctx.moveTo(screenX(-220), screenZ(-11.5));
+    ctx.lineTo(screenX(220), screenZ(-11.5));
+    ctx.moveTo(screenX(-220), screenZ(11.5));
+    ctx.lineTo(screenX(220), screenZ(11.5));
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
   // 雙黃線 (z: 0)
   ctx.fillStyle = '#f59e0b';
   ctx.fillRect(screenX(-220), screenZ(-0.4), 440 * scale, 0.8 * scale);
-  // 忠孝西路 南北兩側人行道石板地磚
-  ctx.fillStyle = '#475569';
+
+  // 忠孝西路 南北兩側人行道石板地磚與立體路緣石
+  ctx.fillStyle = '#334155';
   ctx.fillRect(screenX(-220), screenZ(-36), 440 * scale, 18 * scale);
   ctx.fillRect(screenX(-220), screenZ(18), 440 * scale, 18 * scale);
 
+  // 人行道微觀地磚與路緣石立體高光 (scale >= 6.0 時呈現)
+  if (scale >= 6.0) {
+    // 北側路緣石立體高光與水溝陰影 (z: -18)
+    ctx.fillStyle = '#64748b';
+    ctx.fillRect(screenX(-220), screenZ(-18.6), 440 * scale, 0.6 * scale);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(screenX(-220), screenZ(-18), 440 * scale, 0.3 * scale);
+
+    // 南側路緣石立體高光與水溝陰影 (z: 18)
+    ctx.fillStyle = '#64748b';
+    ctx.fillRect(screenX(-220), screenZ(18), 440 * scale, 0.6 * scale);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(screenX(-220), screenZ(18.6), 440 * scale, 0.3 * scale);
+
+    // 人行道黃色導盲磚引導帶 (Tactile Warning Strip)
+    ctx.fillStyle = '#eab308';
+    ctx.fillRect(screenX(-220), screenZ(-23), 440 * scale, 0.6 * scale);
+    ctx.fillRect(screenX(-220), screenZ(23), 440 * scale, 0.6 * scale);
+
+    // 人行道石板橫向接縫線
+    ctx.strokeStyle = 'rgba(30, 41, 59, 0.6)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let jx = -220; jx <= 220; jx += 4) {
+      ctx.moveTo(screenX(jx), screenZ(-36));
+      ctx.lineTo(screenX(jx), screenZ(-18.6));
+      ctx.moveTo(screenX(jx), screenZ(18.6));
+      ctx.lineTo(screenX(jx), screenZ(36));
+    }
+    ctx.stroke();
+  }
+
+  // 高解析度地面標線與鑄鐵人孔蓋 (scale >= 14.0)
+  if (scale >= 14.0) {
+    for (let ax = -180; ax <= 180; ax += 30) {
+      drawRoadLaneArrow(ax, -14.5, 'straight');
+      drawRoadLaneArrow(ax, 14.5, 'straight');
+      drawManholeCover(ax + 15, -13);
+      drawManholeCover(ax + 15, 13);
+    }
+  }
+
   // (6) 許昌街 / 開封街一段 (z: 44, 寬 18m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-130), screenZ(35), 205 * scale, 18 * scale);
 
   // (7) 漢口街一段 / 武昌街一段 (z: 72, 寬 18m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-220), screenZ(63), 295 * scale, 18 * scale);
 
   // (8) 衡陽路 / 襄陽路 (z: 98, 寬 20m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-220), screenZ(88), 295 * scale, 20 * scale);
 
   // (8.5) 凱達格蘭大道 ✕ 愛國西路 (z: 112, 寬 24m)
@@ -1454,13 +2655,13 @@ function renderScene() {
   ctx.fillRect(screenX(-140), screenZ(111.6), 220 * scale, 0.8 * scale);
 
   // (9) 板橋縣民大道一段 (z: 130, 寬 26m，新板特區綠帶大道)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-220), screenZ(117), 220 * scale, 26 * scale);
   ctx.fillStyle = '#15803d'; // 中央安全島綠帶
   ctx.fillRect(screenX(-220), screenZ(128.5), 220 * scale, 3 * scale);
 
   // (10) 板橋學府路一段 (特別由玩家點名指定！z: 168, 寬 26m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-220), screenZ(155), 220 * scale, 26 * scale);
   ctx.strokeStyle = '#f59e0b';
   ctx.lineWidth = 1.2;
@@ -1476,54 +2677,54 @@ function renderScene() {
   ctx.fillRect(screenX(-220), screenZ(181), 220 * scale, 6 * scale);
 
   // (11) 板橋文化路一段 / 府中路 (z: 195, 寬 28m)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-220), screenZ(181), 260 * scale, 28 * scale);
 
   // 2. 南北向 9 大主要幹道與街廓 (North-South Major Arterials)
   // (1) 淡水河畔環河路 / 迪化街一段 (x: -185, 寬 22m, z: -220 ~ 0)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-196), screenZ(-220), 22 * scale, 220 * scale);
 
   // (2) 萬華漢中街 (西門町徒步區) (x: -178, 寬 20m, z: 0 ~ 115)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-188), screenZ(0), 20 * scale, 115 * scale);
 
   // (3) 大同延平北路二段/三段 (x: -145, 寬 22m, z: -220 ~ 0)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-156), screenZ(-220), 22 * scale, 220 * scale);
 
   // (4) 萬華中華路一段 (林蔭大道，寬 32m, z: 0 ~ 115)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-161), screenZ(0), 32 * scale, 115 * scale);
   ctx.fillStyle = '#15803d'; // 中央綠帶
   ctx.fillRect(screenX(-147), screenZ(0), 4 * scale, 115 * scale);
 
   // (5) 大同重慶北路二段/三段 (x: -85, 寬 26m, z: -220 ~ 0)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-98), screenZ(-220), 26 * scale, 220 * scale);
 
   // (6) 中正重慶南路一段 (書店街) (x: -92, 寬 24m, z: 0 ~ 140)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-104), screenZ(0), 24 * scale, 140 * scale);
 
   // (7) 大同寧夏路 (夜市街區) (x: -55, 寬 20m, z: -220 ~ 0)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-65), screenZ(-220), 20 * scale, 220 * scale);
 
   // (8) 站前館前路 (x: -32, 寬 22m, z: 0 ~ 115)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-43), screenZ(0), 22 * scale, 115 * scale);
 
   // (9) 站前南陽街 (x: 15, 寬 18m, z: 20 ~ 115)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(6), screenZ(20), 18 * scale, 95 * scale);
 
   // (10) 站前公園路 (x: 48, 寬 24m, z: 0 ~ 115)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(36), screenZ(0), 24 * scale, 115 * scale);
 
   // (11) 中山北路一段/二段 (樟樹林蔭大道，寬 36m, z: -220 ~ 30)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(60), screenZ(-220), 36 * scale, 250 * scale);
   ctx.fillStyle = '#15803d'; // 中央綠蔭安全島
   ctx.fillRect(screenX(76), screenZ(-220), 4 * scale, 250 * scale);
@@ -1531,19 +2732,19 @@ function renderScene() {
   ctx.fillRect(screenX(96), screenZ(-220), 20 * scale, 250 * scale);
 
   // (12) 林森北路 (條通商圈) (x: 108, 寬 22m, z: -220 ~ 30)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(97), screenZ(-220), 22 * scale, 250 * scale);
 
   // (13) 松江路 (金融商圈) (x: 155, 寬 28m, z: -220 ~ 140)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(141), screenZ(-220), 28 * scale, 360 * scale);
 
   // (14) 復興北路/南路 (文湖線軸線) (x: 185, 寬 28m, z: -220 ~ 140)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(171), screenZ(-220), 28 * scale, 360 * scale);
 
   // (15) 板橋府中路 / 重慶路 (x: -175 ~ -110, z: 120 ~ 220)
-  ctx.fillStyle = '#1c222b';
+  ctx.fillStyle = '#2d3748';
   ctx.fillRect(screenX(-185), screenZ(120), 24 * scale, 100 * scale);
   ctx.fillRect(screenX(-155), screenZ(120), 24 * scale, 100 * scale);
 
@@ -1625,45 +2826,111 @@ function renderScene() {
   ctx.textAlign = 'center';
   ctx.fillText('華江橋 (往文化路)', screenX(-189), screenZ(112));
 
-  // 4. 十字路口精密斑馬線
-  ctx.fillStyle = '#ffffff';
-  // 中山北路 ✕ 忠孝西路
-  for (let z = -16; z <= 16; z += 4.5) {
-    ctx.fillRect(screenX(55), screenZ(z), 5 * scale, 2.2 * scale);
-    ctx.fillRect(screenX(96), screenZ(z), 5 * scale, 2.2 * scale);
+  // 4. 十字路口精密斑馬線 (綠斑馬線，參考台北狂飆台味特色 - 視錐剔除)
+  function drawGreenZebraCrossing(gx, gz, gw, gh, isVertical=false) {
+    if (!isInViewport(gx + gw / 2, gz + gh / 2, Math.max(gw, gh) + 15)) return;
+    const sx = screenX(gx);
+    const sz = screenZ(gz);
+    ctx.fillStyle = '#15803d'; // 台灣標準交通部綠底
+    ctx.fillRect(sx, sz, gw * scale, gh * scale);
+    ctx.fillStyle = '#ffffff'; // 白色斑馬反光條
+    if (isVertical) {
+      for (let y = 1; y < gh - 2; y += 4.5) {
+        ctx.fillRect(sx + 1 * scale, sz + y * scale, (gw - 2) * scale, 2.2 * scale);
+      }
+    } else {
+      for (let x = 1; x < gw - 2; x += 4.5) {
+        ctx.fillRect(sx + x * scale, sz + 1 * scale, 2.2 * scale, (gh - 2) * scale);
+      }
+    }
   }
+
+  // 中山北路 ✕ 忠孝西路 綠斑馬線
+  drawGreenZebraCrossing(54, -18, 6, 36, true);
+  drawGreenZebraCrossing(96, -18, 6, 36, true);
   // 館前路 ✕ 忠孝西路
-  for (let x = -40; x <= -20; x += 4.5) {
-    ctx.fillRect(screenX(x), screenZ(18), 2.2 * scale, 5 * scale);
-  }
+  drawGreenZebraCrossing(-43, 17, 24, 6, false);
+  // 重慶南路 ✕ 忠孝西路
+  drawGreenZebraCrossing(-104, 17, 24, 6, false);
   // 板橋學府路一段路口斑馬線
-  for (let z = 158; z <= 178; z += 4.5) {
-    ctx.fillRect(screenX(-60), screenZ(z), 5 * scale, 2.2 * scale);
-    ctx.fillRect(screenX(-190), screenZ(z), 5 * scale, 2.2 * scale);
+  drawGreenZebraCrossing(-62, 154, 6, 28, true);
+  drawGreenZebraCrossing(-192, 154, 6, 28, true);
+
+  // 5. 瀝青路面高對比路名與台灣經典綠底路牌標示 (High-Visibility Taiwan Street Signage - 視錐剔除)
+  // 【落實委託人指示：地圖預設極致簡化，預設隱藏「民權東路」等看板，按鈕按需啟用】
+  function drawTaiwanRoadSign(text, x, z) {
+    if (!window.showGameRoadSigns) return;
+    if (scale > 15.0) return; // 特寫模式下避免路牌放大成巨大色塊擋住人物視線
+    if (!isInViewport(x, z, 35)) return;
+    const sx = screenX(x);
+    const sz = screenZ(z);
+    ctx.save();
+    const fontSize = Math.min(13, Math.max(9, scale * 0.45));
+    ctx.font = `bold ${fontSize}px sans-serif`;
+    const txtWidth = ctx.measureText(text).width + 12;
+    const txtHeight = fontSize + 6;
+    ctx.fillStyle = '#065f46'; // 經典台灣綠底路牌
+    drawSafeRoundRect(ctx, sx - txtWidth / 2, sz - txtHeight / 2, txtWidth, txtHeight, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#a7f3d0';
+    ctx.lineWidth = 1.0;
+    ctx.stroke();
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.fillText(text, sx, sz + fontSize * 0.35);
+    ctx.restore();
   }
 
-  // 5. 瀝青路面科技路名直接繪製 (Road Surface Typography)
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
-  ctx.font = `bold ${Math.max(10, scale * 0.8)}px sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.fillText('【忠孝西路一段 ✕ 公車專用道】', screenX(0), screenZ(-1));
-  ctx.fillText('【板橋學府路一段 (1:1 真實商圈)】', screenX(-110), screenZ(169));
-  ctx.fillText('【縣民大道・新板特區】', screenX(-110), screenZ(131));
-  ctx.fillText('【文化路一段・府中商圈】', screenX(-110), screenZ(196));
-  ctx.fillText('【中山北路一段・樟樹林蔭大道】', screenX(78), screenZ(-30));
-  ctx.fillText('【重慶南路一段・書店街】', screenX(-92), screenZ(50));
-  ctx.fillText('【南京西路商圈】', screenX(10), screenZ(-93));
-  ctx.fillText('【中華路一段・西門町】', screenX(-145), screenZ(40));
-  ctx.fillText('【民生西路・大稻埕與雙連】', screenX(10), screenZ(-138));
-  ctx.fillText('【民權西路・晴光商圈】', screenX(10), screenZ(-193));
-  ctx.fillText('【松江路・金融特區】', screenX(155), screenZ(-40));
+  // 台北核心幹道路標
+  drawTaiwanRoadSign('🛣️ 忠孝西路一段 ✕ 公車專用道', 0, -1);
+  drawTaiwanRoadSign('🛣️ 忠孝東路 (東區商圈 ✕ 市府)', 180, 0);
+  drawTaiwanRoadSign('🛣️ 中山北路一段・樟樹林蔭大道', 78, -30);
+  drawTaiwanRoadSign('🛣️ 重慶南路一段・書店街', -92, 50);
+  drawTaiwanRoadSign('🛣️ 中華路一段・西門町徒步區', -145, 40);
+  drawTaiwanRoadSign('🛣️ 南京西路 / 南京東路金融走廊', 120, -93);
+  drawTaiwanRoadSign('🛣️ 信義路・世貿 101 大道', 180, 50);
+  drawTaiwanRoadSign('🛣️ 仁愛路・林蔭大道', 150, 25);
+  drawTaiwanRoadSign('🛣️ 羅斯福路・公館師大文教', 80, 160);
+  drawTaiwanRoadSign('🛣️ 民權西路 / 民權東路', 10, -193);
+  drawTaiwanRoadSign('🛣️ 承德路 / 大業路・北投溫泉線', 0, -220);
+  drawTaiwanRoadSign('🛣️ 木柵路・文山生態走廊', 160, 220);
+  drawTaiwanRoadSign('🛣️ 內湖港墘路・科技心臟', 270, -160);
+  drawTaiwanRoadSign('🛣️ 南港三重路・南軟經貿', 370, -60);
 
-  // 6. 雙北行政區微縮銘板 (District HUD Badges)
+  // 新北 29 行政特區 1:1 核心幹道路標
+  drawTaiwanRoadSign('🛣️ 板橋學府路一段 (1:1 真實商圈)', -110, 169);
+  drawTaiwanRoadSign('🛣️ 縣民大道・新板特區', -110, 131);
+  drawTaiwanRoadSign('🛣️ 文化路一段・府中商圈', -110, 196);
+  drawTaiwanRoadSign('🛣️ 三重重新路・天台商圈', -260, -30);
+  drawTaiwanRoadSign('🛣️ 蘆洲三民路・微風水岸', -250, -150);
+  drawTaiwanRoadSign('🛣️ 新莊中正路・輔大副都心', -310, 80);
+  drawTaiwanRoadSign('🛣️ 中和景平路・科技聚落', -35, 175);
+  drawTaiwanRoadSign('🛣️ 永和中正路・樂華生活圈', -65, 135);
+  drawTaiwanRoadSign('🛣️ 新店北新路・碧潭水岸', 80, 275);
+  drawTaiwanRoadSign('🛣️ 土城中央路・頂埔科技廊道', -120, 250);
+  drawTaiwanRoadSign('🛣️ 樹林大安路・調車機廠線', -220, 240);
+  drawTaiwanRoadSign('🛣️ 鶯歌文化路・陶瓷水岸', -330, 310);
+  drawTaiwanRoadSign('🛣️ 三峽介壽路・藍染老街', -260, 320);
+  drawTaiwanRoadSign('🛣️ 淡水淡金路・金色水岸', -230, -320);
+  drawTaiwanRoadSign('🛣️ 汐止大同路・新台五路雲端', 390, -30);
+  drawTaiwanRoadSign('🛣️ 林口文化一路・影視星雲台地', -380, -180);
+  drawTaiwanRoadSign('🛣️ 八里龍米路・左岸水岸線', -310, -300);
+  drawTaiwanRoadSign('🛣️ 五股成泰路・水碓觀景', -310, -80);
+  drawTaiwanRoadSign('🛣️ 泰山明志路・貴子走廊', -340, 0);
+  drawTaiwanRoadSign('🛣️ 瑞芳明燈路・黃金礦嶺九份老街', 480, -60);
+  drawTaiwanRoadSign('🛣️ 北海岸淡金公路 (萬里/金山/石門)', -150, -420);
+  drawTaiwanRoadSign('🛣️ 平溪十分街・天燈光子水瀑', 430, 160);
+  drawTaiwanRoadSign('🛣️ 貢寮福隆街・極東海洋風景線', 560, 210);
+  drawTaiwanRoadSign('🛣️ 烏來溫泉街・地熱生態綠廊', 110, 380);
+
+  // 6. 雙北全境 41 行政特區 1:1 微縮銘板 (僅在宏觀 scale <= 7.5 時繪製，特寫時隱藏以消除「看到很多區塊」)
   function drawDistrictBadge(text, x, z, col) {
+    if (scale > 7.5) return; // 【核心優化】：放大特寫時隱藏宏觀特區銘板，避免大量色塊遮擋視線！
+    if (!isInViewport(x, z, 35)) return;
     const bx = screenX(x);
     const bz = screenZ(z);
     ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-    drawSafeRoundRect(ctx, bx - 42 * scale * 0.35, bz - 8 * scale * 0.35, 84 * scale * 0.35, 16 * scale * 0.35, 3);
+    drawSafeRoundRect(ctx, bx - 45 * scale * 0.35, bz - 8 * scale * 0.35, 90 * scale * 0.35, 16 * scale * 0.35, 3);
     ctx.fill();
     ctx.strokeStyle = col;
     ctx.lineWidth = 1;
@@ -1673,30 +2940,59 @@ function renderScene() {
     ctx.textAlign = 'center';
     ctx.fillText(text, bx, bz + 4 * scale * 0.35);
   }
-  drawDistrictBadge('🏛️ 中正區・站前核心', 0, -28, '#38bdf8');
-  drawDistrictBadge('📚 中正區・重慶南路書街', -92, 25, '#60a5fa');
-  drawDistrictBadge('🎮 萬華區・西門商圈', -178, 25, '#f472b6');
+
+  // 臺北市 12 核心行政特區
+  drawDistrictBadge('🏛️ 中正區・站前政經', 0, -28, '#38bdf8');
+  drawDistrictBadge('🎮 萬華區・西門艋舺', -178, 25, '#f472b6');
   drawDistrictBadge('🏮 大同區・大稻埕寧夏', -115, -120, '#fbbf24');
-  drawDistrictBadge('🌳 中山區・林蔭商圈', 78, -115, '#a78bfa');
-  drawDistrictBadge('💼 中山區・松江南京', 170, -60, '#38bdf8');
-  drawDistrictBadge('🌲 大安區・森林公園', 120, 80, '#34d399');
+  drawDistrictBadge('🌳 中山區・林蔭金融', 78, -115, '#a78bfa');
+  drawDistrictBadge('🌲 大安區・森林學府', 120, 80, '#34d399');
   drawDistrictBadge('🏙️ 信義區・台北101', 230, 50, '#f59e0b');
-  drawDistrictBadge('🎤 松山區・小巨蛋饒河', 230, -95, '#fb7185');
-  drawDistrictBadge('⛩️ 士林區・士林夜市', -60, -210, '#f43f5e');
-  drawDistrictBadge('♨️ 北投區・溫泉關渡', -160, -260, '#a855f7');
-  drawDistrictBadge('🌊 淡水區・老街出海口', -230, -320, '#38bdf8');
+  drawDistrictBadge('🎤 松山區・巨蛋饒河', 230, -95, '#fb7185');
+  drawDistrictBadge('🔬 南港區・軟體生技', 370, -60, '#38bdf8');
+  drawDistrictBadge('⚡ 內湖區・內科科技園', 270, -160, '#00f0ff');
+  drawDistrictBadge('⛩️ 士林區・官邸夜市', -60, -210, '#f43f5e');
+  drawDistrictBadge('♨️ 北投區・溫泉地熱', -160, -260, '#a855f7');
+  drawDistrictBadge('🍵 文山區・貓空政大', 160, 220, '#10b981');
+
+  // 新北市 29 全境行政特區 (1:1 實裝)
   drawDistrictBadge('🏫 板橋區・學府商圈 (1:1)', -120, 156, '#34d399');
-  drawDistrictBadge('🏙️ 板橋區・新板特區', -145, 215, '#10b981');
-  drawDistrictBadge('🏭 三重區・重新商圈', -270, -30, '#94a3b8');
-  drawDistrictBadge('🛍️ 新莊區・輔大廟街', -300, 100, '#e2e8f0');
-  drawDistrictBadge('🏘️ 中和／永和區', -40, 175, '#c084fc');
-  drawDistrictBadge('🚣 新店區・碧潭水岸', 80, 280, '#22d3ee');
+  drawDistrictBadge('🏙️ 板橋區・新板特等門戶', -145, 215, '#10b981');
+  drawDistrictBadge('🏭 三重區・重新大都會', -260, -30, '#94a3b8');
+  drawDistrictBadge('🌾 蘆洲區・湧蓮微風水岸', -250, -150, '#22d3ee');
+  drawDistrictBadge('🛍️ 新莊區・輔大副都心', -310, 80, '#a3e635');
+  drawDistrictBadge('🏢 中和區・遠東科技城', -35, 175, '#c084fc');
+  drawDistrictBadge('🏮 永和區・頂溪樂華商圈', -65, 135, '#e879f9');
+  drawDistrictBadge('🚣 新店區・碧潭水電樞紐', 80, 275, '#22d3ee');
+  drawDistrictBadge('🌲 土城區・頂埔科技承天', -120, 250, '#059669');
+  drawDistrictBadge('🚆 樹林區・調車場大安紅樹', -220, 240, '#f97316');
+  drawDistrictBadge('🏺 鶯歌區・陶瓷古都水岸', -330, 310, '#f472b6');
+  drawDistrictBadge('📜 三峽區・祖師廟藍染客家', -260, 320, '#fb923c');
+  drawDistrictBadge('🌊 淡水區・老街出海口金色水岸', -230, -320, '#38bdf8');
+  drawDistrictBadge('☁️ 汐止區・雲端園區科技廊道', 390, -30, '#818cf8');
+  drawDistrictBadge('🌫️ 林口區・台地星雲影視城', -380, -180, '#facc15');
+  drawDistrictBadge('🚢 八里區・左岸風帆十三行', -310, -300, '#06b6d4');
+  drawDistrictBadge('⛰️ 五股區・水碓景觀高新谷', -310, -80, '#6ee7b7');
+  drawDistrictBadge('⛩️ 泰山區・明志書院科技聚落', -340, 0, '#bef264');
+  drawDistrictBadge('🍲 深坑區・老街豆腐簪花香', 250, 210, '#fbbf24');
+  drawDistrictBadge('🍵 石碇區・千島茶鄉翡翠水庫', 330, 260, '#34d399');
+  drawDistrictBadge('🍃 坪林區・包種茶金水岸古道', 370, 330, '#10b981');
+  drawDistrictBadge('♨️ 烏來區・地熱瀑布泰雅生態', 110, 380, '#2dd4bf');
+  drawDistrictBadge('⛏️ 瑞芳區・黃金山城九份貓村', 480, -60, '#fbbf24');
+  drawDistrictBadge('🏮 平溪區・天燈光子十分瀑布', 430, 160, '#f472b6');
+  drawDistrictBadge('🌿 雙溪區・低碳清流虎豹潭', 490, 220, '#22c55e');
+  drawDistrictBadge('🏖️ 貢寮區・極東福隆三貂角', 560, 210, '#38bdf8');
+  drawDistrictBadge('🌊 金山區・金包里溫泉雙嶼', -150, -420, '#0284c7');
+  drawDistrictBadge('👑 萬里區・野柳女王頭翡翠灣', 70, -420, '#00f0ff');
+  drawDistrictBadge('🧭 石門區・極北富貴角風能老梅', -220, -450, '#38bdf8');
+  drawDistrictBadge('🌸 三芝區・淺水灣櫻花水岸', -290, -410, '#06b6d4');
 
   // ──────────────────────────────────────────
-  // 1.5 雙北街廓真實都會建築群、綠帶公園與林蔭行道樹 (Urban Fabric & Architecture)
+  // 1.5 雙北街廓真實都會建築群、綠帶公園與林蔭行道樹 (Urban Fabric & Architecture - 視錐剔除)
   // 【徹底消除商店孤立浮動或並排感！商店嵌於真實大廈、公寓街廓與林蔭之間】
   // ──────────────────────────────────────────
   function drawCityBlockBuilding(bx, bz, bw, bd, bColor, label, bHeight=28) {
+    if (!isInViewport(bx + bw / 2, bz + bd / 2, Math.max(bw, bd) + 15)) return;
     const sx = screenX(bx);
     const sz = screenZ(bz);
     // 建築物投影陰影
@@ -1711,14 +3007,16 @@ function renderScene() {
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // 辦公/住宅透光窗格矩陣 (Lit Windows)
-    ctx.fillStyle = 'rgba(254, 240, 138, 0.35)';
-    const cols = Math.floor(bw / 8);
-    const rows = Math.floor(bd / 7);
-    for (let c = 1; c < cols; c++) {
-      for (let r = 1; r < rows; r++) {
-        if ((c + r) % 2 === 0) {
-          ctx.fillRect(sx + (c * 8 - 2) * scale, sz + (r * 7 - 1.5) * scale, 3.5 * scale, 3 * scale);
+    // 辦公/住宅透光窗格矩陣 (Lit Windows) - 僅在足夠放大時繪製微觀窗格
+    if (scale >= 6.0) {
+      ctx.fillStyle = 'rgba(254, 240, 138, 0.35)';
+      const cols = Math.floor(bw / 8);
+      const rows = Math.floor(bd / 7);
+      for (let c = 1; c < cols; c++) {
+        for (let r = 1; r < rows; r++) {
+          if ((c + r) % 2 === 0) {
+            ctx.fillRect(sx + (c * 8 - 2) * scale, sz + (r * 7 - 1.5) * scale, 3.5 * scale, 3 * scale);
+          }
         }
       }
     }
@@ -1737,50 +3035,56 @@ function renderScene() {
   drawCityBlockBuilding(20, 26, 18, 16, '#334155', '站前金融大樓');
 
   // (2) 二二八和平紀念公園 (綠地與林蔭)
-  ctx.fillStyle = '#14532d';
-  drawSafeRoundRect(ctx, screenX(-85), screenZ(68), 35 * scale, 22 * scale, 6);
-  ctx.fill();
-  ctx.strokeStyle = '#22c55e';
-  ctx.lineWidth = 1.2;
-  ctx.stroke();
-  ctx.fillStyle = '#86efac';
-  ctx.font = `bold ${Math.max(8.5, scale * 0.5)}px sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.fillText('🌲 二二八和平紀念公園 🌲', screenX(-67.5), screenZ(80));
+  if (isInViewport(-67.5, 79, 40)) {
+    ctx.fillStyle = '#14532d';
+    drawSafeRoundRect(ctx, screenX(-85), screenZ(68), 35 * scale, 22 * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#22c55e';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    ctx.fillStyle = '#86efac';
+    ctx.font = `bold ${Math.max(8.5, scale * 0.5)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('🌲 二二八和平紀念公園 🌲', screenX(-67.5), screenZ(80));
+  }
 
   // (2.1) 國立臺灣博物館 (228公園北側・希臘多立克式宮殿與百年銅頂)
   drawCityBlockBuilding(-68, 60, 22, 14, '#334155', '國立臺灣博物館 (希臘多立克式宮殿)');
 
   // (2.2) 國定古蹟 景福門 (東門圓環 ✕ 凱達格蘭大道 ✕ 中山南路)
-  ctx.fillStyle = '#1e293b';
-  ctx.beginPath();
-  ctx.arc(screenX(60), screenZ(110), 16 * scale, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = '#15803d'; // 圓環中央綠島
-  ctx.beginPath();
-  ctx.arc(screenX(60), screenZ(110), 12 * scale, 0, Math.PI * 2);
-  ctx.fill();
-  // 景福門城樓 (紅柱綠琉璃歇山頂)
-  ctx.fillStyle = '#991b1b';
-  ctx.fillRect(screenX(55), screenZ(105), 10 * scale, 10 * scale);
-  ctx.fillStyle = '#15803d';
-  ctx.fillRect(screenX(53.5), screenZ(103), 13 * scale, 3 * scale);
-  ctx.fillStyle = '#fbbf24';
-  ctx.font = `bold ${Math.max(7.5, scale * 0.45)}px sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.fillText('國定古蹟 景福門 (東門)', screenX(60), screenZ(118));
+  if (isInViewport(60, 110, 30)) {
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath();
+    ctx.arc(screenX(60), screenZ(110), 16 * scale, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#15803d'; // 圓環中央綠島
+    ctx.beginPath();
+    ctx.arc(screenX(60), screenZ(110), 12 * scale, 0, Math.PI * 2);
+    ctx.fill();
+    // 景福門城樓 (紅柱綠琉璃歇山頂)
+    ctx.fillStyle = '#991b1b';
+    ctx.fillRect(screenX(55), screenZ(105), 10 * scale, 10 * scale);
+    ctx.fillStyle = '#15803d';
+    ctx.fillRect(screenX(53.5), screenZ(103), 13 * scale, 3 * scale);
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = `bold ${Math.max(7.5, scale * 0.45)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('國定古蹟 景福門 (東門)', screenX(60), screenZ(118));
+  }
 
   // (3) 大安森林公園 (東南方廣袤綠海)
-  ctx.fillStyle = '#14532d';
-  drawSafeRoundRect(ctx, screenX(70), screenZ(85), 30 * scale, 35 * scale, 8);
-  ctx.fill();
-  ctx.strokeStyle = '#22c55e';
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-  ctx.fillStyle = '#86efac';
-  ctx.font = `bold ${Math.max(9, scale * 0.55)}px sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.fillText('🌳 大安森林公園綠海 🌳', screenX(85), screenZ(103));
+  if (isInViewport(85, 102.5, 40)) {
+    ctx.fillStyle = '#14532d';
+    drawSafeRoundRect(ctx, screenX(70), screenZ(85), 30 * scale, 35 * scale, 8);
+    ctx.fill();
+    ctx.strokeStyle = '#22c55e';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.fillStyle = '#86efac';
+    ctx.font = `bold ${Math.max(9, scale * 0.55)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('🌳 大安森林公園綠海 🌳', screenX(85), screenZ(103));
+  }
 
   // (4) 新板特區摩天建築群與市民廣場
   drawCityBlockBuilding(-170, 142, 25, 18, '#1e3a8a', '新板大遠百 Mega City');
@@ -1818,8 +3122,9 @@ function renderScene() {
   drawCityBlockBuilding(-205, 45, 18, 22, '#1e293b', '武昌電影街影城');
   drawCityBlockBuilding(-165, 75, 20, 18, '#1e3a8a', '萬年商業大樓');
 
-  // (10) 中山北路、學府路、敦化南路 綠蔭樟樹行道樹 (Street Trees)
+  // (10) 中山北路、學府路、敦化南路 綠蔭樟樹行道樹 (Street Trees - 視錐剔除)
   function drawStreetTree(tx, tz) {
+    if (!isInViewport(tx, tz, 10)) return;
     const sx = screenX(tx);
     const sz = screenZ(tz);
     // 樹影
@@ -1858,7 +3163,7 @@ function renderScene() {
   // 第二層：連鎖品牌雷達光波與物流光纖線路 (Brand Radar Laser Network & Pulses)
   // ──────────────────────────────────────────
   if (gameState.activeBrandFilter !== 'all') {
-    const matchedStores = interactables.filter(it => it.type === gameState.activeBrandFilter);
+    const matchedStores = interactables.filter(it => it.type === gameState.activeBrandFilter && isInViewport(it.x, it.z, 50));
     const brandColors = {
       familymart: { stroke: '#10b981', fill: 'rgba(16, 185, 129, 0.25)', glow: 'rgba(16, 185, 129, 0.6)' },
       seven: { stroke: '#ea580c', fill: 'rgba(234, 88, 12, 0.25)', glow: 'rgba(234, 88, 12, 0.6)' },
@@ -1869,15 +3174,13 @@ function renderScene() {
     };
     const bColor = brandColors[gameState.activeBrandFilter] || { stroke: '#00d2ff', fill: 'rgba(0, 210, 255, 0.25)', glow: 'rgba(0, 210, 255, 0.6)' };
 
-    // (A) 分店之間動態光纖雷射射線
+    // (A) 分店之間動態光纖雷射射線 (純向量無 shadowBlur，極致平滑)
     if (matchedStores.length > 1) {
       ctx.save();
       ctx.strokeStyle = bColor.stroke;
       ctx.lineWidth = 2.4;
       ctx.setLineDash([12, 8]);
       ctx.lineDashOffset = -(Date.now() / 35) % 20;
-      ctx.shadowColor = bColor.glow;
-      ctx.shadowBlur = 10;
       ctx.beginPath();
       for (let i = 0; i < matchedStores.length; i++) {
         const cur = matchedStores[i];
@@ -1905,18 +3208,22 @@ function renderScene() {
       ctx.restore();
     });
   } else {
-    // 預設全部地標點位發光提示
-    interactables.forEach(it => {
-      const ix = screenX(it.x);
-      const iz = screenZ(it.z);
-      ctx.beginPath();
-      ctx.arc(ix, iz, it.r * scale * 0.75, 0, Math.PI * 2);
-      ctx.strokeStyle = '#00d2ff';
-      ctx.lineWidth = 1.8;
-      ctx.setLineDash([6, 6]);
-      ctx.stroke();
-      ctx.setLineDash([]);
-    });
+    // 預設全部地標點位發光提示 (視錐剔除：僅繪製可視區內的項目)
+    // 依據委託人指示：縮小概覽時隱藏發光圈保持畫面清爽整潔，放大特寫 (scale >= 4.8) 時才顯示
+    if (scale >= 4.8) {
+      interactables.forEach(it => {
+        if (!isInViewport(it.x, it.z, 20)) return;
+        const ix = screenX(it.x);
+        const iz = screenZ(it.z);
+        ctx.beginPath();
+        ctx.arc(ix, iz, it.r * scale * 0.75, 0, Math.PI * 2);
+        ctx.strokeStyle = '#00d2ff';
+        ctx.lineWidth = 1.8;
+        ctx.setLineDash([6, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+    }
   }
 
   // 奔跑塵土粒子渲染
@@ -2016,85 +3323,492 @@ function renderScene() {
     ctx.restore();
   }
 
+  // ──────────────────────────────────────────
+  // 品牌官方標準向量標誌渲染引擎 (Canvas Vector Brand Logos)
+  // 【落實委託人指示：我要的是它的樣式，而不是在下面寫個它的名字。放大到一定程度才顯示，不然畫面會很擠】
+  // ──────────────────────────────────────────
+
+  // 🟢 7-Eleven 官方經典標誌 (綠框橘白紅 '7' ✕ 'ELEVEN')
+  function drawSevenElevenLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 22;
+    const boxH = h || 22;
+    ctx.fillStyle = '#ffffff';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#00843d';
+    ctx.lineWidth = Math.max(1, boxW * 0.08);
+    ctx.stroke();
+
+    const barH = boxH * 0.22;
+    ctx.fillStyle = '#ff7900';
+    ctx.fillRect(-boxW * 0.35, -boxH * 0.38, boxW * 0.7, barH);
+
+    ctx.fillStyle = '#ed1c24';
+    ctx.beginPath();
+    ctx.moveTo(boxW * 0.35, -boxH * 0.38 + barH);
+    ctx.lineTo(boxW * 0.12, -boxH * 0.38 + barH);
+    ctx.lineTo(-boxW * 0.15, boxH * 0.38);
+    ctx.lineTo(boxW * 0.05, boxH * 0.38);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(-boxW * 0.42, -boxH * 0.08, boxW * 0.84, boxH * 0.24);
+    ctx.fillStyle = '#00843d';
+    ctx.font = `900 ${Math.max(6, boxH * 0.2)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ELEVEN', 0, boxH * 0.04);
+    ctx.restore();
+  }
+
+  // 🔵 全家 FamilyMart 官方綠藍雙色標誌
+  function drawFamilyMartLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 24;
+    const boxH = h || 20;
+    ctx.fillStyle = '#0068b7';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH / 2, 2);
+    ctx.fill();
+    ctx.fillStyle = '#00a040';
+    drawSafeRoundRect(ctx, -boxW / 2, 0, boxW, boxH / 2, 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(-boxW * 0.38, -boxH * 0.08, boxW * 0.76, boxH * 0.16);
+    ctx.restore();
+  }
+
+  // 🔵 全聯福利中心 PX-Mart 官方藍底紅白雙環無限標誌
+  function drawPxmartLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const r = Math.min(w, h) / 2 || 11;
+    ctx.fillStyle = '#003da5';
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = Math.max(1, r * 0.22);
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.65, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = '#e3001b';
+    ctx.lineWidth = Math.max(1.2, r * 0.18);
+    ctx.beginPath();
+    ctx.arc(-r * 0.24, 0, r * 0.24, 0, Math.PI * 2);
+    ctx.arc(r * 0.24, 0, r * 0.24, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // 🍟 麥當勞 McDonald's 官方金色雙拱門標誌 (Golden Arches 'M')
+  function drawMcdonaldsLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 22;
+    const boxH = h || 22;
+    ctx.fillStyle = '#da291c';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 4);
+    ctx.fill();
+
+    ctx.strokeStyle = '#ffc72c';
+    ctx.lineWidth = Math.max(2, boxW * 0.14);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-boxW * 0.28, boxH * 0.28);
+    ctx.bezierCurveTo(-boxW * 0.28, -boxH * 0.35, -boxW * 0.03, -boxH * 0.35, -boxW * 0.03, boxH * 0.28);
+    ctx.bezierCurveTo(-boxW * 0.03, -boxH * 0.35, boxW * 0.25, -boxH * 0.35, boxW * 0.25, boxH * 0.28);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ☕ 星巴克 Starbucks 官方深綠海妖標誌
+  function drawStarbucksLogo(ctx, cx, cy, radius) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const r = radius || 11;
+    ctx.fillStyle = '#006241';
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = Math.max(0.8, r * 0.1);
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.82, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(0, -r * 0.42, r * 0.18, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(0, r * 0.08, r * 0.42, 0, Math.PI);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 🍔 摩斯漢堡 MOS Burger 官方圓弧紅色 M 標誌
+  function drawMosBurgerLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 22;
+    const boxH = h || 20;
+    ctx.fillStyle = '#ffffff';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 4);
+    ctx.fill();
+    ctx.strokeStyle = '#e60012';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.strokeStyle = '#e60012';
+    ctx.lineWidth = Math.max(2, boxW * 0.14);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-boxW * 0.32, boxH * 0.15);
+    ctx.bezierCurveTo(-boxW * 0.32, -boxH * 0.28, -boxW * 0.05, -boxH * 0.28, -boxW * 0.02, boxH * 0.05);
+    ctx.bezierCurveTo(0, -boxH * 0.28, boxW * 0.32, -boxH * 0.28, boxW * 0.32, boxH * 0.15);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // 💊 屈臣氏 Watsons 官方湖水綠標誌
+  function drawWatsonsLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 24;
+    const boxH = h || 18;
+    ctx.fillStyle = '#008899';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 3);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold italic ${Math.max(7, boxH * 0.48)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('watsons', 0, 0);
+    ctx.restore();
+  }
+
+  // 🌸 康是美 Cosmed 官方活力珊瑚橘十字花瓣標誌
+  function drawCosmedLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 22;
+    const boxH = h || 20;
+    ctx.fillStyle = '#f57200';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 4);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    const pw = boxW * 0.22;
+    const ph = boxH * 0.55;
+    drawSafeRoundRect(ctx, -pw / 2, -ph / 2, pw, ph, 2);
+    ctx.fill();
+    drawSafeRoundRect(ctx, -ph / 2, -pw / 2, ph, pw, 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 🧋 CoCo 都可 手搖飲官方微笑標誌
+  function drawCocoLogo(ctx, cx, cy, radius) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const r = radius || 10;
+    ctx.fillStyle = '#f97316';
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = Math.max(1.2, r * 0.2);
+    ctx.beginPath();
+    ctx.arc(0, -r * 0.1, r * 0.5, 0.2 * Math.PI, 0.8 * Math.PI);
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(-r * 0.3, -r * 0.25, r * 0.12, 0, Math.PI * 2);
+    ctx.arc(r * 0.3, -r * 0.25, r * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 🏮 傳統市場與夜市 官方牌樓與紅燈籠標誌
+  function drawMarketArchwayLogo(ctx, cx, cy, w, h) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const boxW = w || 24;
+    const boxH = h || 20;
+    ctx.fillStyle = '#78350f';
+    drawSafeRoundRect(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 4);
+    ctx.fill();
+
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    ctx.moveTo(-boxW * 0.45, -boxH * 0.15);
+    ctx.lineTo(0, -boxH * 0.42);
+    ctx.lineTo(boxW * 0.45, -boxH * 0.15);
+    ctx.lineTo(boxW * 0.35, -boxH * 0.05);
+    ctx.lineTo(-boxW * 0.35, -boxH * 0.05);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(-boxW * 0.28, boxH * 0.2, boxW * 0.12, 0, Math.PI * 2);
+    ctx.arc(boxW * 0.28, boxH * 0.2, boxW * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 🛒 全球正統萬家福/樂家康官方向量標誌 (WanJiaFu / LeJiaKang Dual-Color Diamond ✕ Negative White 'C')
+  let carrefourRedPath2D = null;
+  let carrefourBluePath2D = null;
+  if (typeof Path2D !== 'undefined') {
+    try {
+      carrefourRedPath2D = new Path2D("M18.0334273,1.59976316 C18.1419912,1.4945 18.2441057,1.45213158 18.331978,1.45213158 C18.4894493,1.45213158 18.600163,1.5895 18.5950573,1.75713158 C18.5902203,1.85660526 18.5464185,1.96581579 18.4486035,2.06160526 C14.5351982,6.82607895 11.6891586,12.3942368 11.6891586,20.1192368 C11.6891586,27.8376579 14.5351982,33.2989737 18.4486035,38.0610789 C18.5464185,38.1571316 18.5902203,38.2681842 18.5950573,38.3658158 C18.600163,38.5313421 18.4894493,38.6710789 18.331978,38.6710789 C18.2441057,38.6710789 18.1419912,38.6284474 18.0334273,38.5226579 L1.36296035,22.7345 C0.530995595,22.0363421 0,21.2218684 0,20.0629211 C0,18.8989737 0.530995595,18.0866053 1.36296035,17.3939737 L18.0334273,1.59976316");
+      carrefourBluePath2D = new Path2D("M9.08448546,0.141973684 C2.55721674,0.141973684 0.0056969163,9.20092105 0.0056969163,19.9982895 C0.0056969163,30.7982895 2.55721674,39.7367105 9.08448546,39.7367105 C13.0008467,39.7367105 16.3394546,37.4901316 16.3510097,35.6440789 C16.3518159,35.2406579 16.1935383,34.8530263 15.8468863,34.5148684 C13.9916264,32.7585526 13.2650009,31.0022368 13.2580141,29.4540789 C13.2475339,26.4967105 15.8681154,24.2927632 18.2823181,24.2927632 C21.603459,24.2927632 23.5616396,26.8496053 23.5616396,30.1588158 C23.5616396,33.2935526 22.1946485,35.9077632 20.7118379,37.9975 C20.6543313,38.0848684 20.6282652,38.1780263 20.6282652,38.2622368 C20.6301463,38.4272368 20.7271551,38.5614474 20.8749524,38.5614474 C20.9652432,38.5614474 21.0705824,38.5146053 21.1847894,38.4014474 L37.8600934,22.6132895 C38.6925956,21.9153947 39.2241286,21.1009211 39.2241286,19.9419737 C39.2241286,18.7780263 38.6925956,17.9653947 37.8600934,17.2727632 L21.1847894,1.47881579 C21.0705824,1.36697368 20.9652432,1.32013158 20.8749524,1.32013158 C20.7260802,1.32013158 20.6301463,1.45539474 20.6282652,1.61986842 C20.6282652,1.70460526 20.6543313,1.79855263 20.7118379,1.88618421 C22.1946485,3.97328947 23.5616396,6.59065789 23.5616396,9.72302632 C23.5616396,13.0298684 21.603459,15.5893421 18.2823181,15.5893421 C15.8681154,15.5893421 13.2475339,13.3869737 13.2580141,10.4285526 C13.2650009,8.87907895 13.9916264,7.12302632 15.8468863,5.36855263 C16.1935383,5.02697368 16.3518159,4.64223684 16.3510097,4.23881579 C16.3394546,2.39013158 13.0008467,0.141973684 9.08448546,0.141973684");
+    } catch (e) {
+      console.warn("Path2D initialization exception:", e);
+    }
+  }
+
+  function drawCarrefourLogo(ctx, cx, cy, targetWidth, targetHeight) {
+    const w = targetWidth || 22;
+    const h = targetHeight || (w * 40 / 61);
+    ctx.save();
+    ctx.translate(cx - w / 2, cy - h / 2);
+
+    ctx.fillStyle = '#ffffff';
+    drawSafeRoundRect(ctx, -2, -2, w + 4, h + 4, 3);
+    ctx.fill();
+
+    const scaleRatio = w / 61;
+    ctx.scale(scaleRatio, scaleRatio);
+
+    if (carrefourRedPath2D && carrefourBluePath2D) {
+      ctx.fillStyle = '#C20016';
+      ctx.fill(carrefourRedPath2D);
+
+      ctx.save();
+      ctx.translate(21.766520, 0.121053);
+      ctx.fillStyle = '#254F9B';
+      ctx.fill(carrefourBluePath2D);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = '#C20016';
+      ctx.beginPath();
+      ctx.moveTo(18, 1.6);
+      ctx.bezierCurveTo(11.7, 12.4, 11.7, 27.8, 18.4, 38.1);
+      ctx.lineTo(1.4, 22.7);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#254F9B';
+      ctx.beginPath();
+      ctx.moveTo(31, 0.2);
+      ctx.bezierCurveTo(55, 0.2, 61, 20, 31, 39.7);
+      ctx.lineTo(60, 20);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  // 🚇 台北捷運官方雙色流線標誌
+  function drawTaipeiMetroLogo(ctx, cx, cy, radius) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    const s = radius / 36;
+    ctx.scale(s, s);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(0, 0, 36, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#0070bc';
+    ctx.beginPath();
+    ctx.moveTo(-26, 10);
+    ctx.bezierCurveTo(-28, -14, -12, -36, 14, -36);
+    ctx.bezierCurveTo(26, -36, 36, -30, 42, -20);
+    ctx.lineTo(46, -30);
+    ctx.lineTo(46, -6);
+    ctx.lineTo(22, -10);
+    ctx.lineTo(32, -17);
+    ctx.bezierCurveTo(27, -23, 21, -27, 14, -27);
+    ctx.bezierCurveTo(-6, -27, -18, -11, -17, 10);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#00a650';
+    ctx.beginPath();
+    ctx.moveTo(26, -10);
+    ctx.bezierCurveTo(28, 14, 12, 36, -14, 36);
+    ctx.bezierCurveTo(-26, 36, -36, 30, -42, 20);
+    ctx.lineTo(-46, 30);
+    ctx.lineTo(-46, 6);
+    ctx.lineTo(-22, 10);
+    ctx.lineTo(-32, 17);
+    ctx.bezierCurveTo(-27, 23, -21, 27, -14, 27);
+    ctx.bezierCurveTo(6, 27, 18, 11, 17, -10);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  // 🌟 全門市層級細節 (LOD) 與官方純粹樣式浮動指示器：落實委託人指示
+  // 「那些只要出現的商店，我要的是它的樣式，而不是在下面寫個它的名字。我要的是它的樣式，並且要放大到一定程度我才會看得到。不然畫面會很擠」
+  function drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, brand, borderColor = '#00f0ff') {
+    if (scale < 4.8) return; // 縮小 (scale < 4.8) 時絕不繪製，確保大景深視野整潔不擁擠！
+
+    const badgeW = Math.min(46, Math.max(34, scale * 2.2));
+    const badgeH = Math.min(32, Math.max(22, scale * 1.4));
+    const badgeX = bx + (storeW * scale - badgeW) / 2;
+    const badgeY = bz - badgeH - 6;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+    drawSafeRoundRect(ctx, badgeX, badgeY, badgeW, badgeH, 6);
+    ctx.fill();
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = borderColor;
+    ctx.shadowBlur = 8;
+    ctx.stroke();
+
+    const cx = badgeX + badgeW / 2;
+    const cy = badgeY + badgeH / 2;
+    const iconW = Math.min(26, badgeW * 0.72);
+    const iconH = Math.min(20, badgeH * 0.72);
+
+    switch (brand) {
+      case 'wanjiafu':
+      case 'carrefour':
+      case 'lejiakang':
+        drawCarrefourLogo(ctx, cx, cy, iconW, iconW * 40 / 61);
+        break;
+      case 'seven':
+        drawSevenElevenLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'familymart':
+        drawFamilyMartLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'pxmart':
+        drawPxmartLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'mcdonalds':
+        drawMcdonaldsLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'starbucks':
+        drawStarbucksLogo(ctx, cx, cy, Math.min(iconW, iconH) / 2);
+        break;
+      case 'mosburger':
+        drawMosBurgerLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'watsons':
+        drawWatsonsLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'cosmed':
+        drawCosmedLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      case 'coco':
+        drawCocoLogo(ctx, cx, cy, Math.min(iconW, iconH) / 2);
+        break;
+      case 'market':
+        drawMarketArchwayLogo(ctx, cx, cy, iconW, iconH);
+        break;
+      default:
+        drawSevenElevenLogo(ctx, cx, cy, iconW, iconH);
+    }
+    // 嚴格遵守委託人鐵令：僅呈現純粹官方樣式，絕不在下方附加雜亂文字！
+    ctx.restore();
+  }
+
   // (1) CoCo 都可 手搖飲門市立面
   function drawCocoStore(x, z, branchName) {
-    const bx = screenX(x - 12);
-    const bz = screenZ(z - 10);
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
     ctx.fillStyle = '#ffffff';
-    drawSafeRoundRect(ctx, bx, bz, 24 * scale, 20 * scale, 6);
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
     ctx.fill();
     ctx.strokeStyle = '#ea580c';
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // 亮橘波浪招牌
+    // 亮橘招牌
     ctx.fillStyle = '#f97316';
-    drawSafeRoundRect(ctx, bx - 2, bz, 28 * scale, 5.5 * scale, 4);
+    drawSafeRoundRect(ctx, bx - 2, bz, (storeW + 4) * scale, 5.5 * scale, 4);
     ctx.fill();
 
-    // 圓形微笑商標
-    ctx.beginPath();
-    ctx.arc(bx + 4 * scale, bz + 2.7 * scale, 2.2 * scale, 0, Math.PI * 2);
-    ctx.fillStyle = '#ffffff';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(bx + 4 * scale, bz + 2.7 * scale, 1.6 * scale, 0, Math.PI * 2);
-    ctx.fillStyle = '#f97316';
-    ctx.fill();
+    // 圓形微笑官方商標 (純粹樣式，無文字)
+    const logoR = Math.max(5.5, scale * 0.9);
+    drawCocoLogo(ctx, bx + (storeW * scale) / 2, bz + 2.7 * scale, logoR);
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `bold ${Math.max(10, scale * 0.72)}px sans-serif`;
-    ctx.textAlign = 'left';
-    ctx.fillText(`CoCo (${branchName})`, bx + 7.5 * scale, bz + 3.8 * scale);
-
-    // 服務點餐木質吧檯與不銹鋼茶桶
+    // 服務點餐吧檯
     ctx.fillStyle = '#78350f';
-    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 12 * scale, 14 * scale, 4 * scale, 3);
+    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 11 * scale, 14 * scale, 5 * scale, 3);
     ctx.fill();
     ctx.fillStyle = '#e2e8f0';
-    drawSafeRoundRect(ctx, bx + 7 * scale, bz + 8.5 * scale, 2.5 * scale, 3.5 * scale, 2);
+    drawSafeRoundRect(ctx, bx + 7 * scale, bz + 7.5 * scale, 2.5 * scale, 3.5 * scale, 2);
     ctx.fill();
-    drawSafeRoundRect(ctx, bx + 14 * scale, bz + 8.5 * scale, 2.5 * scale, 3.5 * scale, 2);
+    drawSafeRoundRect(ctx, bx + 14 * scale, bz + 7.5 * scale, 2.5 * scale, 3.5 * scale, 2);
     ctx.fill();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'coco', '#f97316');
   }
 
   // (2) 全家便利商店 FamilyMart 門市立面
   function drawFamilyMartStore(x, z, branchName) {
-    const bx = screenX(x - 12);
-    const bz = screenZ(z - 10);
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
     ctx.fillStyle = '#f8fafc';
-    drawSafeRoundRect(ctx, bx, bz, 24 * scale, 20 * scale, 6);
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
     ctx.fill();
     ctx.strokeStyle = '#059669';
     ctx.lineWidth = 2;
     ctx.stroke();
 
     // 綠藍雙色燈箱
-    ctx.fillStyle = '#009944';
-    ctx.fillRect(bx, bz, 24 * scale, 3 * scale);
     ctx.fillStyle = '#0068b7';
-    ctx.fillRect(bx, bz + 3 * scale, 24 * scale, 2.5 * scale);
+    ctx.fillRect(bx, bz, storeW * scale, 2.7 * scale);
+    ctx.fillStyle = '#00a040';
+    ctx.fillRect(bx, bz + 2.7 * scale, storeW * scale, 2.7 * scale);
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `bold ${Math.max(9.5, scale * 0.7)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText(`FamilyMart (${branchName})`, bx + 12 * scale, bz + 4 * scale);
+    // 官方綠藍向量標誌
+    const logoSize = Math.max(14, scale * 2.0);
+    drawFamilyMartLogo(ctx, bx + (storeW * scale) / 2, bz + 2.7 * scale, logoSize, logoSize * 0.7);
 
     // 玻璃自動門
     ctx.fillStyle = 'rgba(219, 234, 254, 0.45)';
-    drawSafeRoundRect(ctx, bx + 6 * scale, bz + 10 * scale, 12 * scale, 9 * scale, 3);
+    drawSafeRoundRect(ctx, bx + 6 * scale, bz + 9 * scale, 12 * scale, 10 * scale, 3);
     ctx.fill();
-    ctx.strokeStyle = '#009944';
+    ctx.strokeStyle = '#00a040';
     ctx.lineWidth = 1.5;
     ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'familymart', '#00a040');
   }
 
   // (3) 7-Eleven 統一超商 門市立面
   function drawSevenElevenStore(x, z, branchName) {
-    const bx = screenX(x - 12);
-    const bz = screenZ(z - 10);
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
     ctx.fillStyle = '#f8fafc';
-    drawSafeRoundRect(ctx, bx, bz, 24 * scale, 20 * scale, 6);
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
     ctx.fill();
     ctx.strokeStyle = '#ea580c';
     ctx.lineWidth = 2;
@@ -2102,28 +3816,197 @@ function renderScene() {
 
     // 經典橘綠紅三色橫條
     const stripeH = 1.8 * scale;
-    ctx.fillStyle = '#ea580c';
-    ctx.fillRect(bx, bz, 24 * scale, stripeH);
-    ctx.fillStyle = '#16a34a';
-    ctx.fillRect(bx, bz + stripeH, 24 * scale, stripeH);
-    ctx.fillStyle = '#dc2626';
-    ctx.fillRect(bx, bz + stripeH * 2, 24 * scale, stripeH);
+    ctx.fillStyle = '#ff7900';
+    ctx.fillRect(bx, bz, storeW * scale, stripeH);
+    ctx.fillStyle = '#00843d';
+    ctx.fillRect(bx, bz + stripeH, storeW * scale, stripeH);
+    ctx.fillStyle = '#ed1c24';
+    ctx.fillRect(bx, bz + stripeH * 2, storeW * scale, stripeH);
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `bold ${Math.max(9.5, scale * 0.7)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText(`7-Eleven (${branchName})`, bx + 12 * scale, bz + 3.8 * scale);
+    // 官方 7-Eleven 標誌
+    const logoSize = Math.max(12, scale * 1.8);
+    drawSevenElevenLogo(ctx, bx + (storeW * scale) / 2, bz + 2.7 * scale, logoSize, logoSize);
 
     // 落地透光自動門
     ctx.fillStyle = 'rgba(254, 243, 199, 0.45)';
-    drawSafeRoundRect(ctx, bx + 6 * scale, bz + 10 * scale, 12 * scale, 9 * scale, 3);
+    drawSafeRoundRect(ctx, bx + 6 * scale, bz + 9 * scale, 12 * scale, 10 * scale, 3);
     ctx.fill();
-    ctx.strokeStyle = '#ea580c';
+    ctx.strokeStyle = '#00843d';
     ctx.lineWidth = 1.5;
     ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'seven', '#00843d');
   }
 
-  // (4) 萬家福 WanJiaFu (旗艦量販) ✕ 樂家康 LeJiaKang (超市便利購)
+  // (3.1) 🔵 全聯福利中心 PX-Mart 門市立面
+  function drawPxmartStore(x, z, branchName) {
+    const storeW = 26, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
+    ctx.fillStyle = '#0f172a';
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#003da5';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#003da5';
+    ctx.fillRect(bx, bz, storeW * scale, 5.4 * scale);
+
+    const logoSize = Math.max(12, scale * 1.8);
+    drawPxmartLogo(ctx, bx + (storeW * scale) / 2, bz + 2.7 * scale, logoSize, logoSize);
+
+    ctx.fillStyle = 'rgba(56, 189, 248, 0.2)';
+    drawSafeRoundRect(ctx, bx + 6 * scale, bz + 9 * scale, 14 * scale, 10 * scale, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#0284c7';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'pxmart', '#003da5');
+  }
+
+  // (3.2) 🍟 麥當勞 McDonald's 門市立面
+  function drawMcdonaldsStore(x, z, branchName) {
+    const storeW = 26, storeH = 22;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
+    ctx.fillStyle = '#1e293b';
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#da291c';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#da291c';
+    ctx.fillRect(bx, bz, storeW * scale, 6 * scale);
+
+    const logoSize = Math.max(14, scale * 2.0);
+    drawMcdonaldsLogo(ctx, bx + (storeW * scale) / 2, bz + 3 * scale, logoSize, logoSize * 0.85);
+
+    ctx.fillStyle = 'rgba(254, 240, 138, 0.25)';
+    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 10 * scale, 16 * scale, 10 * scale, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#facc15';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'mcdonalds', '#ffc72c');
+  }
+
+  // (3.3) ☕ 星巴克 Starbucks 門市立面
+  function drawStarbucksStore(x, z, branchName) {
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
+    ctx.fillStyle = '#1c1917';
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#006241';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#006241';
+    ctx.fillRect(bx, bz, storeW * scale, 5.2 * scale);
+
+    const logoR = Math.max(6, scale * 1.0);
+    drawStarbucksLogo(ctx, bx + (storeW * scale) / 2, bz + 2.6 * scale, logoR);
+
+    ctx.fillStyle = 'rgba(253, 230, 138, 0.22)';
+    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 9 * scale, 14 * scale, 10 * scale, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#b45309';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'starbucks', '#006241');
+  }
+
+  // (3.4) 🍔 摩斯漢堡 MOS Burger 門市立面
+  function drawMosBurgerStore(x, z, branchName) {
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
+    ctx.fillStyle = '#fafaf9';
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#e60012';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#e60012';
+    ctx.fillRect(bx, bz, storeW * scale, 5 * scale);
+
+    const logoSize = Math.max(12, scale * 1.8);
+    drawMosBurgerLogo(ctx, bx + (storeW * scale) / 2, bz + 2.5 * scale, logoSize, logoSize * 0.8);
+
+    ctx.fillStyle = 'rgba(254, 242, 242, 0.4)';
+    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 9 * scale, 14 * scale, 10 * scale, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#e60012';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'mosburger', '#e60012');
+  }
+
+  // (3.5) 💊 屈臣氏 Watsons 門市立面
+  function drawWatsonsStore(x, z, branchName) {
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
+    ctx.fillStyle = '#0f172a';
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#008899';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#008899';
+    ctx.fillRect(bx, bz, storeW * scale, 5.2 * scale);
+
+    const logoSize = Math.max(14, scale * 2.0);
+    drawWatsonsLogo(ctx, bx + (storeW * scale) / 2, bz + 2.6 * scale, logoSize, logoSize * 0.7);
+
+    ctx.fillStyle = 'rgba(45, 212, 191, 0.2)';
+    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 9 * scale, 14 * scale, 10 * scale, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#14b8a6';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'watsons', '#008899');
+  }
+
+  // (3.6) 🌸 康是美 Cosmed 門市立面
+  function drawCosmedStore(x, z, branchName) {
+    const storeW = 24, storeH = 20;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
+    ctx.fillStyle = '#0f172a';
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#f57200';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#f57200';
+    ctx.fillRect(bx, bz, storeW * scale, 5.2 * scale);
+
+    const logoSize = Math.max(12, scale * 1.8);
+    drawCosmedLogo(ctx, bx + (storeW * scale) / 2, bz + 2.6 * scale, logoSize, logoSize * 0.85);
+
+    ctx.fillStyle = 'rgba(251, 146, 60, 0.2)';
+    drawSafeRoundRect(ctx, bx + 5 * scale, bz + 9 * scale, 14 * scale, 10 * scale, 3);
+    ctx.fill();
+    ctx.strokeStyle = '#fb923c';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'cosmed', '#f57200');
+  }
+
+  // (4) 🛒 萬家福 WanJiaFu ✕ 樂家康 LeJiaKang (旗艦量販 ✕ 便利購超市)
   function drawWanjiafuStore(x, z, branchName, isFlagship) {
     const storeW = isFlagship ? 34 : 24;
     const storeH = isFlagship ? 24 : 20;
@@ -2133,41 +4016,23 @@ function renderScene() {
     ctx.fillStyle = '#0f172a';
     drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
     ctx.fill();
-    ctx.strokeStyle = isFlagship ? '#ef4444' : '#00f0ff';
+    ctx.strokeStyle = isFlagship ? '#254F9B' : '#0284c7';
     ctx.lineWidth = 2.2;
     ctx.stroke();
 
-    // 招牌頂條 (旗艦為深紅光環，便利購為賽博青藍)
-    ctx.fillStyle = isFlagship ? '#991b1b' : '#0369a1';
+    // 招牌頂條 (萬家福深藍底色)
+    ctx.fillStyle = isFlagship ? '#1e3a8a' : '#0369a1';
     ctx.fillRect(bx, bz, storeW * scale, 5 * scale);
 
-    // 科技光輪標誌 (紅白藍光輪)
-    const logoX = bx + 4 * scale;
-    const logoY = bz + 2.5 * scale;
-    ctx.fillStyle = '#ef4444';
-    ctx.beginPath();
-    ctx.arc(logoX - 1.2 * scale, logoY, 1.8 * scale, Math.PI * 0.5, Math.PI * 1.5);
-    ctx.fill();
-    ctx.fillStyle = '#00f0ff';
-    ctx.beginPath();
-    ctx.arc(logoX + 1.2 * scale, logoY, 1.8 * scale, -Math.PI * 0.5, Math.PI * 0.5);
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.arc(logoX, logoY, 1 * scale, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 招牌名稱
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `bold ${Math.max(9, scale * 0.68)}px sans-serif`;
-    ctx.textAlign = 'left';
-    ctx.fillText(isFlagship ? `萬家福旗艦 (${branchName})` : `樂家康 (${branchName})`, bx + 7.5 * scale, bz + 3.6 * scale);
+    // 門面正統萬家福/樂家康紅白藍雙箭頭白 C 標誌 (純粹樣式，無多餘文字)
+    const logoSize = Math.max(12, scale * 1.8);
+    drawCarrefourLogo(ctx, bx + (storeW * scale) / 2, bz + 2.5 * scale, logoSize, logoSize * 40 / 61);
 
     // 挑高全息玻璃帷幕與能量補給站門面
-    ctx.fillStyle = isFlagship ? 'rgba(239, 68, 68, 0.15)' : 'rgba(0, 240, 255, 0.15)';
+    ctx.fillStyle = isFlagship ? 'rgba(37, 79, 155, 0.22)' : 'rgba(2, 132, 199, 0.18)';
     drawSafeRoundRect(ctx, bx + 5 * scale, bz + 9 * scale, (storeW - 10) * scale, (storeH - 11) * scale, 3);
     ctx.fill();
-    ctx.strokeStyle = isFlagship ? '#f87171' : '#38bdf8';
+    ctx.strokeStyle = isFlagship ? '#60a5fa' : '#38bdf8';
     ctx.lineWidth = 1.2;
     ctx.stroke();
 
@@ -2175,17 +4040,352 @@ function renderScene() {
     ctx.fillStyle = '#64748b';
     drawSafeRoundRect(ctx, bx + 2 * scale, bz + (storeH - 4.5) * scale, 4 * scale, 3.5 * scale, 1);
     ctx.fill();
+
+    // 🌟 委託人指示重要鐵令：嚴格落實 LOD (scale >= 4.8) 與純樣式無文字
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'carrefour', isFlagship ? '#254F9B' : '#0284c7');
   }
 
-  // (5) 傳統生鮮超市已全面轉型為萬家福旗艦量販與樂家康量子補給站 (drawWanjiafuStore)
+  // (4.1) 🚇 台北捷運立體高畫質出入口 (Taipei Metro Isometric Entrance)
+  function drawMrtEscalatorEntrance(it) {
+    const ew = it.w || 14;
+    const ed = it.d || 10;
+    const bx = screenX(it.x - ew / 2);
+    const bz = screenZ(it.z - ed / 2);
+    const bw = ew * scale;
+    const bh = ed * scale;
+
+    // 1. 地面花崗岩平台基座
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+    ctx.shadowBlur = Math.min(20, scale * 1.5);
+    ctx.shadowOffsetY = Math.min(8, scale * 0.8);
+    ctx.fillStyle = '#0f172a';
+    drawSafeRoundRect(ctx, bx, bz, bw, bh, Math.min(8, scale * 0.4));
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = Math.max(1, scale * 0.08);
+    ctx.stroke();
+
+    // 2. 出入口前方黃色圓點導盲警示磚 (Tactile Warning Paving)
+    if (scale >= 2.0) {
+      const tileH = Math.min(bh * 0.2, scale * 1.6);
+      const tileY = bz + bh - tileH;
+      ctx.fillStyle = '#eab308';
+      ctx.fillRect(bx + bw * 0.1, tileY, bw * 0.8, tileH);
+      if (scale >= 8.0) {
+        ctx.fillStyle = '#ca8a04';
+        const dotStep = Math.max(3, scale * 0.35);
+        const dotR = Math.max(0.8, scale * 0.08);
+        for (let dotX = bx + bw * 0.12; dotX < bx + bw * 0.88; dotX += dotStep) {
+          for (let dotY = tileY + dotStep / 2; dotY < tileY + tileH; dotY += dotStep) {
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, dotR, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    // 3. 地下穿堂通道井開口
+    const pitX = bx + bw * 0.08;
+    const pitY = bz + bh * 0.18;
+    const pitW = bw * 0.84;
+    const pitH = bh * 0.62;
+    ctx.fillStyle = '#020617';
+    drawSafeRoundRect(ctx, pitX, pitY, pitW, pitH, Math.min(4, scale * 0.2));
+    ctx.fill();
+
+    // 4. 雙向自動電扶梯 (Dual Animated Escalators - 左下行、右上行)
+    const escW = pitW * 0.42;
+    const escGap = pitW * 0.06;
+    const escX1 = pitX + pitW * 0.05;
+    const escX2 = escX1 + escW + escGap;
+    const escY = pitY + pitH * 0.08;
+    const escH = pitH * 0.84;
+    const escTime = Date.now() * 0.003;
+
+    function drawSingleEscalator(ex, ey, ew, eh, isUpward) {
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(ex, ey, ew, eh);
+
+      const stepCount = Math.max(4, Math.floor(eh / Math.max(3, scale * 0.35)));
+      const stepH = eh / stepCount;
+      const offset = (isUpward ? (escTime % 1) : (1 - (escTime % 1))) * stepH;
+
+      for (let s = -1; s <= stepCount; s++) {
+        const curY = ey + s * stepH + offset;
+        if (curY >= ey && curY + stepH * 0.7 <= ey + eh) {
+          ctx.fillStyle = (Math.floor(s + escTime) % 2 === 0) ? '#475569' : '#334155';
+          ctx.fillRect(ex + ew * 0.1, curY, ew * 0.8, stepH * 0.7);
+
+          // 踏階黃色安全邊緣線 (Taipei Metro Yellow Warning Edge)
+          ctx.fillStyle = '#facc15';
+          ctx.fillRect(ex + ew * 0.1, curY, ew * 0.8, Math.max(0.6, scale * 0.05));
+          ctx.fillRect(ex + ew * 0.1, curY, Math.max(0.6, scale * 0.05), stepH * 0.7);
+          ctx.fillRect(ex + ew * 0.9 - Math.max(0.6, scale * 0.05), curY, Math.max(0.6, scale * 0.05), stepH * 0.7);
+        }
+      }
+
+      // 左右兩側強化玻璃欄板
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.25)';
+      ctx.fillRect(ex, ey, ew * 0.08, eh);
+      ctx.fillRect(ex + ew * 0.92, ey, ew * 0.08, eh);
+
+      // 黑色橡膠扶手帶
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(ex, ey, ew * 0.08, eh);
+      ctx.fillRect(ex + ew * 0.92, ey, ew * 0.08, eh);
+
+      // 運行方向 LED 指示燈號
+      if (scale >= 3.5) {
+        const ledR = Math.max(1, scale * 0.1);
+        ctx.fillStyle = isUpward ? '#22c55e' : '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(ex + ew / 2, isUpward ? (ey + eh - ledR * 2) : (ey + ledR * 2), ledR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    drawSingleEscalator(escX1, escY, escW, escH, false);
+    drawSingleEscalator(escX2, escY, escW, escH, true);
+
+    // 5. 波浪採光天棚玻璃遮雨棚 (Glass Canopy & Steel Truss)
+    ctx.save();
+    const canopyX = bx - bw * 0.06;
+    const canopyY = bz - bh * 0.22;
+    const canopyW = bw * 1.12;
+    const canopyH = bh * 0.85;
+
+    const grad = ctx.createLinearGradient(canopyX, canopyY, canopyX + canopyW, canopyY + canopyH);
+    grad.addColorStop(0, 'rgba(56, 189, 248, 0.42)');
+    grad.addColorStop(0.5, 'rgba(14, 165, 233, 0.25)');
+    grad.addColorStop(1, 'rgba(3, 105, 161, 0.55)');
+    ctx.fillStyle = grad;
+    drawSafeRoundRect(ctx, canopyX, canopyY, canopyW, canopyH, Math.min(8, scale * 0.45));
+    ctx.fill();
+
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = Math.max(1, scale * 0.09);
+    ctx.stroke();
+
+    if (scale >= 3.0) {
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = Math.max(0.8, scale * 0.06);
+      const ribCount = 4;
+      for (let r = 1; r < ribCount; r++) {
+        const rx = canopyX + (canopyW / ribCount) * r;
+        ctx.beginPath();
+        ctx.moveTo(rx, canopyY);
+        ctx.lineTo(rx, canopyY + canopyH);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+
+    // 6. 經典台北捷運出入口立柱 (Taipei Metro Entrance Pylon)
+    let lines = [{ code: 'BL', name: '板南線', color: '#0070bd' }];
+    let exitName = it.name;
+    if (it.id.includes('m6') || it.name.includes('M6') || it.name.includes('台北車站')) {
+      lines = [
+        { code: 'BL', name: '板南線', color: '#0070bd' },
+        { code: 'R', name: '淡水信義線', color: '#e3002c' }
+      ];
+      exitName = '台北車站 出口 M6';
+    } else if (it.id.includes('zs') || it.name.includes('中山')) {
+      lines = [
+        { code: 'R', name: '淡水信義線', color: '#e3002c' },
+        { code: 'G', name: '松山新店線', color: '#008659' }
+      ];
+      exitName = '捷運中山站';
+    } else if (it.id.includes('fz') || it.name.includes('府中')) {
+      lines = [{ code: 'BL', name: '板南線', color: '#0070bd' }];
+      exitName = '捷運府中站 出口 1';
+    }
+
+    const pylonW = Math.min(bw * 0.42, Math.max(50, scale * 3.8));
+    const pylonH = Math.min(bh * 0.72, Math.max(38, scale * 2.8));
+    const pylonX = bx + bw + 4;
+    const pylonY = bz + bh * 0.12;
+
+    ctx.save();
+    ctx.fillStyle = '#0f172a';
+    drawSafeRoundRect(ctx, pylonX, pylonY, pylonW, pylonH, 4);
+    ctx.fill();
+    ctx.strokeStyle = '#00f0ff';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    // 柱頂高畫質台北捷運藍綠官方 Logo
+    const logoR = Math.min(10, Math.max(5, pylonH * 0.18));
+    const logoCx = pylonX + pylonW * 0.22;
+    const logoCy = pylonY + pylonH * 0.32;
+    drawTaipeiMetroLogo(ctx, logoCx, logoCy, logoR);
+
+    // 路線專屬色標膠囊 (Line Badges)
+    const badgeStartX = pylonX + pylonW * 0.44;
+    lines.forEach((l, idx) => {
+      const lx = badgeStartX + idx * (pylonW * 0.27);
+      const ly = pylonY + pylonH * 0.18;
+      const lw = pylonW * 0.24;
+      const lh = pylonH * 0.28;
+      ctx.fillStyle = l.color;
+      drawSafeRoundRect(ctx, lx, ly, lw, lh, 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = `bold ${Math.max(7, lh * 0.65)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(l.code, lx + lw / 2, ly + lh / 2);
+    });
+
+    // 站名文字標示
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold ${Math.max(8, pylonH * 0.24)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(exitName, pylonX + pylonW / 2, pylonY + pylonH * 0.72);
+    ctx.restore();
+  }
+
+  // (4.2) 🏛️ 台北車站旗艦大樓 (Taipei Main Station Grand Terminal Building)
+  function drawStationBuilding(it) {
+    const bw = it.w * scale;
+    const bh = it.d * scale;
+    const bx = screenX(it.x - it.w / 2);
+    const bz = screenZ(it.z - it.d / 2);
+
+    // 1. 底層站體主結構 (Main Terminal Building Structure)
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    ctx.shadowBlur = Math.min(30, scale * 2.2);
+    ctx.shadowOffsetY = Math.min(12, scale * 1.2);
+    ctx.fillStyle = '#1e293b';
+    drawSafeRoundRect(ctx, bx, bz, bw, bh, Math.min(10, scale * 0.5));
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = '#475569';
+    ctx.lineWidth = Math.max(1.5, scale * 0.1);
+    ctx.stroke();
+
+    // 2. 挑高石材長廊與落地採光玻璃帷幕 (Glass Atrium & Column Arcade)
+    const atriumX = bx + bw * 0.08;
+    const atriumY = bz + bh * 0.28;
+    const atriumW = bw * 0.84;
+    const atriumH = bh * 0.64;
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+    drawSafeRoundRect(ctx, atriumX, atriumY, atriumW, atriumH, 4);
+    ctx.fill();
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    if (scale >= 2.0) {
+      const colCount = 8;
+      const colStep = atriumW / colCount;
+      ctx.fillStyle = '#94a3b8';
+      for (let c = 1; c < colCount; c++) {
+        ctx.fillRect(atriumX + c * colStep - Math.max(1, scale * 0.08), atriumY, Math.max(2, scale * 0.16), atriumH);
+      }
+    }
+
+    // 3. 巨型四面廡殿頂古銅褐琉璃瓦屋脊 (Palatial Hip Roof)
+    const roofX = bx - 4 * scale;
+    const roofY = bz - 6 * scale;
+    const roofW = bw + 8 * scale;
+    const roofH = Math.min(bh * 0.45, 18 * scale);
+
+    ctx.fillStyle = '#7c2d12';
+    drawSafeRoundRect(ctx, roofX, roofY, roofW, roofH, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth = Math.max(1.2, scale * 0.08);
+    ctx.stroke();
+
+    if (scale >= 2.5) {
+      ctx.strokeStyle = '#9a3412';
+      ctx.lineWidth = 1;
+      const tileSteps = Math.floor(roofW / Math.max(6, scale * 0.6));
+      for (let t = 1; t < tileSteps; t++) {
+        const tx = roofX + t * (roofW / tileSteps);
+        ctx.beginPath();
+        ctx.moveTo(tx, roofY);
+        ctx.lineTo(tx, roofY + roofH);
+        ctx.stroke();
+      }
+    }
+
+    // 4. 頂部巨型三鐵共構高解析度發光站名看板 (Grand Signboard)
+    const signW = Math.min(bw * 0.88, Math.max(140, scale * 8.5));
+    const signH = Math.min(bh * 0.32, Math.max(28, scale * 2.2));
+    const signX = bx + (bw - signW) / 2;
+    const signY = bz + (bh - signH) / 2;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.96)';
+    drawSafeRoundRect(ctx, signX, signY, signW, signH, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 1.8;
+    ctx.shadowColor = '#00f0ff';
+    ctx.shadowBlur = 10;
+    ctx.stroke();
+
+    // (4a) 台北捷運官方藍綠雙色標誌
+    const mrtLogoR = Math.min(10, Math.max(5, signH * 0.28));
+    drawTaipeiMetroLogo(ctx, signX + 16, signY + signH / 2, mrtLogoR);
+
+    // (4b) 路線代表色膠囊 [BL 板南線 藍] ✕ [R 淡水信義線 紅]
+    const badgeY = signY + (signH - 12) / 2;
+    // BL
+    ctx.fillStyle = '#0070bd';
+    drawSafeRoundRect(ctx, signX + 32, badgeY, 18, 12, 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 8px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('BL', signX + 41, badgeY + 6);
+
+    // R
+    ctx.fillStyle = '#e3002c';
+    drawSafeRoundRect(ctx, signX + 53, badgeY, 16, 12, 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 8px sans-serif';
+    ctx.fillText('R', signX + 61, badgeY + 6);
+
+    // (4c) 臺灣鐵路與高鐵標籤
+    ctx.fillStyle = '#0284c7';
+    drawSafeRoundRect(ctx, signX + 72, badgeY, 22, 12, 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('TRA', signX + 83, badgeY + 6);
+
+    ctx.fillStyle = '#ea580c';
+    drawSafeRoundRect(ctx, signX + 97, badgeY, 26, 12, 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('THSR', signX + 110, badgeY + 6);
+
+    // (4d) 站名大字「臺北車站 TAIPEI MAIN STATION」
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold ${Math.max(10, Math.min(18, signH * 0.42))}px sans-serif`;
+    ctx.textAlign = 'left';
+    ctx.fillText('臺北車站 TAIPEI MAIN STATION', signX + 128, signY + signH / 2 + 1);
+    ctx.restore();
+  }
 
   // (6) 傳統市場與觀光夜市 (Traditional Market / Night Market)
   function drawMarketPlace(x, z, marketName) {
-    const bx = screenX(x - 14);
-    const bz = screenZ(z - 12);
+    const storeW = 28, storeH = 24;
+    const bx = screenX(x - storeW / 2);
+    const bz = screenZ(z - storeH / 2);
     // 主建築底色 (傳統暖色磚紅/檜木色)
     ctx.fillStyle = '#451a03';
-    drawSafeRoundRect(ctx, bx, bz, 28 * scale, 24 * scale, 6);
+    drawSafeRoundRect(ctx, bx, bz, storeW * scale, storeH * scale, 6);
     ctx.fill();
     ctx.strokeStyle = '#b45309';
     ctx.lineWidth = 2;
@@ -2193,25 +4393,16 @@ function renderScene() {
 
     // 傳統中式斜簷 / 紅金雙色遮雨棚 (Striped Canopy)
     ctx.fillStyle = '#dc2626';
-    drawSafeRoundRect(ctx, bx - 2, bz, 32 * scale, 6 * scale, 4);
+    drawSafeRoundRect(ctx, bx - 2, bz, (storeW + 4) * scale, 6 * scale, 4);
     ctx.fill();
     ctx.fillStyle = '#f59e0b';
-    for (let stripe = 0; stripe < 32; stripe += 8) {
+    for (let stripe = 0; stripe < storeW + 4; stripe += 8) {
       ctx.fillRect(bx - 2 + stripe * scale, bz, 4 * scale, 6 * scale);
     }
 
-    // 傳統木匾招牌
-    ctx.fillStyle = '#78350f';
-    drawSafeRoundRect(ctx, bx + 2 * scale, bz + 1.2 * scale, 26 * scale, 3.8 * scale, 2);
-    ctx.fill();
-    ctx.strokeStyle = '#fef08a';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    ctx.fillStyle = '#fef08a';
-    ctx.font = `bold ${Math.max(9, scale * 0.65)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText(`🏮 ${marketName}`, bx + 15 * scale, bz + 3.8 * scale);
+    // 門面官方向量傳統牌樓標誌 (純粹樣式，無多餘文字)
+    const logoSize = Math.max(14, scale * 2.2);
+    drawMarketArchwayLogo(ctx, bx + (storeW * scale) / 2, bz + 3 * scale, logoSize, logoSize * 0.8);
 
     // 左右兩側懸掛紅燈籠
     function drawLantern(lx, ly) {
@@ -2224,87 +4415,56 @@ function renderScene() {
       ctx.fillStyle = '#b91c1c';
       ctx.fillRect(lx - 0.5 * scale, ly + 2.2 * scale, 1 * scale, 1.5 * scale);
     }
-    drawLantern(bx + 1 * scale, bz + 9 * scale);
-    drawLantern(bx + 27 * scale, bz + 9 * scale);
+    drawLantern(bx + 2 * scale, bz + 9 * scale);
+    drawLantern(bx + (storeW - 2) * scale, bz + 9 * scale);
 
     // 熱鬧攤販檔口 (生鮮蔬果木箱 / 熱氣小吃吧台)
     ctx.fillStyle = '#92400e';
-    drawSafeRoundRect(ctx, bx + 4 * scale, bz + 13 * scale, 20 * scale, 8 * scale, 3);
+    drawSafeRoundRect(ctx, bx + 4 * scale, bz + 13 * scale, (storeW - 8) * scale, 8 * scale, 3);
     ctx.fill();
     ctx.strokeStyle = '#d97706';
     ctx.lineWidth = 1.2;
     ctx.stroke();
 
-    // 小吃蒸籠 / 食物陳列
-    ctx.fillStyle = '#fef3c7';
-    ctx.beginPath();
-    ctx.arc(bx + 9 * scale, bz + 16 * scale, 2.5 * scale, 0, Math.PI * 2);
-    ctx.arc(bx + 19 * scale, bz + 16 * scale, 2.5 * scale, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#b45309';
-    ctx.font = `bold ${Math.max(8, scale * 0.52)}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText('老字號', bx + 14 * scale, bz + 19 * scale);
+    // 浮動純樣式標示 (scale >= 4.8)
+    drawFloatingStoreBrandBadge(ctx, bx, bz, storeW, 'market', '#ef4444');
   }
 
-  // 全雙北 124+ 處互動地標與連鎖門市動態加入深度排序清單 (Y-Sorting)
+  // 全雙北 176+ 處互動地標與連鎖門市動態加入深度排序清單 (Y-Sorting - 視錐剔除核心優化)
   interactables.forEach(it => {
+    if (!isInViewport(it.x, it.z, 28)) return;
+    const cleanName = (it.name || '').replace(/[\(\)]/g, '');
     if (it.type === 'coco') {
-      const bName = it.name.replace('CoCo 都可 (', '').replace(')', '');
-      renderList.push({ z: it.z, draw: () => drawCocoStore(it.x, it.z, bName) });
+      renderList.push({ z: it.z, draw: () => drawCocoStore(it.x, it.z, cleanName) });
     } else if (it.type === 'familymart') {
-      const bName = it.name.replace('全家便利商店 (', '').replace(')', '');
-      renderList.push({ z: it.z, draw: () => drawFamilyMartStore(it.x, it.z, bName) });
+      renderList.push({ z: it.z, draw: () => drawFamilyMartStore(it.x, it.z, cleanName) });
     } else if (it.type === 'seven') {
-      const bName = it.name.replace('7-Eleven 統一超商 (', '').replace(')', '');
-      renderList.push({ z: it.z, draw: () => drawSevenElevenStore(it.x, it.z, bName) });
-    } else if (it.type === 'wanjiafu' || it.type === 'carrefour') {
-      const bName = it.name.replace('萬家福便利購 (', '').replace('萬家福超市 (', '').replace('萬家福 ', '')
-                           .replace('樂家康便利購 (', '').replace('樂家康超市 (', '').replace('樂家康 ', '')
-                           .replace('家樂福便利購 (', '').replace('家樂福超市 (', '').replace('家樂福 ', '').replace(')', '');
-      renderList.push({ z: it.z, draw: () => drawWanjiafuStore(it.x, it.z, bName, !!it.isFlagship) });
+      renderList.push({ z: it.z, draw: () => drawSevenElevenStore(it.x, it.z, cleanName) });
+    } else if (it.type === 'wanjiafu' || it.type === 'carrefour' || it.type === 'lejiakang') {
+      renderList.push({ z: it.z, draw: () => drawWanjiafuStore(it.x, it.z, cleanName, !!it.isFlagship) });
     } else if (it.type === 'pxmart') {
-      const bName = it.name.replace('樂家康超市 (', '').replace('樂家康便利購 (', '').replace('全聯福利中心 (', '').replace(')', '');
-      renderList.push({ z: it.z, draw: () => drawWanjiafuStore(it.x, it.z, bName, false) });
+      renderList.push({ z: it.z, draw: () => drawPxmartStore(it.x, it.z, cleanName) });
+    } else if (it.type === 'mcdonalds') {
+      renderList.push({ z: it.z, draw: () => drawMcdonaldsStore(it.x, it.z, cleanName) });
+    } else if (it.type === 'starbucks') {
+      renderList.push({ z: it.z, draw: () => drawStarbucksStore(it.x, it.z, cleanName) });
+    } else if (it.type === 'mosburger') {
+      renderList.push({ z: it.z, draw: () => drawMosBurgerStore(it.x, it.z, cleanName) });
+    } else if (it.type === 'watsons') {
+      renderList.push({ z: it.z, draw: () => drawWatsonsStore(it.x, it.z, cleanName) });
+    } else if (it.type === 'cosmed') {
+      renderList.push({ z: it.z, draw: () => drawCosmedStore(it.x, it.z, cleanName) });
     } else if (it.type === 'market') {
-      const bName = it.name.replace('傳統市場', '').replace('觀光夜市', '').replace('老市集', '');
-      renderList.push({ z: it.z, draw: () => drawMarketPlace(it.x, it.z, bName) });
+      renderList.push({ z: it.z, draw: () => drawMarketPlace(it.x, it.z, cleanName) });
     } else if (it.type === 'station') {
       renderList.push({
         z: it.z,
-        draw: () => {
-          const bx = screenX(it.x - it.w / 2);
-          const bz = screenZ(it.z - it.d / 2);
-          ctx.fillStyle = '#334155';
-          drawSafeRoundRect(ctx, bx, bz, it.w * scale, it.d * scale, 8);
-          ctx.fill();
-          // 傳統廡殿頂造型
-          ctx.fillStyle = '#7c2d12';
-          drawSafeRoundRect(ctx, bx - 4 * scale, bz - 6 * scale, (it.w + 8) * scale, 14 * scale, 6);
-          ctx.fill();
-          ctx.fillStyle = '#38bdf8';
-          ctx.font = `bold ${Math.max(13, scale * 1.05)}px sans-serif`;
-          ctx.textAlign = 'center';
-          ctx.fillText('🚇 台北車站 TAIPEI MAIN STATION', bx + (it.w / 2) * scale, bz + 18 * scale);
-        }
+        draw: () => drawStationBuilding(it)
       });
     } else if (it.type === 'mrt_escalator') {
       renderList.push({
         z: it.z,
-        draw: () => {
-          const bx = screenX(it.x - 6);
-          const bz = screenZ(it.z - 5);
-          ctx.fillStyle = '#0284c7';
-          drawSafeRoundRect(ctx, bx, bz, 12 * scale, 10 * scale, 4);
-          ctx.fill();
-          ctx.strokeStyle = '#38bdf8';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-          ctx.fillStyle = '#ffffff';
-          ctx.font = `bold ${Math.max(9, scale * 0.6)}px sans-serif`;
-          ctx.textAlign = 'center';
-          ctx.fillText(`Ⓜ️ ${it.name.split(' ')[0]}`, bx + 6 * scale, bz + 6 * scale);
-        }
+        draw: () => drawMrtEscalatorEntrance(it)
       });
     } else if (it.type === 'bus_stop') {
       renderList.push({
@@ -2391,20 +4551,82 @@ function renderScene() {
           ctx.fillText('🌸 紙條', bx, bz);
         }
       });
+    } else if (it.type === 'park') {
+      renderList.push({
+        z: it.z,
+        draw: () => {
+          const bx = screenX(it.x - it.w / 2);
+          const bz = screenZ(it.z - it.d / 2);
+          // 雙北真實公園綠地 (半透明翠綠底 + 翡翠綠邊框)
+          ctx.fillStyle = '#14532d';
+          drawSafeRoundRect(ctx, bx, bz, it.w * scale, it.d * scale, 8);
+          ctx.fill();
+          ctx.strokeStyle = '#22c55e';
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          // 公園內部樹木與步道景觀
+          const numTrees = Math.min(5, Math.max(2, Math.floor(it.w / 8)));
+          for (let ti = 0; ti < numTrees; ti++) {
+            const tx = bx + (ti * 7 + 4) * scale;
+            const tz = bz + (it.d * 0.45) * scale;
+            ctx.beginPath();
+            ctx.arc(tx, tz, 2.8 * scale, 0, Math.PI * 2);
+            ctx.fillStyle = '#15803d';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(tx - 0.6 * scale, tz - 0.6 * scale, 1.8 * scale, 0, Math.PI * 2);
+            ctx.fillStyle = '#34d399';
+            ctx.fill();
+          }
+
+          if (scale >= 1.5) {
+            ctx.fillStyle = '#86efac';
+            ctx.font = `bold ${Math.max(8.5, scale * 0.52)}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText(`🌲 ${it.name}`, bx + (it.w / 2) * scale, bz + (it.d / 2) * scale + 3);
+          }
+        }
+      });
     }
   });
 
-  // 雙北真實路網幹線公車車隊渲染 (Rotated 2.5D City Buses)
+  // 雙北真實路網幹線公車車隊渲染 (Rotated 2.5D City Buses - 視錐剔除)
   cityBuses.forEach(bus => {
+    if (!isInViewport(bus.x, bus.z, 30)) return;
     renderList.push({
       z: bus.z,
       draw: () => drawRotatedBus(bus)
     });
   });
 
+  // 雙北捷運固定班距動態列車渲染 (Rotated 2.5D MRT Trains - 視錐剔除)
+  mrtTrains.forEach(train => {
+    if (!isInViewport(train.x, train.z, 40)) return;
+    renderList.push({
+      z: train.z,
+      draw: () => drawRotatedMrtTrain(train)
+    });
+  });
+
+  // 臺灣鐵路縱貫線動態列車渲染 (Rotated 2.5D TRA Trains - 視錐剔除)
+  traTrains.forEach(train => {
+    if (!isInViewport(train.x, train.z, 50)) return;
+    renderList.push({
+      z: train.z,
+      draw: () => drawRotatedTraTrain(train)
+    });
+  });
+
   // 【人物與居民渲染】：依據使用者要求，在幽靈天眼模式下隱藏人物與居民！地面模式下才顯示！
   if (!gameState.isGhostMode) {
-    // NPC 行人
+    // 角色動態等比縮放係數 (Dynamic Character Scale Factor)
+    // 解決人物尺寸固定過小問題：隨 scale 動態放大，在特寫時達到超大巨型身形！
+    const pScale = Math.max(1.0, scale * 0.22);
+    const npcScale = Math.max(0.9, scale * 0.18);
+    const rpScale = Math.max(1.0, scale * 0.22);
+
+    // 1. NPC 行人居民 (隨 scale 動態放大)
     pedestrians.forEach(p => {
       p.walkCycle += 0.12;
       if (p.isZAxis) {
@@ -2422,102 +4644,415 @@ function renderScene() {
         draw: () => {
           const px = screenX(p.x);
           const pz = screenZ(p.z);
+          // 陰影
           ctx.beginPath();
-          ctx.ellipse(px, pz + 2, 8, 4, 0, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(0,0,0,0.4)';
+          ctx.ellipse(px, pz + 2 * npcScale, 8 * npcScale, 4 * npcScale, 0, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
           ctx.fill();
 
+          // 軀幹
           ctx.fillStyle = p.shirt;
-          drawSafeRoundRect(ctx, px - 6, pz - 16, 12, 12, 3);
+          drawSafeRoundRect(ctx, px - 6 * npcScale, pz - 16 * npcScale, 12 * npcScale, 12 * npcScale, 3 * npcScale);
           ctx.fill();
+
+          // 頭部
           ctx.beginPath();
-          ctx.arc(px, pz - 21, 5.5, 0, Math.PI * 2);
+          ctx.arc(px, pz - 21 * npcScale, 5.5 * npcScale, 0, Math.PI * 2);
           ctx.fillStyle = '#fed7aa';
           ctx.fill();
+
+          // 雙腿
           ctx.fillStyle = p.pants;
-          const legSwing = Math.sin(p.walkCycle) * 3;
-          ctx.fillRect(px - 4, pz - 4, 3, 5 + legSwing);
-          ctx.fillRect(px + 1, pz - 4, 3, 5 - legSwing);
+          const legSwing = Math.sin(p.walkCycle) * 3 * npcScale;
+          ctx.fillRect(px - 4 * npcScale, pz - 4 * npcScale, 3 * npcScale, 5 * npcScale + legSwing);
+          ctx.fillRect(px + 1 * npcScale, pz - 4 * npcScale, 3 * npcScale, 5 * npcScale - legSwing);
         }
       });
     });
 
-    // 遠端連線其他玩家
+    // 2. 遠端連線其他玩家 (隨 scale 動態放大)
     remotePlayers.forEach(rp => {
       renderList.push({
         z: rp.z || 0,
         draw: () => {
           const rx = screenX(rp.x || 0);
           const rz = screenZ(rp.z || 0);
-          ctx.fillStyle = '#059669';
-          drawSafeRoundRect(ctx, rx - 7, rz - 18, 14, 14, 3);
-          ctx.fill();
+          // 陰影
           ctx.beginPath();
-          ctx.arc(rx, rz - 23, 6, 0, Math.PI * 2);
+          ctx.ellipse(rx, rz + 2 * rpScale, 9 * rpScale, 4.5 * rpScale, 0, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+          ctx.fill();
+
+          // 綠色風衣軀幹
+          ctx.fillStyle = '#059669';
+          drawSafeRoundRect(ctx, rx - 7 * rpScale, rz - 18 * rpScale, 14 * rpScale, 14 * rpScale, 3 * rpScale);
+          ctx.fill();
+
+          // 頭部
+          ctx.beginPath();
+          ctx.arc(rx, rz - 23 * rpScale, 6 * rpScale, 0, Math.PI * 2);
           ctx.fillStyle = '#fed7aa';
           ctx.fill();
 
+          // 暱稱標籤
           ctx.fillStyle = '#34d399';
-          ctx.font = 'bold 10px sans-serif';
+          ctx.font = `bold ${Math.max(10, rpScale * 3.5)}px sans-serif`;
           ctx.textAlign = 'center';
-          ctx.fillText(rp.nickname, rx, rz - 34);
+          ctx.fillText(rp.nickname, rx, rz - 32 * rpScale);
         }
       });
     });
 
-    // 主角 (全息巡航者)
+    // 3. 主角 (全息巡航者 - 支援超大微觀特寫 160x 動漫級精緻渲染)
     renderList.push({
       z: playerPos.z,
       draw: () => {
         const px = screenX(playerPos.x);
         const pz = screenZ(playerPos.z);
 
-        // 影子
+        // (1) 地面動態柔和陰影 (隨奔跑擴散)
         ctx.beginPath();
-        const shadowW = gameState.isRunning ? 14 : 10;
-        ctx.ellipse(px, pz + 2, shadowW, 5, 0, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        const shadowW = (gameState.isRunning ? 20 : 15) * pScale;
+        const shadowH = 6 * pScale;
+        ctx.ellipse(px, pz + 2 * pScale, shadowW, shadowH, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
         ctx.fill();
 
-        // 滑板
+        // (2) 戰術全息地面光環與 Google Maps 風格 60° 扇形視線探照光錐 (Vision Cone)
+        if (scale >= 6.0) {
+          ctx.save();
+          const facingAngle = playerPos.facing === 'down' ? Math.PI / 2 :
+                             (playerPos.facing === 'up' ? -Math.PI / 2 :
+                             (playerPos.facing === 'left' ? Math.PI : 0));
+
+          // 繪製 60° (Math.PI / 3) 扇形漸層探照光 (Google Maps Vision Cone)
+          const coneRadius = 38 * pScale;
+          const halfAngle = Math.PI / 6; // 30度
+          const startAngle = facingAngle - halfAngle;
+          const endAngle = facingAngle + halfAngle;
+
+          const grad = ctx.createRadialGradient(px, pz + 2 * pScale, 2, px, pz + 2 * pScale, coneRadius);
+          grad.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
+          grad.addColorStop(0.5, 'rgba(2, 132, 199, 0.20)');
+          grad.addColorStop(1, 'rgba(0, 240, 255, 0)');
+
+          ctx.beginPath();
+          ctx.moveTo(px, pz + 2 * pScale);
+          ctx.arc(px, pz + 2 * pScale, coneRadius, startAngle, endAngle);
+          ctx.closePath();
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          // 戰術全息地面光環
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
+          ctx.lineWidth = Math.max(1.2, pScale * 0.25);
+          ctx.beginPath();
+          ctx.arc(px, pz + 2 * pScale, 14 * pScale, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // 朝向指針
+          const arrowDist = 14 * pScale;
+          const ax = px + Math.cos(facingAngle) * arrowDist;
+          const az = pz + 2 * pScale + Math.sin(facingAngle) * arrowDist;
+          ctx.fillStyle = '#38bdf8';
+          ctx.beginPath();
+          ctx.arc(ax, az, Math.max(2, 2.5 * pScale * 0.35), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        // (3) 滑板 / 賽博懸浮滑板 (Cyber Hoverboard)
         if (gameState.hasSkateboard) {
+          ctx.save();
           ctx.fillStyle = '#ef4444';
-          drawSafeRoundRect(ctx, px - 12, pz, 24, 5, 2);
+          drawSafeRoundRect(ctx, px - 16 * pScale, pz - 1 * pScale, 32 * pScale, 6 * pScale, 2.5 * pScale);
+          ctx.fill();
+          ctx.strokeStyle = '#fca5a5';
+          ctx.lineWidth = Math.max(1, pScale * 0.2);
+          ctx.stroke();
+          // 懸浮光子氣流
+          ctx.fillStyle = 'rgba(0, 240, 255, 0.6)';
+          ctx.fillRect(px - 14 * pScale, pz + 5 * pScale, 28 * pScale, 1.8 * pScale);
+          ctx.restore();
+        }
+
+        // (4) 動態擺動四肢與皮靴 (依朝向與 walkCycle 步態擺動)
+        const cycle = playerPos.walkCycle;
+        const swingDist = (gameState.isRunning ? 6.5 : 3.8) * pScale;
+        const legSwing = playerPos.isMoving ? Math.sin(cycle) * swingDist : 0;
+        const legW = 4.2 * pScale;
+        const legH = 13 * pScale;
+        const legSpacing = 4.2 * pScale;
+
+        if (playerPos.facing === 'down' || playerPos.facing === 'up') {
+          // 挺拔長褲 (深藍黑)
+          ctx.fillStyle = '#1e293b';
+          drawSafeRoundRect(ctx, px - legSpacing - legW / 2, pz - legH + legSwing * 0.7, legW, legH, 1.5 * pScale);
+          ctx.fill();
+          drawSafeRoundRect(ctx, px + legSpacing - legW / 2, pz - legH - legSwing * 0.7, legW, legH, 1.5 * pScale);
+          ctx.fill();
+
+          // 皮靴 (黑色皮革 + 科技鞋底)
+          ctx.fillStyle = '#0f172a';
+          drawSafeRoundRect(ctx, px - legSpacing - legW / 2 - 0.5 * pScale, pz + legSwing * 0.7 - 2 * pScale, legW + 1 * pScale, 4.5 * pScale, 1.5 * pScale);
+          ctx.fill();
+          drawSafeRoundRect(ctx, px + legSpacing - legW / 2 - 0.5 * pScale, pz - legSwing * 0.7 - 2 * pScale, legW + 1 * pScale, 4.5 * pScale, 1.5 * pScale);
+          ctx.fill();
+
+          // 鞋底微光
+          if (pScale >= 2.0) {
+            ctx.fillStyle = '#00f0ff';
+            ctx.fillRect(px - legSpacing - legW / 2, pz + legSwing * 0.7 + 1.8 * pScale, legW, 0.8 * pScale);
+            ctx.fillRect(px + legSpacing - legW / 2, pz - legSwing * 0.7 + 1.8 * pScale, legW, 0.8 * pScale);
+          }
+        } else {
+          // 側面行走步伐 (Left / Right)
+          const frontLegX = playerPos.facing === 'left' ? px - legSwing : px + legSwing;
+          const backLegX = playerPos.facing === 'left' ? px + legSwing : px - legSwing;
+          ctx.fillStyle = '#1e293b';
+          drawSafeRoundRect(ctx, backLegX - legW / 2, pz - legH, legW, legH, 1.5 * pScale);
+          ctx.fill();
+          drawSafeRoundRect(ctx, frontLegX - legW / 2, pz - legH, legW, legH, 1.5 * pScale);
+          ctx.fill();
+
+          ctx.fillStyle = '#0f172a';
+          drawSafeRoundRect(ctx, backLegX - legW / 2 - 1 * pScale, pz - 2 * pScale, legW + 2 * pScale, 4.5 * pScale, 1.5 * pScale);
+          ctx.fill();
+          drawSafeRoundRect(ctx, frontLegX - legW / 2 - 1 * pScale, pz - 2 * pScale, legW + 2 * pScale, 4.5 * pScale, 1.5 * pScale);
           ctx.fill();
         }
 
-        // 風衣軀幹
-        ctx.fillStyle = '#1d4ed8';
-        drawSafeRoundRect(ctx, px - 7, pz - 18, 14, 14, 3);
+        // (5) 風衣軀幹與外層俐落立體剪裁 (Anime Trenchcoat)
+        const torsoW = 16 * pScale;
+        const torsoH = 18 * pScale;
+        const torsoY = pz - 29 * pScale;
+
+        // 風衣飄動下擺
+        const coatFlap = playerPos.isMoving ? Math.sin(cycle * 1.5) * (gameState.isRunning ? 3 : 1.5) * pScale : 0;
+        ctx.fillStyle = '#1e40af';
+        drawSafeRoundRect(ctx, px - torsoW / 2 - 1.5 * pScale, torsoY + torsoH * 0.55, torsoW + 3 * pScale, torsoH * 0.65 + coatFlap, 3 * pScale);
         ctx.fill();
 
-        // 擺動四肢
-        ctx.fillStyle = '#1e293b';
-        const legSwing = Math.sin(playerPos.walkCycle) * (gameState.isRunning ? 5 : 3);
-        ctx.fillRect(px - 5, pz - 4, 3.5, 6 + legSwing);
-        ctx.fillRect(px + 1.5, pz - 4, 3.5, 6 - legSwing);
+        // 風衣主體 (深藍經典俐落風衣)
+        ctx.fillStyle = '#1d4ed8';
+        drawSafeRoundRect(ctx, px - torsoW / 2, torsoY, torsoW, torsoH, 4 * pScale);
+        ctx.fill();
 
-        // 頭部與帽子
+        ctx.strokeStyle = '#1e3a8a';
+        ctx.lineWidth = Math.max(1, 0.8 * pScale);
+        ctx.stroke();
+
+        // 風衣細部裝飾 (領口、領結、胸章與腰帶)
+        if (playerPos.facing === 'down') {
+          // 襯衫白領
+          ctx.fillStyle = '#f8fafc';
+          ctx.beginPath();
+          ctx.moveTo(px - 3.5 * pScale, torsoY);
+          ctx.lineTo(px, torsoY + 7 * pScale);
+          ctx.lineTo(px + 3.5 * pScale, torsoY);
+          ctx.closePath();
+          ctx.fill();
+
+          // 鮮紅領帶 / 戰術科技領結
+          ctx.fillStyle = '#dc2626';
+          ctx.beginPath();
+          ctx.moveTo(px - 1.2 * pScale, torsoY + 1.5 * pScale);
+          ctx.lineTo(px + 1.2 * pScale, torsoY + 1.5 * pScale);
+          ctx.lineTo(px + 1.8 * pScale, torsoY + 9 * pScale);
+          ctx.lineTo(px, torsoY + 11.5 * pScale);
+          ctx.lineTo(px - 1.8 * pScale, torsoY + 9 * pScale);
+          ctx.closePath();
+          ctx.fill();
+
+          // 金色金屬胸章
+          ctx.fillStyle = '#fbbf24';
+          ctx.beginPath();
+          ctx.arc(px - 4.5 * pScale, torsoY + 4 * pScale, 1.6 * pScale, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 皮革腰帶與金屬帶扣
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(px - torsoW / 2, torsoY + torsoH - 4.5 * pScale, torsoW, 3 * pScale);
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillRect(px - 2.5 * pScale, torsoY + torsoH - 5 * pScale, 5 * pScale, 4 * pScale);
+        } else if (playerPos.facing === 'up') {
+          // 背面風衣背脊壓線
+          ctx.strokeStyle = '#1e3a8a';
+          ctx.lineWidth = Math.max(1, pScale * 0.4);
+          ctx.beginPath();
+          ctx.moveTo(px, torsoY + 1 * pScale);
+          ctx.lineTo(px, torsoY + torsoH);
+          ctx.stroke();
+          // 腰帶背面
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(px - torsoW / 2, torsoY + torsoH - 4.5 * pScale, torsoW, 3 * pScale);
+        } else {
+          // 側身 (left / right)
+          const sideDir = playerPos.facing === 'left' ? -1 : 1;
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(px - torsoW / 2, torsoY + torsoH - 4.5 * pScale, torsoW, 3 * pScale);
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillRect(px + sideDir * 2 * pScale - 1.5 * pScale, torsoY + torsoH - 5 * pScale, 3 * pScale, 4 * pScale);
+        }
+
+        // (6) 手臂與皮手套 (依移動自然前後擺動)
+        const armW = 4.2 * pScale;
+        const armH = 15 * pScale;
+        const armSwing = playerPos.isMoving ? Math.cos(cycle) * swingDist : 0;
+
+        // 左手
+        ctx.fillStyle = '#1d4ed8';
+        drawSafeRoundRect(ctx, px - torsoW / 2 - armW + 0.5 * pScale, torsoY + 2 * pScale - armSwing * 0.7, armW, armH - 3 * pScale, 2 * pScale);
+        ctx.fill();
+        ctx.fillStyle = '#334155';
+        drawSafeRoundRect(ctx, px - torsoW / 2 - armW, torsoY + armH - 2 * pScale - armSwing * 0.7, armW + 0.5 * pScale, 4.5 * pScale, 2 * pScale);
+        ctx.fill();
+
+        // 右手
+        ctx.fillStyle = '#1d4ed8';
+        drawSafeRoundRect(ctx, px + torsoW / 2 - 0.5 * pScale, torsoY + 2 * pScale + armSwing * 0.7, armW, armH - 3 * pScale, 2 * pScale);
+        ctx.fill();
+        ctx.fillStyle = '#334155';
+        drawSafeRoundRect(ctx, px + torsoW / 2 - 0.5 * pScale, torsoY + armH - 2 * pScale + armSwing * 0.7, armW + 0.5 * pScale, 4.5 * pScale, 2 * pScale);
+        ctx.fill();
+
+        // (7) 脖子、動漫面龐、眼神與層次髮絲 (Anime Face & High-Res Features)
+        const headR = 8.5 * pScale;
+        const headY = torsoY - headR + 2 * pScale;
+
+        // 脖子
+        ctx.fillStyle = '#fed7aa';
+        ctx.fillRect(px - 2.5 * pScale, torsoY - 2 * pScale, 5 * pScale, 4 * pScale);
+
+        // 頭部皮膚底色
         ctx.beginPath();
-        ctx.arc(px, pz - 24, 7, 0, Math.PI * 2);
+        ctx.arc(px, headY, headR, 0, Math.PI * 2);
         ctx.fillStyle = '#fed7aa';
         ctx.fill();
+
+        if (playerPos.facing === 'down') {
+          // 動漫大眼
+          const eyeY = headY - 0.5 * pScale;
+          const eyeSpacing = 3.6 * pScale;
+          const eyeW = 2.4 * pScale;
+          const eyeH = 3.0 * pScale;
+
+          // 眼白
+          ctx.fillStyle = '#ffffff';
+          drawSafeRoundRect(ctx, px - eyeSpacing - eyeW / 2, eyeY - eyeH / 2, eyeW, eyeH, 1.2 * pScale);
+          ctx.fill();
+          drawSafeRoundRect(ctx, px + eyeSpacing - eyeW / 2, eyeY - eyeH / 2, eyeW, eyeH, 1.2 * pScale);
+          ctx.fill();
+
+          // 寶石青藍瞳孔
+          ctx.fillStyle = '#0284c7';
+          ctx.beginPath();
+          ctx.arc(px - eyeSpacing, eyeY, 1.2 * pScale, 0, Math.PI * 2);
+          ctx.arc(px + eyeSpacing, eyeY, 1.2 * pScale, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 眼神靈魂高光
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(px - eyeSpacing - 0.4 * pScale, eyeY - 0.5 * pScale, 0.5 * pScale, 0, Math.PI * 2);
+          ctx.arc(px + eyeSpacing - 0.4 * pScale, eyeY - 0.5 * pScale, 0.5 * pScale, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 堅毅微笑
+          ctx.strokeStyle = '#ea580c';
+          ctx.lineWidth = Math.max(1, 0.7 * pScale);
+          ctx.beginPath();
+          ctx.arc(px, headY + 3.8 * pScale, 2 * pScale, 0.1 * Math.PI, 0.9 * Math.PI);
+          ctx.stroke();
+
+          // 前額層次瀏海
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.moveTo(px - headR + 1 * pScale, headY - 2 * pScale);
+          ctx.lineTo(px - 4 * pScale, headY + 1.2 * pScale);
+          ctx.lineTo(px - 1.5 * pScale, headY - 1.5 * pScale);
+          ctx.lineTo(px + 1 * pScale, headY + 1.5 * pScale);
+          ctx.lineTo(px + 4 * pScale, headY - 1 * pScale);
+          ctx.lineTo(px + headR - 1 * pScale, headY - 2 * pScale);
+          ctx.closePath();
+          ctx.fill();
+        } else if (playerPos.facing === 'left' || playerPos.facing === 'right') {
+          const sideDir = playerPos.facing === 'left' ? -1 : 1;
+          ctx.fillStyle = '#ffffff';
+          drawSafeRoundRect(ctx, px + sideDir * 3.5 * pScale - 1.2 * pScale, headY - 1.5 * pScale, 2.4 * pScale, 3.0 * pScale, 1.2 * pScale);
+          ctx.fill();
+          ctx.fillStyle = '#0284c7';
+          ctx.beginPath();
+          ctx.arc(px + sideDir * 3.5 * pScale, headY - 0.2 * pScale, 1.1 * pScale, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(px + sideDir * 3.2 * pScale, headY - 0.5 * pScale, 0.45 * pScale, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          // 背面立體髮流
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(px, headY, headR * 0.95, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // (8) 帥氣軟呢偵探帽 / 科技貝雷帽 (Fedora / Cyber Cap)
+        const hatBrimW = 26 * pScale;
+        const hatBrimH = 6 * pScale;
+        const hatBrimY = headY - headR * 0.7;
+
+        // 帽簷
         ctx.fillStyle = '#0f172a';
-        drawSafeRoundRect(ctx, px - 8, pz - 31, 16, 7, 3);
+        drawSafeRoundRect(ctx, px - hatBrimW / 2, hatBrimY, hatBrimW, hatBrimH, 2.8 * pScale);
         ctx.fill();
 
-        // 頭頂對話氣泡
-        ctx.fillStyle = 'rgba(10, 25, 50, 0.9)';
-        drawSafeRoundRect(ctx, px - 65, pz - 60, 130, 22, 6);
+        // 帽冠
+        const hatCrownW = 17 * pScale;
+        const hatCrownH = 11 * pScale;
+        const hatCrownY = hatBrimY - hatCrownH + 1 * pScale;
+        ctx.fillStyle = '#1e293b';
+        drawSafeRoundRect(ctx, px - hatCrownW / 2, hatCrownY, hatCrownW, hatCrownH, 3.5 * pScale);
+        ctx.fill();
+
+        // 賽博青光霓虹飾帶 (Cyber Cyan Ribbon)
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillRect(px - hatCrownW / 2, hatBrimY - 2.5 * pScale, hatCrownW, 2.5 * pScale);
+
+        // (9) 動態全息對話氣泡 (Dynamic Floating Holographic Bubble)
+        const bubbleText = gameState.currentBubble;
+        const bFontSize = Math.min(14, Math.max(11, pScale * 1.5));
+        ctx.font = `bold ${bFontSize}px sans-serif`;
+        const bMetrics = ctx.measureText(bubbleText);
+        const bubbleW = Math.max(120, bMetrics.width + 24);
+        const bubbleH = Math.min(32, Math.max(22, pScale * 2.2));
+        const bubbleY = hatCrownY - bubbleH - 12;
+
+        ctx.fillStyle = 'rgba(10, 25, 50, 0.92)';
+        drawSafeRoundRect(ctx, px - bubbleW / 2, bubbleY, bubbleW, bubbleH, 6);
         ctx.fill();
         ctx.strokeStyle = '#00d2ff';
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = 1.3;
+        ctx.stroke();
+
+        // 氣泡指向下角尖嘴
+        ctx.fillStyle = 'rgba(10, 25, 50, 0.92)';
+        ctx.beginPath();
+        ctx.moveTo(px - 5, bubbleY + bubbleH);
+        ctx.lineTo(px, bubbleY + bubbleH + 5);
+        ctx.lineTo(px + 5, bubbleY + bubbleH);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#00d2ff';
+        ctx.beginPath();
+        ctx.moveTo(px - 5, bubbleY + bubbleH);
+        ctx.lineTo(px, bubbleY + bubbleH + 5);
+        ctx.lineTo(px + 5, bubbleY + bubbleH);
         ctx.stroke();
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 11px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(gameState.currentBubble, px, pz - 45);
+        ctx.fillText(bubbleText, px, bubbleY + bubbleH * 0.65);
       }
     });
   } else {
@@ -2578,7 +5113,52 @@ function renderScene() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
   ctx.fillRect(screenX(-220), bridgeZ + 6 * scale, 440 * scale, 10 * scale);
 
-  ctx.restore();
+  // ──────────────────────────────────────────
+  // 第 4.5 層：10 大生活科學探究示範案件現場光標 (🚨 Demonstration Crime Beacons - 視錐剔除)
+  // ──────────────────────────────────────────
+  const demoCases = (typeof DEMO_10_CASES !== 'undefined') ? DEMO_10_CASES : [];
+  demoCases.forEach(c => {
+    if (!isInViewport(c.worldX, c.worldZ, 35)) return;
+    const sx = screenX(c.worldX);
+    const sz = screenZ(c.worldZ);
+    const pulse = (Math.sin(Date.now() / 240) + 1) / 2;
+
+    // 外層光暈波紋
+    ctx.strokeStyle = 'rgba(244, 63, 94, 0.75)';
+    ctx.lineWidth = Math.max(1.8, scale * 0.18);
+    ctx.beginPath();
+    ctx.arc(sx, sz, (13 + pulse * 10) * Math.min(2.5, Math.max(0.65, scale * 0.22)), 0, Math.PI * 2);
+    ctx.stroke();
+
+    // 核心警報標記
+    ctx.fillStyle = '#f43f5e';
+    ctx.beginPath();
+    ctx.arc(sx, sz, 8.5 * Math.min(2.5, Math.max(0.65, scale * 0.22)), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // 標籤卡片
+    if (scale >= 1.5) {
+      const tagW = 120;
+      const tagH = 20;
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+      ctx.strokeStyle = '#f43f5e';
+      ctx.lineWidth = 1.2;
+      drawSafeRoundRect(ctx, sx - tagW / 2, sz - 28, tagW, tagH, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#fecdd3';
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`🚨 ${c.id}: 案${c.num}`, sx, sz - 14);
+    }
+  });
+
+  ctx.restore(); // 恢復 translate(cx, cy)
+  ctx.restore(); // 恢復 Retina scale(dpr, dpr)
 }
 
 /* ─── 9. 地點偵測與互動判定 ─── */
@@ -2591,14 +5171,28 @@ let hasPlayedDoorbell = false;
 
 function checkProximityAndLocation() {
   let currentLoc = "忠孝西路一段 ✕ 館前路口";
-  // 動態比對距離最近之真實門市、公車站牌或市集
   let nearestItem = null;
   let minItemDist = 20;
-  for (const item of interactables) {
-    const d = Math.hypot(playerPos.x - item.x, playerPos.z - item.z);
+  let nearest = null;
+  let minD = 999;
+
+  const px = playerPos.x;
+  const pz = playerPos.z;
+
+  // 單趟走訪 + 曼哈頓快速粗篩 (解決百處門市每幀重複兩次距離運算的卡頓瓶頸)
+  for (let i = 0; i < interactables.length; i++) {
+    const item = interactables[i];
+    if (Math.abs(px - item.x) > 25 || Math.abs(pz - item.z) > 25) continue;
+
+    const d = Math.hypot(px - item.x, pz - item.z);
     if (d < minItemDist) {
       minItemDist = d;
       nearestItem = item;
+    }
+    const targetR = item.r || 8.5;
+    if (d < targetR && d < minD) {
+      minD = d;
+      nearest = item;
     }
   }
 
@@ -2606,10 +5200,10 @@ function checkProximityAndLocation() {
     currentLoc = `${nearestItem.name} (${nearestItem.address || '雙北核心商圈'})`;
   } else {
     // 區域街區名稱備援
-    if (playerPos.z > 95 && playerPos.x < -60) currentLoc = "板橋區・學府路一段 ✕ 新板特區商圈";
-    else if (playerPos.z < -60 && playerPos.x > 30) currentLoc = "中山區・中山北路林蔭大道 ✕ 南京商圈";
-    else if (playerPos.z < -60 && playerPos.x < -60) currentLoc = "大同區・建成圓環 ✕ 寧夏夜市商圈";
-    else if (playerPos.z > 15 && playerPos.x < -90) currentLoc = "萬華/中正・重慶南路書店街 ✕ 西門町商圈";
+    if (pz > 95 && px < -60) currentLoc = "板橋區・學府路一段 ✕ 新板特區商圈";
+    else if (pz < -60 && px > 30) currentLoc = "中山區・中山北路林蔭大道 ✕ 南京商圈";
+    else if (pz < -60 && px < -60) currentLoc = "大同區・建成圓環 ✕ 寧夏夜市商圈";
+    else if (pz > 15 && px < -90) currentLoc = "萬華/中正・重慶南路書店街 ✕ 西門町商圈";
     else currentLoc = "中正區・忠孝西路一段 ✕ 台北車站站前廣場";
   }
 
@@ -2620,18 +5214,9 @@ function checkProximityAndLocation() {
 
   // 體力警告
   const warnBanner = document.getElementById("staminaWarningBanner");
-  if (warnBanner) warnBanner.style.display = gameState.stamina <= 18 ? "flex" : "none";
-
-  // 實體互動範圍判定
-  let nearest = null;
-  let minD = 999;
-
-  for (const item of interactables) {
-    const dist = Math.hypot(playerPos.x - item.x, playerPos.z - item.z);
-    if (dist < (item.r || 8.5) && dist < minD) {
-      minD = dist;
-      nearest = item;
-    }
+  if (warnBanner) {
+    const shouldShow = gameState.stamina <= 18 ? "flex" : "none";
+    if (warnBanner.style.display !== shouldShow) warnBanner.style.display = shouldShow;
   }
 
   if (nearest) {
@@ -2697,6 +5282,9 @@ function updateActionPills(item) {
     addActionPill("📜 調查花圃暗號紙條", "E", () => guideToClue());
   } else if (item.type === "rest") {
     addActionPill("🛏️ 長椅休息", "E", () => openRestModal());
+  } else if (item.type === "park") {
+    addActionPill(`🌲 漫步 ${item.name}`, "E", () => openParkModal(item));
+    addActionPill("🌿 進行生態深呼吸 (體力+35)", "🌿", () => restInPark(item));
   }
 }
 
@@ -2732,7 +5320,25 @@ function triggerDirectInteraction(it) {
   else if (it.type === "nightmarket") openNightMarketModal();
   else if (it.type === "ferry") openFerryModal();
   else if (it.type === "rest") openRestModal();
+  else if (it.type === "park") openParkModal(it);
   else if (it.type === "clue_ground") guideToClue();
+}
+
+function openParkModal(park) {
+  if (!park) return;
+  showNavToast(`🌲 漫步抵達【${park.name}】！沉浸於真實自然生態中！`);
+  showDetectiveDialogue(`「抵達【${park.name}】(${park.category || '公園綠地'})！特色：${park.features || '綠意盎然、芬多精環繞、都會中的大自然庇護所'}。」`, "雙北生態");
+  playTone(523, 'sine', 0.2);
+}
+
+function restInPark(park) {
+  if (!park) return;
+  gameState.stamina = Math.min(100, gameState.stamina + 35);
+  gameState.mood = Math.min(100, gameState.mood + 30);
+  updateBars();
+  playTone(659, 'triangle', 0.25);
+  showNavToast(`🌿 在【${park.name}】深呼吸芬多精！體力 +35、心情 +30！`);
+  showDetectiveDialogue(`「在【${park.name}】林蔭草坪深呼吸，充分吸收負離子與芬多精，體能與精神狀態大幅回升！」`, "體能維護");
 }
 
 function guideToClue() {
@@ -3210,16 +5816,6 @@ function setBrandRadarFilter(brand) {
     } else if (brand === 'market') {
       banner.style.display = "flex";
       icon.innerText = "🏮";
-      playTone(493, 'triangle', 0.15);
-    } else if (brand === 'coco') {
-      banner.style.display = "flex";
-      icon.innerText = "🧋";
-      text.innerText = "CoCo 都可 跨門市雲端寄杯網絡啟動！雙北 14 間手搖飲門市雲端寄杯隨處領！";
-      showNavToast("🧋 CoCo 都可 跨店雲端寄杯雷達啟動！");
-      playTone(698, 'triangle', 0.15);
-    } else if (brand === 'market') {
-      banner.style.display = "flex";
-      icon.innerText = "🏮";
       text.innerText = "雙北傳統市場與觀光夜市網絡連線！10 處在地市場老字號生鮮與夜市小吃互聯！";
       showNavToast("🏮 傳統市場與夜市網絡雷達啟動！在地古早味連線！");
       playTone(622, 'triangle', 0.15);
@@ -3230,7 +5826,7 @@ function setBrandRadarFilter(brand) {
 function jumpToDistrict(distId) {
   document.querySelectorAll(".district-jump-btn").forEach(b => b.classList.remove("highlight"));
   if (distId === 'overview') {
-    camera.x = 70; camera.z = -20; camera.targetScale = 0.95;
+    camera.x = 70; camera.z = -20; camera.targetScale = 1.15;
     const btn = document.getElementById("btnJumpOverview");
     if (btn) btn.classList.add("highlight");
     showNavToast("🗺️ 已切換為【雙北全圖樣式總覽】！一覽台北市 12 區與新北市 29 特區全境拓撲！");
@@ -3294,6 +5890,19 @@ function jumpToDistrict(distId) {
     const btn = document.getElementById("btnJumpSanchong");
     if (btn) btn.classList.add("highlight");
     showNavToast("🏭 已鎖定定位【三重新莊創新工坊 ✕ 重新路 ✕ 副都心】！");
+  } else {
+    // 支援任意 41 行政特區代碼 (如 TPE-01~12, NTP-01~29) 或 45+ 真實公園名稱
+    const sec = (typeof sectors !== 'undefined') ? sectors.find(s => s.id === distId || s.name.includes(distId)) : null;
+    if (sec) {
+      camera.x = sec.x; camera.z = sec.z; camera.targetScale = 12;
+      showNavToast(`🛰️ 已躍遷至【${sec.name}】！`);
+    } else {
+      const pk = (typeof SHUANGBEI_REAL_PARKS !== 'undefined') ? SHUANGBEI_REAL_PARKS.find(p => p.id === distId || p.name.includes(distId)) : null;
+      if (pk) {
+        camera.x = pk.x; camera.z = pk.z; camera.targetScale = 14;
+        showNavToast(`🌲 已鎖定前往【${pk.name}】！`);
+      }
+    }
   }
   updateMinimapRadar();
   updateGhostDroneHUD();
@@ -3326,6 +5935,11 @@ function toggleGhostMode() {
 
 function zoomInCamera() {
   camera.targetScale = Math.min(camera.maxScale, camera.targetScale * 1.25);
+  if (!gameState.isGhostMode && camera.targetScale >= 12.0) {
+    cameraLockToPlayer = true;
+    camera.x = playerPos.x;
+    camera.z = playerPos.z;
+  }
   playTone(700, 'sine', 0.05);
   updateGhostDroneHUD();
 }
@@ -3336,13 +5950,149 @@ function zoomOutCamera() {
   updateGhostDroneHUD();
 }
 
-function resetCameraCenter() {
+function setCloseUpMode() {
+  camera.targetScale = 65.0; // 超特寫微觀人物視角 (人物超巨大、五官風衣清晰可見)
+  camera.x = playerPos.x;
+  camera.z = playerPos.z;
+  cameraLockToPlayer = true;
+  if (gameState.isGhostMode) {
+    toggleGhostMode(); // 自動轉回地面角色模式
+  }
+  playTone(850, 'sine', 0.08);
+  updateGhostDroneHUD();
+  showNavToast("👤 已進入【超大微觀人物特寫模式】！視角嚴密鎖定人物正上方，隨移動無縫同步推進！");
+}
+
+function lockCameraToPlayer() {
+  camera.x = playerPos.x;
+  camera.z = playerPos.z;
+  cameraLockToPlayer = true;
+  playTone(650, 'sine', 0.06);
+  updateGhostDroneHUD();
+  showNavToast("🎯 視角已嚴密鎖定於人物正上方！人物移動視角無縫跟隨！");
+}
+
+function setStreetViewMode() {
+  camera.targetScale = 6.5; // 都會街區標準巡航視角
+  camera.x = playerPos.x;
+  camera.z = playerPos.z;
+  cameraLockToPlayer = true;
+  playTone(550, 'sine', 0.06);
+  updateGhostDroneHUD();
+  showNavToast("🏙️ 已切換至【都會街區標準巡航視角】！");
+}
+
+function resetCameraOverview() {
   camera.x = 70;
   camera.z = -20;
-  camera.targetScale = 0.95;
-  playTone(600, 'sine', 0.08);
+  camera.targetScale = 1.15; // 雙北全景總覽
+  playTone(450, 'sine', 0.08);
   updateGhostDroneHUD();
-  showNavToast("🎯 鏡頭已重置置中為【雙北全境科幻全像總覽】！");
+  showNavToast("🗺️ 已切換至【雙北都會全景總覽】！");
+}
+
+function resetCameraCenter() {
+  lockCameraToPlayer();
+}
+
+// ──────────────────────────────────────────
+// 13. 10 大生活科學探究示範案件系統 (落實評審顧問 50 建議)
+// ──────────────────────────────────────────
+function initDemonstrationCasesUI() {
+  const scrollWrap = document.getElementById('casesChipsScroll');
+  if (!scrollWrap) return;
+  scrollWrap.innerHTML = '';
+
+  const cases = (typeof DEMO_10_CASES !== 'undefined') ? DEMO_10_CASES : [];
+  cases.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'case-nav-btn';
+    btn.innerHTML = `🚨 案${c.num}: ${c.title.split('案')[0].replace('西門老牌連鎖咖啡雙倍濃縮拿鐵', '西門拿鐵').replace('北車忠孝西路地下道虹吸水壓失衡', '北車虹吸').replace('大安森林公園紅土泥地受力壓痕', '大安泥地').replace('萬華龍山寺百年青草茶酸鹼變色', '萬華茶湯').replace('新北板橋學府路生鮮冷鏈凝露', '學府冷鏈').replace('內湖高能運算園區伺服器散熱對流', '內科對流').replace('新店碧潭水電中樞連通管水位失衡', '碧潭水電').replace('南港生技光谷酵素低溫活性失常', '南港酵素').replace('淡水金色水岸船舶擱淺潮汐落差', '淡水潮汐').replace('大同迪化乾貨街海鹽過飽和結晶', '迪化海鹽')} <span style="font-size:9.5px; opacity:0.85;">[${c.subject.split('（')[1]?.replace('）','') || '探究'}]</span>`;
+    btn.title = `${c.title} - ${c.subject}`;
+    btn.onclick = () => {
+      document.querySelectorAll('.case-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      camera.x = c.worldX;
+      camera.z = c.worldZ;
+      camera.targetScale = 5.5;
+      playTone(659, 'triangle', 0.12);
+      openCaseDossierModal(c.id);
+      showNavToast(`🚨 已定位至示範案現場：【${c.title}】！`);
+    };
+    scrollWrap.appendChild(btn);
+  });
+}
+
+function openCaseDossierModal(caseId) {
+  const cases = (typeof DEMO_10_CASES !== 'undefined') ? DEMO_10_CASES : [];
+  const c = cases.find(item => item.id === caseId);
+  if (!c) return;
+
+  const modal = document.getElementById('caseDossierModal');
+  const card = document.getElementById('caseDossierCard');
+  if (!modal || !card) return;
+
+  const suspectsHtml = c.suspects.map(s => `
+    <div style="display:flex; gap:6px; margin-bottom:4px; font-size:12.5px;">
+      <strong style="color:#fbbf24; white-space:nowrap;">👤 ${s.name} (${s.role})：</strong>
+      <span style="color:#cbd5e1;">${s.motive}</span>
+    </div>
+  `).join('');
+
+  const stepsHtml = c.investigationSteps.map(step => `
+    <li style="margin-bottom:4px; color:#cbd5e1; font-size:12.5px;">${step}</li>
+  `).join('');
+
+  card.innerHTML = `
+    <div class="modal-header" style="border-bottom:1px solid rgba(0,240,255,0.3); padding-bottom:10px;">
+      <div class="modal-title" style="display:flex; flex-direction:column; gap:2px;">
+        <span style="font-size:11px; color:#f43f5e; font-weight:900;">🚨 示範案件 ${c.id} ｜ ${c.sectorName}</span>
+        <span style="font-size:18px; color:#ffffff; font-weight:900;">${c.title}</span>
+        <span style="font-size:12px; color:#38bdf8;">探究主題：${c.subtitle}</span>
+      </div>
+      <button class="modal-close" onclick="closeModal('caseDossierModal')">×</button>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px; padding-top:14px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:rgba(2,6,23,0.6); padding:10px; border-radius:8px; border:1px solid rgba(0,240,255,0.2);">
+        <div><span style="color:#94a3b8; font-size:11px;">📍 現場門牌：</span><br><strong style="color:#f1f5f9; font-size:12px;">${c.location}</strong></div>
+        <div><span style="color:#94a3b8; font-size:11px;">🧪 課綱學門：</span><br><strong style="color:#38bdf8; font-size:12px;">${c.subject}</strong></div>
+        <div style="grid-column:1 / -1;"><span style="color:#94a3b8; font-size:11px;">📚 學習指標：</span><br><strong style="color:#a78bfa; font-size:12px;">${c.curriculumMapping}</strong></div>
+      </div>
+
+      <!-- 校園安全無害替代教具 (落實顧問 50 建議) -->
+      <div style="background:rgba(16,185,129,0.15); border:1px solid #10b981; border-radius:8px; padding:12px;">
+        <div style="color:#34d399; font-weight:900; font-size:12.5px; margin-bottom:4px;">🛡️ 評審亮點：校園教學安全無毒替代教具</div>
+        <p style="color:#a7f3d0; font-size:12px; line-height:1.5; margin:0;">${c.safeClassroomKit}</p>
+      </div>
+
+      <div style="background:rgba(15,23,42,0.7); border-radius:8px; padding:10px;">
+        <h4 style="color:#38bdf8; font-size:13px; margin-bottom:4px;">🔍 案件前情提要</h4>
+        <p style="color:#e2e8f0; font-size:12.5px; line-height:1.5; margin:0;">${c.brief}</p>
+      </div>
+
+      <div style="background:rgba(15,23,42,0.7); border-radius:8px; padding:10px;">
+        <h4 style="color:#fbbf24; font-size:13px; margin-bottom:6px;">👥 涉案嫌疑人調查網</h4>
+        ${suspectsHtml}
+      </div>
+
+      <div style="background:rgba(15,23,42,0.7); border-radius:8px; padding:10px;">
+        <h4 style="color:#34d399; font-size:13px; margin-bottom:6px;">🔬 實地自然探究三步驟</h4>
+        <ol style="padding-left:18px; margin:0;">${stepsHtml}</ol>
+      </div>
+
+      <div style="background:rgba(0,240,255,0.08); border-left:4px solid #00f0ff; border-radius:4px; padding:10px;">
+        <h4 style="color:#00f0ff; font-size:13px; margin-bottom:4px;">⚖️ 破案科學邏輯打臉依據</h4>
+        <p style="color:#cbd5e1; font-size:12px; line-height:1.5; margin:0;">${c.conclusion}</p>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.1);">
+      <button class="chat-send-btn" style="background:#0284c7;" onclick="closeModal('caseDossierModal')">關閉並前往現場探究</button>
+    </div>
+  `;
+
+  modal.style.display = 'flex';
 }
 
 function takeScenicPhoto() {
@@ -3453,8 +6203,11 @@ function reconnectCustomServer() {
 
 /* ─── 13. 視窗適應與 60FPS 現代遊戲循環 ─── */
 window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  canvas.width = Math.round(window.innerWidth * dpr);
+  canvas.height = Math.round(window.innerHeight * dpr);
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
 });
 
 function gameLoop() {
@@ -3466,3 +6219,78 @@ function gameLoop() {
 gameLoop();
 
 initPrivateServerConnection();
+initDemonstrationCasesUI();
+
+/* ─── 14. 2.5D 主檔四軌大眾運輸真實世界即時 GPS 網路同步 (Live Internet Sync) ─── */
+async function syncSandpitLiveTransit() {
+  try {
+    let data = null;
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 3000);
+      const res = await fetch('/api/transit/live', { signal: ctrl.signal, cache: 'no-store' });
+      clearTimeout(timer);
+      if (res.ok) data = await res.json();
+    } catch (e) {}
+
+    if (data && data.success) {
+      if (Array.isArray(data.buses) && data.buses.length > 0) {
+        cityBuses.forEach((b, idx) => {
+          const rKey = b.lineName.split(' ')[0];
+          const match = data.buses.find(lb => String(lb.routeName).includes(rKey)) || data.buses[idx % data.buses.length];
+          if (match) {
+            b.livePlate = match.busId;
+            b.liveSpeedKmH = Math.round(match.speed || 0);
+            b.ledText = `${match.routeName} (${match.busId})｜${match.speed <= 1 ? '靠站/停等 0km/h' : Math.round(match.speed) + 'km/h'}`;
+          }
+        });
+      }
+      if (Array.isArray(data.mrtTrains) && data.mrtTrains.length > 0) {
+        mrtTrains.forEach((t, idx) => {
+          const match = data.mrtTrains.find(mt => mt.lineCode === t.lineCode) || data.mrtTrains[idx % data.mrtTrains.length];
+          if (match) {
+            t.ledText = `🚇 ${match.name}｜${match.status}`;
+          }
+        });
+      }
+      if (Array.isArray(data.traTrains) && data.traTrains.length > 0) {
+        traTrains.forEach((t, idx) => {
+          const match = data.traTrains[idx % data.traTrains.length];
+          if (match) {
+            t.lineName = match.name;
+            t.ledText = `${match.name}｜${match.status}`;
+          }
+        });
+      }
+      return;
+    }
+
+    // 瀏覽器直連官方開放端點備援 (GitHub Pages 靜態環境自動啟用)
+    const [trtcRes, traRes] = await Promise.all([
+      fetch('https://ptx.transportdata.tw/MOTC/v2/Rail/Metro/LiveBoard/TRTC?%24format=JSON', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/LiveBoard?%24format=JSON', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => [])
+    ]);
+    if (Array.isArray(trtcRes) && trtcRes.length > 0) {
+      mrtTrains.forEach((t, idx) => {
+        const m = trtcRes.find(x => (x.LineNo || x.LineID) === t.lineCode) || trtcRes[idx % trtcRes.length];
+        if (m && m.StationName && m.StationName.Zh_tw) {
+          const dest = (m.DestinationStationName && m.DestinationStationName.Zh_tw) || '';
+          t.ledText = `🚇 ${t.lineCode}線 [${m.StationName.Zh_tw}站] ➔ 往${dest}`;
+        }
+      });
+    }
+    if (Array.isArray(traRes) && traRes.length > 0) {
+      traTrains.forEach((t, idx) => {
+        const m = traRes[idx % traRes.length];
+        if (m && m.StationName && m.StationName.Zh_tw) {
+          const tType = (m.TrainTypeName && m.TrainTypeName.Zh_tw) ? m.TrainTypeName.Zh_tw.slice(0, 3) : '臺鐵';
+          const delay = Number(m.DelayTime) > 0 ? `晚${m.DelayTime}分` : '準點';
+          t.ledText = `🚆 ${m.TrainNo}次 ${tType} [${m.StationName.Zh_tw}] (${delay})`;
+        }
+      });
+    }
+  } catch (err) {}
+}
+syncSandpitLiveTransit();
+setInterval(syncSandpitLiveTransit, 10000);
+
