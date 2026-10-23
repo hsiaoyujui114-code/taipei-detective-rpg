@@ -47,6 +47,38 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // API: 接收前端案件網頁直接修改並持久化儲存至伺服器硬碟
+  if (req.method === 'POST' && reqPath === '/api/save-cases') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body);
+        if (data.html && typeof data.html === 'string') {
+          // 憲法級禁忌安全檢查
+          const forbidden = ['少年' + '偵探', '藝' + '碩', '益' + '碩'];
+          for (const f of forbidden) {
+            if (data.html.includes(f)) {
+              res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+              res.end(JSON.stringify({ success: false, error: '包含專案禁忌詞，拒絕儲存！' }));
+              return;
+            }
+          }
+          fs.writeFileSync(path.join(PUBLIC_DIR, 'cases.html'), data.html, 'utf-8');
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+          res.end(JSON.stringify({ success: true, message: '成功寫入 cases.html 實體檔案！' }));
+          return;
+        }
+        res.writeHead(400, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({ success: false, error: '缺少 HTML 內容' }));
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+        res.end(JSON.stringify({ success: false, error: e.message }));
+      }
+    });
+    return;
+  }
+
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
