@@ -7,7 +7,7 @@ build_cases_site.py
 2. 每案下方獨立 Markdown 框與「📋 複製本案完整設定」按鈕
 3. ★ 委託人特別需求：【免安裝任何軟體，任何知道網址的人皆可在網頁上直接打字修改（所見即所得線上編輯模式）】
 4. 自動同步更新 Markdown、保存至瀏覽器 LocalStorage、支援寫入伺服器 API、支援匯出 HTML
-5. 提供直通 GitHub 線上編輯器（Web IDE）之快捷通道
+5. 提供頂部與側邊欄「📋 複製全文」一鍵快速複製 50 案完整規格功能
 恪守憲法級三大禁忌：一律使用「都會調查員」或「市民」，實體步行與大眾運輸，全域 0 違規。
 """
 
@@ -231,16 +231,6 @@ html_parts.append("""<!DOCTYPE html>
 
     .btn-tool-ghost:hover {
       background: rgba(255, 255, 255, 0.22);
-    }
-
-    .btn-tool-github {
-      background: #24292f;
-      color: #ffffff;
-      border-color: #444c56;
-    }
-
-    .btn-tool-github:hover {
-      background: #32383f;
     }
 
     /* Edit Mode Styling */
@@ -642,27 +632,6 @@ html_parts.append("""<!DOCTYPE html>
       border: 1px solid #bbf7d0;
     }
 
-    .btn-github-mini {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    .btn-github-mini:hover {
-      background: #24292f;
-      color: #ffffff;
-      border-color: #24292f;
-    }
-
     .case-body {
       padding: 1.4rem;
     }
@@ -875,65 +844,6 @@ html_parts.append("""<!DOCTYPE html>
       display: block;
     }
 
-    /* Modal dialog for GitHub Edit instructions */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 99999;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-    }
-
-    .modal-box {
-      background: #ffffff;
-      border-radius: 12px;
-      max-width: 600px;
-      width: 100%;
-      padding: 1.8rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      margin-bottom: 0.8rem;
-      color: var(--text-main);
-    }
-
-    .modal-content {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
-    }
-
-    .modal-content ol {
-      padding-left: 1.2rem;
-      margin-top: 0.6rem;
-    }
-
-    .modal-content li {
-      margin-bottom: 0.5rem;
-    }
-
-    .modal-btn-close {
-      background: var(--primary);
-      color: #ffffff;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      float: right;
-    }
-
     /* Toast Notification */
     #toast {
       position: fixed;
@@ -988,8 +898,6 @@ html_parts.append("""<!DOCTYPE html>
       <button class="btn-tool" style="background: #2563eb; color: #ffffff; border-color: #3b82f6;" onclick="copyAllCasesMarkdown()" title="一鍵複製全部 50 個案件的完整規格文本">📋 複製全文</button>
       <button class="btn-tool btn-tool-ghost" onclick="resetToDefault()">🔄 還原官方原始設定</button>
       <button class="btn-tool btn-tool-ghost" onclick="downloadEditedHtml()">📥 下載修改後網頁</button>
-      <a href="https://github.com/hsiaoyujui114-code/taipei-detective-rpg/edit/main/cases.html" target="_blank" class="btn-tool btn-tool-github">🐙 在 GitHub 編輯原始碼</a>
-      <button class="btn-tool btn-tool-ghost" onclick="openGitHubHelp()">❓ 如何在 GitHub 更改？</button>
     </div>
   </div>
 
@@ -1005,7 +913,7 @@ html_parts.append("""<!DOCTYPE html>
       <h1 class="site-title">《雙北漫遊：都會行蹤》50 大歷史風情與生活科學案件全集</h1>
       <p class="site-subtitle">
         收錄雙北 50 宗深度原創推理案件：將淡水稅關、艋舺龍山寺剝皮寮、大稻埕百年茶行、北投日治溫泉與青磺泉、平溪鐵道等在地風情，與 pH 酸鹼指示、365nm 螢光防偽、阿基米德浮力比重、熱敏水蒸氣顯影等生活科學緊密結合。
-        <strong style="color: #fbbf24;">★ 只要知道本網址，任何人均可直接在網頁上點擊文字修改錯字，亦可一鍵同步至 Markdown 或 GitHub！</strong>
+        <strong style="color: #fbbf24;">★ 只要知道本網址，任何人均可直接在網頁上點擊文字修改錯字，亦可隨時一鍵複製全文或同步保存！</strong>
       </p>
       <div class="header-nav">
         <a href="index.html" class="btn-nav">🗺️ 返回雙北 2.5D 都會地圖沙盒</a>
@@ -1137,7 +1045,6 @@ for c in all_cases:
               <span class="badge badge-diff">難度：<span data-editable="true" data-field="difficulty" oninput="handleFieldChange('{c['id']}')">{html.escape(c['difficulty'])}</span></span>
               <span class="badge badge-spook"><span data-editable="true" data-field="spookiness" oninput="handleFieldChange('{c['id']}')">{html.escape(c['spookiness'])}</span></span>
               <span class="badge badge-location">📍 <span data-editable="true" data-field="district" oninput="handleFieldChange('{c['id']}')">{html.escape(c['district'])}</span></span>
-              <a href="https://github.com/hsiaoyujui114-code/taipei-detective-rpg/edit/main/cases.html" target="_blank" class="btn-github-mini" title="在 GitHub 線上編輯原始碼">🐙 GitHub 編輯</a>
             </div>
           </div>
 
@@ -1219,25 +1126,6 @@ for c in all_cases:
 html_parts.append("""
       </div>
     </main>
-  </div>
-
-  <!-- Help Modal Dialog -->
-  <div class="modal-backdrop" id="gitHelpModal">
-    <div class="modal-box">
-      <h3 class="modal-title">🐙 任何人如何直接在 GitHub 上更改本網頁？</h3>
-      <div class="modal-content">
-        <p>委託人特別指示：只要知道本專案網址的人，都能隨時參與修改與更正錯字！您有以下兩種最簡單的方法：</p>
-        <ol>
-          <li><strong>方法一：在當前網頁直接改（最直覺推薦）</strong><br>
-            點擊頂部黃色按鈕「<strong>✏️ 開啟直接編輯模式</strong>」，整張網頁的文字會立刻變成可以打字的狀態。修改完後點擊「<strong>💾 儲存修改內容</strong>」，修改會自動保存在您的瀏覽器中，亦可一鍵下載修改後 HTML！
-          </li>
-          <li><strong>方法二：在 GitHub 網站線上編輯（永久貢獻）</strong><br>
-            前往 GitHub 倉庫頁面，按下鍵盤上的 <code>.</code> (英文點號) 鍵，或點擊任何案件右上角的「<strong>🐙 GitHub 編輯</strong>」按鈕，GitHub 就會在瀏覽器中開啟免安裝的 <strong>Web VS Code 編輯器</strong>！修改好字句後點擊左側「Commit」，即可送出您的更新！
-          </li>
-        </ol>
-      </div>
-      <button class="modal-btn-close" onclick="closeGitHubHelp()">我知道了，關閉說明</button>
-    </div>
   </div>
 
   <!-- Toast Notification Popup -->
@@ -1476,15 +1364,6 @@ ${story_climax}
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast('📥 成功下載修改後的完整 HTML 檔案！');
-    }
-
-    // GitHub Help Modal
-    function openGitHubHelp() {
-      document.getElementById('gitHelpModal').classList.add('active');
-    }
-
-    function closeGitHubHelp() {
-      document.getElementById('gitHelpModal').classList.remove('active');
     }
 
     // Copy Markdown to Clipboard (Single Case)
