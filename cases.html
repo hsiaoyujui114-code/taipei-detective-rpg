@@ -882,6 +882,7 @@
     <div class="toolbar-actions">
       <button class="btn-tool btn-tool-edit" id="btnToggleEdit" onclick="toggleEditMode()">✏️ 開啟直接編輯模式 (點擊文字直接改)</button>
       <button class="btn-tool btn-tool-save" onclick="saveAllEdits()">💾 儲存修改內容</button>
+      <button class="btn-tool" style="background: #2563eb; color: #ffffff; border-color: #3b82f6;" onclick="copyAllCasesMarkdown()" title="一鍵複製全部 50 個案件的完整規格文本">📋 複製全文</button>
       <button class="btn-tool btn-tool-ghost" onclick="resetToDefault()">🔄 還原官方原始設定</button>
       <button class="btn-tool btn-tool-ghost" onclick="downloadEditedHtml()">📥 下載修改後網頁</button>
       <a href="https://github.com/hsiaoyujui114-code/taipei-detective-rpg/edit/main/cases.html" target="_blank" class="btn-tool btn-tool-github">🐙 在 GitHub 編輯原始碼</a>
@@ -906,6 +907,7 @@
       <div class="header-nav">
         <a href="index.html" class="btn-nav">🗺️ 返回雙北 2.5D 都會地圖沙盒</a>
         <a href="proposal.html" class="btn-nav">📋 查閱 16 週遊戲企劃全書</a>
+        <button class="btn-nav" onclick="copyAllCasesMarkdown()" style="cursor:pointer; background:rgba(37, 99, 235, 0.45); border-color:#60a5fa; font-weight:700;">📋 一鍵複製 50 案全文</button>
         <button class="btn-nav" onclick="expandAllMarkdown()" style="cursor:pointer; background:rgba(16, 185, 129, 0.2); border-color:#34d399;">📂 全部展開 Markdown</button>
         <button class="btn-nav" onclick="collapseAllMarkdown()" style="cursor:pointer; background:rgba(239, 68, 68, 0.2); border-color:#f87171;">📁 全部收合 Markdown</button>
       </div>
@@ -931,6 +933,7 @@
         <span>📑 50 宗案件目錄索引</span>
         <span style="font-size: 0.8rem; color: var(--text-muted);" id="navCaseCount">50 案</span>
       </div>
+      <button class="btn-tool" onclick="copyAllCasesMarkdown()" style="width: 100%; margin-bottom: 0.75rem; justify-content: center; background: #2563eb; color: #ffffff; border-color: #3b82f6; padding: 7px; font-weight: 700;">📋 一鍵複製 50 案全文</button>
       <input type="text" class="search-input" id="sidebarSearch" placeholder="🔍 快速搜尋案件或編號..." oninput="filterCases()">
       <ul class="sidebar-nav-list" id="sidebarList">
         <li class="sidebar-nav-item">
@@ -1163,6 +1166,15 @@
           <span class="filter-chip" onclick="setTypeFilter('共享競速', this)">共享競速</span>
           <span class="filter-chip" onclick="setTypeFilter('歷史懸案', this)">歷史懸案</span>
         </div>
+      </div>
+
+      <!-- Cases Stream Header with Quick Copy -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 1.2rem; padding: 12px 18px; background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div>
+          <span style="font-size: 1rem; font-weight: 800; color: var(--primary);">📚 雙北 50 大深度推理案件全書規格庫</span>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">含起因、經過、最後、人物誌、歷史考證、108 課綱自然科學與司法筆錄</div>
+        </div>
+        <button class="btn-copy" onclick="copyAllCasesMarkdown()" style="background: #2563eb; font-size: 0.88rem; padding: 8px 18px; cursor: pointer;">📋 一鍵複製 50 案完整全文 (Markdown)</button>
       </div>
 
       <!-- Cases Stream -->
@@ -11588,19 +11600,77 @@ ${story_climax}
       document.getElementById('gitHelpModal').classList.remove('active');
     }
 
-    // Copy Markdown to Clipboard
+    // Copy Markdown to Clipboard (Single Case)
     function copyCaseMarkdown(caseId) {
       const textarea = document.getElementById('md_' + caseId);
       if (!textarea) return;
 
-      navigator.clipboard.writeText(textarea.value).then(() => {
-        showToast('✅ 已複製 ' + caseId + ' 完整設定至剪貼簿！');
-      }).catch(err => {
-        textarea.classList.add('show');
-        textarea.select();
-        document.execCommand('copy');
-        showToast('✅ 已複製 ' + caseId + ' 完整設定！');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textarea.value).then(() => {
+          showToast('✅ 已複製 ' + caseId + ' 完整設定至剪貼簿！');
+        }).catch(() => {
+          fallbackCopyText(textarea.value, '✅ 已複製 ' + caseId + ' 完整設定！');
+        });
+      } else {
+        fallbackCopyText(textarea.value, '✅ 已複製 ' + caseId + ' 完整設定！');
+      }
+    }
+
+    // Copy All 50 Cases Markdown to Clipboard (Full Text - Special Client Requirement)
+    function copyAllCasesMarkdown() {
+      const textareas = document.querySelectorAll('.copy-textarea');
+      if (!textareas || textareas.length === 0) {
+        showToast('⚠️ 未找到可複製的案件內容！');
+        return;
+      }
+
+      const parts = [
+        '# 《雙北漫遊：都會行蹤》50 大歷史風情與生活科學案件全集',
+        '六年級獨立研究專題 ✕ 108 課綱生活科學探究 ✕ 柯南/福爾摩斯嚴謹人物誌\n',
+        '---\n'
+      ];
+
+      textareas.forEach(ta => {
+        if (ta && ta.value && ta.value.trim()) {
+          parts.push(ta.value.trim());
+          parts.push('\n\n---\n');
+        }
       });
+
+      const fullText = parts.join('\n');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullText).then(() => {
+          showToast('📋✅ 已成功複製全站 50 案完整全文（含即時修改）至剪貼簿！');
+        }).catch(() => {
+          fallbackCopyText(fullText, '📋✅ 已成功複製全站 50 案完整全文！');
+        });
+      } else {
+        fallbackCopyText(fullText, '📋✅ 已成功複製全站 50 案完整全文！');
+      }
+    }
+
+    function fallbackCopyText(text, successMsg) {
+      const dummy = document.createElement('textarea');
+      dummy.value = text;
+      dummy.style.position = 'fixed';
+      dummy.style.top = '0';
+      dummy.style.left = '-9999px';
+      dummy.style.opacity = '0';
+      document.body.appendChild(dummy);
+      dummy.focus();
+      dummy.select();
+      try {
+        const ok = document.execCommand('copy');
+        if (ok) {
+          showToast(successMsg || '📋✅ 複製成功！');
+        } else {
+          showToast('❌ 瀏覽器限制，請點擊各案展開手動複製！');
+        }
+      } catch (e) {
+        showToast('❌ 複製失敗，請手動複製！');
+      }
+      document.body.removeChild(dummy);
     }
 
     function toggleMarkdown(caseId) {
