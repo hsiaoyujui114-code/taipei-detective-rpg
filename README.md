@@ -11,6 +11,9 @@
 📄 **完整專題企劃書 (含一鍵複製與列印功能)**：  
 [https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html](https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html)
 
+🔍 **50 宗歷史風情與生活科學案件全集 (含一鍵複製按鈕與檢索)**：  
+[https://hsiaoyujui114-code.github.io/taipei-detective-rpg/cases.html](https://hsiaoyujui114-code.github.io/taipei-detective-rpg/cases.html)
+
 ---
 
 ## 👥 獨立研究三人小組分工
