@@ -2,12 +2,14 @@
 """
 build_cases_site.py
 六年級獨立研究專題：50 大歷史風情與生活科學案件 ✕ 靜態 GitHub 網站建置
-支援功能：
-1. 50 宗大案極其詳盡企劃（起因、經過、最後、人物誌、歷史、生活科學）
-2. 每案下方獨立 Markdown 框與「📋 複製本案完整設定」按鈕
-3. ★ 委託人特別需求：【免安裝任何軟體，任何知道網址的人皆可在網頁上直接打字修改（所見即所得線上編輯模式）】
-4. 自動同步更新 Markdown、保存至瀏覽器 LocalStorage、支援寫入伺服器 API、支援匯出 HTML
-5. 提供頂部與側邊欄「📋 複製全文」一鍵快速複製 50 案完整規格功能
+【重磅升級版】：
+1. 50 宗大案串聯「三大主線篇章」（初出茅廬篇、文史縱深篇、跨區連環懸案篇）
+2. 六年級 108 課綱 30 秒家庭/教室生活 DIY 微實驗小手冊
+3. 雙北 50~100m 在地老字號特產小吃生活補給與體力值 (HP) 恢復系統
+4. 都會群像跨案人物與物證暗線伏筆連鎖網絡（50 案互為伏筆）
+5. 嚴謹人物誌（職業、背景、關係、動機、口供、破綻打臉關鍵）與推導三部曲（起因、經過、最後）
+6. 頂部與側邊欄「📋 複製全文」一鍵快速複製 50 案完整規格功能
+7. 免安裝任何軟體，任何知道網址的人皆可在網頁上直接打字修改（所見即所得線上編輯模式）
 恪守憲法級三大禁忌：一律使用「都會調查員」或「市民」，實體步行與大眾運輸，全域 0 違規。
 """
 
@@ -16,24 +18,14 @@ import html
 import os
 import sys
 
-import cases_data_chunk1 as c1
-import cases_data_chunk2 as c2
-import cases_data_chunk3 as c3
-import cases_data_chunk4 as c4
-import cases_data_chunk5 as c5
+# Load cases from SSOT cases.json
+with open('cases.json', 'r', encoding='utf-8') as f:
+    all_cases = json.load(f)
 
-all_cases = (
-    c1.chunk1_cases +
-    c2.chunk2_cases +
-    c3.chunk3_cases +
-    c4.chunk4_cases +
-    c5.chunk5_cases
-)
-
-print(f"Loaded {len(all_cases)} cases successfully.")
+print(f"Loaded {len(all_cases)} cases successfully from cases.json.")
 
 # Validate taboo words
-taboos = ["少年" + "偵探", "藝" + "碩", "益" + "碩"]
+taboos = ["少年" + "偵探", "藝" + "碩", "益" + "碩", "台北" + "捷運局長", "台北" + "縣長"]
 for c in all_cases:
     dump = json.dumps(c, ensure_ascii=False)
     for t in taboos:
@@ -56,8 +48,12 @@ def generate_case_markdown(c):
     depo = c['deposition']
     testimony = depo.get('testimony', depo.get('testimacy', ''))
     props = c['props_and_easter_egg']
+    diy = c.get('diy_experiment', {})
+    food = props.get('local_food', {})
+    cross = c.get('cross_case_clue', {})
 
     md = f"""# 【{c['id']}】{c['title']}
+- **所屬篇章**：{c.get('chapter', '')}
 - **案件類型**：{c['type']}
 - **難度星級**：{c['difficulty']}
 - **驚悚指數**：{c['spookiness']}
@@ -96,6 +92,22 @@ def generate_case_markdown(c):
 - **🏛️ 親身探索途徑**：{props.get('prop_explore', '')}
 - **🤝 社交打聽途徑**：{props.get('prop_social', '')}
 - **🥚 鄰近文化彩蛋**：{props.get('easter_egg', '')}
+
+## 🧫 六年級 108 課綱生活 DIY 微實驗小手冊
+- **微實驗名稱**：{diy.get('title', '')}
+- **準備材料**：{diy.get('materials', '')}
+- **操作步驟**：{diy.get('steps', '')}
+- **課綱科學解密**：{diy.get('science_explained', '')}
+
+## 🍢 雙北 50~100m 在地老字號體力補給站
+- **推薦名店**：{food.get('name', '')}（{food.get('location', '')}）
+- **食用效果**：{food.get('effect', '')}
+- **美食特色與文史背景**：{food.get('desc', '')}
+
+## 🔗 都會群像跨案暗線伏筆
+- **關聯案件**：{', '.join(cross.get('related_cases', []))}
+- **伏筆標題**：{cross.get('clue_title', '')}
+- **暗線詳情**：{cross.get('description', '')}
 """
     return md.strip()
 
@@ -109,860 +121,885 @@ html_parts.append("""<!DOCTYPE html>
   <title>《雙北漫遊：都會行蹤》50 大歷史風情與生活科學案件全集 ✕ 六年級獨立研究專題（支援線上直接編輯）</title>
   <style>
     :root {
-      --primary: #1e40af;
-      --primary-light: #3b82f6;
-      --primary-subtle: #eff6ff;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --border: #e2e8f0;
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --accent-conan: #dc2626;
-      --accent-holmes: #b45309;
-      --accent-science: #059669;
-      --accent-history: #7c3aed;
-      --edit-glow: #f59e0b;
-      --radius: 12px;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --border: #334155;
+      --tag-bg: #0369a1;
+      --gold: #fbbf24;
+      --killer: #ef4444;
+      --victim: #a855f7;
+      --success: #10b981;
+      --warn: #f59e0b;
+      --purple: #8b5cf6;
+      --radius: 10px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background-color: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
       color: var(--text-main);
-      line-height: 1.68;
+      line-height: 1.6;
+      padding-top: 60px;
     }
 
-    /* Top Sticky Collaboration & Edit Toolbar */
-    .edit-sticky-toolbar {
-      position: sticky;
+    /* Fixed Sticky Toolbar */
+    .top-toolbar {
+      position: fixed;
       top: 0;
-      z-index: 1000;
-      background: #1e293b;
-      color: #ffffff;
-      padding: 10px 1.5rem;
-      border-bottom: 2px solid var(--primary-light);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .toolbar-brand {
+      display: flex;
       align-items: center;
       gap: 12px;
-    }
-
-    .toolbar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .edit-status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.84rem;
-      padding: 4px 10px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.1);
       font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--accent);
     }
-
-    .edit-status-badge.active {
-      background: #f59e0b;
-      color: #0f172a;
-    }
-
     .toolbar-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 10px;
     }
-
     .btn-tool {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid transparent;
-      text-decoration: none;
+      gap: 6px;
       transition: all 0.2s ease;
+      text-decoration: none;
     }
-
+    .btn-tool:hover {
+      background: var(--border);
+      border-color: var(--accent);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
     .btn-tool-edit {
       background: #f59e0b;
       color: #0f172a;
       border-color: #d97706;
+      font-weight: 700;
     }
-
     .btn-tool-edit:hover {
-      background: #fbbf24;
-      transform: translateY(-1px);
+      background: #d97706;
+      color: #ffffff;
     }
-
     .btn-tool-save {
       background: #10b981;
       color: #ffffff;
       border-color: #059669;
     }
-
     .btn-tool-save:hover {
       background: #059669;
-      transform: translateY(-1px);
     }
-
-    .btn-tool-ghost {
-      background: rgba(255, 255, 255, 0.12);
+    .btn-tool-copy-all {
+      background: #0284c7;
       color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .btn-tool-ghost:hover {
-      background: rgba(255, 255, 255, 0.22);
-    }
-
-    /* Edit Mode Styling */
-    body.edit-mode-active [data-editable="true"] {
-      outline: 1.5px dashed #3b82f6;
-      border-radius: 4px;
-      padding: 2px 4px;
-      cursor: text;
-      transition: all 0.2s ease;
-      background: rgba(59, 130, 246, 0.03);
-    }
-
-    body.edit-mode-active [data-editable="true"]:hover {
-      outline-color: #f59e0b;
-      background: rgba(245, 158, 11, 0.08);
-    }
-
-    body.edit-mode-active [data-editable="true"]:focus {
-      outline: 2px solid #2563eb;
-      background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
-    }
-
-    .edit-hint-banner {
-      display: none;
-      background: #fef3c7;
-      border-bottom: 1px solid #fde68a;
-      color: #92400e;
-      padding: 8px 1.5rem;
-      font-size: 0.88rem;
+      border-color: #0369a1;
       font-weight: 700;
-      text-align: center;
+    }
+    .btn-tool-copy-all:hover {
+      background: #0369a1;
     }
 
-    body.edit-mode-active .edit-hint-banner {
-      display: block;
-    }
-
-    .card-edited-tag {
-      display: none;
-      background: #f59e0b;
-      color: #ffffff;
+    /* Edit Mode Indicator */
+    .edit-status-badge {
       font-size: 0.75rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-left: 6px;
-    }
-
-    .case-card.is-edited .card-edited-tag {
-      display: inline-block;
-    }
-
-    /* Site Header */
-    header.site-header {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      color: #ffffff;
-      padding: 2.2rem 1.5rem;
-      border-bottom: 4px solid var(--primary-light);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .header-container {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
-
-    .header-badge {
+      padding: 3px 8px;
+      border-radius: 12px;
+      background: #334155;
+      color: #94a3b8;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(59, 130, 246, 0.2);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      color: #93c5fd;
-      padding: 4px 12px;
-      border-radius: 9999px;
-      font-size: 0.82rem;
+      gap: 4px;
+    }
+    .edit-status-badge.active {
+      background: #fef3c7;
+      color: #92400e;
       font-weight: 700;
-      margin-bottom: 0.8rem;
-      letter-spacing: 0.5px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
-    .site-title {
-      font-size: 2.1rem;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.6rem;
-      color: #ffffff;
-    }
-
-    .site-subtitle {
-      font-size: 1.02rem;
-      color: #cbd5e1;
-      max-width: 950px;
-      margin-bottom: 1.2rem;
-    }
-
-    .header-nav {
+    /* Container Layout */
+    .app-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 0.8rem;
+      min-height: calc(100vh - 60px);
     }
 
-    .btn-nav {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      padding: 7px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-nav:hover {
-      background: var(--primary-light);
-      border-color: var(--primary-light);
-      transform: translateY(-1px);
-    }
-
-    /* Stats Ribbon */
-    .stats-ribbon {
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
-      padding: 0.9rem 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .stats-container {
-      max-width: 1240px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .stat-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .stat-pill strong {
-      color: var(--primary);
-      font-size: 1.1rem;
-      font-weight: 800;
-    }
-
-    /* Main Container & Layout */
-    .main-layout {
-      max-width: 1240px;
-      margin: 1.8rem auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 1.8rem;
-      align-items: start;
-    }
-
-    /* Sticky Sidebar Directory */
-    .sidebar-panel {
+    /* Sidebar */
+    .sidebar {
+      width: 320px;
+      background: rgba(30, 41, 59, 0.7);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      height: calc(100vh - 60px);
       position: sticky;
-      top: 4.5rem;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      box-shadow: var(--shadow);
-      max-height: calc(100vh - 6rem);
-      display: flex;
-      flex-direction: column;
+      top: 60px;
+      flex-shrink: 0;
+      padding: 16px;
     }
-
-    .sidebar-header {
-      font-size: 1.02rem;
-      font-weight: 800;
-      color: var(--text-main);
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--primary-subtle);
-      margin-bottom: 0.75rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .search-input {
+    .sidebar-search {
       width: 100%;
       padding: 8px 12px;
+      background: #0f172a;
       border: 1px solid var(--border);
       border-radius: 6px;
-      font-size: 0.88rem;
-      margin-bottom: 0.75rem;
+      color: #fff;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+    .sidebar-search:focus {
       outline: none;
-      transition: border-color 0.2s;
+      border-color: var(--accent);
     }
-
-    .search-input:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    .sidebar-panel {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
     }
-
+    .sidebar-panel-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sidebar-chapter-heading {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 3px solid #f59e0b;
+      padding: 6px 8px;
+      margin: 12px 0 6px 0;
+      border-radius: 0 4px 4px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
     .sidebar-nav-list {
       list-style: none;
-      overflow-y: auto;
-      padding-right: 4px;
-      flex: 1;
     }
-
-    .sidebar-nav-list::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .sidebar-nav-list::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-
     .sidebar-nav-item {
       margin-bottom: 4px;
     }
-
     .sidebar-nav-link {
       display: block;
       padding: 6px 10px;
       border-radius: 6px;
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.84rem;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: all 0.15s ease;
     }
-
     .sidebar-nav-link:hover {
-      background: var(--primary-subtle);
-      color: var(--primary);
-      font-weight: 600;
+      background: #0f172a;
+      color: var(--accent);
     }
 
     /* Content Area */
     .content-area {
-      min-width: 0;
+      flex: 1;
+      padding: 24px 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Header Nav */
+    .header-nav {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .header-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .header-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .header-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .highlight-pill {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
     }
 
     /* Filter Toolbar */
     .filter-card {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.15rem;
-      margin-bottom: 1.5rem;
+      padding: 16px 20px;
+      margin-bottom: 24px;
       box-shadow: var(--shadow);
     }
-
     .filter-group {
-      margin-bottom: 0.75rem;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
     }
-
-    .filter-group:last-child {
-      margin-bottom: 0;
-    }
-
+    .filter-group:last-child { margin-bottom: 0; }
     .filter-label {
       font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-muted);
-      min-width: 68px;
+      min-width: 80px;
     }
-
     .filter-chip {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
+      background: #0f172a;
+      border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 4px 10px;
-      border-radius: 9999px;
+      padding: 4px 12px;
+      border-radius: 16px;
       font-size: 0.8rem;
-      font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
       user-select: none;
     }
-
     .filter-chip:hover {
-      background: #e2e8f0;
+      border-color: var(--accent);
       color: var(--text-main);
     }
-
     .filter-chip.active {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .filter-chip-chapter {
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #f59e0b;
+    }
+    .filter-chip-chapter.active {
+      background: #f59e0b;
+      border-color: #f59e0b;
+      color: #0f172a;
+      font-weight: 700;
     }
 
     /* Case Card */
     .case-card {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      margin-bottom: 2rem;
+      margin-bottom: 32px;
       box-shadow: var(--shadow);
       overflow: hidden;
-      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: border-color 0.2s ease;
     }
-
     .case-card:hover {
-      box-shadow: var(--shadow-hover);
+      border-color: rgba(56, 189, 248, 0.5);
     }
-
     .case-card.is-edited {
-      border-color: #f59e0b;
+      border-left: 4px solid var(--warn);
     }
-
     .case-header {
-      background: linear-gradient(to right, #f8fafc, #ffffff);
-      padding: 1.15rem 1.4rem;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 16px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-
     .case-header-left {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 12px;
     }
-
     .case-id-badge {
-      background: var(--primary);
-      color: #ffffff;
+      background: var(--accent);
+      color: #0f172a;
+      font-size: 0.85rem;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 6px;
-      font-size: 0.88rem;
       letter-spacing: 0.5px;
     }
-
     .case-title {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-
-    .case-badges {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.78rem;
+      font-size: 1.25rem;
       font-weight: 700;
+      color: #ffffff;
     }
-
-    .badge-type {
-      background: #ede9fe;
-      color: #6d28d9;
-      border: 1px solid #ddd6fe;
-    }
-
-    .badge-diff {
+    .card-edited-tag {
+      display: none;
+      font-size: 0.72rem;
       background: #fef3c7;
       color: #b45309;
-      border: 1px solid #fde68a;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
-
-    .badge-spook {
-      background: #fee2e2;
-      color: #b91c1c;
-      border: 1px solid #fecaca;
+    .case-card.is-edited .card-edited-tag {
+      display: inline-block;
     }
-
-    .badge-location {
-      background: #dcfce7;
-      color: #15803d;
-      border: 1px solid #bbf7d0;
+    .case-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
+    .badge {
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .badge-chapter {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-weight: 700;
+    }
+    .badge-type {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .badge-diff { color: var(--gold); border-color: rgba(251, 191, 36, 0.3); }
+    .badge-spook { color: #f472b6; border-color: rgba(244, 114, 182, 0.3); }
+    .badge-location { color: #4ade80; border-color: rgba(74, 222, 128, 0.3); }
 
+    /* Case Body Sections */
     .case-body {
-      padding: 1.4rem;
+      padding: 20px;
     }
-
-    /* Section Blocks */
     .section-block {
-      margin-bottom: 1.4rem;
+      margin-bottom: 20px;
     }
-
-    .section-block:last-child {
-      margin-bottom: 0;
-    }
-
+    .section-block:last-child { margin-bottom: 0; }
     .section-title {
-      font-size: 0.98rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 6px;
-      border-bottom: 2px solid #f1f5f9;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
       padding-bottom: 4px;
     }
-
     .section-content {
-      font-size: 0.92rem;
-      color: var(--text-main);
-      background: #f8fafc;
-      padding: 0.9rem 1.1rem;
-      border-radius: 8px;
-      border: 1px solid #f1f5f9;
+      font-size: 0.9rem;
+      color: #cbd5e1;
     }
-
     .section-content p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 8px;
     }
 
-    .section-content p:last-child {
-      margin-bottom: 0;
+    /* 3-Acts推導三部曲 */
+    .acts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .act-box {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .act-header {
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .act-cause { color: #60a5fa; border-top: 3px solid #60a5fa; }
+    .act-process { color: #facc15; border-top: 3px solid #facc15; }
+    .act-climax { color: #f87171; border-top: 3px solid #f87171; }
+    .act-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.5;
     }
 
     /* Characters Grid */
     .characters-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 12px;
-      margin-top: 0.6rem;
+      margin-top: 8px;
     }
-
     .character-card {
-      background: #ffffff;
+      background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-      border-left: 4px solid var(--primary-light);
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 0.83rem;
     }
-
     .character-card.killer {
-      border-left-color: var(--accent-conan);
-      background: #fffafa;
+      border-color: rgba(239, 68, 68, 0.5);
+      background: rgba(239, 68, 68, 0.05);
     }
-
     .character-card.victim {
-      border-left-color: var(--accent-holmes);
-      background: #fffdfa;
+      border-color: rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.05);
     }
-
     .char-name {
-      font-weight: 800;
-      font-size: 0.98rem;
-      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
       margin-bottom: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
     .char-identity {
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #f1f5f9;
+      font-size: 0.75rem;
       color: var(--text-muted);
+      font-weight: normal;
+    }
+    .char-field {
+      margin-bottom: 4px;
+      color: #cbd5e1;
+    }
+    .char-field strong {
+      color: #94a3b8;
+    }
+    .char-flaw {
+      color: #f87171;
+      font-weight: 600;
     }
 
-    .char-field {
+    /* Deposition & Props */
+    .depo-box {
+      background: #0f172a;
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 10px 14px;
       font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    .depo-item { margin-bottom: 4px; }
+    .depo-item strong { color: var(--gold); }
+
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 0.83rem;
+    }
+    .prop-item {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    .prop-item strong { color: var(--accent); }
+
+    /* ★ 108 課綱生活 DIY 微實驗小手冊樣式 */
+    .diy-experiment-box {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid #059669;
+      border-left: 4px solid #10b981;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 10px;
+    }
+    .diy-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .diy-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: #10b981;
+      color: #064e3b;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .diy-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #a7f3d0;
+    }
+    .diy-field {
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+      line-height: 1.5;
+      color: #d1fae5;
+    }
+    .diy-field strong {
+      color: #34d399;
+    }
+    .diy-science {
+      background: rgba(6, 78, 59, 0.6);
+      border-radius: 6px;
+      padding: 8px 12px;
       margin-top: 6px;
-      color: var(--text-muted);
+      border: 1px dashed rgba(52, 211, 153, 0.4);
+      font-size: 0.83rem;
+      color: #ecfdf5;
+    }
+
+    /* ★ 雙北在地老字號體力補給站樣式 */
+    .local-food-box {
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.35) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid #d97706;
+      border-left: 4px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 10px;
+    }
+    .food-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .food-name {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #fde68a;
+    }
+    .food-hp-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: #f59e0b;
+      color: #451a03;
+      padding: 2px 8px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+    }
+    .food-loc {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      margin-bottom: 4px;
+    }
+    .food-loc strong { color: #fcd34d; }
+    .food-desc {
+      font-size: 0.84rem;
+      color: #fef3c7;
       line-height: 1.5;
     }
 
-    .char-field strong {
-      color: var(--text-main);
-    }
-
-    .char-flaw {
-      color: #991b1b;
-      background: #fef2f2;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-top: 6px;
-      border: 1px solid #fee2e2;
-    }
-
-    /* Deposition Table */
-    .deposition-box {
-      background: #fffbeb;
-      border: 1px solid #fef3c7;
+    /* ★ 都會群像跨案暗線伏筆樣式 */
+    .cross-clue-box {
+      background: linear-gradient(135deg, rgba(76, 29, 149, 0.35) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid #7c3aed;
+      border-left: 4px solid #a855f7;
       border-radius: 8px;
-      padding: 0.9rem 1.1rem;
-      font-size: 0.88rem;
+      padding: 12px 16px;
+      margin-top: 10px;
     }
-
-    .deposition-row {
-      margin-bottom: 6px;
-    }
-
-    .deposition-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .deposition-row strong {
-      color: #92400e;
-    }
-
-    /* Copy Box Area - SPECIAL USER REQUIREMENT */
-    .copy-box-container {
-      margin-top: 1.4rem;
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .copy-box-header {
-      background: #e2e8f0;
-      padding: 8px 14px;
+    .cross-header {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .cross-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e9d5ff;
+    }
+    .cross-tags {
+      display: flex;
+      gap: 6px;
+    }
+    .cross-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: #7c3aed;
+      color: #f5f3ff;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .cross-desc {
+      font-size: 0.85rem;
+      color: #ddd6fe;
+      line-height: 1.5;
+    }
+
+    /* Markdown Copy Area */
+    .markdown-copy-area {
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+    .markdown-copy-header {
+      background: #111827;
+      padding: 8px 14px;
+      display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      font-size: 0.84rem;
-      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+    }
+    .copy-title {
+      font-size: 0.82rem;
+      font-weight: 600;
       color: var(--text-muted);
     }
-
     .copy-actions {
       display: flex;
-      align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
-
     .btn-copy {
+      background: #1e293b;
+      border: 1px solid var(--border);
+      color: #fff;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--primary);
-      color: #ffffff;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      gap: 4px;
     }
-
     .btn-copy:hover {
-      background: var(--primary-light);
-      transform: translateY(-1px);
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
     }
-
-    .btn-toggle-md {
-      background: #ffffff;
-      border: 1px solid #94a3b8;
-      color: var(--text-main);
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
+    .btn-copy-main {
+      background: #0284c7;
+      border-color: #0369a1;
+      font-weight: 700;
     }
-
-    .btn-toggle-md:hover {
-      background: #e2e8f0;
+    .btn-copy-main:hover {
+      background: #0ea5e9;
     }
-
     .copy-textarea {
       width: 100%;
       height: 160px;
-      padding: 10px 14px;
-      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.8rem;
-      line-height: 1.5;
-      color: #334155;
-      background: #ffffff;
+      background: #090d16;
       border: none;
+      color: #94a3b8;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+      padding: 12px;
       resize: vertical;
-      outline: none;
+      line-height: 1.4;
       display: none;
     }
-
     .copy-textarea.show {
       display: block;
     }
 
-    /* Toast Notification */
-    #toast {
+    /* Editable Styling when Edit Mode Active */
+    body.edit-mode-active [data-editable="true"] {
+      outline: 1px dashed rgba(245, 158, 11, 0.4);
+      background: rgba(245, 158, 11, 0.05);
+      border-radius: 2px;
+      cursor: text;
+      transition: all 0.15s ease;
+    }
+    body.edit-mode-active [data-editable="true"]:hover {
+      outline: 1.5px solid #f59e0b;
+      background: rgba(245, 158, 11, 0.15);
+    }
+    body.edit-mode-active [data-editable="true"]:focus {
+      outline: 2px solid #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    /* Toast */
+    .toast {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: #1e293b;
-      color: #ffffff;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      border: 1px solid var(--accent);
+      color: #fff;
       padding: 12px 20px;
       border-radius: 8px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-      border-left: 4px solid #10b981;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      transform: translateY(10px);
-      z-index: 9999;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 2000;
+      animation: slideIn 0.3s ease;
+    }
+    .toast.active { display: flex; }
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    #toast.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    /* Responsive */
     @media (max-width: 900px) {
-      .main-layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar-panel {
-        display: none;
-      }
-      .site-title {
-        font-size: 1.6rem;
-      }
+      .app-container { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; }
+      .content-area { padding: 16px; }
+      .case-header { flex-direction: column; align-items: flex-start; }
+      .case-badges { width: 100%; }
+      .top-toolbar { padding: 0 12px; }
+      .toolbar-brand span { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Sticky Collaboration & Edit Toolbar -->
-  <div class="edit-sticky-toolbar">
-    <div class="toolbar-left">
+  <!-- Top Sticky Bar -->
+  <header class="top-toolbar">
+    <div class="toolbar-brand">
+      <span style="font-size: 1.3rem;">🕵️‍♂️</span>
+      <span>雙北 50 大推理案件全書規格庫</span>
       <span class="edit-status-badge" id="editStatusBadge">🟢 瀏覽模式</span>
-      <span style="font-size: 0.82rem; color: #cbd5e1;" id="saveIndicator">隨時可點擊「✏️ 開啟直接編輯模式」直接在網頁修改文字！</span>
     </div>
     <div class="toolbar-actions">
-      <button class="btn-tool btn-tool-edit" id="btnToggleEdit" onclick="toggleEditMode()">✏️ 開啟直接編輯模式 (點擊文字直接改)</button>
-      <button class="btn-tool btn-tool-save" onclick="saveAllEdits()">💾 儲存修改內容</button>
-      <button class="btn-tool" style="background: #2563eb; color: #ffffff; border-color: #3b82f6;" onclick="copyAllCasesMarkdown()" title="一鍵複製全部 50 個案件的完整規格文本">📋 複製全文</button>
-      <button class="btn-tool btn-tool-ghost" onclick="resetToDefault()">🔄 還原官方原始設定</button>
-      <button class="btn-tool btn-tool-ghost" onclick="downloadEditedHtml()">📥 下載修改後網頁</button>
-    </div>
-  </div>
-
-  <!-- Edit Mode Active Notification Banner -->
-  <div class="edit-hint-banner" id="editHintBanner">
-    ✏️ 【您已進入線上直接修改模式】現在您可以直接用滑鼠點擊下方任何案件標題、歷史風情、科學原理、人物設定或破綻文字進行打字修改！修改完成後點擊上方「💾 儲存修改內容」即可永久保存！
-  </div>
-
-  <!-- Site Header -->
-  <header class="site-header">
-    <div class="header-container">
-      <div class="header-badge">🏛️ 六年級獨立研究專題 ✕ 108 課綱生活科學探究 ✕ 全員直接編輯系統</div>
-      <h1 class="site-title">《雙北漫遊：都會行蹤》50 大歷史風情與生活科學案件全集</h1>
-      <p class="site-subtitle">
-        收錄雙北 50 宗深度原創推理案件：將淡水稅關、艋舺龍山寺剝皮寮、大稻埕百年茶行、北投日治溫泉與青磺泉、平溪鐵道等在地風情，與 pH 酸鹼指示、365nm 螢光防偽、阿基米德浮力比重、熱敏水蒸氣顯影等生活科學緊密結合。
-        <strong style="color: #fbbf24;">★ 只要知道本網址，任何人均可直接在網頁上點擊文字修改錯字，亦可隨時一鍵複製全文或同步保存！</strong>
-      </p>
-      <div class="header-nav">
-        <a href="index.html" class="btn-nav">🗺️ 返回雙北 2.5D 都會地圖沙盒</a>
-        <a href="proposal.html" class="btn-nav">📋 查閱 16 週遊戲企劃全書</a>
-        <button class="btn-nav" onclick="copyAllCasesMarkdown()" style="cursor:pointer; background:rgba(37, 99, 235, 0.45); border-color:#60a5fa; font-weight:700;">📋 一鍵複製 50 案全文</button>
-        <button class="btn-nav" onclick="expandAllMarkdown()" style="cursor:pointer; background:rgba(16, 185, 129, 0.2); border-color:#34d399;">📂 全部展開 Markdown</button>
-        <button class="btn-nav" onclick="collapseAllMarkdown()" style="cursor:pointer; background:rgba(239, 68, 68, 0.2); border-color:#f87171;">📁 全部收合 Markdown</button>
-      </div>
+      <button class="btn-tool btn-tool-edit" id="btnToggleEdit" onclick="toggleEditMode()" title="點擊直接修改頁面文字">
+        ✏️ 開啟直接編輯模式 (點擊文字直接改)
+      </button>
+      <button class="btn-tool btn-tool-save" onclick="saveAllEdits()" title="儲存修改內容至瀏覽器與伺服器">
+        💾 儲存修改內容
+      </button>
+      <button class="btn-tool btn-tool-copy-all" onclick="copyAllCasesMarkdown()" title="一鍵複製全書 50 案完整 Markdown">
+        📋 複製全文
+      </button>
+      <button class="btn-tool" onclick="resetToDefault()" title="清除修改還原預設">
+        🔄 還原官方原始設定
+      </button>
+      <button class="btn-tool" onclick="downloadEditedHtml()" title="下載修改後的完整靜態 HTML">
+        📥 下載修改後網頁
+      </button>
     </div>
   </header>
 
-  <!-- Stats Ribbon -->
-  <div class="stats-ribbon">
-    <div class="stats-container">
-      <div class="stat-pill">📚 總收錄案件：<strong>50 宗完整大案</strong></div>
-      <div class="stat-pill">🔬 跨學科素養：<strong>108 課綱自然與生活科技</strong></div>
-      <div class="stat-pill">👥 人物誌標準：<strong>柯南 ✕ 福爾摩斯嚴謹名冊</strong></div>
-      <div class="stat-pill">✍️ 線上直接改：<strong>點擊網頁文字即可打字修正</strong></div>
-      <div class="stat-pill">📋 一鍵複製：<strong>每案支援獨立 Markdown 複製</strong></div>
-    </div>
-  </div>
-
-  <!-- Main Layout -->
-  <div class="main-layout">
-    <!-- Sticky Sidebar Directory -->
-    <aside class="sidebar-panel">
-      <div class="sidebar-header">
-        <span>📑 50 宗案件目錄索引</span>
-        <span style="font-size: 0.8rem; color: var(--text-muted);" id="navCaseCount">50 案</span>
+  <div class="app-container">
+    <!-- Sidebar Directory -->
+    <aside class="sidebar">
+      <div class="sidebar-panel">
+        <div class="sidebar-panel-title">💡 訪客直接修改教學</div>
+        點擊頂部「<strong>✏️ 開啟直接編輯模式</strong>」，點選網頁上任何文字即可直接打字改錯！改完點擊「<strong>💾 儲存</strong>」，下次開啟或重新整理自動保留！
+        <div style="margin-top: 8px; border-top: 1px dashed var(--border); padding-top: 8px;">
+          <button class="btn-tool btn-tool-copy-all" style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 6px 10px;" onclick="copyAllCasesMarkdown()">
+            📋 一鍵複製 50 案全文
+          </button>
+        </div>
       </div>
-      <button class="btn-tool" onclick="copyAllCasesMarkdown()" style="width: 100%; margin-bottom: 0.75rem; justify-content: center; background: #2563eb; color: #ffffff; border-color: #3b82f6; padding: 7px; font-weight: 700;">📋 一鍵複製 50 案全文</button>
-      <input type="text" class="search-input" id="sidebarSearch" placeholder="🔍 快速搜尋案件或編號..." oninput="filterCases()">
-      <ul class="sidebar-nav-list" id="sidebarList">
+
+      <input type="text" class="sidebar-search" id="sidebarSearch" placeholder="🔍 搜尋案名、地點、科學原理、角色..." oninput="filterCases()">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 4px;">
+        <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">案件目錄 (50 宗)</span>
+        <span style="font-size: 0.75rem; color: var(--accent);" id="navCaseCount">50 案</span>
+      </div>
+
+      <ul class="sidebar-nav-list" id="sidebarNavList">
 """)
 
+# Sidebar chapters
+current_ch = ""
 for c in all_cases:
-    html_parts.append(f"""        <li class="sidebar-nav-item">
+    c_ch = c.get('chapter', '')
+    if c_ch != current_ch:
+        current_ch = c_ch
+        html_parts.append(f"""        <li class="sidebar-chapter-heading">{html.escape(current_ch)}</li>\n""")
+    html_parts.append(f"""        <li class="sidebar-nav-item" data-case-id="{c['id']}">
           <a href="#{c['id']}" class="sidebar-nav-link" title="{c['title']}">
             <strong>{c['id']}</strong> <span class="nav-title-{c['id']}">{html.escape(c['title'])}</span>
           </a>
-        </li>""")
+        </li>\n""")
 
 html_parts.append("""      </ul>
     </aside>
 
     <!-- Content Area -->
     <main class="content-area">
+      <!-- Header Banner -->
+      <header class="header-nav">
+        <h1 class="header-title">📚 雙北 50 大深度推理案件全書規格庫（六年級獨立研究專題）</h1>
+        <p class="header-subtitle">
+          融合雙北 1:1 真實地理、百年文史事件與 108 課綱生活科學鑑識之 2.5D 都會慢活偵探 RPG。<br>
+          本頁面收錄全套 50 宗案件之完整起因、經過、最後推導細節、嚴謹柯南/福爾摩斯人物誌、108 課綱 DIY 微實驗小手冊、在地老字號美食體力補給站與跨案暗線伏筆。
+        </p>
+        <div class="header-highlights">
+          <span class="highlight-pill">✨ 50 大全案起因經過最後完整收錄</span>
+          <span class="highlight-pill">🧪 108 課綱 30 秒家庭/教室 DIY 微實驗手冊</span>
+          <span class="highlight-pill">🍢 雙北 50~100m 在地老字號體力補給系統</span>
+          <span class="highlight-pill">🔗 都會群像跨案暗線伏筆大連鎖</span>
+          <span class="highlight-pill">✏️ 線上免登入隨意改字修正</span>
+          <span class="highlight-pill">📋 一鍵複製 50 案全書 Markdown</span>
+        </div>
+      </header>
+
       <!-- Filter Toolbar -->
       <div class="filter-card">
+        <!-- 篇章篩選 -->
+        <div class="filter-group">
+          <span class="filter-label">📖 主線篇章:</span>
+          <span class="filter-chip filter-chip-chapter active" onclick="setChapterFilter('all', this)">全部篇章 (50)</span>
+          <span class="filter-chip filter-chip-chapter" onclick="setChapterFilter('初出茅廬', this)">第一篇：初出茅廬篇 (1~10)</span>
+          <span class="filter-chip filter-chip-chapter" onclick="setChapterFilter('文史縱深', this)">第二篇：文史縱深篇 (11~25)</span>
+          <span class="filter-chip filter-chip-chapter" onclick="setChapterFilter('跨區連環', this)">第三篇：跨區連環懸案篇 (26~50)</span>
+        </div>
+
+        <!-- 區域篩選 -->
         <div class="filter-group">
           <span class="filter-label">🏙️ 區域篩選:</span>
           <span class="filter-chip active" onclick="setDistrictFilter('all', this)">全部地區</span>
@@ -977,6 +1014,8 @@ html_parts.append("""      </ul>
           <span class="filter-chip" onclick="setDistrictFilter('三重', this)">三重</span>
           <span class="filter-chip" onclick="setDistrictFilter('其他', this)">其他行政區</span>
         </div>
+
+        <!-- 類型篩選 -->
         <div class="filter-group">
           <span class="filter-label">🏷️ 案件類型:</span>
           <span class="filter-chip active" onclick="setTypeFilter('all', this)">全部類型</span>
@@ -991,14 +1030,24 @@ html_parts.append("""      </ul>
       <!-- Cases Stream Header with Quick Copy -->
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 1.2rem; padding: 12px 18px; background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);">
         <div>
-          <span style="font-size: 1rem; font-weight: 800; color: var(--primary);">📚 雙北 50 大深度推理案件全書規格庫</span>
-          <div style="font-size: 0.82rem; color: var(--text-muted);">含起因、經過、最後、人物誌、歷史考證、108 課綱自然科學與司法筆錄</div>
+          <span style="font-size: 1rem; font-weight: 800; color: #0f172a;">📚 雙北 50 大深度推理案件全書規格庫</span>
+          <span style="font-size: 0.85rem; color: #64748b; margin-left: 8px;" id="saveIndicator">隨時可點擊「✏️ 開啟直接編輯模式」直接在網頁修改文字！</span>
         </div>
-        <button class="btn-copy" onclick="copyAllCasesMarkdown()" style="background: #2563eb; font-size: 0.88rem; padding: 8px 18px; cursor: pointer;">📋 一鍵複製 50 案完整全文 (Markdown)</button>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-tool btn-tool-copy-all" onclick="copyAllCasesMarkdown()" style="font-size: 0.85rem; padding: 6px 14px;">
+            📋 複製全文
+          </button>
+          <button class="btn-tool" onclick="expandAllMarkdown()" style="color: #0f172a; border-color: #cbd5e1; font-size: 0.82rem; padding: 6px 10px;">
+            📂 展開所有 Markdown
+          </button>
+          <button class="btn-tool" onclick="collapseAllMarkdown()" style="color: #0f172a; border-color: #cbd5e1; font-size: 0.82rem; padding: 6px 10px;">
+            📁 收合所有 Markdown
+          </button>
+        </div>
       </div>
 
-      <!-- Cases Stream -->
-      <div id="casesStream">
+      <!-- Case Cards Stream -->
+      <div class="cases-stream" id="casesStream">
 """)
 
 for c in all_cases:
@@ -1030,10 +1079,13 @@ for c in all_cases:
     depo = c['deposition']
     testimony = depo.get('testimony', depo.get('testimacy', ''))
     props = c['props_and_easter_egg']
+    diy = c.get('diy_experiment', {})
+    food = props.get('local_food', {})
+    cross = c.get('cross_case_clue', {})
 
     html_parts.append(f"""
         <!-- Case Card: {c['id']} -->
-        <article class="case-card" id="{c['id']}" data-district="{html.escape(c['district'])}" data-type="{html.escape(c['type'])}" data-title="{html.escape(c['title'])}">
+        <article class="case-card" id="{c['id']}" data-district="{html.escape(c['district'])}" data-type="{html.escape(c['type'])}" data-chapter="{html.escape(c.get('chapter', ''))}" data-title="{html.escape(c['title'])}">
           <div class="case-header">
             <div class="case-header-left">
               <span class="case-id-badge">{c['id']}</span>
@@ -1041,6 +1093,7 @@ for c in all_cases:
               <span class="card-edited-tag">✏️ 已修改</span>
             </div>
             <div class="case-badges">
+              <span class="badge badge-chapter">📖 <span data-editable="true" data-field="chapter" oninput="handleFieldChange('{c['id']}')">{html.escape(c.get('chapter', ''))}</span></span>
               <span class="badge badge-type">🏷️ <span data-editable="true" data-field="type" oninput="handleFieldChange('{c['id']}')">{html.escape(c['type'])}</span></span>
               <span class="badge badge-diff">難度：<span data-editable="true" data-field="difficulty" oninput="handleFieldChange('{c['id']}')">{html.escape(c['difficulty'])}</span></span>
               <span class="badge badge-spook"><span data-editable="true" data-field="spookiness" oninput="handleFieldChange('{c['id']}')">{html.escape(c['spookiness'])}</span></span>
@@ -1062,79 +1115,147 @@ for c in all_cases:
             <!-- 2. Science Principle -->
             <div class="section-block">
               <div class="section-title">🔬 生活科學原理與鑑識依據（108 課綱）</div>
-              <div class="section-content" style="background:#f0fdf4; border-color:#dcfce7;">
+              <div class="section-content">
                 <p data-editable="true" data-field="science_principle" oninput="handleFieldChange('{c['id']}')">{html.escape(c['science_principle'])}</p>
               </div>
             </div>
 
-            <!-- 3. Characters Directory -->
+            <!-- 3. Characters -->
             <div class="section-block">
-              <div class="section-title">👥 嚴謹細節人物誌（柯南 ✕ 福爾摩斯標準名冊）</div>
+              <div class="section-title">👥 嚴謹細節人物誌（動機、作息與關係網絡）</div>
               <div class="characters-grid">
 {chr(10).join(chars_html)}
               </div>
             </div>
 
-            <!-- 4. Story Trilogy -->
+            <!-- 4. 3-Acts推導三部曲 -->
             <div class="section-block">
-              <div class="section-title">📖 案情推導三部曲（起因 ✕ 經過 ✕ 最後）</div>
-              <div class="section-content">
-                <p><strong>【起因・案發前情】</strong><span data-editable="true" data-field="story_cause" oninput="handleFieldChange('{c['id']}')">{html.escape(c['story_cause'])}</span></p>
-                <p><strong>【經過・調查動線】</strong><span data-editable="true" data-field="story_process" oninput="handleFieldChange('{c['id']}')">{html.escape(c['story_process'])}</span></p>
-                <p><strong>【最後・破案邏輯】</strong><span data-editable="true" data-field="story_climax" oninput="handleFieldChange('{c['id']}')">{html.escape(c['story_climax'])}</span></p>
+              <div class="section-title">📖 案情推導三部曲（起因、經過、最後）</div>
+              <div class="acts-grid">
+                <div class="act-box act-cause">
+                  <div class="act-header">💥 起因（案發導火線與事前佈局）</div>
+                  <div class="act-desc" data-editable="true" data-field="story_cause" oninput="handleFieldChange('{c['id']}')">{html.escape(c['story_cause'])}</div>
+                </div>
+                <div class="act-box act-process">
+                  <div class="act-header">🔍 經過（現場勘驗、嫌犯對質與線索交織）</div>
+                  <div class="act-desc" data-editable="true" data-field="story_process" oninput="handleFieldChange('{c['id']}')">{html.escape(c['story_process'])}</div>
+                </div>
+                <div class="act-box act-climax">
+                  <div class="act-header">⚡ 最後（科學鐵證打臉與真兇落網伏法）</div>
+                  <div class="act-desc" data-editable="true" data-field="story_climax" oninput="handleFieldChange('{c['id']}')">{html.escape(c['story_climax'])}</div>
+                </div>
               </div>
             </div>
 
             <!-- 5. Deposition -->
             <div class="section-block">
-              <div class="section-title">⚖️ 官方警訊偵查筆錄檔案</div>
-              <div class="deposition-box">
-                <div class="deposition-row"><strong>筆錄編號：</strong><span data-editable="true" data-field="depo_record_id" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('record_id', ''))}</span> ｜ <strong>承辦人員：</strong><span data-editable="true" data-field="depo_officer" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('officer', ''))}</span></div>
-                <div class="deposition-row"><strong>受訊對象：</strong><span data-editable="true" data-field="depo_interrogee" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('interrogee', ''))}</span></div>
-                <div class="deposition-row"><strong>受訊供述：</strong><em data-editable="true" data-field="depo_testimony" oninput="handleFieldChange('{c['id']}')">{html.escape(testimony)}</em></div>
-                <div class="deposition-row"><strong>矛盾破綻：</strong><span data-editable="true" data-field="depo_contradiction" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('contradiction', ''))}</span></div>
-                <div class="deposition-row" style="color:#b91c1c; font-weight:700;"><strong>關鍵鐵證：</strong><span data-editable="true" data-field="depo_evidence" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('critical_evidence', ''))}</span></div>
+              <div class="section-title">⚖️ 官方警訊偵查筆錄</div>
+              <div class="depo-box">
+                <div class="depo-item"><strong>筆錄編號：</strong><span data-editable="true" data-field="depo_record_id" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('record_id', ''))}</span></div>
+                <div class="depo-item"><strong>承辦警官：</strong><span data-editable="true" data-field="depo_officer" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('officer', ''))}</span></div>
+                <div class="depo-item"><strong>受訊人：</strong><span data-editable="true" data-field="depo_interrogee" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('interrogee', ''))}</span></div>
+                <div class="depo-item"><strong>受訊陳述：</strong><em data-editable="true" data-field="depo_testimony" oninput="handleFieldChange('{c['id']}')">{html.escape(testimony)}</em></div>
+                <div class="depo-item"><strong>矛盾破綻：</strong><span data-editable="true" data-field="depo_contradiction" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('contradiction', ''))}</span></div>
+                <div class="depo-item"><strong>關鍵鐵證：</strong><span style="color:#4ade80; font-weight:700;" data-editable="true" data-field="depo_evidence" oninput="handleFieldChange('{c['id']}')">{html.escape(depo.get('critical_evidence', ''))}</span></div>
               </div>
             </div>
 
             <!-- 6. Props & Easter Egg -->
             <div class="section-block">
-              <div class="section-title">🎒 破案輔助道具三軌與鄰近文化彩蛋</div>
-              <div class="section-content" style="background:#faf5ff; border-color:#f3e8ff;">
-                <p><strong>💰 金錢購買途徑：</strong><span data-editable="true" data-field="prop_money" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('prop_money', ''))}</span></p>
-                <p><strong>🏛️ 親身探索途徑：</strong><span data-editable="true" data-field="prop_explore" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('prop_explore', ''))}</span></p>
-                <p><strong>🤝 社交打聽途徑：</strong><span data-editable="true" data-field="prop_social" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('prop_social', ''))}</span></p>
-                <p><strong>🥚 鄰近文化彩蛋：</strong><span data-editable="true" data-field="prop_egg" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('easter_egg', ''))}</span></p>
+              <div class="section-title">🎒 破案輔助道具三軌與鄰近彩蛋</div>
+              <div class="props-grid">
+                <div class="prop-item">
+                  <strong>💰 金錢購買途徑</strong><br>
+                  <span data-editable="true" data-field="prop_money" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('prop_money', ''))}</span>
+                </div>
+                <div class="prop-item">
+                  <strong>🏛️ 親身探索途徑</strong><br>
+                  <span data-editable="true" data-field="prop_explore" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('prop_explore', ''))}</span>
+                </div>
+                <div class="prop-item">
+                  <strong>🤝 社交打聽途徑</strong><br>
+                  <span data-editable="true" data-field="prop_social" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('prop_social', ''))}</span>
+                </div>
+                <div class="prop-item">
+                  <strong>🥚 鄰近文化彩蛋</strong><br>
+                  <span data-editable="true" data-field="prop_egg" oninput="handleFieldChange('{c['id']}')">{html.escape(props.get('easter_egg', ''))}</span>
+                </div>
               </div>
             </div>
 
-            <!-- 7. Copy Area (Special Client Requirement) -->
-            <div class="copy-box-container">
-              <div class="copy-box-header">
-                <span>📋 本案完整企劃設定（Markdown 規格文本・隨修改即時自動同步）</span>
+            <!-- 7. ★ 六年級 108 課綱 DIY 微實驗小手冊 -->
+            <div class="section-block">
+              <div class="section-title">🧫 六年級 108 課綱生活 DIY 微實驗小手冊（30 秒家庭/教室動手做）</div>
+              <div class="diy-experiment-box">
+                <div class="diy-header">
+                  <span class="diy-title" data-editable="true" data-field="diy_title" oninput="handleFieldChange('{c['id']}')">🔬 {html.escape(diy.get('title', ''))}</span>
+                  <span class="diy-tag">安全無毒微實驗</span>
+                </div>
+                <div class="diy-field"><strong>準備材料（30秒隨手取得）：</strong><span data-editable="true" data-field="diy_materials" oninput="handleFieldChange('{c['id']}')">{html.escape(diy.get('materials', ''))}</span></div>
+                <div class="diy-field"><strong>操作步驟：</strong><span data-editable="true" data-field="diy_steps" oninput="handleFieldChange('{c['id']}')">{html.escape(diy.get('steps', ''))}</span></div>
+                <div class="diy-science">
+                  <strong>💡 課綱生活科學解密：</strong><span data-editable="true" data-field="diy_science" oninput="handleFieldChange('{c['id']}')">{html.escape(diy.get('science_explained', ''))}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. ★ 雙北在地老字號特產小吃生活補給 -->
+            <div class="section-block">
+              <div class="section-title">🍢 雙北 50~100m 在地老字號體力補給站</div>
+              <div class="local-food-box">
+                <div class="food-header">
+                  <span class="food-name" data-editable="true" data-field="food_name" oninput="handleFieldChange('{c['id']}')">🍲 {html.escape(food.get('name', ''))}</span>
+                  <span class="food-hp-tag" data-editable="true" data-field="food_effect" oninput="handleFieldChange('{c['id']}')">{html.escape(food.get('effect', ''))}</span>
+                </div>
+                <div class="food-loc"><strong>📍 補給位置：</strong><span data-editable="true" data-field="food_location" oninput="handleFieldChange('{c['id']}')">{html.escape(food.get('location', ''))}</span></div>
+                <div class="food-desc" data-editable="true" data-field="food_desc" oninput="handleFieldChange('{c['id']}')">{html.escape(food.get('desc', ''))}</div>
+              </div>
+            </div>
+
+            <!-- 9. ★ 都會群像跨案人物與物證暗線伏筆 -->
+            <div class="section-block">
+              <div class="section-title">🔗 都會群像跨案暗線伏筆（雙北連環謎網）</div>
+              <div class="cross-clue-box">
+                <div class="cross-header">
+                  <span class="cross-title" data-editable="true" data-field="cross_title" oninput="handleFieldChange('{c['id']}')">{html.escape(cross.get('clue_title', ''))}</span>
+                  <div class="cross-tags">
+                    <span class="cross-badge" data-editable="true" data-field="cross_related" oninput="handleFieldChange('{c['id']}')">聯動：{html.escape(', '.join(cross.get('related_cases', [])))}</span>
+                  </div>
+                </div>
+                <div class="cross-desc" data-editable="true" data-field="cross_desc" oninput="handleFieldChange('{c['id']}')">{html.escape(cross.get('description', ''))}</div>
+              </div>
+            </div>
+
+            <!-- 10. Copy Markdown Section -->
+            <div class="markdown-copy-area">
+              <div class="markdown-copy-header">
+                <span class="copy-title">📋 本案規格 Markdown 原始碼（直接複製即可貼上至企劃書）</span>
                 <div class="copy-actions">
-                  <button class="btn-toggle-md" onclick="toggleMarkdown('{c['id']}')">👁️ 展開 / 收合 Markdown</button>
-                  <button class="btn-copy" onclick="copyCaseMarkdown('{c['id']}')">📋 複製本案完整設定</button>
+                  <button class="btn-copy btn-copy-main" onclick="copyCaseMarkdown('{c['id']}')">
+                    📋 複製本案完整設定
+                  </button>
+                  <button class="btn-copy" onclick="toggleMarkdown('{c['id']}')">
+                    👁️ 檢視/收合原始碼
+                  </button>
                 </div>
               </div>
               <textarea class="copy-textarea" id="md_{c['id']}" readonly>{escaped_md}</textarea>
             </div>
           </div>
-        </article>
-""")
+        </article>""")
 
-html_parts.append("""
-      </div>
+html_parts.append("""      </div>
     </main>
   </div>
 
-  <!-- Toast Notification Popup -->
-  <div id="toast">✅ 已成功複製本案完整設定！</div>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">✅ 已成功複製到剪貼簿！</div>
 
+  <!-- Interactive Script -->
   <script>
     // Edit Mode State
     let isEditMode = false;
-    const STORAGE_KEY = 'shuangbei_cases_custom_edits_v1';
+    const STORAGE_KEY = 'shuangbei_cases_custom_edits_v2';
 
     function toggleEditMode() {
       isEditMode = !isEditMode;
@@ -1183,6 +1304,7 @@ html_parts.append("""
       };
 
       const title = getVal('title');
+      const chapter = getVal('chapter');
       const type = getVal('type');
       const difficulty = getVal('difficulty');
       const spookiness = getVal('spookiness');
@@ -1204,6 +1326,20 @@ html_parts.append("""
       const prop_explore = getVal('prop_explore');
       const prop_social = getVal('prop_social');
       const prop_egg = getVal('prop_egg');
+
+      const diy_title = getVal('diy_title');
+      const diy_materials = getVal('diy_materials');
+      const diy_steps = getVal('diy_steps');
+      const diy_science = getVal('diy_science');
+
+      const food_name = getVal('food_name');
+      const food_effect = getVal('food_effect');
+      const food_location = getVal('food_location');
+      const food_desc = getVal('food_desc');
+
+      const cross_title = getVal('cross_title');
+      const cross_related = getVal('cross_related');
+      const cross_desc = getVal('cross_desc');
 
       // Update Nav title if changed
       const navTitleEl = document.querySelector(`.nav-title-${caseId}`);
@@ -1231,7 +1367,8 @@ html_parts.append("""
 - **破綻與打臉關鍵**：${cFlaw}`);
       });
 
-      const updatedMd = `# 【${caseId}】${title}
+      const md = `# 【${caseId}】${title}
+- **所屬篇章**：${chapter}
 - **案件類型**：${type}
 - **難度星級**：${difficulty}
 - **驚悚指數**：${spookiness}
@@ -1245,7 +1382,7 @@ ${history_culture}
 ${science_principle}
 
 ## 👥 嚴謹細節人物誌
-${charsMd.join('\\n')}
+${charsMd.join('\\n\\n')}
 
 ## 📖 案情推導三部曲
 ### 【起因】
@@ -1269,13 +1406,29 @@ ${story_climax}
 - **💰 金錢購買途徑**：${prop_money}
 - **🏛️ 親身探索途徑**：${prop_explore}
 - **🤝 社交打聽途徑**：${prop_social}
-- **🥚 鄰近文化彩蛋**：${prop_egg}`;
+- **🥚 鄰近文化彩蛋**：${prop_egg}
+
+## 🧫 六年級 108 課綱生活 DIY 微實驗小手冊
+- **微實驗名稱**：${diy_title}
+- **準備材料**：${diy_materials}
+- **操作步驟**：${diy_steps}
+- **課綱科學解密**：${diy_science}
+
+## 🍢 雙北 50~100m 在地老字號體力補給站
+- **推薦名店**：${food_name}（${food_location}）
+- **食用效果**：${food_effect}
+- **美食特色與文史背景**：${food_desc}
+
+## 🔗 都會群像跨案暗線伏筆
+- **關聯案件**：${cross_related}
+- **伏筆標題**：${cross_title}
+- **暗線詳情**：${cross_desc}`;
 
       const textarea = document.getElementById('md_' + caseId);
-      if (textarea) textarea.value = updatedMd;
+      if (textarea) textarea.value = md;
     }
 
-    // Save All Edits to LocalStorage & Server API
+    // Save All Edits to LocalStorage & Try Server Sync
     function saveAllEdits() {
       const edits = {};
       let editedCount = 0;
@@ -1352,9 +1505,11 @@ ${story_climax}
 
     // Download Edited HTML
     function downloadEditedHtml() {
-      saveAllEdits();
-      const content = '<!DOCTYPE html>\\n' + document.documentElement.outerHTML;
-      const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+      // Temporarily exit edit mode for clean DOM
+      const wasEdit = isEditMode;
+      if (wasEdit) toggleEditMode();
+
+      const blob = new Blob(['<!DOCTYPE html>\\n' + document.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -1363,47 +1518,44 @@ ${story_climax}
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('📥 成功下載修改後的完整 HTML 檔案！');
+      showToast('📥 已成功下載修改後的完整網頁檔案 (cases_edited.html)！');
+
+      if (wasEdit) toggleEditMode();
     }
 
-    // Copy Markdown to Clipboard (Single Case)
+    // Copy Single Case Markdown
     function copyCaseMarkdown(caseId) {
       const textarea = document.getElementById('md_' + caseId);
       if (!textarea) return;
 
+      const text = textarea.value;
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(textarea.value).then(() => {
-          showToast('✅ 已複製 ' + caseId + ' 完整設定至剪貼簿！');
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(`📋✅ 已成功複製【${caseId}】完整 Markdown 設定！`);
         }).catch(() => {
-          fallbackCopyText(textarea.value, '✅ 已複製 ' + caseId + ' 完整設定！');
+          fallbackCopyText(text, `📋✅ 已成功複製【${caseId}】完整 Markdown 設定！`);
         });
       } else {
-        fallbackCopyText(textarea.value, '✅ 已複製 ' + caseId + ' 完整設定！');
+        fallbackCopyText(text, `📋✅ 已成功複製【${caseId}】完整 Markdown 設定！`);
       }
     }
 
-    // Copy All 50 Cases Markdown to Clipboard (Full Text - Special Client Requirement)
+    // Copy All 50 Cases Full Text Markdown
     function copyAllCasesMarkdown() {
-      const textareas = document.querySelectorAll('.copy-textarea');
-      if (!textareas || textareas.length === 0) {
-        showToast('⚠️ 未找到可複製的案件內容！');
-        return;
-      }
+      const cards = document.querySelectorAll('.case-card');
+      const allMds = [];
 
-      const parts = [
-        '# 《雙北漫遊：都會行蹤》50 大歷史風情與生活科學案件全集',
-        '六年級獨立研究專題 ✕ 108 課綱生活科學探究 ✕ 柯南/福爾摩斯嚴謹人物誌\\n',
-        '---\\n'
-      ];
+      allMds.push(`# 《雙北漫遊：都會行蹤》50 大歷史風情與生活科學案件全集（六年級獨立研究專題）\\n\\n> 本全書規格庫收錄雙北 50 宗原創推理大案，涵蓋三大主線篇章、柯南/福爾摩斯人物誌、推導三部曲、108 課綱 DIY 微實驗小手冊、雙北在地老字號美食體力補給與都會群像跨案暗線伏筆。\\n\\n---\\n`);
 
-      textareas.forEach(ta => {
-        if (ta && ta.value && ta.value.trim()) {
-          parts.push(ta.value.trim());
-          parts.push('\\n\\n---\\n');
+      cards.forEach(card => {
+        const caseId = card.id;
+        const textarea = document.getElementById('md_' + caseId);
+        if (textarea && textarea.value.trim()) {
+          allMds.push(textarea.value.trim());
         }
       });
 
-      const fullText = parts.join('\\n');
+      const fullText = allMds.join('\\n\\n---\\n\\n');
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(fullText).then(() => {
@@ -1465,19 +1617,27 @@ ${story_climax}
     }
 
     // Filter Logic
+    let currentChapter = 'all';
     let currentDistrict = 'all';
     let currentType = 'all';
 
+    function setChapterFilter(chapter, chip) {
+      currentChapter = chapter;
+      document.querySelectorAll('.filter-group:nth-child(1) .filter-chip').forEach(el => el.classList.remove('active'));
+      chip.classList.add('active');
+      applyFilters();
+    }
+
     function setDistrictFilter(district, chip) {
       currentDistrict = district;
-      document.querySelectorAll('.filter-group:nth-child(1) .filter-chip').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.filter-group:nth-child(2) .filter-chip').forEach(el => el.classList.remove('active'));
       chip.classList.add('active');
       applyFilters();
     }
 
     function setTypeFilter(type, chip) {
       currentType = type;
-      document.querySelectorAll('.filter-group:nth-child(2) .filter-chip').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.filter-group:nth-child(3) .filter-chip').forEach(el => el.classList.remove('active'));
       chip.classList.add('active');
       applyFilters();
     }
@@ -1493,12 +1653,14 @@ ${story_climax}
       let visibleCount = 0;
 
       cards.forEach((card, index) => {
+        const cChapter = card.getAttribute('data-chapter') || '';
         const cDistrict = card.getAttribute('data-district') || '';
         const cType = card.getAttribute('data-type') || '';
         const cTitle = card.getAttribute('data-title') || '';
         const cId = card.id || '';
         const cardText = card.textContent.toLowerCase();
 
+        let chapterMatch = (currentChapter === 'all') || cChapter.includes(currentChapter);
         let districtMatch = (currentDistrict === 'all') || cDistrict.includes(currentDistrict);
         let typeMatch = (currentType === 'all') || (cType === currentType);
         let searchMatch = true;
@@ -1507,10 +1669,11 @@ ${story_climax}
           searchMatch = cId.toLowerCase().includes(query) ||
                         cTitle.toLowerCase().includes(query) ||
                         cDistrict.toLowerCase().includes(query) ||
+                        cChapter.toLowerCase().includes(query) ||
                         cardText.includes(query);
         }
 
-        const isVisible = districtMatch && typeMatch && searchMatch;
+        const isVisible = chapterMatch && districtMatch && typeMatch && searchMatch;
         card.style.display = isVisible ? 'block' : 'none';
 
         if (sidebarLinks[index]) {
@@ -1533,8 +1696,9 @@ ${story_climax}
 </html>
 """)
 
-output_file = os.path.join(os.path.dirname(__file__), "cases.html")
-with open(output_file, "w", encoding="utf-8") as f:
-    f.write("".join(html_parts))
+full_html = "".join(html_parts)
 
-print(f"Successfully generated cases.html with interactive in-place editor! Size: {os.path.getsize(output_file)} bytes.")
+with open('cases.html', 'w', encoding='utf-8') as f:
+    f.write(full_html)
+
+print(f"Successfully generated cases.html with interactive in-place editor! Size: {len(full_html)} bytes.")
