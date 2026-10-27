@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -52,6 +52,9 @@
 
     <!-- 雙軌與偵探切換按鈕 -->
     <div style="display:flex; gap:8px;">
+      <a href="cases.html" target="_blank" class="dual-track-btn" id="btnCasesAll" style="border-color:rgba(251,191,36,0.5); color:#fbbf24; background:rgba(217,119,6,0.18);" title="開啟 50 宗歷史風情與生活科學案件全集展示手冊">
+        <span>📂 50 宗科學案件全集</span>
+      </a>
       <a href="/detective" target="_blank" class="dual-track-btn" id="btnDetectiveHud" style="border-color:rgba(56,189,248,0.5); color:#38bdf8; background:rgba(2,132,199,0.18);" title="開啟都會調查員偵探工作台">
         <span>🕵️ 都會調查員・偵探核心</span>
       </a>
@@ -67,6 +70,7 @@
     <div class="cases-chips-wrap" id="casesChipsWrap">
       <!-- 由 JS 動態依 DEMO_10_CASES 產生 -->
     </div>
+    <a href="cases.html" target="_blank" class="case-chip-btn" style="border-color:#fbbf24; color:#fbbf24; background:rgba(245,158,11,0.18); margin-left:auto; text-decoration:none; white-space:nowrap; display:inline-flex; align-items:center; gap:4px; font-weight:800;" title="點擊檢視 50 宗完整歷史生活科學案件全集檔案庫">📂 完整 50 案全集 ➔</a>
   </div>
 
   <!-- 🏪 門市品牌篩選條 (落實委託人指示：全品牌真實官方樣式，放大檢視、縮小隱藏避擠) -->
@@ -89,8 +93,16 @@
     <button class="filter-chip-btn" data-filter="cases" onclick="filterStoreMarkers('cases', this)">🚨 10大示範案件</button>
   </div>
 
+  <!-- 🛰️ 雙北四軌即時出入境通報跑馬燈 HUD (Live Transit Dispatch Ticker HUD) -->
+  <div class="transit-ticker-bar" id="transitTickerBar">
+    <div class="ticker-badge">🛰️ 雙北四軌即時出入境通報</div>
+    <div class="ticker-content-track" id="tickerContentTrack">
+      <span class="ticker-marquee-text" id="tickerMarqueeText">📡 即時交通走廊連線中：高鐵出入境走廊、台鐵縱貫線北段、捷運66列在線列車、307幹線真實車隊同步運轉中...</span>
+    </div>
+  </div>
+
   <!-- 左側即時遙測 HUD 面板 (Left Telemetry Panel) -->
-  <aside class="left-telemetry-panel" style="top:168px;">
+  <aside class="left-telemetry-panel" style="top:194px;">
     <div class="panel-header">
       <span>🛰️ SATELLITE TELEMETRY</span>
       <span style="color:#4ade80;">ONLINE</span>
@@ -133,6 +145,10 @@
       <span class="telemetry-val highlight" id="hudLiveThsrCount" style="color:#f97316;">連線同步中</span>
     </div>
     <div class="telemetry-row">
+      <span class="telemetry-label">3D 建物可視負載:</span>
+      <span class="telemetry-val highlight" id="hud3DBuildingCount" style="color:#38bdf8;">0 棟 (60 FPS)</span>
+    </div>
+    <div class="telemetry-row">
       <span class="telemetry-label">官方同步時間 SYNC:</span>
       <span class="telemetry-val" id="hudLiveSyncTime" style="color:#a7f3d0; font-size:10px;">網路抓取中...</span>
     </div>
@@ -145,7 +161,7 @@
   </aside>
 
   <!-- 右側戰術圖層控制與工具箱 (Right Tactical Control Panel) -->
-  <aside class="right-tactical-panel" style="top:168px;">
+  <aside class="right-tactical-panel" style="top:194px;">
     <div class="panel-header">
       <span>⚙️ TACTICAL GIS</span>
       <span>1:1 REAL</span>
@@ -162,6 +178,36 @@
 
     <div style="font-size:10px; color:#34d399; font-weight:800; margin:8px 0 4px 0;">🚊 雙北大眾運輸四軌與實時交通圖層:</div>
     <div class="tool-btn-grid">
+      <!-- 🌟 雙北全域 3D 真實建築物系統 (60FPS 視錐剔除 ✕ 空間網格 ✕ LOD 批次合併) -->
+      <button class="tactical-tool-btn active" id="btnToggle3DBuildings" onclick="toggle3DBuildingsLayer()">
+        <span>🏙️ 雙北全域 3D 建築 (60FPS)</span>
+        <span style="color:#38bdf8;">??潮爸 ON</span>
+      </button>
+
+      <!-- 🌟 老街親臨感應圈 (Fog of War) -->
+      <button class="tactical-tool-btn active" id="btnToggleFogOfWar" onclick="toggleFogOfWar()">
+        <span>🌫️ 老街親臨感應 (100m)</span>
+        <span style="color:#f59e0b;">FOG ON</span>
+      </button>
+
+      <!-- 🌟 百年文史時空圖層 (1935 昭和鐵道 ✕ 現代捷運) -->
+      <button class="tactical-tool-btn" id="btnToggleHistory1935" onclick="toggleHistorical1935Layer()">
+        <span>📜 1935 昭和鐵道百年文史</span>
+        <span style="color:#94a3b8;">OFF</span>
+      </button>
+
+      <!-- 🌟 實體人行步道導航流動線 (禁止瞬移・沿街廓步行) -->
+      <button class="tactical-tool-btn active" id="btnToggleWalkNav" onclick="toggleWalkNavFlowline()">
+        <span>🚶 實體人行道導航流動線</span>
+        <span style="color:#00f0ff;">ACTIVE</span>
+      </button>
+
+      <!-- 🌟 即時交通音場 (北捷進站音樂/高鐵/鳴笛) -->
+      <button class="tactical-tool-btn active" id="btnToggleAudio" onclick="toggleAudioFx()">
+        <span>🔊 交通進站音場 (北捷/高鐵)</span>
+        <span style="color:#22c55e;">AUDIO ON</span>
+      </button>
+
       <!-- 🌟 大眾運輸即時同步 (車機停則停、到站則到站) -->
       <button class="tactical-tool-btn active" id="btnLiveTransitSync" onclick="toggleTransitLiveSync()">
         <span>📡 大眾運輸即時同步 (TDX/eBus)</span>

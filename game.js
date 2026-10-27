@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ==========================================================================
  * 《雙北漫遊：都會行蹤》- 現代 2D ✕ 2.5D 動漫都會冒險 RPG
  * 60FPS 現代平滑動態渲染 (Y-Sorting 深度分層 ✕ 動態陰影 ✕ 天候光影)
@@ -901,14 +901,17 @@ const mrtTamsuiTrack = [
   { x: 68, z: -180, stopName: '捷運圓山站 (回場整備)', line: '淡水信義線' }
 ];
 
-// 雙北捷運固定班距動態列車車隊 (Fixed Headway Fleet)
+// 雙北捷運固定班距動態列車車隊 (Fixed Headway Fleet - 含車次編號與這班收班時間)
 const mrtTrains = [
   // 板南線 (BL)
   {
     id: 'mrt_BL_01',
     lineCode: 'BL',
+    trainNo: 'BL-101',
+    closingTime: '00:52',
+    lastTrainTime: '00:52',
     lineName: '板南線 BL-101',
-    ledText: '🚇 板南線 ➔ 南港展覽館',
+    ledText: '🚇 [車次 BL-101] 板南線 ➔ 南港展覽館｜收班: 00:52',
     themeColor: '#0070bd',
     track: mrtBannanTrack,
     currentWaypointIndex: 0,
@@ -925,8 +928,11 @@ const mrtTrains = [
   {
     id: 'mrt_BL_02',
     lineCode: 'BL',
+    trainNo: 'BL-103',
+    closingTime: '00:52',
+    lastTrainTime: '00:52',
     lineName: '板南線 BL-103 (次班接續)',
-    ledText: '🚇 板南線 ➔ 南港展覽館',
+    ledText: '🚇 [車次 BL-103] 板南線 ➔ 南港展覽館｜收班: 00:52',
     themeColor: '#0284c7',
     track: mrtBannanTrack,
     currentWaypointIndex: 3, // 錯開班距
@@ -943,8 +949,11 @@ const mrtTrains = [
   {
     id: 'mrt_BL_03',
     lineCode: 'BL',
+    trainNo: 'BL-102',
+    closingTime: '00:52',
+    lastTrainTime: '00:52',
     lineName: '板南線 BL-102 (返程)',
-    ledText: '🚇 板南線 ➔ 板橋府中 ➔ 頂埔',
+    ledText: '🚇 [車次 BL-102] 板南線 ➔ 板橋府中 ➔ 頂埔｜收班: 00:52',
     themeColor: '#0070bd',
     track: mrtBannanTrack,
     currentWaypointIndex: 8, // 西行返程
@@ -963,8 +972,11 @@ const mrtTrains = [
   {
     id: 'mrt_R_01',
     lineCode: 'R',
+    trainNo: 'R-201',
+    closingTime: '00:48',
+    lastTrainTime: '00:48',
     lineName: '淡水信義線 R-201',
-    ledText: '🚇 淡水信義線 ➔ 象山',
+    ledText: '🚇 [車次 R-201] 淡水信義線 ➔ 象山｜收班: 00:48',
     themeColor: '#e3002c',
     track: mrtTamsuiTrack,
     currentWaypointIndex: 0,
@@ -981,8 +993,11 @@ const mrtTrains = [
   {
     id: 'mrt_R_02',
     lineCode: 'R',
+    trainNo: 'R-202',
+    closingTime: '00:48',
+    lastTrainTime: '00:48',
     lineName: '淡水信義線 R-202 (返程)',
-    ledText: '🚇 淡水信義線 ➔ 圓山 ➔ 淡水',
+    ledText: '🚇 [車次 R-202] 淡水信義線 ➔ 圓山 ➔ 淡水｜收班: 00:48',
     themeColor: '#ef4444',
     track: mrtTamsuiTrack,
     currentWaypointIndex: 7, // 北行返程
@@ -2991,42 +3006,120 @@ function renderScene() {
   // 1.5 雙北街廓真實都會建築群、綠帶公園與林蔭行道樹 (Urban Fabric & Architecture - 視錐剔除)
   // 【徹底消除商店孤立浮動或並排感！商店嵌於真實大廈、公寓街廓與林蔭之間】
   // ──────────────────────────────────────────
+  // ──────────────────────────────────────────
+  // 1.5 雙北街廓真實都會建築群立體鋼骨框架 (Building Structural Wireframes - 視錐剔除)
+  // ──────────────────────────────────────────
   function drawCityBlockBuilding(bx, bz, bw, bd, bColor, label, bHeight=28) {
-    if (!isInViewport(bx + bw / 2, bz + bd / 2, Math.max(bw, bd) + 15)) return;
+    if (!isInViewport(bx + bw / 2, bz + bd / 2, Math.max(bw, bd) + 25)) return;
     const sx = screenX(bx);
     const sz = screenZ(bz);
-    // 建築物投影陰影
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
-    drawSafeRoundRect(ctx, sx + 3 * scale, sz + 3 * scale, bw * scale, bd * scale, 4);
+    const w = bw * scale;
+    const d = bd * scale;
+    const hPx = Math.max(4, bHeight * scale * 0.32);
+
+    // 1. 建築物投影陰影
+    ctx.fillStyle = 'rgba(2, 6, 23, 0.45)';
+    drawSafeRoundRect(ctx, sx + 4 * scale, sz + 4 * scale, w, d, 3);
     ctx.fill();
-    // 建築本體
-    ctx.fillStyle = bColor;
-    drawSafeRoundRect(ctx, sx, sz, bw * scale, bd * scale, 4);
-    ctx.fill();
-    ctx.strokeStyle = '#475569';
+
+    // 2. 基底佔地邊界框架 (Ground Rim)
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
     ctx.lineWidth = 1;
+    drawSafeRoundRect(ctx, sx, sz, w, d, 2);
     ctx.stroke();
 
-    // 辦公/住宅透光窗格矩陣 (Lit Windows) - 僅在足夠放大時繪製微觀窗格
+    // 3. 2.5D 立體拉伸面 (South & East Extrusion Faces)
+    if (hPx > 5) {
+      // 南立體受光面
+      ctx.fillStyle = 'rgba(14, 165, 233, 0.22)';
+      ctx.beginPath();
+      ctx.moveTo(sx, sz + d);
+      ctx.lineTo(sx + w, sz + d);
+      ctx.lineTo(sx + w + hPx * 0.3, sz + d - hPx);
+      ctx.lineTo(sx + hPx * 0.3, sz + d - hPx);
+      ctx.closePath();
+      ctx.fill();
+
+      // 東側立面
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.45)';
+      ctx.beginPath();
+      ctx.moveTo(sx + w, sz + d);
+      ctx.lineTo(sx + w, sz);
+      ctx.lineTo(sx + w + hPx * 0.3, sz - hPx);
+      ctx.lineTo(sx + w + hPx * 0.3, sz + d - hPx);
+      ctx.closePath();
+      ctx.fill();
+
+      // 水平樓層橫樑框架線 (Floor Strata Wireframes)
+      const strataCount = Math.min(8, Math.max(2, Math.floor(bHeight / 6)));
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      for (let f = 1; f < strataCount; f++) {
+        const frac = f / strataCount;
+        ctx.moveTo(sx + frac * (hPx * 0.3), sz + d - frac * hPx);
+        ctx.lineTo(sx + w + frac * (hPx * 0.3), sz + d - frac * hPx);
+        ctx.lineTo(sx + w + frac * (hPx * 0.3), sz - frac * hPx);
+      }
+      ctx.stroke();
+
+      // 4 主結構立柱鋼骨線 (Corner Skeleton Columns)
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(sx, sz + d);
+      ctx.lineTo(sx + hPx * 0.3, sz + d - hPx);
+      ctx.moveTo(sx + w, sz + d);
+      ctx.lineTo(sx + w + hPx * 0.3, sz + d - hPx);
+      ctx.moveTo(sx + w, sz);
+      ctx.lineTo(sx + w + hPx * 0.3, sz - hPx);
+      ctx.stroke();
+    }
+
+    // 4. 頂樓樓頂框架 (Top Roof Face & Wireframe Rim)
+    const topX = sx + hPx * 0.3;
+    const topZ = sz - hPx;
+    ctx.fillStyle = bColor || '#1e293b';
+    drawSafeRoundRect(ctx, topX, topZ, w, d, 2);
+    ctx.fill();
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    // 5. 辦公/住宅透光窗格矩陣 (Lit Windows)
     if (scale >= 6.0) {
-      ctx.fillStyle = 'rgba(254, 240, 138, 0.35)';
+      ctx.fillStyle = 'rgba(254, 240, 138, 0.40)';
       const cols = Math.floor(bw / 8);
       const rows = Math.floor(bd / 7);
       for (let c = 1; c < cols; c++) {
         for (let r = 1; r < rows; r++) {
           if ((c + r) % 2 === 0) {
-            ctx.fillRect(sx + (c * 8 - 2) * scale, sz + (r * 7 - 1.5) * scale, 3.5 * scale, 3 * scale);
+            ctx.fillRect(topX + (c * 8 - 2) * scale, topZ + (r * 7 - 1.5) * scale, 3.5 * scale, 3 * scale);
           }
         }
       }
     }
 
-    // 頂樓設備層/標籤
-    if (label && scale >= 10) {
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = `bold ${Math.max(8, scale * 0.45)}px sans-serif`;
+    // 6. 頂樓機房天線尖塔線框 (Roof Antenna Spire / Helipad)
+    if (bHeight >= 50 && scale >= 3.5) {
+      ctx.strokeStyle = '#fde047';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(topX + w / 2, topZ + d / 2);
+      ctx.lineTo(topX + w / 2, topZ + d / 2 - 12 * scale);
+      ctx.stroke();
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath();
+      ctx.arc(topX + w / 2, topZ + d / 2 - 12 * scale, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 7. 頂樓標籤
+    if (label && scale >= 8) {
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'bold ' + Math.max(9, Math.floor(scale * 0.48)) + 'px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(label, sx + (bw / 2) * scale, sz + (bd / 2) * scale + 3);
+      ctx.fillText(label, topX + (bw / 2) * scale, topZ + (bd / 2) * scale + 3);
     }
   }
 
@@ -6246,10 +6339,14 @@ async function syncSandpitLiveTransit() {
         });
       }
       if (Array.isArray(data.mrtTrains) && data.mrtTrains.length > 0) {
+        // 過濾專車 (專車不須顯示)
+        const regularMrt = data.mrtTrains.filter(mt => !String(mt.name || '').includes('專車') && !String(mt.headsign || '').includes('專車'));
         mrtTrains.forEach((t, idx) => {
-          const match = data.mrtTrains.find(mt => mt.lineCode === t.lineCode) || data.mrtTrains[idx % data.mrtTrains.length];
+          const match = regularMrt.find(mt => mt.lineCode === t.lineCode) || regularMrt[idx % regularMrt.length];
           if (match) {
-            t.ledText = `🚇 ${match.name}｜${match.status}`;
+            t.trainNo = match.trainNo || t.trainNo;
+            t.closingTime = match.closingTime || match.thisTrainClosingTime || t.closingTime;
+            t.ledText = `🚇 [車次 ${t.trainNo}] ${match.name} ➔ 收班: ${t.closingTime}｜${match.status}`;
           }
         });
       }
@@ -6271,11 +6368,13 @@ async function syncSandpitLiveTransit() {
       fetch('https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/LiveBoard?%24format=JSON', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => [])
     ]);
     if (Array.isArray(trtcRes) && trtcRes.length > 0) {
+      // 專車不須顯示
+      const regularTrtc = trtcRes.filter(x => !String(x.TripHeadSign || '').includes('專車') && !String(x.TripHeadSign || '').includes('回送'));
       mrtTrains.forEach((t, idx) => {
-        const m = trtcRes.find(x => (x.LineNo || x.LineID) === t.lineCode) || trtcRes[idx % trtcRes.length];
+        const m = regularTrtc.find(x => (x.LineNo || x.LineID) === t.lineCode) || regularTrtc[idx % regularTrtc.length];
         if (m && m.StationName && m.StationName.Zh_tw) {
           const dest = (m.DestinationStationName && m.DestinationStationName.Zh_tw) || '';
-          t.ledText = `🚇 ${t.lineCode}線 [${m.StationName.Zh_tw}站] ➔ 往${dest}`;
+          t.ledText = `🚇 [車次 ${t.trainNo}] ${t.lineCode}線 [${m.StationName.Zh_tw}站] ➔ 往${dest}｜收班: ${t.closingTime || '24:00'}`;
         }
       });
     }
