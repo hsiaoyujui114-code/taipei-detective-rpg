@@ -5,8 +5,8 @@
 
 [![Deploy to GitHub Pages](https://github.com/hsiaoyujui114-code/taipei-detective-rpg/actions/workflows/deploy.yml/badge.svg)](https://github.com/hsiaoyujui114-code/taipei-detective-rpg/actions/workflows/deploy.yml)
 
-🌐 **線上立即遊玩 (GitHub Pages)**：  
-[https://hsiaoyujui114-code.github.io/taipei-detective-rpg/](https://hsiaoyujui114-code.github.io/taipei-detective-rpg/)
+🌐 **線上立即遊玩（全倉庫統一官方試玩網址）**：  
+[https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html](https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html)
 
 📄 **完整專題企劃書 (含一鍵複製與列印功能)**：  
 [https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html](https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html)
