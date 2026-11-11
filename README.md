@@ -1,6 +1,10 @@
 # 《雙北漫遊偵探：都會行蹤》
 ### Urban Wanderer: Taipei Mystery
 
+> 🌐 **【跨電腦 AI 開發必讀】如果你是在其他電腦接手本專案的 AI**：  
+> 請立即閱讀 [REMOTE_AI_INSTRUCTIONS.md](REMOTE_AI_INSTRUCTIONS.md)，內含 3 大模組（1. 地圖、2. 故事、3. 偵探代碼）之核心檔案速查表、四大憲法紅線與一鍵調度規範！
+
+
 > **六年級獨立研究專題成果 —— 結合真實雙北地理圖資、古典偵探名著機關與大眾運輸系統的開放式網頁推理 RPG**
 
 [![Deploy to GitHub Pages](https://github.com/hsiaoyujui114-code/taipei-detective-rpg/actions/workflows/deploy.yml/badge.svg)](https://github.com/hsiaoyujui114-code/taipei-detective-rpg/actions/workflows/deploy.yml)
