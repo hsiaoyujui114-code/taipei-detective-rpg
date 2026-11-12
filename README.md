@@ -7,10 +7,26 @@
 
 > **六年級獨立研究專題成果 —— 結合真實雙北地理圖資、古典偵探名著機關與大眾運輸系統的開放式網頁推理 RPG**
 
-[![Deploy to GitHub Pages](https://github.com/hsiaoyujui114-code/taipei-detective-rpg/actions/workflows/deploy.yml/badge.svg)](https://github.com/hsiaoyujui114-code/taipei-detective-rpg/actions/workflows/deploy.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20via%20main%20branch-brightgreen)](https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html)
+[![Architecture](https://img.shields.io/badge/Current%20Stack-Canvas%20%2B%20Leaflet%20%2B%20ws-blue)](https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html)
 
 🌐 **線上立即遊玩（全倉庫統一官方試玩網址）**：  
 [https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html](https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html)
+
+---
+
+## 📦 四倉庫分工定位與 SSOT 權威來源對照表
+
+| GitHub 倉庫 | 定位與職責 | 權威維護內容 (SSOT) |
+| :--- | :--- | :--- |
+| **`city-pulse-detective`** | **線上試玩與地圖主站** | `cyber-realmap.*`、`index.html`、`game.js`、`shared-data.js`、`server.js`（GitHub Pages 主入口） |
+| **`taipei-metro-detective-rpg`** | **地圖／多人在線鏡像倉** | 鏡像同步主站雙軌地圖、`shared-data.js`、`cases.json`、`PROPOSAL.md` 與 `server.js` |
+| **`taipei-detective-rpg`** | **故事劇本與 50 案件展示倉** | 50 案件資料、`cases.html`、`PROPOSAL.md`、`proposal.html` 靜態展示與雙軌地圖同步 |
+| **`taipei-detective-core`** | **獨立偵探系統核心引擎** | JSON 驅動案件／NPC／對話樹、`EcoWallet` 真實運價、`MapBridge`、`/detective` 工作台（Port 3001） |
+
+> ⚙️ **現行實作技術棧 vs 未來規劃 (`ISSUE-09`)**：現行實作採用 **HTML5 Canvas 2D ＋ Leaflet 1.9.4（Canvas 繪圖模式）＋ Node.js ＋ `ws` WebSocket**（靜態頁面可於 GitHub Pages 免後端單機展示）；`PixiJS` 與 `Socket.io` 屬於 Phase 2+ 未來擴充規劃（請勿重寫切換引擎）。  
+> 📋 **共用檔案同步鐵則 (`ISSUE-11`)**：本倉為 **`cases.json`、`cases.html`、`CASES_50_FULL_SPEC.md`、`PROPOSAL.md`、`PROJECT_PROPOSAL.md`、`proposal.html` 之主倉庫**；本倉內之 `cyber-realmap.*`、`shared-data.js`、`game.js`、`index.html` 為 **`city-pulse-detective` 之鏡像（勿直接單邊修改）**；`AI_HANDOFF_PROJECT_SPEC.md`、`COMPLETE_CONVERSATION_CHRONICLE.md`、`MAP_ISSUE_BOARD_PROTOCOL.md` 四倉同步維持一致。  
+> 🔧 **本機雙服務協作前提 (`ISSUE-08`)**：若要在本機啟用完整偵探核心工作台（`localhost:3000/detective` + `localhost:3001`），須於同一父目錄並排 `git clone` `city-pulse-detective` 與 `taipei-detective-core` 並分別啟動 `localhost:3000` 與 `localhost:3001`。
 
 📄 **完整專題企劃書 (含一鍵複製與列印功能)**：  
 [https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html](https://hsiaoyujui114-code.github.io/taipei-detective-rpg/proposal.html)
@@ -20,13 +36,13 @@
 
 ---
 
-## 👥 獨立研究三人小組分工
+## 👥 獨立研究三人小組全員協同研發
 
-| 成員角色 | 專責領域 | 具體任務 |
-| :--- | :--- | :--- |
-| **組員 1（組長 / 企劃總監）** | 世界觀與劇本編撰 | 統籌專案時程、研讀《名偵探柯南》與《福爾摩斯》挑選經典機關改編、撰寫 NPC 對話與破案考據卡文案 |
-| **組員 2（美術與圖資）** | 視覺設計與圖資調研 | 收集雙北地標與捷運路線資料、設計 2D 復古像素主角外觀、運用 AI 生成現場證物與地圖素材 |
-| **組員 3（技術與測試）** | 程式協同與平台發布 | 與 AI（Anti-gravity）協作編寫網頁程式碼、實作捷運搭乘與機關 Mini-games、負責 GitHub Pages 部署發布 |
+> 對齊 `PROPOSAL.md` §01（不設僵化固定分工，採全員全能協作模式）：
+
+- 全員共同參與案件劇本發想、名著致敬與 108 課綱自然科學無毒替代實驗考據。
+- 全員共同進行雙北 GIS 真實地理測繪、公車路線踩點與連鎖門市座標核對。
+- 全員共同參與介面規劃、筆錄對質邏輯設計、自動化驗證與獨立研究發表會演練。
 
 ---
 
@@ -48,15 +64,15 @@
 - 詳細解析原著小說/動畫篇章、背後的物理/化學/密碼學原理，以及雙北在地歷史文化背景，達到「邊玩邊學」的素養教育目標！
 
 ### 4. 🛒 經濟循環與偵探補給行
-- 破案可賺取 **$500 委託金** 與 **100 名偵探聲望**。
+- 破案可賺取 **$500 委託金** 與 **100 都會調查員聲望**。
 - 可在商店購買：
   - 🧥 **福爾摩斯經典獵鹿風衣**：更換 2D 像素造型，古蹟 NPC 好感度提升。
   - 🛹 **柯南極速電動滑板**：人行道移動速度提升 60%。
   - 🔍 **高倍率微距放大鏡**：現場隱密線索自動發光提示。
 
-### 5. 🔊 純前端免伺服器與 8-bit 音效
-- 使用 Web Audio API 即時合成復古 8-bit 晶片音效與台北捷運動態進站四音階（G4, B4, D5, G5）。
-- 100% 純靜態網頁（HTML5 + Canvas + Vanilla JS + CSS），零伺服器依賴，任何裝置瀏覽器隨點隨玩！
+### 5. 🔊 靜態展示與雙軌地圖互通
+- 本倉庫提供 50 宗案件展示頁（`cases.html`）、研究企劃書（`proposal.html`）與同步之 2.5D 主沙盤（`index.html`）／1:1 真實地圖（`cyber-realmap.html`）。
+- 現行地圖技術棧採用 **HTML5 Canvas 2D ＋ Leaflet 1.9.4（Canvas 模式）**，可直接在瀏覽器與 GitHub Pages 免後端開啟運行。
 
 ---
 
@@ -75,9 +91,14 @@
 ### 1. 本地開啟
 直接在電腦上連按兩下 `index.html` 即可在瀏覽器中開始遊玩！
 
-### 2. GitHub Pages 自動發布
-本專案已包含 `.github/workflows/deploy.yml` 自動部署腳本：
+### 2. GitHub Pages Branch 發布說明
+本專案為純靜態 HTML/CSS/JS 前端，直接透過 GitHub Pages Branch 部署（未使用額外 GitHub Actions workflow 腳本）：
 1. 進入本 GitHub Repo 的 **Settings ➔ Pages**
-2. 在 **Build and deployment** 下方的 **Source** 選擇 **GitHub Actions**
-3. 稍等 1~2 分鐘，網站便會發布至：  
-   `https://hsiaoyujui114-code.github.io/taipei-detective-rpg/`
+2. 在 **Build and deployment** 下方的 **Source** 選擇 **Deploy from a branch**（Branch：`main` / Folder：`/ (root)`）
+3. 稍等 1~2 分鐘，靜態網站便會發布至：  
+   `https://hsiaoyujui114-code.github.io/taipei-detective-rpg/`（統一遊戲試玩入口：[https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html](https://hsiaoyujui114-code.github.io/city-pulse-detective/cyber-realmap.html)）
+
+### 3. 本地資料與地圖一致性驗證測試
+```bash
+npm test
+```

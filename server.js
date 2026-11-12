@@ -47,6 +47,28 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // 都會調查員偵探核心兄弟倉庫檢查 (/detective 與 /api/detective/*)
+  if (reqPath === '/detective' || reqPath === '/detective/') {
+    const detectiveHtml = path.join(__dirname, '../taipei-detective-core/public/index.html');
+    if (fs.existsSync(detectiveHtml)) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      fs.createReadStream(detectiveHtml).pipe(res);
+      return;
+    }
+    res.writeHead(503, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end('<!DOCTYPE html><html lang="zh-TW"><head><meta charset="utf-8"><title>需要並排部署 taipei-detective-core</title></head><body style="font-family:sans-serif;background:#0f172a;color:#e2e8f0;padding:32px;line-height:1.7"><h2>⚠️ 找不到偵探核心兄弟倉庫 (<code>../taipei-detective-core</code>)</h2><p>本路徑 <code>/detective</code> 需與 <code>taipei-detective-core</code> 倉庫置於同一父目錄並排協作（獨立工作台預設 Port 3001）。</p><pre style="background:#1e293b;padding:12px;border-radius:8px;">cd ..\ngit clone https://github.com/hsiaoyujui114-code/taipei-detective-core.git</pre><p><a href="/" style="color:#38bdf8;">返回主地圖 (index.html)</a> ｜ <a href="/cyber-realmap.html" style="color:#34d399;">開啟 1:1 真實地圖</a></p></body></html>');
+    return;
+  }
+  if (reqPath.startsWith('/api/detective/')) {
+    res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify({
+      success: false,
+      error: 'USE_FULL_SERVER_OR_CORE_PORT_3001',
+      message: '請啟動 city-pulse-detective/server.js（並排 ../taipei-detective-core）或獨立啟動 taipei-detective-core (http://localhost:3001)。'
+    }));
+    return;
+  }
+
   // API: 接收前端案件網頁直接修改並持久化儲存至伺服器硬碟
   if (req.method === 'POST' && reqPath === '/api/save-cases') {
     let body = '';

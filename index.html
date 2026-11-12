@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>《雙北漫遊：都會行蹤》- 第一版：雙北全域地圖樣式總覽 ✕ 2.5D 動漫都會冒險</title>
   <link rel="stylesheet" href="style.css">
-  <script src="assets/three.min.js"></script>
-  <script src="assets/vendor/pixi.min.js"></script>
-  <script src="assets/vendor/howler.min.js"></script>
-  <script src="assets/vendor/sat.min.js"></script>
-  <script src="assets/vendor/socket.io.min.js"></script>
+  <!-- 現行架構採極速原生 2.5D Canvas ✕ 原生 WebSocket (ws) 引擎，已移除閒置未調用之 Three.js/PixiJS/Socket.io 預載腳本以達零 404 與秒開效能 (詳見 ISSUE-04 與 P-02) -->
 </head>
 <body>
 
@@ -38,20 +34,30 @@
   <!-- 🧭 雙北全息戰術拓撲特區快速定位 (Cyber Holo-Grid Tactical Jump Bar) -->
   <div class="district-jump-bar" id="districtJumpBar">
     <span style="font-size:11px; color:#00f0ff; font-weight:800; margin-right:4px; letter-spacing:1px;">🛰️ 全境全息特區:</span>
-    <a href="cases.html" class="district-jump-btn" style="background:linear-gradient(135deg, #d97706, #f59e0b); border-color:#fde68a; color:#ffffff; font-weight:900; text-decoration:none; display:inline-flex; align-items:center; gap:4px; box-shadow:0 0 12px rgba(245,158,11,0.6);">🔍 50 宗歷史風情大案庫 (含一鍵複製)</a>
     <a href="cyber-realmap.html" class="district-jump-btn" id="btnJumpRealMap" style="background:linear-gradient(135deg, #059669, #10b981); border-color:#34d399; color:#ffffff; font-weight:900; text-decoration:none; display:inline-flex; align-items:center; gap:4px; box-shadow:0 0 12px rgba(16,185,129,0.6);">🌐 1:1 真實雙北全息科技地圖 (附檔)</a>
+    <a href="/detective" target="_blank" class="district-jump-btn" id="btnJumpDetectiveCore" style="background:linear-gradient(135deg, #0284c7, #38bdf8); border-color:#38bdf8; color:#ffffff; font-weight:900; text-decoration:none; display:inline-flex; align-items:center; gap:4px; box-shadow:0 0 12px rgba(56,189,248,0.6);">🕵️ 都會調查員・偵探核心工作台</a>
     <button class="district-jump-btn highlight" id="btnJumpOverview" onclick="jumpToDistrict('overview')" style="background:linear-gradient(135deg, #0284c7, #0369a1); border-color:#00f0ff; color:#ffffff; font-weight:900;">🗺️ 雙北全景總覽 (主檔)</button>
     <button class="district-jump-btn" id="btnJumpStation" onclick="jumpToDistrict('station')">🏛️ 中正核心樞紐</button>
     <button class="district-jump-btn" id="btnJumpXuefu" onclick="jumpToDistrict('banqiao_xuefu')">🏫 板橋學府量子區 (1:1)</button>
     <button class="district-jump-btn" id="btnJumpXimen" onclick="jumpToDistrict('chongqing_ximen')">🎮 萬華西門特區</button>
     <button class="district-jump-btn" id="btnJumpZhongshan" onclick="jumpToDistrict('zhongshan')">🌳 中山金融廊道</button>
     <button class="district-jump-btn" id="btnJumpDaan" onclick="jumpToDistrict('daan_park')">🌲 大安森林穹頂</button>
+    <button class="district-jump-btn" id="btnJumpMetroPark" onclick="jumpToDistrict('NTP-01')">🌲 新北大都會公園</button>
     <button class="district-jump-btn" id="btnJumpXinyi" onclick="jumpToDistrict('xinyi_101')">🏙️ 信義101星港塔</button>
     <button class="district-jump-btn" id="btnJumpNeihu" onclick="jumpToDistrict('neihu_park')">⚡ 內湖科技園區</button>
     <button class="district-jump-btn" id="btnJumpNangang" onclick="jumpToDistrict('nangang_biotech')">🔬 南港生技光谷</button>
-    <button class="district-jump-btn" id="btnJumpTamsui" onclick="jumpToDistrict('tamsui')">🌊 淡水數位水能港</button>
+    <button class="district-jump-btn" id="btnJumpTamsui" onclick="jumpToDistrict('tamsui')">🌊 淡水金色水岸</button>
     <button class="district-jump-btn" id="btnJumpBitan" onclick="jumpToDistrict('xindian_bitan')">🚣 新店碧潭水電中樞</button>
     <button class="district-jump-btn" id="btnJumpSanchong" onclick="jumpToDistrict('sanchong')">🏭 三重新莊創新工坊</button>
+    <button class="district-jump-btn" id="btnJumpTra" onclick="jumpToDistrict('station')">🚆 臺鐵縱貫線 (EMU900/EMU3000)</button>
+  </div>
+
+  <!-- 🚨 10 大生活科學探究示範案件跳轉條 (落實評審顧問 50 建議) -->
+  <div class="cases-selector-strip" id="casesSelectorStrip">
+    <span class="cases-strip-tag">🚨 10大生活科學案:</span>
+    <div class="cases-chips-scroll" id="casesChipsScroll">
+      <!-- 由 JS 動態注入 10 大案件按鈕 -->
+    </div>
   </div>
 
   <!-- 操作提示橫幅 -->
@@ -83,7 +89,7 @@
 
   <!-- 頂部 HUD -->
   <div class="hud-top">
-    <!-- 左上角賽博全像系統狀態徽章 (取代已廢除之都尉調查員狀態卡) -->
+    <!-- 左上角賽博全像系統狀態徽章 -->
     <div class="cyber-system-badge">
       <div class="cyber-pulse-dot"></div>
       <div class="cyber-badge-text">
@@ -149,11 +155,15 @@
     <span id="ghostToggleText">全域巡航 (無角色)</span>
   </div>
 
-  <!-- 浮動縮放控制鍵 (Zoom In / Out / Reset) -->
+  <!-- 浮動縮放與視角模式控制鍵 (Zoom & Camera Modes) -->
   <div class="zoom-controls-floating">
-    <div class="zoom-btn" onclick="zoomInCamera()" title="放大街區視角 [滾輪向上]">➕</div>
-    <div class="zoom-btn" onclick="zoomOutCamera()" title="縮小雙北全景 [滾輪向下]">➖</div>
-    <div class="zoom-btn" onclick="resetCameraCenter()" title="置中重置雙北全景">🎯</div>
+    <div class="zoom-btn" onclick="zoomInCamera()" title="放大視角 [滾輪向上]">➕</div>
+    <div class="zoom-btn" onclick="zoomOutCamera()" title="縮小視角 [滾輪向下]">➖</div>
+    <div class="zoom-btn" onclick="setCloseUpMode()" title="👤 超大微觀人物特寫 (RPG Close-Up Mode)">👤</div>
+    <div class="zoom-btn" onclick="lockCameraToPlayer()" title="🎯 視角居中鎖定人物正上方">🎯</div>
+    <div class="zoom-btn" onclick="setStreetViewMode()" title="🏙️ 都會街區標準巡航視角">🏙️</div>
+    <div class="zoom-btn" id="btnToggleGameRoadSigns" onclick="toggleGameRoadSigns()" title="🛣️ 道路名稱看板 (預設隱藏，按鈕按需啟用)">🛣️</div>
+    <div class="zoom-btn" onclick="resetCameraOverview()" title="🗺️ 雙北全景總覽">🗺️</div>
   </div>
 
   <!-- 劇情對話 / 內心獨白視窗 -->
@@ -196,25 +206,35 @@
       </div>
 
       <div class="mrt-grid">
+        <div class="mrt-card" onclick="alertPlanRoute('bus_656')">
+          <div class="mrt-line" style="color:#f97316;">🚌 大都會客運 656 幹線 (海山學府路首選)</div>
+          <div class="mrt-station-name">德霖科大 ➔ 捷運海山站 ➔ 板橋學府路一段 ➔ 台北車站 ➔ 臺大醫院</div>
+          <div class="mrt-features">尖峰 4-6分連續發車 ｜ 停靠板橋學府路一段 (樂家康超市門前) ｜ 直達臺大醫院</div>
+        </div>
+        <div class="mrt-card" onclick="alertPlanRoute('bus_9006')">
+          <div class="mrt-line" style="color:#38bdf8;">🚌 基隆客運 9006 國道客運 (基隆跨市直達雙北)</div>
+          <div class="mrt-station-name">基隆火車站 ➔ 國道一號 ➔ 圓山轉運站 ➔ 台北車站 ➔ 西門町</div>
+          <div class="mrt-features">基隆跨市直達幹線 ｜ 班次固定連續循環發車 ｜ 停靠捷運圓山站與鄭州路口</div>
+        </div>
         <div class="mrt-card" onclick="alertPlanRoute('bus_307')">
           <div class="mrt-line" style="color:#10b981;">🚌 台北市 307 幹線公車 (全台客運之王)</div>
-          <div class="mrt-station-name">板橋 ➔ 台北車站 ➔ 南京東路 ➔ 撫遠街</div>
-          <div class="mrt-features">班次密集 (每3分鐘一班) ｜ 車上提供 WiFi ｜ 停靠忠孝西路專用道</div>
+          <div class="mrt-station-name">板橋府中 ➔ 台北車站 ➔ 南京東路 ➔ 撫遠街</div>
+          <div class="mrt-features">班次密集 (每3分鐘一班) ｜ 車上提供 WiFi ｜ 停靠忠孝西路中央專用道</div>
         </div>
-        <div class="mrt-card" onclick="alertPlanRoute('bus_zs')">
-          <div class="mrt-line" style="color:#38bdf8;">🚌 中山幹線公車 (天母 ➔ 台北車站)</div>
-          <div class="mrt-station-name">中山北路一至七段 ✕ 台北車站</div>
-          <div class="mrt-features">林蔭大道直達 ｜ 停靠 CoCo手搖飲、中山市場、國賓飯店</div>
+        <div class="mrt-card" onclick="alertPlanRoute('mrt_bannan')">
+          <div class="mrt-line" style="color:#0070bd;">🚇 捷運板南線 (藍線 BL 地下特等幹線)</div>
+          <div class="mrt-station-name">頂埔 ➔ 板橋 ➔ 龍山寺 ➔ 西門 ➔ 台北車站 ➔ 南港展覽館</div>
+          <div class="mrt-features">固定班距 (每3分鐘連續發車) ｜ 雙向列車在軌巡航 ｜ 地下月台等車直達</div>
         </div>
         <div class="mrt-card" onclick="alertPlanRoute('mrt_red')">
-          <div class="mrt-line" style="color:#ef4444;">🔴 捷運淡水信義線 (地下段)</div>
-          <div class="mrt-station-name">象山 ➔ 台北車站 ➔ 雙連 ➔ 士林 ➔ 淡水</div>
-          <div class="mrt-features">需由 M5/M6 出口搭乘手扶梯下樓 ｜ 進入地下月台等車</div>
+          <div class="mrt-line" style="color:#ef4444;">🔴 捷運淡水信義線 (地下段至高架段)</div>
+          <div class="mrt-station-name">象山 ➔ 台北101 ➔ 台北車站 ➔ 中山 ➔ 圓山 ➔ 淡水</div>
+          <div class="mrt-features">需由 M5/M6 出口搭乘手扶梯下樓 ｜ 雙向固定班次高速運行 ｜ 直達士林淡水</div>
         </div>
-        <div class="mrt-card" onclick="alertPlanRoute('bus_cd')">
-          <div class="mrt-line" style="color:#fbbf24;">🚌 承德幹線公車 (寧夏夜市 ➔ 雙連)</div>
-          <div class="mrt-station-name">台北車站 ➔ 建成圓環 ➔ 寧夏夜市</div>
-          <div class="mrt-features">夜市美食專線 ｜ 停靠重慶北路與南京西路口</div>
+        <div class="mrt-card" onclick="alertPlanRoute('bus_zs')">
+          <div class="mrt-line" style="color:#38bdf8;">🚌 中山幹線公車 (晴光商圈 ➔ 中山市場 ➔ 台北車站)</div>
+          <div class="mrt-station-name">中山北路一至三段 ✕ 台北車站</div>
+          <div class="mrt-features">林蔭大道直達 ｜ 停靠 CoCo手搖飲、中山市場、長安西路</div>
         </div>
       </div>
       <div style="margin-top:14px; text-align:right; font-size:12px; color:#38bdf8;">
@@ -312,33 +332,33 @@
     </div>
   </div>
 
-  <!-- 3c. 萬家福旗艦量販 ✕ 樂家康超市便利購 (Neo-Nexus Supply) -->
+  <!-- 3c. 萬家福旗艦量販 ✕ 樂家康生鮮超市 (WanJiaFu / LeJiaKang Nexus Supply) -->
   <div class="modal-overlay" id="wanjiafuModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title"><span>🏬</span> 萬家福旗艦量販 ✕ 樂家康超市便利購</div>
+        <div class="modal-title"><span>🛒</span> 萬家福 WanJiaFu 旗艦量販 ✕ 樂家康 LeJiaKang 生鮮超市</div>
         <button class="modal-close" onclick="closeModal('wanjiafuModal')">×</button>
       </div>
       <div style="background:#0284c718; border:1px solid #38bdf8; padding:12px; border-radius:10px; margin-bottom:14px;">
-        <p style="color:#38bdf8; font-weight:800; font-size:14px;" id="wanjiafuBranchGreeting">店長親切招呼：「科技生活，盡在萬家福！全雙北量子物流網絡互聯，提供充足探索能量與補給！」</p>
+        <p style="color:#38bdf8; font-weight:800; font-size:14px;" id="wanjiafuBranchGreeting">店長親切招呼：「天天都便宜，就是萬家福！全雙北真實門市網絡互聯，提供最充足的探索物資與能量補給！」</p>
       </div>
       <div style="background:#0f172a; padding:10px 14px; border-radius:8px; border-left:4px solid #00f0ff; margin-bottom:12px; font-size:12px; color:#cbd5e1;">
-        🌐 <strong>【量子物流網絡】</strong>：已對齊現實雙北門市（板橋學府樂家康便利購、萬家福桂林旗艦店、萬家福重慶旗艦店、樂家康中山松江店），享有全城大容量物流互聯！
+        🌐 <strong>【都會量販物流網絡】</strong>：已對齊現實雙北門市（萬家福桂林旗艦店 24H、萬家福重慶旗艦店、萬家福新店店、樂家康生鮮站前開封店等），享有全城充沛民生物資！
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
         <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
-          <h4 style="color:#fca5a5; margin-bottom:4px;">🍞 萬家福高能複合能量餐包 ($40)</h4>
-          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">烘焙工坊現做柔軟能量餐包，快速補充體力！</p>
+          <h4 style="color:#fca5a5; margin-bottom:4px;">🍞 萬家福經典烘焙能量餐包 ($40)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">萬家福烘焙坊新鮮出爐特製柔軟餐包，快速補充體力！</p>
           <button class="chat-send-btn" style="background:#2563eb; width:100%; padding:8px;" onclick="buyWanjiafuToast()">購買 $40 (+45 體力)</button>
         </div>
         <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
           <h4 style="color:#93c5fd; margin-bottom:4px;">💧 萬家福 1500ml 離子電解水 ($30)</h4>
-          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">1500ml 量販大容量，漫遊全城不怕缺水！</p>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">1500ml 量販大容量純淨好水，探索全城不怕缺水！</p>
           <button class="chat-send-btn" style="background:#0284c7; width:100%; padding:8px;" onclick="buyWanjiafuWater()">購買 $30 (+35 心情)</button>
         </div>
         <div style="background:#1e293b; padding:14px; border-radius:10px; border:1px solid #334155;">
-          <h4 style="color:#fde047; margin-bottom:4px;">🧰 樂家康全像探測補給箱 ($120)</h4>
-          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">量販大補給：高能口糧、離子能量棒與應急套件！</p>
+          <h4 style="color:#fde047; margin-bottom:4px;">🧰 萬家福旗艦超值補給箱 ($120)</h4>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:10px;">量販大補給：高能口糧、離子能量棒與全方位應急套件！</p>
           <button class="chat-send-btn" style="background:#ca8a04; width:100%; padding:8px;" onclick="buyWanjiafuBox()">購買 $120 (+60 體力/+50 心情)</button>
         </div>
       </div>
@@ -555,7 +575,17 @@
     </div>
   </div>
 
-  <!-- 背包、委託任務與設定模態框已依委託人第 54 回合指示徹底清除，全屏純淨呈現雙北科幻大地圖 -->
+  <!-- 示範案件戰術檔案彈窗 (Demonstration Case Dossier Modal) -->
+  <div class="modal-overlay" id="caseDossierModal" style="display:none;" onclick="if(event.target===this)closeModal('caseDossierModal')">
+    <div class="modal-card case-dossier-card" id="caseDossierCard" style="max-width:720px; max-height:85vh; overflow-y:auto;">
+      <!-- 由 JS 動態注入 -->
+    </div>
+  </div>
+
+  <!-- 雙軌單一資料源 (SSOT) ✕ 雙北大眾運輸四軌資料庫 ✕ 遊戲引擎核心 -->
+  <script src="shared-data.js"></script>
+  <script src="transit-data.js"></script>
+  <script src="ebus-directory.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
